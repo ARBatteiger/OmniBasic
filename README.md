@@ -1,10 +1,9 @@
 #### OmniBasic
 
-RTSI LLC and Microware LP makes no warranty on this code whatsoever.
+OmniBasic is the creation of Michael Leroy Smith and Innomation Systems, Inc.
 
-From Mike Monahan:
+Mike Monahan has graciously released the source code.
 
-Mike Monahan releases OmniBasic for distribution and improvement.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR(S) DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-Michael Leroy Smith and Innomation Systems, Inc are the original developers of OmniBasic and Innomation Systems, Inc.
 
