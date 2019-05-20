@@ -1,0 +1,38 @@
+49C0
+     $91; Code
+     "INIT-MEASURE-DATA"; Name
+     $496C; Backward Link
+     COLON; Complile The Following Section
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     VarAVE[S/R]; Push Var Addr onto TOS
+     2!exec; Store NOS and 2nd NOS to Addr in TOS
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     VarSIG[Ave]; Push Var Addr onto TOS
+     2!exec; Store NOS and 2nd NOS to Addr in TOS
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     VarREF[Ave]; Push Var Addr onto TOS
+     2!exec; Store NOS and 2nd NOS to Addr in TOS
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     LITexec; Put value that follows on TOS
+     $0000; Literal Value
+     VarSIG[Ave]/REF[Ave]; Push Var Addr onto TOS
+     2!exec; Store NOS and 2nd NOS to Addr in TOS
+     ;Sexec
+
+
+InitMeasureData:
+AverSigRef=0
+SigAver=0
+RefAver=0
+SigRefAver=0
+RETURN

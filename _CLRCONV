@@ -1,0 +1,14 @@
+/* _ClrConv() */
+/* Clear conversion buffer */
+
+extern char _ConvBuf[22];
+
+void _ClrConv()
+{
+long _ctr=0;
+while (_ctr < 22)
+{
+_ConvBuf[_ctr]='0';
+_ctr++;
+}
+}

@@ -1,0 +1,1 @@
+; Dimension Variablesdim t1 as timerdim ta(10) as timerOBMain.CREATEEND EVENT

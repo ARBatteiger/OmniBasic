@@ -1,0 +1,17 @@
+Service Trip to Foamex on August 31st, 2004
+Left Hermann at 9:30 arrived in Cape 11:30
+2 hours travel
+1.5 hours airplane
+Lunch 11:30-12:30
+Work on site 12:30-3:30
+3 hours on site
+2 hours travel
+1.5 hours airplane
+
+I reviewed the doumentation while waiting for a color change. After the
+start of color change we verified the problem of the weigh values and power
+values flucuating when the door was opened. After tracing the problem it was
+determined that a wire had become disconnected from the power monitor. This
+wire was in the analog circuit and caused electrical noise in the analog
+input module of the Omron PLC. This caused the erratic operations of the
+control.

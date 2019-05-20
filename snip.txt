@@ -1,0 +1,12 @@
+Private Sub Form_Load()
+MSComm1.CommPort = 1
+MSComm1.InputMode = comInputModeText
+MSComm1.Handshaking = comNone
+MSComm1.Settings = "9600,N,8,1"
+MSComm1.InputLen = 1
+MSComm1.PortOpen = True
+MSComm1.RThreshold = 1
+End Sub
+
+' Put this in send button click event
+MSComm1(0).Output = "" 'send data'

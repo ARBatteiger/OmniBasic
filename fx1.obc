@@ -1,0 +1,19 @@
+dim InpFile as file
+dim RawData(65535) as byte
+dim i as long
+dim j as long
+
+OPEN InpFile,"romer.bin":READ
+get InpFile,RawData
+
+for i=0 to $ff
+	for j=0 to $ffff
+		exitif RawData(j)=i
+		if j=$ffff then
+			print i
+		endif
+	next j
+print i
+next i
+
+

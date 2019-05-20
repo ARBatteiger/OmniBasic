@@ -1,0 +1,35 @@
+dim x as long
+dim z(5) as byte
+const k=55
+const k=56
+$exok
+goober equ $0d
+!havis rb 1
+meep db goober,$45
+ db $46,47
+havis dd 22,33
+ dd 12345, 6789
+poop db "hello",0
+ dw $5555
+ dd 12345
+dim a$ as string*20 vector
+
+rb 1
+wow rw 2
+rd 3
+rd $5555
+
+x=0
+z(2)=0
+wow(2)=2222
+print meep(1)
+setvec a$=addr(poop)
+print a$
+!label:
+
+print wow(2)
+print havis(4)
+set goober=99
+print goober
+
+tst: data 33,44,k,"Test"

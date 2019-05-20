@@ -1,0 +1,19 @@
+dim x as long
+dim y as long
+dim t as text
+
+
+
+mov [x],4
+mov [y],12
+mov eax,[x]
+add eax,[y]
+mov [x],eax
+print x
+
+x=$ff
+print x
+
+x=0
+t="Text",0,"*.txt,0,0
+

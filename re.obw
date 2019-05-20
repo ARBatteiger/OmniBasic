@@ -1,0 +1,1 @@
+dim ed as richeditdim combo as comboboxdim button as buttondim s as stringOBMain.createconstruct combo,10,10,200,40construct button,220,10,80,20construct ed,10,40,200,200end eventbutton.command;s=ed.line(1);combo.text=sed.inserttext 4,"Test"end event

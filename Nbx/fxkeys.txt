@@ -1,0 +1,128 @@
+( OXBRIDGE PC keypad->KEYCODE TRANSLATOR       07:34 03/08/90 ) 
+HEX                                                             
+HERE                                                            
+( NUMERIC KEYPAD  ASCII code Vs key#, key# = 16*CLMN + ROW    ) 
+( ASCII 0          1           2           3           4      ) 
+44 C, 30 C, 08 C, 31 C, 18 C, 32 C, 28 C, 33 C, 38 C, 34 C,     
+( ASCII 5          6           7           8           9      ) 
+48 C, 35 C, 04 C, 36 C, 14 C, 37 C, 24 C, 38 C, 34 C, 39 C,     
+( ASCII .          -         ENT                              ) 
+02 C, 2E C, 01 C, 2D C, 11 C, 0D C,                             
+( SOFT KEYS                                                   ) 
+(     F1          F2          F3          F9         F10      ) 
+12 C, 3B C, 22 C, 3C C, 32 C, 3D C, 43 C, 43 C, 44 C, 44 C,     
+( Esc KEY to return to top level forth)                         
+1B C, 1B C, 0 C, 0 C, CONSTANT KEYTABLE                         
+DECIMAL                                                         
+( OXBRIDGE PC keypad->KEYCODE TRANSLATOR       07:34 03/08/90 ) 
+0 VARIABLE keybuf 12 ALLOT-RAM                                  
+0 VARIABLE bufWRT 0 VARIABLE keyQMARK                           
+( Softkeys code definitions)                                    
+59 CONSTANT F1 60 CONSTANT F2 61 CONSTANT F3                    
+27 CONSTANT ESC      13 CONSTANT ENT                            
+: INIT-keyQ keybuf 13 OVER C! 1+ 32 OVER C! 32 OVER 1+ C!       
+       bufWRT ! [ HEX ] 55AA [ DECIMAL ] keyQMARK ! ;           
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( TEST COMMAND ENCODER/DETECTOR                15:50 10/23/89 ) 
+HEX 7003 CONSTANT KEYPADI/O  0 VARIABLE Vkey DECIMAL            
+: BEEP  128 KEYPADI/O C! BKliteON                               
+                         50 DELAY[ms] 0 KEYPADI/O C! ;          
+( If not already in 711 TESTS, chk for TEST code key sequence)  
+: ?TEST fTEST @ IF EXIT THEN             ( If in 711 TEST exit) 
+   ( Xfer to TEST mode if special code = -..711)                
+   [ keybuf 1+ ]  LITERAL C@ 32 ( sp) =                         
+   [ keybuf 2+ ]  LITERAL C@ 45 ( -) = AND                      
+   [ keybuf 3 + ] LITERAL C@ 46 ( .) = AND                      
+   [ keybuf 4 + ] LITERAL C@ 46 ( .) = AND                      
+   IF keybuf 4 + NUMBER 711. D= IF -1 fTEST ! THEN THEN ;       
+                                                                
+                                                                
+                                                                
+                                                                
+( TEST COMMAND ENCODER/DETECTOR                06:47 10/21/89 ) 
+: key->Q ( c -- c)                                              
+  keyQMARK @ [ HEX ] 55AA [ DECIMAL ] <> IF INIT-keyQ THEN      
+  DUP                                               ( c -- c,c) 
+  bufWRT @ DUP [ keybuf 10 + ] LITERAL        ( --c,c,a1,a1,a2) 
+  >= ROT 13 = OR                      ( c,c,a1,a1,a2 -- c,a1,f) 
+  IF DROP keybuf THEN 32 OVER 1+ C!           ( c,a1,f -- c,a1) 
+  OVER 58 MIN DUP 48 <                     ( c,a1 -- c,a1,cb,f) 
+  IF 13 OVER <> OVER 46 <> AND ( c,a1,cb,f--c,a1,cb--c,a1,cb,f) 
+     OVER 45 <> AND IF DROP 32 THEN THEN                        
+  OVER C! 1+ bufWRT !                           ( c,a1,cb -- c) 
+  BEEP                                                          
+  DUP ENT = IF ?TEST THEN ;                                     
+                                                                
+                                                                
+                                                                
+HEX                                                             
+DECIMAL                                                         
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( KEYPAD ENCODER                               09:11 09/23/89 ) 
+( KEY# TO ROW/CLMN XLATE TABLE                 12:33 09/01/89 ) 
+HEX                                                             
+HERE                                                            
+7E C, 7D C, 7B C, 77 C, 6F C,                                   
+CONSTANT CLMNTBL                                                
+: TRANSLATE_KEY >R KEYTABLE 2 -                                 
+     BEGIN 2+ DUP C@ DUP 0= SWAP I = OR UNTIL 1+ C@ R> DROP ;   
+: ?KEYPAD ( -- f) 0 KEYPADI/O C! KEYPADI/O C@ 0F AND 0F XOR 0<> 
+          DUP 0= IF 0 Vkey ! THEN ( **?TERMINAL OR**) ;         
+: FINDkey 0. 5 0 DO 2DROP I CLMNTBL OVER + C@ KEYPADI/O C!      
+            KEYPADI/O C@ 0F AND 0F XOR DUP IF LEAVE THEN LOOP   
+          >R 10 * R> + ( Key# = 16 * Clmn + Row) ;              
+DECIMAL                                                         
+                                                                
+                                                                
+( KEYPAD ENCODER                               09:16 09/23/89 ) 
+: key ( -- c)                                                   
+  0 BEGIN DROP                                                  
+        BEGIN BEGIN ?KEYPAD UNTIL                               
+          0 BEGIN DROP FINDkey DUP 10 DELAY[ms] FINDkey = UNTIL 
+          TRANSLATE_KEY                                         
+          Vkey @ OVER Vkey ! XOR                                
+        UNTIL                                                   
+        Vkey @ DUP                                              
+   0<> UNTIL                                                    
+   key->Q ;                                                     
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( KEYPAD ENCODER                               18:43 09/23/89 ) 
+0 VARIABLE F3key  0 VARIABLE F2key  0 VARIABLE F1key            
+: MONITORkeyQ ?KEYPAD                                           
+  IF 0 BEGIN DROP FINDkey DUP 10 DELAY[ms] FINDkey = UNTIL      
+     TRANSLATE_KEY                                              
+     DUP 0<> SWAP Vkey @ OVER Vkey ! XOR 0<> AND                
+     IF Vkey @                                                  
+        DUP F3 = IF -1 ELSE 0 THEN F3key !                      
+        DUP F2 = IF -1 ELSE 0 THEN F2key !                      
+        DUP F1 = IF -1 ELSE 0 THEN F1key !                      
+        key->Q DROP                                             
+     THEN                                                       
+  THEN ;                                                        
+                                                                
+                                                                
+                                                                

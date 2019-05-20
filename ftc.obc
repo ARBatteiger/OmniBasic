@@ -1,0 +1,21 @@
+DIM InpFile AS FILE
+DIM OutFile AS FILE
+DIM Buf AS STRING*64
+ 
+Buf=NextArg
+if len(Buf)=0 then
+	print "No file specified"
+	end
+endif
+on error goto BadFile
+open InpFile,Buf:read
+on error
+mid$(Buf,len(Buf)-2,3)="txt"
+CREATE OutFile,Buf:WRITE
+while not(eof(InpFile)) do
+	get InpFile,Buf
+	write OutFile,Buf
+endwhile
+end
+BadFile:
+print "Cannot open ";Buf

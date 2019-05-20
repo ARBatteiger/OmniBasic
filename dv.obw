@@ -1,0 +1,509 @@
+DIM UserControl(1000) AS STATICTEXT
+TYPE UserData
+	UserType AS LONG
+	UserName AS STRING*20
+	UserArrayNum AS LONG
+	UserLeft AS LONG
+	UserTop AS LONG
+	UserWidth AS LONG
+	UserHeight AS LONG
+	UserArray AS BOOLEAN
+	UserVertical AS BOOLEAN
+END TYPE
+DIM UserDesc(1000) AS UserData
+DIM USerNdx AS LONG
+TYPE ControlData
+	ControlName AS STRING*28
+	ControlWidth AS LONG
+	ControlHeight AS LONG
+	ControlColor AS LONG
+END TYPE
+DIM ControlNdx AS LONG
+DIM GotoWindow AS TOOLWINDOW
+DIM GotoWindowConstructed AS BOOLEAN
+DIM GotoText AS TEXTBOX
+DIM GotoButton AS BUTTON
+DIM StatusBar AS STATUSBAR
+DIM FileName AS STRING
+DIM RawFileName AS STRING
+DIM SaveFileName AS STRING
+DIM FileFilter AS TEXT
+DIM InitDir AS STRING
+DIM TempBool AS BOOLEAN
+DIM TempInt AS LONG
+DIM TempStr AS STRING
+DIM I AS LONG
+DIM SaveValid AS BOOLEAN
+DIM FindStr AS STRING
+DIM ReplaceStr AS STRING
+DIM FontStr AS STRING
+DIM RGB AS LONG
+DIM EditWindow AS FORM
+DIM EditWindowPos(4) AS LONG
+DIM Edit AS RAEDIT
+DIM EditStatusBar AS STATUSBAR
+DIM EditNameCombo AS COMBOBOX
+DIM EditEventCombo AS COMBOBOX
+DIM ToolWindow AS FORM
+DIM ToolWindowPos(4) AS LONG
+DIM ToolButton(21) AS BUTTON
+DIM PropertyWindow AS FORM
+DIM PropertyWindowPos(4) AS LONG
+DIM PropGrid AS RAGRID
+DIM Form AS FORM
+DIM TempHandle AS HANDLE
+
+Dim lf As LOGFONT
+Dim lRet As Long
+Dim szFont As String
+Dim i As Integer
+dim szRegs As String*1000
+dim szAsmInst As String*1000
+dim szBasicInst As String*1000
+dim GUIStatements As String*1000
+dim szMasm As String*1000
+dim szFcns As String*1000
+dim szDataType As String*1000
+dim font as font
+dim RAFont(3) AS FONT
+
+TABLE ControlTable AS ControlData
+"Form",400,300,0
+"ToolWindow",200,200,0
+"Button",80,20,$808080
+"StaticText",80,20,$808080
+"Frame",100,100,$808080
+"Slider",100,20,$808080
+"TextBox",100,20,$ffffff
+"ComboBox",100,20,$ffffff
+"ListBox",100,200,$ffffff
+"RadioButton",80,20,$00ffff
+"CheckBox",80,20,$0000ff
+"ProgressBar",100,20,$ff0000
+"Calendar",200,200,$404040
+"TabFolder",200,200,606060
+"Spinner",20,30,$00ff00
+"StatusBar",0,0,0
+"Grid",200,200,$0080ff
+END TABLE
+
+OBMain.CREATE
+
+MENU OBMain
+	MENUBAR MainMenu
+		MENUTITLE FileMenu,"File"
+			MENUITEM mnuNew,"New"
+			MENUITEM mnuOpen,"Open"
+			MENUITEM mnuSave,"Save"
+			MENUITEM mnuSaveAs,"Save As"
+			MENUSEPARATOR
+			MENUITEM mnuPrint,"Print"
+			MENUSEPARATOR
+			MENUITEM mnuExit,"Exit"
+			REM
+		MENUTITLE EditMenu,"Edit"
+			MENUITEM mnuUnDo,"Undo"
+			MENUITEM mnuReDo,"Redo",
+			MENUSEPARATOR
+			MENUITEM mnuCut,"Cut"
+			MENUITEM mnuCopy,"Copy"
+			MENUITEM mnuPaste,"Paste"
+			MENUSEPARATOR
+			MENUITEM mnuSelectAll,"Select All",
+			MENUSEPARATOR
+			MENUITEM mnuGotoLine,"Goto Line"
+			MENUSEPARATOR
+			MENUITEM mnuFind,"Find"
+			MENUITEM mnuReplace,"Replace"
+		MENUTITLE ViewMenu,"View"
+			MENUITEM mnuEditBox,"EditBox"
+			MENUITEM mnuPropertyBox,"PropertyBox"
+			MENUITEM mnuToolBox,"ToolBox"
+		MENUTITLE OptionMenu,"Option"
+			MENUITEM mnuPreferences,"Preferences"
+			MENUSEPARATOR
+			MENUITEM mnuFont,"Font"
+		MENUTITLE ColorMenu,"Colors"
+			MENUITEM mnuStatement,"Statements"
+			MENUSEPARATOR
+			MENUITEM mnuFunctions,"Functions"
+			MENUSEPARATOR
+			MENUITEM mnuRegisters,"Registers"
+			MENUSEPARATOR
+			MENUITEM mnuAsm,"Asm"
+			MENUSEPARATOR
+			MENUITEM mnuDataType,"DataType"
+		MENUTITLE CompileMenu,"Compile"
+			MENUITEM mnuCompile,"Compile To EXE"
+			MENUITEM mnuCompileAndRun,"Compile And Run"
+			MENUITEM mnuRun,"Run"
+			MENUSEPARATOR
+			MENUITEM mnuTestCompile,"Test Compile"
+			MENUITEM mnuCompileToAsm,"Compile To Asm"
+			MENUSEPARATOR
+			MENUITEM mnuAssemble,"Assemble"
+		MENUTITLE DebugMenu,"Debug"
+			MENUITEM mnuStart,"Start"
+			MENUITEM mnuStop,"Stop"
+			MENUITEM mnuStep,"Step"
+			MENUITEM mnuEnd,"End"
+		MENUTITLE HelpMenu,"Help"
+			MENUITEM mnuHelp,"Help"
+			MENUSEPARATOR
+			MENUITEM mnuAbout,"About"							
+END MENU
+DISABLEMENUITEM MainMenu,mnuSave
+DISABLEMENUITEM MainMenu,mnuSaveAs
+
+SETPOSITION OBMain,0,0,600,450
+OBMain.TEXT="OmniBasic IDE"
+CONSTRUCT StatusBar,0,0,0,0
+
+SaveFileName=""
+SaveValid=FALSE
+InitDir="C:\nb"
+FileFilter="OB Window",0,"*.obw",0,"OB Console",0,"*.obc",0,"Assembler",0,"*.asm",0,"All Files",0,"*.*",0,0
+OBMain.TEXT="OmniBasic IDE     [Untitled]"
+FileName="Untitled"
+SETFOCUS Edit
+
+construct dbg1,0,0,100,20
+dbg1.backcolor=$ffff00
+;CONSTRUCT EditWindow,0,100,600,350 CHILD
+
+EditWindow.TEXT="Edit"
+CONSTRUCT EditNameCombo,1,0,295,20; IN EditWindow
+CONSTRUCT EditEventCombo,298,0,295,20; IN EditWindow
+CONSTRUCT Edit,0,32,590,350; IN EditWindow
+;CONSTRUCT EditStatusBar,0,0,0,0 IN EditWindow
+
+lf.lfHeight=-12
+lf.lfFaceName="Courier New"
+CreateFont RAFont(1),lf
+lf.lfItalic=1
+CreateFont RAFont(2),lf
+lf.lfHeight=-10
+lf.lfFaceName="Terminal"
+lf.lfItalic=0
+CreateFont RAFont(3),lf
+Edit.setfont RAFont
+
+szRegs="AH AL AX BH BL BP BX CH CL CR0 CR2 CR3 CS CX DH DI DL DR0 DR1 DR2 DR3 DR6 DR7 DS DX EAX EBP EBX ECX EDI EDX ES ESI ESP FS GS MM0 MM1 MM2 MM3 MM4 MM5 MM6 MM7 SI SP SS ST TR3 TR4 TR5 TR6 TR7 XMM0 XMM1 XMM2 XMM3"
+Edit.sethilitewords szRegs,$0080ff
+GUIStatements="CONSTRUCT SETPOSITION"
+Edit.sethilitewords GUIStatements,$ff
+szAsmInst="DB DW DD ALIGN EQU INVOKE CINVOKE AAA AAD AAM AAS ADC ADD AND CALL CBW CLC CLD CLI CMC CMP CMPS CMPSB CMPSW CWD DAS DEC DIV DAA ESC HLT IDIV IMUL IN INC INT INTO IRET JA JAE JB JBE JC JCXZ JE JG JGE JL JLE JMP JNA JNAE JNB JNBE JNC JNE JNG JNGE JNL JNLE JNO JNP JNS JNZ JO JP JPE JPO JS JZ LAHF LDS LEA LES LODS LODSB LODSW LOOP LOOPE LOOPEW LOOPNE LOOPNEW LOOPNZ LOOPNZW LOOPW LOOPZ LOOPZW MOV MOVS MOVSB MOVSW MUL NEG NOP NOT OR OUT POP POPF PUSH PUSHF RCL RCR RET RETF RETN ROL ROR SAHF SAL SAR SBB SCAS SCASB SCASW SETE SHL SHR STC STD STI STOS STOSB STOSW SUB TEST WAIT XCHG XLAT XLATB XOR"
+Edit.sethilitewords szAsmInst,$FF
+szBasicInst="AS MENU GOTO GOSUB FOR TO ENDIF PRINT ELSE IF THEN BEGIN LOOP END DATA TABLE SELECT CASE DIM TYPE ENDTABLE CONST MACRO ENDMACRO INC DEC NEXT RESTORE MOV JMP JE TEXT WRITE RETURN CLOSE AND CREATE DELETE ON ERROR OR MENUBAR MENUTITLE MENUITEM MENUSEPARATOR"
+Edit.sethilitewords szBasicInst,$FF
+szFcns="EOF LAND LOR LEN STR VAL ADDR MID LEFT RIGHT"
+Edit.sethilitewords szFcns,$FF00FF
+szDataType="BYTE INTEGER LONG LABEL POINTER VECTOR BOOLEAN STRING WORD DWORD STATICTEXT"
+Edit.sethilitewords szDataType,$808000
+
+Edit.backcolor=$ffffff
+Edit.linenumcolor=$0000a0
+
+CONSTRUCT PropertyWindow,0,450,300,155 CHILD
+PropertyWindow.TEXT="Properties"
+CONSTRUCT PropGrid,0,0,295,130 IN PropertyWindow
+PropGrid.HEADERHEIGHT=21
+PropGrid.ADDCOL TEXT,137,"Property",CENTER,LEFT,31
+PropGrid.ADDCOL TEXT,137,"Value",CENTER,LEFT,31
+FOR I=1 TO 6
+	PropGrid.ADDROW
+NEXT I
+PropGrid.TEXT(1,1)="NAME"
+PropGrid.TEXT(2,1)="TYPE"
+PropGrid.TEXT(3,1)="LEFT"
+PropGrid.TEXT(4,1)="TOP"
+PropGrid.TEXT(5,1)="WIDTH"
+PropGrid.TEXT(6,1)="HEIGHT"
+CONSTRUCT ToolWindow,300,450,300,155 CHILD
+ToolWindow.TEXT="Tools"
+CONSTRUCT ToolButton(1),0,4,98,18 IN ToolWindow
+SETSTYLE ToolButton(1),$8000,TRUE
+ToolButton(1).TEXT="Form"
+CONSTRUCT ToolButton(2),98,4,98,18 IN ToolWindow
+SETSTYLE ToolButton(2),$8000,TRUE
+ToolButton(2).TEXT="ToolWindow"
+CONSTRUCT ToolButton(3),196,4,98,18 IN ToolWindow
+SETSTYLE ToolButton(3),$8000,TRUE
+ToolButton(3).TEXT="Button"
+CONSTRUCT ToolButton(4),0,22,98,18 IN ToolWindow
+SETSTYLE ToolButton(4),$8000,TRUE
+ToolButton(4).TEXT="StaticText"
+CONSTRUCT ToolButton(5),98,22,98,18 IN ToolWindow
+SETSTYLE ToolButton(5),$8000,TRUE
+ToolButton(5).TEXT="Frame"
+CONSTRUCT ToolButton(6),196,22,98,18 IN ToolWindow
+SETSTYLE ToolButton(6),$8000,TRUE
+ToolButton(6).TEXT="Slider"
+CONSTRUCT ToolButton(7),0,40,98,18 IN ToolWindow
+SETSTYLE ToolButton(7),$8000,TRUE
+ToolButton(7).TEXT="TextBox"
+CONSTRUCT ToolButton(8),98,40,98,18 IN ToolWindow
+SETSTYLE ToolButton(8),$8000,TRUE
+ToolButton(8).TEXT="ComboBox"
+CONSTRUCT ToolButton(9),196,40,98,18 IN ToolWindow
+SETSTYLE ToolButton(9),$8000,TRUE
+ToolButton(9).TEXT="ListBox"
+CONSTRUCT ToolButton(10),0,58,98,18 IN ToolWindow
+SETSTYLE ToolButton(10),$8000,TRUE
+ToolButton(10).TEXT="RadioButton"
+CONSTRUCT ToolButton(11),98,58,98,18 IN ToolWindow
+SETSTYLE ToolButton(11),$8000,TRUE
+ToolButton(11).TEXT="CheckBox"
+CONSTRUCT ToolButton(12),196,58,98,18 IN ToolWindow
+SETSTYLE ToolButton(12),$8000,TRUE
+ToolButton(12).TEXT="ProgressBar"
+CONSTRUCT ToolButton(13),0,76,98,18 IN ToolWindow
+SETSTYLE ToolButton(13),$8000,TRUE
+ToolButton(13).TEXT="Calendar"
+CONSTRUCT ToolButton(14),98,76,98,18 IN ToolWindow
+SETSTYLE ToolButton(14),$8000,TRUE
+ToolButton(14).TEXT="TabFolder"
+CONSTRUCT ToolButton(15),196,76,98,18 IN ToolWindow
+SETSTYLE ToolButton(15),$8000,TRUE
+ToolButton(15).TEXT="Spinner"
+CONSTRUCT ToolButton(16),0,94,98,18 IN ToolWindow
+SETSTYLE ToolButton(16),$8000,TRUE
+ToolButton(16).TEXT="StatusBar"
+CONSTRUCT ToolButton(17),98,94,98,18 IN ToolWindow
+SETSTYLE ToolButton(17),$8000,TRUE
+ToolButton(17).TEXT=""
+CONSTRUCT ToolButton(18),196,94,98,18 IN ToolWindow
+SETSTYLE ToolButton(18),$8000,TRUE
+ToolButton(18).TEXT=""
+CONSTRUCT ToolButton(19),0,112,98,18 IN ToolWindow
+SETSTYLE ToolButton(19),$8000,TRUE
+ToolButton(19).TEXT=""
+CONSTRUCT ToolButton(20),98,112,98,18 IN ToolWindow
+SETSTYLE ToolButton(20),$8000,TRUE
+ToolButton(20).TEXT=""
+CONSTRUCT ToolButton(21),196,112,98,18 IN ToolWindow
+SETSTYLE ToolButton(21),$8000,TRUE
+ToolButton(21).TEXT=""
+
+CHECKMENUITEM MainMenu,mnuEditBox
+CHECKMENUITEM MainMenu,mnuPropertyBox
+CHECKMENUITEM MainMenu,mnuToolBox
+
+FOR I=1 TO 1000
+	UserDesc(I).UserType=0
+	UserDesc(I).UserName=""
+	UserDesc(I).UserArrayNum=0
+	UserDesc(I).UserLeft=0
+	UserDesc(I).UserTop=0
+	UserDesc(I).UserWidth=0
+	UserDesc(I).UserHeight=0
+	UserDesc(I).UserArray=FALSE
+	UserDesc(I).UserVertical=FALSE
+NEXT I
+
+END EVENT
+
+MENU.command
+SELECT CASE MenuID
+	CASE mnuNew
+		Edit.TEXT=""
+		SaveValid=FALSE
+		OBMain.TEXT="[OmniBasic IDE     Untitled]"
+		FileName="Untitled"
+		DISABLEMENUITEM MainMenu,mnuSave
+		DISABLEMENUITEM MainMenu,mnuSaveAs
+	CASE mnuOpen
+		FileName=""
+		OPENDIALOG FileName,FileFilter,InitDir 
+		IF STATUS<>0 THEN
+			Edit.LOADFILE FileName
+			SaveFileName=FileName
+			SaveValid=True
+			EnableMENUITEM MainMenu,mnuSave
+			EnableMENUITEM MainMenu,mnuSaveAs
+			TempStr="OmniBasic IDE     ["+FileName+"]"
+			OBMain.TEXT=TempStr
+		ENDIF
+	CASE mnuSave
+		IF FileName="Untitled" THEN
+			GOSUB SaveAs
+		ENDIF
+		IF SaveValid=TRUE THEN
+			Edit.SAVEFILE SaveFileName
+			DISABLEMENUITEM MainMenu,mnuSave
+		ENDIF
+	CASE mnuSaveAs
+		GOSUB SaveAs
+	CASE mnuPrint
+
+	CASE mnuExit
+		END
+	CASE mnuUnDo
+
+	CASE mnuReDo
+
+	CASE mnuCut
+
+	CASE mnuCopy
+
+	CASE mnuPaste
+
+	CASE mnuSelectAll
+
+	CASE mnuGotoLine
+dbg1.text="GOTO"
+		IF GotoWindowConstructed=FALSE THEN
+			CONSTRUCT GotoWindow,100,100,110,90 TOPMOST
+			GotoWindow.TEXT="Goto Line"
+			GotoWindowConstructed=TRUE
+			CONSTRUCT GotoText,10,10,80,20 IN GotoWindow
+			CONSTRUCT GotoButton,10,40,80,20 IN GotoWindow
+			GotoButton.TEXT="Goto Line"
+		ELSE
+			IF GotoWindow.VISIBLE=TRUE THEN
+				GotoWindow.VISIBLE=FALSE
+			ELSE
+				GotoWindow.VISIBLE=TRUE
+			ENDIF
+		ENDIF
+		SETFOCUS GotoText
+	CASE mnuFind
+		FindStr=""
+		FINDDIALOG FindStr
+		TempHandle=STATUS
+	CASE mnuReplace
+		FindStr="Find String"
+		ReplaceStr="Replace String"
+		REPLACEDIALOG FindStr,ReplaceStr
+	CASE mnuPreferences
+
+	CASE mnuEditBox
+		IF EditWindow.VISIBLE=TRUE THEN
+			UNCHECKMENUITEM MainMenu,mnuEditBox
+			EditWindow.VISIBLE=FALSE
+		ELSE
+			CHECKMENUITEM MainMenu,mnuEditBox
+			EditWindow.VISIBLE=TRUE
+		ENDIF
+	CASE mnuPropertyBox
+		IF PropertyWindow.VISIBLE=TRUE THEN
+			UNCHECKMENUITEM MainMenu,mnuPropertyBox
+			PropertyWindow.VISIBLE=FALSE
+		ELSE
+			CHECKMENUITEM MainMenu,mnuPropertyBox
+			PropertyWindow.VISIBLE=TRUE
+		ENDIF
+	CASE mnuToolBox
+		IF ToolWindow.VISIBLE=TRUE THEN
+			UNCHECKMENUITEM MainMenu,mnuToolBox
+			ToolWindow.VISIBLE=FALSE
+		ELSE
+			CHECKMENUITEM MainMenu,mnuToolBox
+			ToolWindow.VISIBLE=TRUE
+		ENDIF
+	CASE mnuFont
+		FONTDIALOG FontStr
+	CASE mnuStatement
+
+	CASE mnuFunctions
+
+	CASE mnuRegisters
+
+	CASE mnuAsm
+
+	CASE mnuDataType
+
+	CASE mnuCompile
+
+	CASE mnuCompileAndRun
+
+	CASE mnuTestCompile
+
+	CASE mnuCompileToAsm
+
+	CASE mnuAssemble
+
+	CASE mnuStart
+
+	CASE mnuStop
+
+	CASE mnuStep
+
+	CASE mnuEnd
+
+	CASE mnuHelp
+
+	CASE mnuAbout
+
+END SELECT
+
+END EVENT
+
+SaveAs:
+FileName=""
+SAVEDIALOG FileName,FileFilter,InitDir
+IF STATUS<>0 THEN
+	Edit.SAVEFILE FileName
+	SaveFileName=FileName
+	TempStr="OmniBasic IDE     ["+FileName+"]"
+	OBMain.TEXT=TempStr
+ENDIF
+RETURN
+
+FIND.notify
+Edit.find
+TempStr=FindStr+" Not Found"
+if STATUS=-1 then
+	msgbox "Edit",TempStr,MB_OK
+	return
+endif
+END EVENT
+
+GotoWindow.SYSTEM
+GotoWindow.VISIBLE=FALSE
+END EVENT
+
+ToolButton.COMMAND
+CONSTRUCT Form,650,100,300,200 CHILD
+Form.TEXT="Form1"
+END EVENT
+
+EditWindow.SYSTEM
+IF STATUS=$f060 THEN; CLOSE
+	EditWindow.VISIBLE=FALSE
+	UNCHECKMENUITEM MainMenu,mnuEditBox
+ENDIF
+END EVENT
+
+PropertyWindow.SYSTEM
+IF STATUS=$f060 THEN; CLOSE
+	PropertyWindow.VISIBLE=FALSE
+	UNCHECKMENUITEM MainMenu,mnuPropertyBox
+ENDIF
+END EVENT
+
+ToolWindow.SYSTEM
+IF STATUS=$f060 THEN; CLOSE
+	ToolWindow.VISIBLE=FALSE
+	UNCHECKMENUITEM MainMenu,mnuToolBox
+ENDIF
+END EVENT
+
+Form.LBUTTONDOWN
+dbg1.text="LB Down"
+CONSTRUCT UserControl(1),0,0,200,20 IN Form
+UserControl(1).BACKCOLOR=$808080
+END EVENT
+
+Form.LBUTTONUP
+dbg1.text="LB Up"
+END EVENT
+
+GotoButton.COMMAND
+TempStr=GotoText.TEXT
+TempInt=VAL(TempStr)
+Edit.GOTO TempInt
+GotoText.TEXT=""
+GotoWindow.VISIBLE=FALSE
+END EVENT
+

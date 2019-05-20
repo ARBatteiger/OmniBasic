@@ -1,0 +1,48 @@
+/* _AtoL() */
+/* Enter with ASCII STRING (int or hex value) in _ConvBuf */
+/* Returns LONG value of STRING */
+
+static long _DecVal();
+extern char _ConvBuf[22];
+
+long _AtoL()
+{
+int _Multiplier=1;
+int _Result=0;
+long _HexDigit=0;
+if (_ConvBuf[0] == '$')
+{
+while (_ConvBuf[_HexDigit])
+{
+_HexDigit++;
+};
+_HexDigit--;
+while (_HexDigit)
+{
+_Result=_Result+_DecVal(_ConvBuf[_HexDigit])*_Multiplier;
+_Multiplier=_Multiplier*16;
+_HexDigit--;
+};
+}
+else
+{
+_Result=atoi(_ConvBuf);
+};
+return(_Result);
+}
+
+long _DecVal(_HexVal)
+char _HexVal;
+{
+if (_HexVal >= 0x30 && _HexVal <= 0x39)
+{
+_HexVal=_HexVal&0x0f;
+}
+else
+{
+_HexVal=_HexVal&0xbf;
+_HexVal=_HexVal-0x27;
+_HexVal=_HexVal&0x0f;
+};
+return(_HexVal);
+}

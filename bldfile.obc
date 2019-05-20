@@ -1,0 +1,27 @@
+dim filler(8192) as byte
+dim u18 as file
+dim u18buf(16384) as byte
+dim u20 as file
+dim u20buf(32768) as byte
+dim romer as file
+dim i as long
+
+for i=1 to 8192
+	filler(i)=$ff
+next i
+
+open u18,"u18.cut":read
+get u18,u18buf
+
+open u20,"u20.bin":read
+get u20,u20buf
+
+create romer,"romer.bin":write
+put romer,filler
+put romer,u18buf
+put romer,filler
+put romer,u20buf
+
+close u18,u20,romer
+
+

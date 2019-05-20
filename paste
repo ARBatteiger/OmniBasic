@@ -1,0 +1,57 @@
+TEXT PreCodeInline1
+section '.code' code readable executable
+; Main Code Section
+_Start:
+invoke GetModuleHandle, NULL
+mov dword [_hInstance], eax
+invoke GetCommandLine
+mov dword [_ArgList],eax
+mov dword edi,ProgramName
+call __MovArg
+invoke GetStdHandle, STD_INPUT_HANDLE
+mov dword [_InHandle], eax
+invoke GetStdHandle, STD_OUTPUT_HANDLE
+mov dword [_OutHandle], eax
+mov byte [_CRLF+12],13
+mov byte [_CRLF+13],10
+mov byte [_CRLF+14],0
+mov byte [_Prompt+12],63
+mov byte [_Prompt+13],0
+mov byte [_NullStr+12],0
+mov dword [_ErrVec],_ErrExit
+ENDTEXT
+
+RESTORE PreCodeInline1
+GOSUB OutPreCodeInline
+
+-------------------------------
+
+TABLE PreCodeTable AS STRING*42
+"section '.code' code readable executable"
+""
+"; Main Code Section"
+""
+"_Start:"
+"invoke GetModuleHandle, NULL"
+"mov dword [_hInstance], eax"
+"invoke GetCommandLine"
+"mov dword [_ArgList],eax"
+"mov dword edi,ProgramName"
+"call __MovArg"
+"invoke GetStdHandle, STD_INPUT_HANDLE"
+"mov dword [_InHandle], eax"
+"invoke GetStdHandle, STD_OUTPUT_HANDLE"
+"mov dword [_OutHandle], eax"
+"mov byte [_CRLF+12],13"
+"mov byte [_CRLF+13],10"
+"mov byte [_CRLF+14],0"
+"mov byte [_Prompt+12],63"
+"mov byte [_Prompt+13],0"
+"mov byte [_NullStr+12],0"
+"mov dword [_ErrVec],_ErrExit"
+ENDTABLE
+
+FOR I=1 TO TABLESIZE(PreCodeTable)
+	OutBuf=PreCodeTable(I)
+	GOSUB OutPreCode
+NEXT I

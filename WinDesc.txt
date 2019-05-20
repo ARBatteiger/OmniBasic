@@ -1,0 +1,13 @@
+Handle
+ID
+Device Context
+Brush Handle
+Owner
+Status
+Left
+Top
+Width
+Height
+ForeColor
+BackColor
+

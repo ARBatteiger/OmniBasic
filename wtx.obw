@@ -1,0 +1,77 @@
+dim constructor as button
+dim destroyer as button
+dim a as string
+dim x as long
+dim b1 as button
+dim b2 as button
+dim b3 as button
+dim l1 as statictext
+dim l2 as statictext
+dim l3 as statictext
+dim t1 as statictext
+
+OBMain.create
+construct constructor,0,0,100,20
+construct destroyer,110,0,100,20
+construct b1,0,60,100,20
+construct b2,110,60,100,20
+construct b3,210,60,100,20
+construct l1,0,80,100,20
+construct l2,10,80,100,20
+construct l3,15,80,100,20
+l1.backcolor=$00ff00
+l2.backcolor=$0000ff
+l3.backcolor=$ff0000
+;construct t1,0,40,100,20
+t1.backcolor=$00ffff
+end event
+
+constructor.command
+construct t1,0,40,100,20
+t1.backcolor=$ffff00
+a=str(ZNOTOPMOST)
+t1.text=a
+end event
+
+destroyer.command
+destroy t1
+end event
+
+b1.command
+l1.zorder=ZTOP
+x=l1.zorder
+a=STR(x)
+l1.text=a
+x=l2.zorder
+a=STR(x)
+l2.text=a
+x=l3.zorder
+a=STR(x)
+l3.text=a
+end event
+
+b2.command
+l2.zorder=ZTOP
+x=l1.zorder
+a=STR(x)
+l1.text=a
+x=l2.zorder
+a=STR(x)
+l2.text=a
+x=l3.zorder
+a=STR(x)
+l3.text=a
+end event
+
+b3.command
+l3.zorder=ZTOP
+x=l1.zorder
+a=STR(x)
+l1.text=a
+x=l2.zorder
+a=STR(x)
+l2.text=a
+x=l3.zorder
+a=STR(x)
+l3.text=a
+end event

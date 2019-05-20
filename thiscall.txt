@@ -1,0 +1,46 @@
+macro thiscall proc,object,[arg]{
+if ~ arg eq
+reverse pushd arg
+   end if
+   lea ecx,[object]
+   common
+    call proc }
+
+code:
+
+
+
+macro fastcall proc,[arg1],[arg2],[arg]{
+if ~ arg eq
+reverse pushd arg
+   end if
+   if ~ arg2 eq
+      mov   edx,arg2
+   end if
+   if ~ arg1 eq
+      mov   ecx,arg1
+   end if
+   common
+    call proc }
+
+
+
+You may have to switch ecx and edx around.
+
+
+Nice work comrade.
+
+I've got an error so I've changed the first line into:
+
+code:
+
+
+
+macro fastcall proc,arg1,arg2,[arg]{
+
+
+
+
+
+
+Thanks.

@@ -1,0 +1,292 @@
+DIM Edit AS SCINTILLA
+DIM ExitButton AS BUTTON
+DIM NewButton AS BUTTON
+DIM OpenButton AS BUTTON
+DIM SaveButton AS BUTTON
+DIM SaveAsButton AS BUTTON
+DIM PrintButton AS BUTTON
+DIM GoToButton AS BUTTON
+DIM GotoText AS TEXTBOX
+DIM SetupButton AS BUTTON
+DIM CutButton AS BUTTON
+DIM CopyButton AS BUTTON
+DIM PasteButton AS BUTTON
+DIM FindButton AS BUTTON
+DIM ReplaceButton AS BUTTON
+DIM CompileButton AS BUTTON
+DIM CompileAsmButton AS BUTTON
+DIM CompileTestButton AS BUTTON
+DIM DebugButton AS BUTTON
+DIM RunButton AS BUTTON
+DIM AsmbButton AS BUTTON
+DIM StopButton AS BUTTON
+DIM GoButton AS BUTTON
+DIM StepButton AS BUTTON
+DIM EndButton AS BUTTON
+DIM HelpButton AS BUTTON
+DIM StatusBar AS STATUSBAR
+DIM FileName AS STRING
+DIM SaveFileName AS STRING
+DIM FileFilter AS STRING
+DIM FilterArray(100) AS BYTE VECTOR
+DIM InitDir AS STRING
+DIM TempInt AS LONG
+DIM TempStr AS STRING
+DIM SaveValid AS BOOLEAN
+DIM FindStr AS STRING
+DIM ReplaceStr AS STRING
+DIM FontStr AS STRING
+DIM RGB AS LONG
+
+OBMain_Load:
+SETPOSITION OBMain,0,0,1024,745
+CONSTRUCT StatusBar,0,0,0,0
+CONSTRUCT Edit,0,32,1015,668
+CONSTRUCT ExitButton,0,0,40,30
+ExitButton.TEXT="E&xit"
+CONSTRUCT NewButton,40,0,40,30
+NewButton.TEXT="&New"
+CONSTRUCT OpenButton,80,0,40,30
+OpenButton.TEXT="&Open"
+CONSTRUCT SaveButton,120,0,40,30
+SaveButton.TEXT="&Save"
+CONSTRUCT SaveAsButton,160,0,40,30
+SaveAsButton.TEXT="SvAs"
+CONSTRUCT PrintButton,200,0,40,30
+PrintButton.TEXT="&Print"
+CONSTRUCT GoToButton,240,0,40,30
+GoToButton.TEXT="&GoTo"
+CONSTRUCT GotoText,280,0,55,30
+GotoText.TEXT=""
+GotoText.BACKCOLOR=$c0c0c0
+CONSTRUCT SetupButton,335,0,40,30
+SetupButton.TEXT="Set&up"
+CONSTRUCT CutButton,375,0,40,30
+CutButton.TEXT="&Cut"
+CONSTRUCT CopyButton,415,0,40,30
+CopyButton.TEXT="C&opy"
+CONSTRUCT PasteButton,455,0,40,30
+PasteButton.TEXT="&Paste"
+CONSTRUCT FindButton,495,0,40,30
+FindButton.TEXT="&Find"
+CONSTRUCT ReplaceButton,535,0,40,30
+ReplaceButton.TEXT="&Rplc"
+CONSTRUCT CompileButton,575,0,40,30
+CompileButton.TEXT="C&mpl"
+CONSTRUCT CompileAsmButton,615,0,40,30
+CompileAsmButton.TEXT="Cmp&A"
+CONSTRUCT CompileTestButton,655,0,40,30
+CompileTestButton.TEXT="Cmp&T"
+CONSTRUCT AsmbButton,695,0,40,30
+AsmbButton.TEXT="&Asmb"
+CONSTRUCT RunButton,735,0,40,30
+RunButton.TEXT="Ru&n"
+CONSTRUCT DebugButton,775,0,40,30
+DebugButton.TEXT="&Dbg"
+CONSTRUCT StopButton,815,0,40,30
+StopButton.TEXT="&Stop"
+CONSTRUCT GoButton,855,0,40,30
+GoButton.TEXT="&Go"
+CONSTRUCT StepButton,895,0,40,30
+StepButton.TEXT="S&tep"
+CONSTRUCT EndButton,935,0,40,30
+EndButton.TEXT="&End"
+CONSTRUCT HelpButton,975,0,40,30
+HelpButton.TEXT="&Help"
+SaveFileName=""
+Edit.HSCROLL=TRUE
+SaveValid=FALSE
+SaveButton.ENABLED=FALSE
+SaveAsButton.ENABLED=FALSE
+InitDir="C:\nb"
+SETVEC FilterArray=ADDR(FileFilter)
+FilterArray(1)=ASC("O")
+FilterArray(2)=ASC("B")
+FilterArray(3)=ASC(" ")
+FilterArray(4)=ASC("C")
+FilterArray(5)=ASC("o")
+FilterArray(6)=ASC("n")
+FilterArray(7)=ASC("s")
+FilterArray(8)=ASC("o")
+FilterArray(9)=ASC("l")
+FilterArray(10)=ASC("e")
+FilterArray(11)=0
+FilterArray(12)=ASC("*")
+FilterArray(13)=ASC(".")
+FilterArray(14)=ASC("o")
+FilterArray(15)=ASC("b")
+FilterArray(16)=ASC("c")
+FilterArray(17)=0
+FilterArray(18)=ASC("O")
+FilterArray(19)=ASC("B")
+FilterArray(20)=ASC(" ")
+FilterArray(21)=ASC("W")
+FilterArray(22)=ASC("i")
+FilterArray(23)=ASC("n")
+FilterArray(24)=ASC("d")
+FilterArray(25)=ASC("o")
+FilterArray(26)=ASC("w")
+FilterArray(27)=0
+FilterArray(28)=ASC("*")
+FilterArray(29)=ASC(".")
+FilterArray(30)=ASC("o")
+FilterArray(31)=ASC("b")
+FilterArray(32)=ASC("w")
+FilterArray(33)=0
+FilterArray(34)=ASC("A")
+FilterArray(35)=ASC("s")
+FilterArray(36)=ASC("m")
+FilterArray(37)=ASC(" ")
+FilterArray(38)=ASC("F")
+FilterArray(39)=ASC("i")
+FilterArray(40)=ASC("l")
+FilterArray(41)=ASC("e")
+FilterArray(42)=ASC("s")
+FilterArray(43)=0
+FilterArray(44)=ASC("*")
+FilterArray(45)=ASC(".")
+FilterArray(46)=ASC("a")
+FilterArray(47)=ASC("s")
+FilterArray(48)=ASC("m")
+FilterArray(49)=0
+FilterArray(50)=ASC("A")
+FilterArray(51)=ASC("l")
+FilterArray(52)=ASC("l")
+FilterArray(53)=ASC(" ")
+FilterArray(54)=ASC("F")
+FilterArray(55)=ASC("i")
+FilterArray(56)=ASC("l")
+FilterArray(57)=ASC("e")
+FilterArray(58)=ASC("s")
+FilterArray(59)=0
+FilterArray(60)=ASC("*")
+FilterArray(61)=ASC(".")
+FilterArray(62)=ASC("*")
+FilterArray(63)=0
+FilterArray(64)=0
+RETURN
+
+ExitButton.COMMAND
+END
+END EVENT
+
+NewButton.COMMAND
+Edit.CLEAR
+SaveValid=FALSE
+SaveButton.ENABLED=FALSE
+SaveAsButton.ENABLED=FALSE
+OBMain.TEXT="Untitled"
+END EVENT
+
+OpenButton.COMMAND
+FileName=""
+OPENDIALOG FileName,FileFilter,InitDir 
+IF STATUS<>0 THEN
+	Edit.LOADFILE FileName
+	SaveFileName=FileName
+	SaveValid=True
+	SaveButton.ENABLED=TRUE
+	SaveAsButton.ENABLED=TRUE
+	OBMain.TEXT=FileName
+ENDIF
+END EVENT
+
+SaveButton.COMMAND
+IF SaveValid=TRUE THEN
+	Edit.SAVEFILE SaveFileName
+	'SaveValid=FALSE
+	'SaveButton.ENABLED=FALSE
+ENDIF
+END EVENT
+
+SaveAsButton.COMMAND
+FileName=""
+SAVEDIALOG FileName,FileFilter,InitDir
+IF STATUS<>0 THEN
+	Edit.SAVEFILE FileName
+	SaveFileName=FileName
+	'SaveValid=FALSE
+	'SaveButton.ENABLED=FALSE
+	OBMain.TEXT=FileName
+ENDIF
+END EVENT
+
+SetupButton.COMMAND
+
+END EVENT
+
+CutButton.COMMAND
+
+END EVENT
+
+CopyButton.COMMAND
+
+END EVENT
+
+PasteButton.COMMAND
+
+END EVENT
+
+FindButton.COMMAND
+FindStr="Find String"
+FINDDIALOG FindStr
+END EVENT
+
+ReplaceButton.COMMAND
+FindStr="Find String"
+ReplaceStr="Replace String"
+REPLACEDIALOG FindStr,ReplaceStr
+END EVENT
+
+CompileButton.COMMAND
+
+END EVENT
+
+CompileAsmButton.COMMAND
+
+END EVENT
+
+CompileTestButton.COMMAND
+
+END EVENT
+
+AsmbButton.COMMAND
+
+END EVENT
+
+RunButton.COMMAND
+
+END EVENT
+
+DebugButton.COMMAND
+
+END EVENT
+
+StopButton.COMMAND
+FONTDIALOG FontStr
+END EVENT
+
+GoButton.COMMAND
+COLORDIALOG RGB
+TempStr=HEX$(RGB)
+Edit.TEXT=TempStr
+END EVENT
+
+StepButton.COMMAND
+
+END EVENT
+
+EndButton.COMMAND
+
+END EVENT
+
+HelpButton.COMMAND
+
+END EVENT
+
+Menu_command:
+
+
+
+
+

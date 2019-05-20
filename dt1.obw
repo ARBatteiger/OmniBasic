@@ -1,0 +1,1 @@
+; Dimension Variablesdim dt1 as DATETIMEdim ti as longdim ts as stringOBMain.CREATEgetgmtdatetime dt1ti=dt1.wHourOBMain.text=str(ti)END EVENT

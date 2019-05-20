@@ -1,0 +1,596 @@
+	.file	"lst.c"
+gcc2_compiled.:
+___gnu_compiled_c:
+.data
+__StrConst1:
+	.ascii "No file specified\0"
+__StrConst2:
+	.ascii " \0"
+__StrConst3:
+	.ascii "Cannot open \0"
+.text
+LC0:
+	.ascii "Error Exit\0"
+	.align 4
+.globl _main
+_main:
+	pushl %ebp
+	movl %esp,%ebp
+	subl $28,%esp
+	call ___main
+	movl $__ConvBuf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__CBufVec
+	movl $22,__CBufVec+4
+	movl $0,__CBufVec+8
+	movl $__ConvBuf1,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__CBuf1Vec
+	movl $22,__CBuf1Vec+4
+	movl $0,__CBuf1Vec+8
+	movl $__PrintBuf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__PBufVec
+	movl $300,__PBufVec+4
+	movl $0,__PBufVec+8
+	movl $__IOBuffer,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__IOBufVec
+	movl $300,__IOBufVec+4
+	movl $0,__IOBufVec+8
+	pushl $__ebuf
+	call __setjmp
+	addl $4,%esp
+	movl %eax,__ErrFlag
+	cmpl $0,__ErrFlag
+	je L2
+	jmp L3
+	.align 2,0x90
+L2:
+	movw $15,__Digits
+	movw $2,__Decimals
+	movl $0,_POS
+	call __errno
+	movl %eax,%eax
+	movl $0,(%eax)
+	movl $0,_XferCount
+	movl $0,_STATUS
+	movb $13,__CRLF
+	movb $10,__CRLF+1
+	movb $10,__NewLine
+	movb $63,__Prompt
+	movl 8(%ebp),%eax
+	movl %eax,__ArgCount
+	movl $0,__ArgNum
+	movl 12(%ebp),%eax
+	movl %eax,__ArgList
+	movl $_ProgramName,__TmpVec1
+	movl $28,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	movl __ArgList,%eax
+	pushl %eax
+	pushl $__TmpVec1
+	call __MovArg
+	addl $8,%esp
+L4:
+	movw $0,_LineNum
+	movl $_Buf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $300,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	movl __ArgList,%eax
+	pushl %eax
+	pushl $__TmpVec1
+	call __MovArg
+	addl $8,%esp
+	movb $0,__True
+	movl $_Buf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $300,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $__TmpVec1
+	call __StrLen
+	addl $4,%esp
+	movl %eax,%eax
+	movl %eax,__Tmp1
+	movl __Tmp1,%ecx
+	movl %ecx,-20(%ebp)
+	movl $0,-24(%ebp)
+	movl -24(%ebp),%ecx
+	cmpl %ecx,-20(%ebp)
+	jne L5
+	movl $255,-20(%ebp)
+	jmp L6
+	.align 2,0x90
+L5:
+	movl $0,-20(%ebp)
+L6:
+	movb -20(%ebp),%cl
+	orb %cl,__True
+	cmpb $0,__True
+	jne L7
+	jmp L8
+	.align 2,0x90
+L7:
+	movb $1,__PrtPthNum
+	movl $__StrConst1,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $18,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $300
+	pushl $__TmpVec1
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L9
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L9:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $__CRLF,__XferAddr
+	movl $2,_XferCount
+	movl _XferCount,%eax
+	pushl %eax
+	movl __XferAddr,%eax
+	pushl %eax
+	movzbl __PrtPthNum,%eax
+	pushl %eax
+	call _write
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L10
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L10:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $0,_POS
+	pushl $0
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L8:
+	pushl $__ebuf
+	call __setjmp
+	addl $4,%esp
+	movl %eax,__ErrFlag
+	cmpl $0,__ErrFlag
+	je L11
+	jmp L12
+	.align 2,0x90
+L11:
+	call __errno
+	movl %eax,%eax
+	movl $0,(%eax)
+	movl $_Buf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $300,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $__TmpVec1
+	pushl $__IOBufVec
+	call __MovStr
+	addl $8,%esp
+	pushl $0
+	pushl $__IOBuffer
+	call _open
+	addl $8,%esp
+	movl %eax,_STATUS
+	movb _STATUS,%al
+	movb %al,_InpFile
+	cmpl $-1,_STATUS
+	jne L13
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L13:
+	pushl $__ebuf
+	call __setjmp
+	addl $4,%esp
+	movl %eax,__ErrFlag
+	cmpl $0,__ErrFlag
+	je L14
+	jmp L3
+	.align 2,0x90
+L14:
+	nop
+L15:
+	movb $0,__True
+	movzbl _InpFile,%ecx
+	movl %ecx,-20(%ebp)
+	andl $255,-20(%ebp)
+	movb -20(%ebp),%cl
+	movb %cl,__IOPthNum
+	pushl $1
+	pushl $0
+	movzbl __IOPthNum,%eax
+	pushl %eax
+	call _lseek
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L16
+	jmp L17
+	.align 2,0x90
+L16:
+	movl $0,__Tmp1
+	pushl $2
+	pushl $0
+	movzbl __IOPthNum,%eax
+	pushl %eax
+	call _lseek
+	addl $12,%esp
+	movl %eax,__XferAddr
+	movl _STATUS,%eax
+	cmpl %eax,__XferAddr
+	jne L18
+	movl $1,__Tmp1
+L18:
+	pushl $0
+	movl _STATUS,%eax
+	pushl %eax
+	movzbl __IOPthNum,%eax
+	pushl %eax
+	call _lseek
+	addl $12,%esp
+	movl %eax,_STATUS
+L17:
+	cmpl $-1,_STATUS
+	jne L19
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L19:
+	cmpl $0,__Tmp1
+	sete %al
+	movzbl %al,%edx
+	movl %edx,__Tmp2
+	movl __Tmp2,%ecx
+	movl %ecx,-20(%ebp)
+	movl $1,-24(%ebp)
+	movl -24(%ebp),%ecx
+	cmpl %ecx,-20(%ebp)
+	jne L20
+	movl $255,-20(%ebp)
+	jmp L21
+	.align 2,0x90
+L20:
+	movl $0,-20(%ebp)
+L21:
+	movb -20(%ebp),%cl
+	orb %cl,__True
+	cmpb $0,__True
+	jne L22
+	jmp L23
+	.align 2,0x90
+L22:
+	call __errno
+	movl %eax,%eax
+	movl $0,(%eax)
+	movzbl _InpFile,%ecx
+	movl %ecx,-20(%ebp)
+	andl $255,-20(%ebp)
+	movb -20(%ebp),%cl
+	movb %cl,__IOPthNum
+	movl $_Buf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $300,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	movl __TmpVec1,%ecx
+	movl %ecx,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__DataPtr
+	movl $300,__BlkCnt
+L24:
+	pushl $1
+	pushl $__IOBuffer
+	movzbl __IOPthNum,%eax
+	pushl %eax
+	call _read
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L25
+	jmp L26
+	.align 2,0x90
+L25:
+	cmpl $0,_STATUS
+	jne L27
+	jmp L28
+	.align 2,0x90
+L27:
+	movb __IOBuffer,%al
+	cmpb %al,__NewLine
+	jne L29
+	jmp L28
+	.align 2,0x90
+L29:
+	movl __DataPtr,%eax
+	movb __IOBuffer,%dl
+	movb %dl,(%eax)
+	incl __DataPtr
+	decl __BlkCnt
+	cmpl $0,__BlkCnt
+	jne L30
+	jmp L26
+	.align 2,0x90
+L30:
+	jmp L24
+	.align 2,0x90
+L28:
+	movl __DataPtr,%eax
+	movb $0,(%eax)
+L26:
+	cmpl $-1,_STATUS
+	jne L31
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L31:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	incw _LineNum
+	movb $1,__PrtPthNum
+	movzwl _LineNum,%ecx
+	movl %ecx,-20(%ebp)
+	pushl -20(%ebp)
+	call __ZLtoA
+	addl $4,%esp
+	movl $__StrTmp1,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $22,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $__CBuf1Vec
+	pushl $__TmpVec1
+	call __MovStr
+	addl $8,%esp
+	movl $__TmpVec1,-28(%ebp)
+	movl $5,-20(%ebp)
+	pushl $0
+	pushl -20(%ebp)
+	pushl -28(%ebp)
+	call __RightStr
+	addl $12,%esp
+	pushl $300
+	pushl $__TmpVec1
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L32
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L32:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $__StrConst2,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec2
+	movl $2,__TmpVec2+4
+	movl $0,__TmpVec2+8
+	pushl $300
+	pushl $__TmpVec2
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L33
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L33:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $_Buf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec3
+	movl $300,__TmpVec3+4
+	movl $0,__TmpVec3+8
+	pushl $300
+	pushl $__TmpVec3
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L34
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L34:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $__CRLF,__XferAddr
+	movl $2,_XferCount
+	movl _XferCount,%eax
+	pushl %eax
+	movl __XferAddr,%eax
+	pushl %eax
+	movzbl __PrtPthNum,%eax
+	pushl %eax
+	call _write
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L35
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L35:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $0,_POS
+	jmp L15
+	.align 2,0x90
+L23:
+	pushl $0
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L12:
+	movb $1,__PrtPthNum
+	movl $__StrConst3,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $13,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $300
+	pushl $__TmpVec1
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L36
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L36:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $_Buf,-28(%ebp)
+	movl -28(%ebp),%ecx
+	movl %ecx,__TmpVec2
+	movl $300,__TmpVec2+4
+	movl $0,__TmpVec2+8
+	pushl $300
+	pushl $__TmpVec2
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L37
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L37:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $__CRLF,__XferAddr
+	movl $2,_XferCount
+	movl _XferCount,%eax
+	pushl %eax
+	movl __XferAddr,%eax
+	pushl %eax
+	movzbl __PrtPthNum,%eax
+	pushl %eax
+	call _write
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L38
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L38:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $0,_POS
+	pushl $0
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L3:
+	pushl $LC0
+	call _puts
+	addl $4,%esp
+	call __errno
+	movl %eax,%eax
+	movl (%eax),%edx
+	pushl %edx
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L1:
+	leave
+	ret
+.comm __d2,4
+.comm __PUArgs,60
+.comm __ArgCount,4
+.comm __ArgList,4
+.comm __ArgNum,4
+.comm __TestByte,4
+.comm __Prompt,4
+.comm __NewLine,4
+.comm __CRLF,4
+.comm _STATUS,4
+.comm __ebuf,32
+.comm __t,4
+.comm __systime,4
+.comm __ErrFlag,4
+.comm __Poker,4
+.comm __SrcAddr,4
+.comm __DestAddr,4
+.comm __BlkCnt,4
+.comm __DummyArg,4
+.comm _XferCount,4
+.comm __XferAddr,4
+.comm __Digits,4
+.comm __Decimals,4
+.comm __ArgSafe0,4
+.comm __ArgSafe1,4
+.comm __FltArgSafe0,4
+.comm __FltArgSafe1,4
+.comm __SwitchInt,4
+.comm __SwitchStr,12
+.comm __DblArgSafe0,8
+.comm __DblArgSafe1,8
+.comm __IOPthNum,4
+.comm __FilePtr,4
+.comm __PrtPthNum,4
+.comm __SafeZone,4
+.comm __IOBufPtr,4
+.comm __IOBufVec,12
+.comm _POS,4
+.comm _MX,4
+.comm _MY,4
+.comm _KM,4
+.comm __PBufVec,12
+.comm __DataPtr,4
+.comm __DataPtrSaf,4
+.comm __True,4
+.comm __ConvBuf,24
+.comm __ConvBuf1,24
+.comm _ProgramName,40
+.comm __CBufVec,12
+.comm __CBuf1Vec,12
+.comm __NullStr,4
+.comm __IOBuffer,300
+.comm __PrintBuf,300
+.lcomm __LoopCtr,40
+.lcomm __TmpVec1,12
+.lcomm _InpFile,4
+.lcomm _Buf,300
+.lcomm _LineNum,4
+.lcomm __Tmp1,4
+.lcomm __Tmp2,4
+.lcomm __StrTmp1,24
+.lcomm __TmpVec2,12
+.lcomm __TmpVec3,12

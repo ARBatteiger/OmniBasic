@@ -1,0 +1,39 @@
+DIM ifile AS FILE
+DIM ofile AS FILE
+DIM ifilename AS STRING*32
+DIM ofilename AS STRING*32
+DIM bytecounter AS LONG
+DIM bufferptr AS LONG
+DIM errnum AS LONG
+
+PRINT ProgramName
+PRINT "Program to convert NUL ($00) characters to SPACEs ($20)"
+INPUT "Input filename with NUL characters:",ifilename
+REM ON ERROR GOTO ErrorExit
+OPEN ifile,ifilename:READ+BINARY
+INPUT "Output filename with SPACE characters:",ofilename
+CREATE ofile,ofilename:WRITE+BINARY
+BUFFER filedata=FILSIZ(ifile)
+IF BUFSIZ(filedata)<>FILSIZ(ifile) THEN
+  PRINT "ERROR: Could not allocate a buffer of ";FILSIZ(ifile);" to hold the input"
+  PRINT "file. Please try with a machine with more RAM"
+  END
+ENDIF
+bufferptr=BUFADR(filedata)
+BUFREAD ifile,bufferptr,BUFSIZ(filedata)
+PRINT "Converting..."
+FOR bytecounter=0 TO FILSIZ(ifile)-1
+  IF PEEK(bufferptr+bytecounter)=0 THEN
+    POKE bufferptr+bytecounter,$20
+  ENDIF
+NEXT bytecounter
+BUFWRITE ofile,bufferptr,BUFSIZ(filedata)
+CLOSE ofile
+CLOSE ifile
+END
+
+ErrorExit:
+errnum=ERR
+PRINT "Unknown error ";errnum
+END
+

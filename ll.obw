@@ -1,0 +1,59 @@
+dim lb as listbox
+dim l1 as statictext
+dim l2 as statictext
+dim a as long
+dim a$ as string
+dim popup as menu
+dim b1 as button
+dim x as long
+dim y as long
+
+OBMain.create
+construct lb,10,10,100,100
+lb.additem "one"
+lb.additem "two"
+lb.additem "three"
+construct l1,140,10,100,20
+l1.backcolor=$ffffff
+construct l2,140,40,100,20
+l2.backcolor=$ffffff
+construct b1,10,130,80,20
+b1.text="Popup"
+popupmenu popup
+	menuitem menugreen,"Green"
+	menuitem menured,"Red"
+	menuseparator
+	menuitem menuexit,"Exit"
+end menu
+end event
+
+lb.select
+a=lb.selitem
+a$=STR$(a)
+l1.text=a$
+l2.text=lb.seltext
+END EVENT
+
+OBMain.mousemove
+a$=str(MousePosX)
+l1.text=a$
+a$=str(MousePosY)
+l2.text=a$
+END EVENT
+
+MENU.COMMAND
+select case MenuID
+	case menugreen
+		lb.backcolor=$00ff00
+	case menured
+		lb.backcolor=$0000ff
+	case menuexit
+		end
+end select
+end event
+
+OBMain.rbuttonup
+ShowPopup popup,MousePosX+5,MousePosY+23
+END EVENT
+
+

@@ -1,0 +1,1 @@
+; Dimension Variablesdim txt1 as textboxdim b1 as buttondim tim1 as timerOBMain.CREATEcreate txt1,10,10,80,20create b1,10,40,80,20END EVENTb1.commandtxt1.backcolor=$fftim1.interval=300end eventtim1.timertxt1.backcolor=$ffffffend event

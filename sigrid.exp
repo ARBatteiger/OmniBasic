@@ -1,0 +1,78 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file sigrid.dll
+
+File Type: DLL
+
+  Section contains the following exports for SIGRID.DLL
+
+           0 characteristics
+      314328 time date stamp Sat Feb 07 02:47:36 1970
+        0.00 version
+           1 ordinal base
+          51 number of functions
+          51 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00002D8A ADDCOL
+          2    1 00002AD7 ADDROW
+          3    2 00003638 COMBOADDSTRING
+          4    3 00003691 COMBODELSTRING
+          5    4 000036E2 COMBOGETHWND
+          6    5 0000A32F COPYCELLATTRIBUTES
+          7    6 00004165 CREATEGRID
+          8    7 00002177 CustomControlInfoA
+          9    8 000034B5 DELETECOL
+         10    9 00003732 DELETEROW
+         11    A 0000DB2F DRAWGRID
+         12    B 0000B296 GETCELL
+         13    C 0000B96F GETCELLATTRIBUTES
+         14    D 0000B337 GETCELLNUM
+         15    E 00003C7E GETCOLATTRIBUTES
+         16    F 000116BA GETCOLATX
+         17   10 00011524 GETCOLCOUNT
+         18   11 00009D4F GETCOMBOINFO
+         19   12 00009CF6 GETGRIDNAV
+         20   13 00009EB3 GETNOTIFICATION
+         21   14 0001183C GETROWATY
+         22   15 000114AE GETROWCOUNT
+         23   16 0000BF1D GETROWDATAB
+         24   17 0000A74A GETROWHEIGHTB
+         25   18 00009DA8 GETROWNOTIFICATION
+         26   19 0000C197 GETROWPARAM
+         27   1A 00009E5A GETSCROLLNOTIFICATION
+         28   1B 00009C9D GETSELECTEDCELL
+         29   1C 00001C1A GETSELECTEDCOLS
+         30   1D 00001BB5 GETSELECTEDROWS
+         31   1E 00009E01 GETSIZENOTIFICATION
+         32   1F 000072A5 GOTOCELLB
+         33   20 00011894 GRIDSAVE
+         34   21 00003CF5 INITGRID
+         35   22 00002342 LIBMAIN
+         36   23 0000DAB5 REFRESHGRID
+         37   24 00001919 SELECTCOL
+         38   25 0000196E SELECTROW
+         39   26 0000C693 SETCELL
+         40   27 0000B3EF SETCELLATTRIBUTES
+         41   28 0000CA56 SETCELLNUM
+         42   29 00003A87 SETCOLATTRIBUTES
+         43   2A 0000BBD4 SETCOLTITLE
+         44   2B 00010ADA SETCOLWIDTH
+         45   2C 0001044E SETROWCOUNT
+         46   2D 0000C2FE SETROWDATAB
+         47   2E 000106DF SETROWHEIGHT
+         48   2F 0000C232 SETROWPARAM
+         49   30 0000214B SIGridSizeToText
+         50   31 00001C7F SIGridStyle
+         51   32 00001D17 STYLEPROCEDURE
+
+  Summary
+
+        1000 .data
+        2000 .link
+        1000 .rloc
+        1000 .rsrc
+       15000 .text

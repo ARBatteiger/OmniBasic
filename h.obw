@@ -1,0 +1,1 @@
+; Dimension Variablesdim b1 as buttondim ba(10) as buttonOBMain.CREATEcreate b1,10,10,80,20create ba(3),10,40,80,20b1.text="b1"ba(3).text="b3"END EVENT

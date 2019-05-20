@@ -1,0 +1,1 @@
+TYPE OpCodeData	OpInst AS LABEL	OpMode AS LABELEND TYPETABLE OpCode AS OpCodeData'00'01'02'03'04'05'06'07 

@@ -1,0 +1,28 @@
+To replace the Real Time Clock in the FX-100 Fluorometer, perform the following steps:
+
+1) Turn of power to unit and remove power cord.
+
+2) Place unit upside down on table and remove the 7 mounting screws to allow opening the unit.
+
+3) Locate the Dallas DS1287 component in position U16 near the center of the
+   printed circuit board.
+
+4) Before removing the old DS1287, note the position of the dot in the corner of the
+   part.
+
+5) Remove the old component from socket by pulling gently.
+
+6) After carefully checking the new part for bent legs (and straightening same if required),
+   insert the new component where the old one was removed paying, particular attention to the
+   orientation of the white dot.
+
+7) Replace cover and the 7 mounting screws. DO NOT OVERTIGHTEN THE SCREWS!
+
+8) Insert power cord, apply power, and set date and time in the power up dialog.
+
+9) Turn off unit.
+
+10) Wait 1 Minute
+
+10) Turn power back on and verify the the date and time are correct as set in step 8.
+

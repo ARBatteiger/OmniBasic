@@ -1,0 +1,1 @@
+; Dimension Variablesdim havis as longdim b1 as buttonOBMain.CREATEconstruct b1,10,10,50,20havis=$aaEND EVENTOBMain.painthavis=$55beginpaint OBMainsetpixel 200,200,0endpaint OBMainEND EVENTb1.command;invalidaterect OBMainb1.text=hex(havis)end event

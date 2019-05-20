@@ -1,0 +1,250 @@
+	.file	"asmdemo.c"
+/ GNU C version cygnus-2.7.2-970404 (i386-cygwin32) compiled by GNU C version cygnus-2.7.2-970404.
+/ options passed: 
+/ options enabled:  -fpeephole -ffunction-cse -fkeep-static-consts
+/ -fpcc-struct-return -fcommon -fverbose-asm -fgnu-linker -m80387
+/ -mhard-float -mno-soft-float -mieee-fp -mfp-ret-in-387
+/ -mschedule-prologue -mstack-arg-probe -mcpu=i386 -march=pentium
+
+gcc2_compiled.:
+___gnu_compiled_c:
+.text
+LC0:
+	.ascii "Error Exit\0"
+	.align 4
+.globl _main
+_main:
+	pushl %ebp
+	movl %esp,%ebp
+	subl $20,%esp
+	pushl %esi
+	pushl %ebx
+	call ___main
+	movl $__ConvBuf,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__CBufVec
+	movl $22,__CBufVec+4
+	movl $0,__CBufVec+8
+	movl $__ConvBuf1,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__CBuf1Vec
+	movl $22,__CBuf1Vec+4
+	movl $0,__CBuf1Vec+8
+	movl $__PrintBuf,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__PBufVec
+	movl $300,__PBufVec+4
+	movl $0,__PBufVec+8
+	movl $__IOBuffer,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__IOBufVec
+	movl $300,__IOBufVec+4
+	movl $0,__IOBufVec+8
+	pushl $__ebuf
+	call __setjmp
+	addl $4,%esp
+	movl %eax,__ErrFlag
+	cmpl $0,__ErrFlag
+	je L2
+	jmp L3
+	.align 2,0x90
+L2:
+	movw $15,__Digits
+	movw $2,__Decimals
+	movl $0,_POS
+	call __errno
+	movl %eax,%eax
+	movl $0,(%eax)
+	movl $0,_XferCount
+	movl $0,_STATUS
+	movb $13,__CRLF
+	movb $10,__CRLF+1
+	movb $10,__NewLine
+	movb $63,__Prompt
+	movl 8(%ebp),%eax
+	movl %eax,__ArgCount
+	decl __ArgCount
+	movl $1,__ArgNum
+	movl 12(%ebp),%eax
+	movl %eax,__ArgList
+	movl $1234,_X
+	movb $1,__PrtPthNum
+	movl _X,%ebx
+	pushl %ebx
+	call __LtoA
+	addl $4,%esp
+	movl $__StrTmp1,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $22,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $__CBuf1Vec
+	pushl $__TmpVec1
+	call __MovStr
+	addl $8,%esp
+	pushl $300
+	pushl $__TmpVec1
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L4
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L4:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $__CRLF,__XferAddr
+	movl $2,_XferCount
+	movl _XferCount,%eax
+	pushl %eax
+	movl __XferAddr,%eax
+	pushl %eax
+	movzbl __PrtPthNum,%eax
+	pushl %eax
+	call _write
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L5
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L5:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $0,_POS
+/APP
+	incl X(,1)
+/NO_APP
+	movb $1,__PrtPthNum
+	movl _X,%ebx
+	pushl %ebx
+	call __LtoA
+	addl $4,%esp
+	movl $__StrTmp1,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $22,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	pushl $__CBuf1Vec
+	pushl $__TmpVec1
+	call __MovStr
+	addl $8,%esp
+	pushl $300
+	pushl $__TmpVec1
+	call __PrintStr
+	addl $8,%esp
+	cmpl $-1,_STATUS
+	jne L6
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L6:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $__CRLF,__XferAddr
+	movl $2,_XferCount
+	movl _XferCount,%eax
+	pushl %eax
+	movl __XferAddr,%eax
+	pushl %eax
+	movzbl __PrtPthNum,%eax
+	pushl %eax
+	call _write
+	addl $12,%esp
+	movl %eax,_STATUS
+	cmpl $-1,_STATUS
+	jne L7
+	pushl $1
+	pushl $__ebuf
+	call _longjmp
+	addl $8,%esp
+	.align 2,0x90
+L7:
+	movl _STATUS,%eax
+	movl %eax,_XferCount
+	movl $0,_POS
+	pushl $0
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L3:
+	pushl $LC0
+	call _puts
+	addl $4,%esp
+	call __errno
+	movl %eax,%eax
+	movl (%eax),%edx
+	pushl %edx
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L1:
+	leal -28(%ebp),%esp
+	popl %ebx
+	popl %esi
+	leave
+	ret
+.comm __d2,4
+.comm __PUArgs,60
+.comm __ArgCount,4
+.comm __ArgList,4
+.comm __ArgNum,4
+.comm __TestByte,4
+.comm __Prompt,4
+.comm __NewLine,4
+.comm __CRLF,4
+.comm _STATUS,4
+.comm __ebuf,32
+.comm __t,4
+.comm __systime,4
+.comm __ErrFlag,4
+.comm __Poker,4
+.comm __SrcAddr,4
+.comm __DestAddr,4
+.comm __BlkCnt,4
+.comm __DummyArg,4
+.comm _XferCount,4
+.comm __XferAddr,4
+.comm __Digits,4
+.comm __Decimals,4
+.comm __ArgSafe0,4
+.comm __ArgSafe1,4
+.comm __FltArgSafe0,4
+.comm __FltArgSafe1,4
+.comm __SwitchInt,4
+.comm __SwitchStr,12
+.comm __DblArgSafe0,8
+.comm __DblArgSafe1,8
+.comm __IOPthNum,4
+.comm __FilePtr,4
+.comm __PrtPthNum,4
+.comm __SafeZone,4
+.comm __IOBufPtr,4
+.comm __IOBufVec,12
+.comm _POS,4
+.comm _MX,4
+.comm _MY,4
+.comm _KM,4
+.comm __PBufVec,12
+.comm __DataPtr,4
+.comm __DataPtrSaf,4
+.comm __True,4
+.comm __ConvBuf,24
+.comm __ConvBuf1,24
+.comm __CBufVec,12
+.comm __CBuf1Vec,12
+.comm __NullStr,4
+.comm __IOBuffer,300
+.comm __PrintBuf,300
+.lcomm __LoopCtr,40
+.lcomm _X,4
+.lcomm __StrTmp1,24
+.lcomm __TmpVec1,12

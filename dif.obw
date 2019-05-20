@@ -1,0 +1,133 @@
+DIM lf as LOGFONT
+DIM myfont as font
+dim chkwd as integer
+DIM grd AS RAGRID
+dim i as long
+dim f1 as file
+dim f2 as file
+dim buf1(2048) as byte
+dim buf2(2048) as byte
+DIM StatusBar AS STATUSBAR
+DIM FileName AS STRING
+DIM SaveFileName AS STRING
+DIM FileFilter AS TEXT
+DIM InitDir AS STRING
+DIM TempInt AS LONG
+DIM TempStr AS STRING
+dim TempStr2 as string
+DIM SaveValid AS BOOLEAN
+DIM FindStr AS STRING
+DIM ReplaceStr AS STRING
+DIM FontStr AS STRING
+DIM RGB AS LONG
+dim open1 as button
+dim open2 as button
+dim exit as button
+dim chk1 as statictext
+dim chk2 as statictext
+dim openlabel1 as statictext
+dim openlabel2 as statictext
+
+OBMain.create:
+SETPOSITION OBMain,0,0,1024,740
+lf.lfHeight=-12
+lf.lfFaceName="ariel"
+CreateFont myfont,lf
+CONSTRUCT StatusBar,0,0,0,0
+CONSTRUCT grd,0,32,450,638
+grd.font=myfont
+construct chk1,450,100,80,20
+construct openlabel1,500,100,400,20
+construct openlabel2,500,200,400,20
+
+grd.backcolor=$00ffff
+grd.forecolor=$0000ff
+grd.gridcolor=$00ff00
+
+grd.addcol LONG,40,"#",center,center,31
+grd.addcol TEXT,100,"Address",center,center,31
+grd.addcol TEXT,100,"Data 1",center,center,31
+grd.addcol TEXT,100,"Data 2",center,center,31
+grd.addcol check,100,"Difference",center,center,31
+
+for TempInt=1 to 2048
+	grd.addrow
+	grd.value(TempInt,1)=TempInt
+	TempStr=hex(TempInt-1)
+	grd.text(TempInt,2)=TempStr	
+next TempInt
+
+TempInt=40
+grd.headerheight=20
+grd.rowheight=20
+
+construct open1,0,5,80,20
+open1.text="Open 1"
+construct open2,100,5,80,20
+open2.text="Open 2"
+construct exit,200,5,80,20
+exit.text="Exit"
+
+OBMain.TEXT="Toyo Memory Card Diffs"
+FileName="Untitled"
+FileFilter="Mem Card",0,"*.pcc",0,0
+InitDir="c:\my documents"
+END EVENT
+
+open1.command
+FileName=""
+OPENDIALOG FileName,FileFilter,InitDir
+IF STATUS<>0 THEN
+	chkwd=0
+	open f1 ,FileName:read
+	bufread f1,addr(buf1),2048
+	close f1
+	TempStr="File 1: "+FileName
+	openlabel1.text=TempStr
+	for i=1 to 2048
+		TempStr=hex(buf1(i))
+		grd.text(i,3)=TempStr
+		if i<2047 then
+			chkwd=chkwd+buf1(i)
+		endif
+	next i
+	TempStr=hex(chkwd)
+	chk1.text=TempStr
+	gosub checker
+ENDIF
+END EVENT
+
+open2.command
+FileName=""
+OPENDIALOG FileName,FileFilter,InitDir 
+IF STATUS<>0 THEN
+	open f1 ,FileName:read
+	bufread f1,addr(buf1),2048
+	close f1
+	TempStr="File 2: "+FileName
+	openlabel2.text=TempStr
+	for i=1 to 2048
+		TempStr=hex(buf1(i))
+		grd.text(i,4)=TempStr
+	next i
+	gosub checker
+ENDIF
+END EVENT
+
+checker:
+for i=1 to 2048
+	TempStr=grd.text(i,3)
+	TempStr2=grd.text(i,4)
+	if TempStr=TempStr2 then
+		grd.value(i,5)=0
+	else
+		grd.value(i,5)=1
+	endif
+next i
+return
+
+exit.command
+end
+end event
+
+

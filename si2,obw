@@ -1,0 +1,1 @@
+; Dimension Variablesdim grid as ragridOBMain.CREATEsetposition OBMain,0,0,1024,768construct grid,0,40,1024,700END EVENT

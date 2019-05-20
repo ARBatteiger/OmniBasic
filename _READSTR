@@ -1,0 +1,22 @@
+/* _ReadStr(VarAddr) */
+
+extern unsigned char *_DataPtr;
+extern unsigned char *_DataPtrSaf;
+
+void _ReadStr(_destptr,_maxlen)
+char *_destptr;
+long _maxlen;
+{
+if (*_DataPtr == 0) _DataPtr=_DataPtrSaf; /* end  of data.. re-cycle */
+if(*_DataPtr == 0x80) _DataPtr++; /* bump past NULL */
+while ((*_DataPtr) && (_maxlen)) /* move data loop */
+	{
+	*_destptr=*_DataPtr;
+	_destptr++;
+	_DataPtr++;
+	_maxlen--;
+	}
+if (_maxlen) *_destptr=0; /* string not full , mark end */
+while (*_DataPtr) _DataPtr++; /* when dest len less than data len */
+_DataPtr++; /* bump past end mark */
+}

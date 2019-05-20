@@ -1,0 +1,29 @@
+/* _TrmStr(&Str1) */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+static _StrVec _Op1;
+
+int _TrmStr(_Op1Ptr)
+_StrVec *_Op1Ptr;
+{
+ long _Length;
+ long _MaxLen;
+ unsigned char *_StrPtr;
+_Length=0; /* init count */
+_Op1=*_Op1Ptr;
+_StrPtr=_Op1._Ptr; /* get string pointer from vector */
+_MaxLen=_Op1._Len; /* get max length from vector */
+while ((*_StrPtr++) && (_Length <= _MaxLen)) _Length++; /* get str len */
+_StrPtr=_StrPtr-2;
+if (_Length)
+        {
+        while ((*_StrPtr-- == 0x20) && (_Length)) _Length--; /* remove SP */
+        }
+_Op1._Len=_Length;
+*_Op1Ptr=_Op1;
+}

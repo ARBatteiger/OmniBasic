@@ -1,0 +1,11 @@
+GET[sec]
+PCkey
+EXIT
+MIN
+"GET[F#]
+d>
+D<=
+D*
+DMAX
+?CALvlu>BLNKvlu
+(+LOOP); Doesn't skip following BrnOffs

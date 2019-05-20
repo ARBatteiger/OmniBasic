@@ -1,0 +1,1 @@
+; Dimension Variablesdim i as longOBMain.CREATEfor i=1 to 10	continuenextEND EVENT

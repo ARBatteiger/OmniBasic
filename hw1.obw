@@ -1,0 +1,1 @@
+DIM StaticText AS STATICTEXTdim LF1 as logfontdim Font1 as fontOBMain.createSETPOSITION OBMain,40,40,100,50CONSTRUCT StaticText,5,5,80,80LF1.lfHeight=10LF1.lfFaceName="RhumbaScript"CreateFont Font1,LF1OBMain.font=Font1StaticText.text="Hello World"OBMain.text="Havis"END EVENT

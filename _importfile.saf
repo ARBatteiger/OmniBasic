@@ -1,0 +1,241 @@
+
+include 'include\kernel.inc'
+include 'include\user.inc'
+include 'include\gdi.inc'
+include 'include\comctl.inc'
+include 'include\comdlg.inc'
+include 'include\shell.inc'
+
+include 'include\macro\import.inc'
+include 'include\macro\stdcall.inc'
+include 'include\macro\resource.inc'
+
+section '.idata' import data readable writeable
+
+library kernel32, 'kernel32.dll',\
+        user32,'User32.dll',\
+        gdi,'GDI32.DLL',\
+        comctl,'COMCTL32.DLL',\
+        comdlg,'COMDLG32.DLL',\
+        shell,'SHELL32.DLL',\
+        advapi,'ADVAPI32.DLL'
+
+kernel32:
+        import  AddAtomA,'AddAtomA',\
+                AddAtomW,'AddAtomW',\
+                AllocConsole,'AllocConsole',\
+                AreFileApisANSI,'AreFileApisANSI',\
+                BackupRead,'BackupRead',\
+                BackupSeek,'BackupSeek',\
+                BackupWrite,'BackupWrite',\
+                Beep,'Beep',\
+                BeginUpdateResourceA,'BeginUpdateResourceA',\
+                BeginUpdateResourceW,'BeginUpdateResourceW',\
+                BuildCommDCBA,'BuildCommDCBA',\
+                BuildCommDCBAndTimeoutsA,'BuildCommDCBAndTimeoutsA',\
+                BuildCommDCBAndTimeoutsW,'BuildCommDCBAndTimeoutsW',\
+                BuildCommDCBW,'BuildCommDCBW',\
+                ClearCommBreak,'ClearCommBreak',\
+                ClearCommError,'ClearCommError',\
+                CommConfigDialog,'CommConfigDialogA',\
+                EscapeCommFunction,'EscapeCommFunction',\
+                GetCommConfig,'GetCommConfig',\
+                GetCommMask,'GetCommMask',\
+                GetCommModemStatus,'GetCommModemStatus',\
+                GetCommProperties,'GetCommProperties',\
+                GetCommState,'GetCommState',\
+                GetCommTimeouts,'GetCommTimeouts',\
+                GetDefaultCommConfig,'GetDefaultCommConfigA',\
+                PurgeComm,'PurgeComm',\
+                SetCommBreak,'SetCommBreak',\
+                SetCommConfig,'SetCommConfig',\
+                SetCommMask,'SetCommMask',\
+                SetCommState,'SetCommState',\
+                SetCommTimeouts,'SetCommTimeouts',\
+                SetDefaultCommConfig,'SetDefaultCommConfigA',\
+                SetupComm,'SetupComm',\
+                TransmitCommChar,'TransmitCommChar',\
+                WaitCommEvent,'WaitCommEvent',\
+                CloseHandle,'CloseHandle',\
+                CopyFile,'CopyFileA',\
+                CreateFile,'CreateFileA',\
+                CreatePipe,'CreatePipe',\
+                CreateProcess,'CreateProcessA',\
+                DeleteFile,'DeleteFileA',\
+                DuplicateHandle,'DuplicateHandle',\
+                ExitProcess,'ExitProcess',\
+                FreeLibrary,'FreeLibrary',\
+                GetCommandLine,'GetCommandLineA',\
+                GetCurrentProcess,'GetCurrentProcess',\
+                GetExitCodeProcess,'GetExitCodeProcess',\
+                GetFileSize,'GetFileSize',\
+                GetFileType,'GetFileType',\
+                GetFullPathName,'GetFullPathNameA',\
+                GetModuleHandle,'GetModuleHandleA',\
+                GetStdHandle,'GetStdHandle',\
+                LoadLibrary,'LoadLibraryA',\
+                LoadModule,'LoadModule',\
+                ReadConsole,'ReadConsoleA',\
+                ReadFile,'ReadFile',\
+                SetCurrentDirectory,'SetCurrentDirectoryA',\
+                SetFilePointer,'SetFilePointer',\
+                VirtualAlloc,'VirtualAlloc',\
+                VirtualFree,'VirtualFree',\
+                WinExec,'WinExec',\
+                WriteConsole,'WriteConsoleA',\
+                WriteFile,'WriteFile'
+
+user32:
+        import  CheckDlgButton,'CheckDlgButton',\
+                CheckRadioButton,'CheckRadioButton',\
+                CheckMenuItem,'CheckMenuItem',\
+                CreateWindowEx,'CreateWindowExA',\
+                DefFrameProc,'DefFrameProcA',\
+                DefMDIChildProc,'DefMDIChildProcA',\
+                DefWindowProc,'DefWindowProcA',\
+                DialogBoxParam,'DialogBoxParamA',\
+                DispatchMessage,'DispatchMessageA',\
+                EnableMenuItem,'EnableMenuItem',\
+                EnableWindow,'EnableWindow',\
+                EndDialog,'EndDialog',\
+                GetClientRect,'GetClientRect',\
+                GetDlgItem,'GetDlgItem',\
+                GetDlgItemInt,'GetDlgItemInt',\
+                GetDlgItemText,'GetDlgItemTextA',\
+                GetMessage,'GetMessageA',\
+                GetSubMenu,'GetSubMenu',\
+                GetWindowLong,'GetWindowLongA',\
+                GetWindowRect,'GetWindowRect',\
+                GetSysColor,'GetSysColor',\
+                GetSystemMetrics,'GetSystemMetrics',\
+                GetWindowPlacement,'GetWindowPlacement',\
+                InvalidateRect,'InvalidateRect',\
+                IsClipboardFormatAvailable,'IsClipboardFormatAvailable',\
+                IsDlgButtonChecked,'IsDlgButtonChecked',\
+                LoadAccelerators,'LoadAcceleratorsA',\
+                LoadCursor,'LoadCursorA',\
+                LoadIcon,'LoadIconA',\
+                LoadMenu,'LoadMenuA',\
+                MessageBox,'MessageBoxA',\
+                MoveWindow,'MoveWindow',\
+                PostQuitMessage,'PostQuitMessage',\
+                RedrawWindow,'RedrawWindow',\
+                RegisterClass,'RegisterClassA',\
+                SendDlgItemMessage,'SendDlgItemMessageA',\
+                SendMessage,'SendMessageA',\
+                SetCursor,'SetCursor',\
+                SetDlgItemText,'SetDlgItemTextA',\
+                SetFocus,'SetFocus',\
+                SetWindowLong,'SetWindowLongA',\
+                SetWindowPlacement,'SetWindowPlacement',\
+                TranslateAccelerator,'TranslateAcceleratorA',\
+                TranslateMDISysAccel,'TranslateMDISysAccel',\
+                TranslateMessage,'TranslateMessage',\
+                UpdateWindow,'UpdateWindow',\
+                WinHelp,'WinHelpA',\
+                wvsprintf,'wvsprintfA'
+
+gdi:
+        import  CreateFontIndirect,'CreateFontIndirectA',\
+                DeleteObject,'DeleteObject'
+
+comctl:
+        import  CreateMappedBitmap,'CreateMappedBitmap',\
+                CreatePropertySheetPage,'CreatePropertySheetPageA',\
+                CreateStatusWindow,'CreateStatusWindowA',\
+                CreateToolbar,'CreateToolbar',\
+                CreateUpDownControl,'CreateUpDownControl',\
+                DestroyPropertySheetPage,'DestroyPropertySheetPage',\
+                DllGetVersion,'DllGetVersion',\
+                DllInstall,'DllInstall',\
+                DrawInsert,'DrawInsert',\
+                DrawStatusText,'DrawStatusTextA',\
+                FlatSB_EnableScrollBar,'FlatSB_EnableScrollBar',\
+                FlatSB_GetScrollInfo,'FlatSB_GetScrollInfo',\
+                FlatSB_GetScrollPos,'FlatSB_GetScrollPos',\
+                FlatSB_GetScrollProp,'FlatSB_GetScrollProp',\
+                FlatSB_GetScrollRange,'FlatSB_GetScrollRange',\
+                FlatSB_SetScrollInfo,'FlatSB_SetScrollInfo',\
+                FlatSB_SetScrollPos,'FlatSB_SetScrollPos',\
+                FlatSB_SetScrollProp,'FlatSB_SetScrollProp',\
+                FlatSB_SetScrollRange,'FlatSB_SetScrollRange',\
+                FlatSB_ShowScrolBar,'FlatSB_ShowScrollBar',\
+                GetEffectiveClientRect,'GetEffectiveClientRect',\
+                GetMUILanguage,'GetMUILanguage',\
+                ImageList_Add,'ImageList_Add',\
+                ImageList_AddIcon,'ImageList_AddIcon',\
+                ImageList_AddMasked,'ImageList_AddMasked',\
+                ImageList_BeginDrag,'ImageList_BeginDrag',\
+                ImageList_Copy,'ImageList_Copy',\
+                ImageList_Create,'ImageList_Create',\
+                ImageList_Destroy,'ImageList_Destroy',\
+                ImageList_DragEnter,'ImageList_DragEnter',\
+                ImageList_DragLeave,'ImageList_DragLeave',\
+                ImageList_DragMove,'ImageList_DragMove',\
+                ImageList_DragShowNolock,'ImageList_DragShowNolock',\
+                ImageList_Draw,'ImageList_Draw',\
+                ImageList_DrawEx,'ImageList_DrawEx',\
+                ImageList_DrawIndirect,'ImageList_DrawIndirect',\
+                ImageList_Duplicate,'ImageList_Duplicate',\
+                ImageList_EndDrag,'ImageList_EndDrag',\
+                ImageList_GetBkColor,'ImageList_GetBkColor',\
+                ImageList_GetDragImage,'ImageList_GetDragImage',\
+                ImageList_GetIcon,'ImageList_GetIcon',\
+                ImageList_GetIconSize,'ImageList_GetIconSize',\
+                ImageList_GetImageCount,'ImageList_GetImageCount',\
+                ImageList_GetImageInfo,'ImageList_GetImageInfo',\
+                ImageList_GetImageRect,'ImageList_GetImageRect',\
+                ImageList_LoadImage,'ImageList_LoadImage',\
+                ImageList_Merge,'ImageList_Merge',\
+                ImageList_Read,'ImageList_Read',\
+                ImageList_Remove,'ImageList_Remove',\
+                ImageList_Replace,'ImageList_Replace',\
+                ImageList_ReplaceIcon,'ImageList_ReplaceIcon',\
+                ImageList_SetBkColor,'ImageList_SetBkColor',\
+                ImageList_SetDragCursorImage,'ImageList_SetDragCursorImage',\
+                ImageList_SetFilter,'ImageList_SetFilter',\
+                ImageList_SetFlags,'ImageList_SetFlags',\
+                ImageList_SetIconSize,'ImageList_SetIconSize',\
+                ImageList_SetImageCount,'ImageList_SetImageCount',\
+                ImageList_SetOverlayImage,'ImageList_SetOverlayImage',\
+                ImageList_Write,'ImageList_Write',\
+                InitCommonControls,'InitCommonControls',\
+                InitCommonControlsEx,'InitCommonControlsEx',\
+                InitMUILanguage,'InitMUILanguage',\
+                InitializeFlatSB,'InitializeFlatSB',\
+                LBItemFromPt,'LBItemFromPt',\
+                MakeDragList,'MakeDragList',\
+                MenuHelp,'MenuHelp',\
+                PropertySheet,'PropertySheetA',\
+                ShowHideMenuCtl,'ShowHideMenuCtl',\
+                UninitializeFlatSB,'UninitializeFlatSB',\
+                _TrackMouseEvent,'_TrackMouseEvent'
+
+comdlg:
+        import  ChooseFont,'ChooseColorA',\
+                ChooseColor,'ChooseFontA',\
+                FindText,'FindTextA',\
+                GetFileTitle,'GetFileTitleA',\
+                GetOpenFileName,'GetOpenFileNameA',\
+                GetSaveFileName,'GetSaveFileNameA',\
+                PageSetupDlg,'PageSetupDlgA',\
+                PrintDlg,'PrintDlgA',\
+                ReplaceText,'ReplaceTextA'
+
+shell:
+        import  DragAcceptFiles,'DragAcceptFiles',\
+                DragQueryFile,'DragQueryFile',\
+                DragFinish,'DragFinish',\
+                Shell_NotifyIcon,'Shell_NotifyIcon'
+
+advapi:
+        import  RegCreateKeyEx,'RegCreateKeyExA',\
+                RegOpenKeyEx,'RegOpenKeyExA',\
+                RegSetValueEx,'RegSetValueExA',\
+                RegQueryValueEx,'RegQueryValueExA',\
+                RegCloseKey,'RegCloseKey'
+
+; End of Import Section
+
+
+

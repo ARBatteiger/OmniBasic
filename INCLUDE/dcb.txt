@@ -1,0 +1,30 @@
+typedef struct _DCB {
+  DWORD DCBlength
+  DWORD BaudRate
+  DWORD fBinary
+  DWORD fParity
+  DWORD fOutxCtsFlow
+  DWORD fOutxDsrFlow
+  DWORD fDtrControl
+  DWORD fDsrSensitivity
+  DWORD fTXContinueOnXoff
+  DWORD fOutX
+  DWORD fInX
+  DWORD fErrorChar
+  DWORD fNull
+  DWORD fRtsControl
+  DWORD fAbortOnError
+  DWORD fDummy2 
+  WORD wReserved
+  WORD XonLim
+  WORD XoffLim
+  BYTE ByteSize
+  BYTE Parity
+  BYTE StopBits
+  char XonChar
+  char XoffChar
+  char ErrorChar
+  char EofChar
+  char EvtChar
+  WORD wReserved1
+} DCB;

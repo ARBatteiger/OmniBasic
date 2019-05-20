@@ -1,0 +1,66 @@
+/* long _SubStr(&StrVec1,&StrVec2,_StartPos) */
+
+/* Enter with string to find in StrVec1 and target string StrVec2 */
+/* Return position in string 1 if found, 0 if not found */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+long _SubStr(_Op1Adr,_Op2Adr,_StartPos)
+_StrVec *_Op1Adr;
+_StrVec *_Op2Adr;
+long _StartPos;
+{
+_StrVec _Op1;
+_StrVec _Op2;
+register char *_Op1Ptr;
+register char *_Op2Ptr;
+long _Op1Len;
+long _Op2Len;
+long _FindLen;
+long _TryOffs;
+
+_Op1=*_Op1Adr;
+_Op2=*_Op2Adr;
+_Op1Ptr=_Op1._Ptr;
+_StartPos--;
+_Op2Len=_Op2._Len-_StartPos;
+_Op2Ptr=_Op2._Ptr+_StartPos;
+_Op1Len=_Op1._Len;
+_FindLen=0;
+_Op2Len++;
+_TryOffs=_StartPos;
+
+_Op1LenLp:;
+if (*_Op1Ptr == 0) goto _Op1LenDn; 
+_FindLen++;
+_Op1Ptr++;
+_Op1Len--;
+if (_Op1Len != 0) goto _Op1LenLp;
+_Op1LenDn:;
+_Op1Len=_FindLen;
+if (_Op1Len == 0) goto _Fail;
+
+_NewTry:;
+_Op1Ptr=_Op1._Ptr;
+_Op2Ptr=_Op2._Ptr+_TryOffs;
+_TryOffs++;
+_Op2Len--;
+if (_Op2Len < _Op1Len) goto _Fail;
+_FindLen=0;
+
+_FindLp:;
+if (*_Op2Ptr == 0) goto _Fail;
+if (*_Op1Ptr != *_Op2Ptr) goto _NewTry;
+_FindLen++;
+if (_FindLen == _Op1Len) return _TryOffs;
+_Op1Ptr++;
+_Op2Ptr++;
+goto _FindLp; 
+
+_Fail:;
+return 0;
+}

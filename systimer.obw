@@ -1,0 +1,1 @@
+; Dimension Variablesdim t1 as timerdim x as longOBMain.CREATEt1.interval=1000invoke SetTimer,[!OBMain],$ffff,1,0mov [!Timer],vecEND EVENTvec:incr x;OBMain.text=str(x)returnt1.timerOBMain.text=str(x)end event

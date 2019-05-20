@@ -1,0 +1,6 @@
+Short Cycle   12/15/2005 11:03:15 AM       0            000.000
+Short Cycle   12/15/2005 11:03:59 AM       0            000.000
+Short Cycle   12/15/2005 11:04:26 AM       7            0.00
+Short Cycle   12/15/2005 11:04:58 AM       0            000.000
+Short Cycle   12/15/2005 11:19:50 AM       7            0.00
+Short Cycle   12/15/2005 11:20:10 AM       7            0.00

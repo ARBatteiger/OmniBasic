@@ -1,0 +1,21 @@
+dim file1 as file
+dim file2 as file
+dim file3 as file
+dim s1 as string*1000
+dim s2 as string*1000
+
+open file1,"tsma.asm":read
+open file2,"tsmb.asm":read
+create file3,"difs.txt":write
+
+while not(eof(file1)) do
+	read file1,s1
+	read file2,s2
+	if s1<>s2 then
+		write file3,s1
+		write file3,s2
+	endif
+end while
+
+
+

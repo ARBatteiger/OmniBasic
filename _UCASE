@@ -1,0 +1,33 @@
+/* _UCase(&Str1,_UL) */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+static _StrVec _Op1;
+
+void _UCase(_Op1Ptr)
+_StrVec *_Op1Ptr;
+{
+register char *_StrPtr;
+register long _StrLen;
+_StrLen1:;
+_Op1=*_Op1Ptr;
+_Op1Ptr=_Op1._Lnk;
+if (_Op1._Len == 0) goto _StrLen3;
+_StrPtr=_Op1._Ptr;
+_StrLen=_Op1._Len;
+
+_StrLen2:;
+if (*_StrPtr == 0) goto _StrLen3;
+if ((*_StrPtr >= 'a') && (*_StrPtr <= 'z')) *_StrPtr = *_StrPtr & 0xdf;
+_StrPtr++;
+_StrLen--;
+if (_StrLen !=0 ) goto _StrLen2;
+
+_StrLen3:;
+if (_Op1Ptr != 0) goto _StrLen1;
+return;
+}

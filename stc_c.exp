@@ -1,0 +1,27 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file stc_c.pyd
+
+File Type: DLL
+
+  Section contains the following exports for stc_c.pyd
+
+           0 characteristics
+    3E7B803D time date stamp Fri Mar 21 15:12:29 2003
+        0.00 version
+           1 ordinal base
+           1 number of functions
+           1 number of names
+
+    ordinal hint RVA      name
+
+          1    0 0004BF70 initstc_c
+
+  Summary
+
+       19000 .data
+        9000 .rdata
+        6000 .reloc
+       4F000 .text

@@ -1,0 +1,51 @@
+/* _PrintStr(VecAddr,_BufSize) */
+/* Prints string described in vector pointed to by VecAddr */
+/* to device indicated by _PrtPthNum */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+extern unsigned char _PrtPthNum;
+extern long STATUS;
+extern long POS;
+extern char _PrintBuf[];
+
+void _PrintStr(_Op1Ptr,_bufsize)
+_StrVec *_Op1Ptr;
+long _bufsize;
+{
+_StrVec _Op1;
+long _maxlen;
+char *_bufptr;
+char *_prtbufptr;
+long _bytecount;
+char _databyte;
+_prtbufptr=_PrintBuf;
+_bytecount=0;
+STATUS=0;
+_PStr1:;
+_Op1=*_Op1Ptr;
+_bufptr=_Op1._Ptr;
+_maxlen=_Op1._Len;
+_Op1Ptr=_Op1._Lnk;
+if (_maxlen == 0) goto _PStr3;
+_PStr2:;
+_databyte=*_bufptr;
+_bufptr++;
+if (_databyte == 0) goto _PStr3;
+*_prtbufptr=_databyte;
+_prtbufptr++;
+_bytecount++;
+POS++;
+if (_bytecount > _bufsize) goto _PStr4;
+_maxlen--;
+if (_maxlen) goto _PStr2;
+_PStr3:;
+if (_Op1Ptr) goto _PStr1;
+if (_bytecount == 0) return;
+_PStr4:;
+STATUS=write(_PrtPthNum,_PrintBuf,_bytecount);
+}

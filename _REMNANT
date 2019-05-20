@@ -1,0 +1,50 @@
+/* _Remnant(&StrVec,Quantity,Target) */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+void _Remnant(_VecPtr,_quan,_target)
+_StrVec *_VecPtr;
+long _quan;
+char _target;
+{
+_StrVec _WorkVec;
+register long _bytecount;
+register char *_baseptr;
+long _maxlen;
+
+_quan=_StrLen(_VecPtr)-_quan+1;
+_WorkVec=*_VecPtr;
+_WorkVec._Lnk=0;
+if ((_quan <= 0) || (_WorkVec._Ptr == 0) || (_WorkVec._Len ==0 ))
+	{
+	_WorkVec._Len=0;
+	*_VecPtr=_WorkVec;
+	return;
+	}
+if (_quan > _WorkVec._Len) _quan=_WorkVec._Len;
+_baseptr=_WorkVec._Ptr;
+_maxlen=_WorkVec._Len;
+if (_target == 0)
+	{
+	_bytecount=0;
+	while ((*_baseptr) && (_maxlen))
+		{
+		_bytecount++;
+		_maxlen--;
+		_baseptr++;
+		}
+	_WorkVec._Len=_bytecount;
+	}
+else
+	{
+	_bytecount=_WorkVec._Len;
+	_WorkVec._Len=_quan;
+	}
+if (_quan >= _bytecount) return;
+_WorkVec._Ptr=_WorkVec._Ptr+(_bytecount-_quan);
+*_VecPtr=_WorkVec;
+}

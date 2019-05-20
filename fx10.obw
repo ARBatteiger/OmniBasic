@@ -1,0 +1,1004 @@
+CONST FXCodeLines=5736
+
+DIM Functions AS LISTBOX
+DIM FcnTitle AS STATICBOX
+DIM FcnText AS LISTBOX
+DIM FcnTextTitle AS STATICBOX
+DIM StackView AS LISTBOX
+DIM VarView AS LISTBOX
+DIM VarViewTitle AS STATICBOX
+DIM RecordView AS LISTBOX
+DIM StackViewTitle AS STATICBOX
+DIM StatusBar AS STATUSBAR
+DIM UnrollButton AS BUTTON
+DIM UnrollDisplay AS STATICBOX
+DIM StepButton AS BUTTON
+DIM RunButton AS BUTTON
+DIM RecordButton AS BUTTON
+DIM RecordDisplay AS STATICBOX
+DIM TextBox AS TEXTBOX
+DIM AddButton AS BUTTON
+DIM DelButton AS BUTTON
+DIM ClrButton AS BUTTON
+DIM dbg1 as STATICBOX
+DIM dbg2 as STATICBOX
+
+TYPE Prop
+	OpName AS STRING*20
+	Comment AS STRING*50
+	OpLabel AS LABEL
+	Unroll AS BOOLEAN
+	StackRemove AS BYTE
+	AppendWords AS BYTE
+END TYPE
+
+DIM RecordFile AS FILE
+DIM RStack AS STRING*20
+DIM TOpName AS STRING*20
+DIM TComment AS STRING*50
+DIM TOpLabel AS LABEL
+DIM TUnroll AS BOOLEAN
+DIM TStackRemove AS BYTE
+DIM TAppendWords AS BYTE
+DIM StepDone AS BOOLEAN
+DIM UnrollEnabled AS BOOLEAN
+DIM RecordEnabled AS BOOLEAN
+DIM ShowRecordView AS BOOLEAN
+DIM UnrollFlag AS BOOLEAN
+DIM TextEnd AS BOOLEAN
+DIM KeyFound AS BOOLEAN
+DIM CodeFile AS FILE
+DIM FXCode(FXCodeLines) AS STRING*20
+DIM I AS LONG
+DIM J AS LONG
+DIM K AS LONG
+DIM L AS LONG
+DIM FindFcnNdx AS LONG
+DIM GetFcnNdx1 AS LONG
+DIM GetFcnNdx2 AS LONG
+DIM GetFcnNdx3 AS LONG
+DIM GetFcnNdx4 AS LONG
+DIM GetFcnNdx5 AS LONG
+DIM GetFcnNdx6 AS LONG
+DIM GetFcnNdx7 AS LONG
+DIM GetFcnNdx8 AS LONG
+DIM GetFcnNdx9 AS LONG
+DIM KeyNdx AS LONG
+DIM KeyNdx1 AS LONG
+DIM KeyNdx2 AS LONG
+DIM KeyNdx3 AS LONG
+DIM KeyNdx4 AS LONG
+DIM KeyNdx5 AS LONG
+DIM KeyNdx6 AS LONG
+DIM KeyNdx7 AS LONG
+DIM KeyNdx8 AS LONG
+DIM KeyNdx9 AS LONG
+DIM TempStr AS STRING*80
+DIM WriteStr AS STRING
+DIM TempByte(80) AS BYTE VECTOR
+DIM TempInt AS LONG
+DIM FORTHStack(4) AS STRING*80
+DIM LastKey AS LONG
+DIM FcnName AS STRING*20
+DIM FcnTextSel AS LONG
+DIM FcnTextItems AS LONG
+DIM StackViewNdx AS LONG
+DIM StackViewItems AS LONG
+DIM PrimaryCode AS STRING*20
+DIM LookupCode AS STRING*20
+DIM SecondaryCode AS STRING*20
+dim dbgint as long
+dim dbgstr as string
+
+OBMain.create
+
+SETPOSITION OBMain,0,0,1024,740
+OBMain.TEXT="FX Analysis"
+
+SETVEC TempByte=ADDR(TempStr)
+
+MENU OBMain
+	MENUBAR MainMenu
+		MENUTITLE FILEMENU,"File"
+			MENUITEM MenuExit,"Exit"
+END MENU
+
+TABLE Ops As Prop
+"#"," ",NOOPX,FALSE,0,0; Format
+"#S"," ",NOOPX,FALSE,0,0; Format
+"<#"," ",NOOPX,FALSE,0,0; Format
+"#>"," ",NOOPX,FALSE,0,0; Format
+"HOLD"," ",NOOPX,FALSE,0,0; Format
+"SIGN"," ",NOOPX,FALSE,0,0; Format
+"''RNGERR"," ",NOOPX,FALSE,0,0; String
+".","Print to Screen",NOOPX,FALSE,0,0; Done
+".''","Print Literal String",NOOPX,FALSE,0,2; Done
+"@","Put Data Contained in TOS Addr to TOS",LoadX,FALSE,1,0; Done
+"@TEST-SIG","Sum of 8 readings",NOOPX,TRUE,0,0
+"@TEST[sig0]"," ",NOOPX,TRUE,0,0
+"@TEST[sig1]"," ",NOOPX,TRUE,0,0
+"@TEST[sig2]"," ",NOOPX,TRUE,0,0
+"@TEST[sig3]"," ",NOOPX,TRUE,0,0
+"!","Store NOS to Addr in TOS",StoreX,FALSE,2,0; Done
+"!CLKDTA","TOS->RTCcntl, NOS->RTCData",NOOPX,FALSE,2,0; Done
+"=","NOS < TOS?",BoolX,FALSE,2,0; Done
+"<","NOS < TOS?",BoolX,FALSE,2,0; Done
+">","NOS > TOS?",BoolX,FALSE,2,0; Done
+">=","NOS >= TOS?",BoolX,FALSE,2,0; Done
+"<>","NOS <> TOS?",BoolX,FALSE,2,0; Done
+">R","Move TOS to Return Stack",StoreTOSX,FALSE,1,0; Done 
+"R>","Retrieve TOS from return stack",RestoreTOSX,FALSE,0,0; Done
+"0=","Set TOS to TRUE if 0, ELSE FALSE",BoolX,FALSE,1,0; Done
+"0<","TOS  <0?",BoolX,FALSE,1,0; Done
+"0<>","TOS  <>0?",BoolX,FALSE,1,0; Done
+"0>=","TOS>= 0?",BoolX,FALSE,1,0; Done
+"1+","Add 1 TO TOS",Add1X,FALSE,1,0; Done
+"2+","Add 2 TO TOS",Add2X,FALSE,1,0; Done
+"1-","Subtract 1 From TOS",Subtract1X,FALSE,1,0; Done
+"2@","Fetches a Double Integer to the Stack",Load2X,FALSE,1,0; Done
+"2!","Store NOS and 2nd NOS to Addr in TOS",Store2X,FALSE,3,0; Done
+"2*","Multiply TOS by 2",Mul2X,FALSE,1,0; Done
+"2/","Divide TOS by 2",Div2X,FALSE,1,0; Done
+"2DROP","Remove TOS and NOS",NOOPX,FALSE,2,0; Done
+"2DUP","Duplicate TOS/NOS",Dup2X,FALSE,2,0; Done
+"+!","Add NOS to Addr in TOS",NOOPX,FALSE,2,0; Done
+"+","Add NOS To TOS",AddX,FALSE,2,0; Done
+"-","Subtract TOS From NOS",SubtractX,FALSE,2,0; Done
+"*","Multiply TOS by NOS",MulX,FALSE,2,0; Done
+"/","Divide TOS by NOS",DivX,FALSE,2,0; Done
+"*/"," ",NOOPX,FALSE,0,0
+"/MOD"," ",NOOPX,TRUE,0,0
+"/RND"," ",NOOPX,FALSE,0,0
+"(DO)"," DO Loop NOS=Limit, TOS=Index",NOOPX,FALSE,2,0
+"(LOOP)"," End of DO Loop",NOOPX,FALSE,0,0
+"(+LOOP)"," End of DO Loop, Inc by previous",NOOPX,FALSE,0,0
+")"," ",NOOPX,FALSE,0,0
+"?VIAL-IN"," ",NOOPX,TRUE,0,0
+"?VIAL-OUT"," ",NOOPX,TRUE,0,0
+"?DATA-STABLE"," ",NOOPX,TRUE,0,0
+"A/DCNVRT","Result of A/D in TOS",ADConvX,FALSE,0,0; Done
+"ABS"," ",NOOPX,TRUE,0,0
+"AGCGAIN"," ",NOOPX,TRUE,0,0
+"AND","AND NOS with TOS",AndX,FALSE,2,0; Done
+"AVE-DATA"," ",NOOPX,TRUE,0,0
+"BRANCH","Branch by Offset in Next Word",NOOPX,FALSE,0,1; Done
+"C@","Put Char Contained in TOS Addr to TOS",LoadCX,FALSE,1,0
+"C!","Store NOS (Char) to Addr in TOS",StoreX,FALSE,2,0; Done
+"CALC[AveS/R]"," ",NOOPX,TRUE,0,0
+"CALC-GAINS"," ",NOOPX,TRUE,0,0
+"CHK-GAINok"," ",NOOPX,TRUE,0,0
+"CHK-MIN/MAX"," ",NOOPX,TRUE,0,0
+"ChrLit","Put (Char) value that follows on TOS",LITX,FALSE,0,1; Done
+"CLRtimer"," ",NOOPX,TRUE,0,0
+"CMOVE","Char Block Move (Src,Dst,Cnt)",NOOPX,FALSE,3,0; Done
+"CR","Send Carriage Return",NOOPX,FALSE,0,0; Done
+"CSP"," ",NOOPX,TRUE,0,0
+"Const"," ",VarX,FALSE,0,0; Done
+"D<"," ",NOOPX,FALSE,0,0
+"D>"," ",NOOPX,FALSE,0,0
+"D+"," ",NOOPX,FALSE,0,0
+"D/"," ",NOOPX,FALSE,0,0
+"D."," ",NOOPX,FALSE,0,0
+"DELAY[ms]"," ",NOOPX,TRUE,0,0
+"DISPLAY-DATA"," ",NOOPX,TRUE,0,0
+"DISPLAY-QUES"," ",NOOPX,TRUE,0,0
+"DSPLYGc's"," ",NOOPX,TRUE,0,0
+"DROP","Delete TOS",NOOPX,FALSE,1,0; Done
+"DUP","Duplicate TOS",DupX,FALSE,1,0; Done
+"ELSE"," ",NOOPX,FALSE,0,0
+"ENDIF"," ",NOOPX,FALSE,0,0
+"EVALGAIN"," ",NOOPX,TRUE,0,0
+"FAIL"," ",NOOPX,TRUE,0,0
+"Finish"," ",NOOPX,FALSE,0,0
+"FIRE-LAMP"," ",NOOPX,TRUE,0,0
+"FORMAT-ANSWER"," ",NOOPX,TRUE,0,0
+"FORMAT-GAIN"," ",NOOPX,TRUE,0,0
+"GAINTEST"," ",NOOPX,TRUE,0,0
+"GETAVE"," ",NOOPX,TRUE,0,0
+"GET[Ref]"," ",NOOPX,TRUE,0,0
+"GET[Sig]"," ",NOOPX,TRUE,0,0
+"GET-TEST-SIG"," ",NOOPX,TRUE,0,0
+"GTYPE-ALL"," ",NOOPX,TRUE,0,0
+"INIT-MEASURE-CYCLE"," ",NOOPX,TRUE,0,0
+"INIT-MEASURE-DATA"," ",NOOPX,TRUE,0,0
+"INIT-SIGFILTER"," ",NOOPX,TRUE,0,0
+"LEAVE"," ",NOOPX,FALSE,0,0
+"LMPFAIL"," ",NOOPX,TRUE,0,0
+"LIT","Put value that follows on TOS",LITX,FALSE,0,1; Done
+"MAX","Max of NOS,TOS-->TOS",NOOPX,TRUE,0,0
+"M/MOD"," ",NOOPX,TRUE,0,0
+"nF*/"," ",NOOPX,TRUE,0,0
+"OBRANCH","Branch by Offset If TOS<>0",NOOPX,FALSE,1,1; Done
+"OR","OR NOS with TOS",OrX,FALSE,2,0; Done
+"OVER","Duplicate NOS at TOS",OverX,FALSE,2,0; Done
+"PRIME-LAMP-CONTROL"," ",NOOPX,TRUE,0,0
+"PRNTCHAR","Print Character",NOOPX,FALSE,0,0
+"R"," ",NOOPX,FALSE,0,0
+"READ-SAMPLE"," ",NOOPX,TRUE,0,0
+"READoffset"," ",NOOPX,TRUE,0,0
+"READtest"," ",NOOPX,TRUE,0,0
+"REJECT-OUTLYER"," ",NOOPX,TRUE,0,0
+"ROT","Rotate Top 3 on Stack",RotX,FALSE,3,0; Done
+"SCALE-GAIN"," ",NOOPX,TRUE,0,0
+"SETGAIN"," ",NOOPX,TRUE,0,0
+"SET-ANALOG-CNTRL"," ",NOOPX,FALSE,0,0; Done
+"SET-#OUTLYRS"," ",NOOPX,TRUE,0,0
+"SHFTDATA"," ",NOOPX,TRUE,0,0
+"REJECT-OUTLYERS"," ",NOOPX,TRUE,0,0
+"SELFTEST"," ",NOOPX,TRUE,0,0
+"SET-#SMPLS"," ",NOOPX,TRUE,0,0
+"SET[Normal]"," ",NOOPX,TRUE,0,0
+"SET[Offset]"," ",NOOPX,TRUE,0,0
+"SETnormalSIG"," ",NOOPX,TRUE,0,0
+"SET-TESTrtn"," ",NOOPX,TRUE,0,0
+"SETtestSIG"," ",NOOPX,TRUE,0,0
+"SMUDGE"," ",NOOPX,TRUE,0,0
+"SP@","Put SP onto TOS",SPLoadX,FALSE,0,0; Done
+"SPACE"," ",NOOPX,FALSE,0,0
+"Stop"," ",NOOPX,FALSE,0,0
+"STOP"," ",NOOPX,FALSE,0,0
+"STATE"," ",NOOPX,TRUE,0,0
+"SWAP","Swap TOS with NOS",SwapX,FALSE,2,0; Done
+"TOGGLE"," ",NOOPX,TRUE,0,0
+"TRIGER-LAMP"," ",NOOPX,TRUE,0,0
+"TSTMSG"," ",NOOPX,TRUE,0,0
+"TYPE"," ",NOOPX,FALSE,0,0
+"TYPEdata"," ",NOOPX,FALSE,0,0
+"TYPE-%Dlta"," ",NOOPX,TRUE,0,0
+"TYPEGAINS"," ",NOOPX,TRUE,0,0
+"UPDATE-OFFSET"," ",NOOPX,TRUE,0,0
+"USER"," ",NOOPX,FALSE,0,1
+"Var"," ",VarX,FALSE,0,0; Done
+"w-TYPE"," ",NOOPX,FALSE,0,0
+"XOR","XOR NOS with TOS",XorX,FALSE,2,0; Done
+ENDTABLE
+
+LastKey=TABLESIZE(Ops)
+
+CONSTRUCT FcnTitle,1,0,170,20
+FcnTitle.TEXT="Functions"
+
+CONSTRUCT Functions,1,20,170,600
+
+ON ERROR GOTO NoCodeFile
+OPEN CodeFile,"fxcode.txt":READ
+FOR I=1 TO FXCodeLines
+	READ CodeFile,FXCode(I)
+	IF LEFT(FXCode(I),1)="^" THEN
+		TempStr=TAIL(FXCode(I),2)
+		Functions.ADDITEMSORTED TempStr
+	ENDIF
+NEXT I
+CLOSE CodeFile
+
+CONSTRUCT FcnTextTitle,173,0,300,20
+FcnTextTitle.TEXT="Function Code"
+
+CONSTRUCT FcnText,173,20,300,600
+
+CONSTRUCT StackViewTitle,475,0,540,20
+StackViewTitle.TEXT="Stack"
+
+CONSTRUCT StackView,475,20,540,280
+
+CONSTRUCT VarViewTitle,475,300,540,30
+VarViewTitle.TEXT="Variables"
+
+CONSTRUCT VarView,475,324,540,290
+
+CONSTRUCT RecordView,475,20,540,280
+ShowRecordView=FALSE
+RecordView.VISIBLE=FALSE
+
+construct dbg1,0,620,300,20
+dbg1.backcolor=$ffff00
+;dbg1.visible=false
+construct dbg2,0,650,300,20
+dbg2.backcolor=$ffff00
+;dbg2.visible=false
+
+CONSTRUCT TextBox,320,620,300,20
+
+CONSTRUCT DelButton,320,650,100,25
+DelButton.TEXT="Delete TOS"
+
+CONSTRUCT ClrButton,430,650,80,25
+ClrButton.TEXT="Clr Stack"
+
+CONSTRUCT AddButton,520,650,100,25
+AddButton.TEXT="Add New TOS"
+
+CONSTRUCT UnrollButton,630,640,80,25
+UnrollButton.TEXT="Unroll"
+
+CONSTRUCT UnrollDisplay,630,615,80,20
+UnrollDisplay.BACKCOLOR=$00ff00
+UnrollDisplay.TEXT="Enabled"
+UnrollEnabled=TRUE
+
+CONSTRUCT StepButton,720,640,80,25
+StepButton.TEXT="Step"
+
+CONSTRUCT RunButton,810,640,80,25
+RunButton.TEXT="Run"
+
+CONSTRUCT RecordButton,900,640,80,25
+RecordButton.TEXT="Record"
+
+CONSTRUCT RecordDisplay,900,615,80,20
+RecordDisplay.BACKCOLOR=$00ff00
+RecordDisplay.TEXT="Off"
+
+Construct StatusBar,0,0,0,0
+
+RStack="Empty"
+
+END EVENT
+
+FcnText.select
+StepDone=FALSE
+END EVENT
+
+PareComment:
+FOR K=1 TO LEN(TempStr)
+	IF MID$(TempStr,K,1)=";" THEN
+		TempByte(K)=0
+		GOTO PareCommentDone
+	ENDIF
+NEXT K
+PareCommentDone:
+RETURN
+
+Functions.select
+StepDone=FALSE
+FcnText.CLEAR
+FcnTextSel=1
+FcnName=Functions.SELTEXT
+FcnTextTitle.TEXT=FcnName
+GOSUB FindFcnName
+GOSUB GetFcnCode1
+FcnText.SELITEM=1
+SkipText:
+FcnText.SELITEM=FcnTextSel
+TempStr=FcnText.SELTEXT
+IF RIGHT$(TempStr,10)="<Unrolled>" OR TempStr="BEGIN" THEN
+	INCR FcnTextSel
+	FcnText.SELITEM=FcnTextSel
+	GOTO SkipText
+ENDIF
+FcnText.ADDITEM " "
+FcnTextItems=FcnText.ITEMCOUNT
+TempStr=STR(FcnTextItems)+" Items"
+dbg1.text=TempStr
+END EVENT
+
+FindFcnName:
+FOR FindFcnNdx=1 TO FXCodeLines
+	EXITIF LEFT(FXCode(FindFcnNdx),1)="^" AND FcnName=TAIL$(FXCode(FindFcnNdx),2)
+NEXT FindFcnNdx
+RETURN
+
+GetFcnCode1:
+FOR GetFcnNdx1=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx1)="Finish"
+	TempStr=FXCode(GetFcnNdx1)
+	FcnName=TempStr
+	FOR KeyNdx1=1 TO LastKey
+		IF Ops(KeyNdx1).OpName=FXCode(GetFcnNdx1) THEN
+			TempStr=FXCode(GetFcnNdx1)+"; "+Ops(KeyNdx1).Comment
+			IF Ops(KeyNdx1).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx1
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode2
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx1
+RETURN
+
+GetFcnCode2:
+FOR GetFcnNdx2=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx2)="Finish"
+	TempStr=FXCode(GetFcnNdx2)
+	FcnName=TempStr
+	FOR KeyNdx2=1 TO LastKey
+		IF Ops(KeyNdx2).OpName=FXCode(GetFcnNdx2) THEN
+			TempStr=FXCode(GetFcnNdx2)+"; "+Ops(KeyNdx2).Comment
+			IF Ops(KeyNdx2).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx2
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode3
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx2
+RETURN
+
+GetFcnCode3:
+FOR GetFcnNdx3=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx3)="Finish"
+	TempStr=FXCode(GetFcnNdx3)
+	FcnName=TempStr
+	FOR KeyNdx3=1 TO LastKey
+		IF Ops(KeyNdx3).OpName=FXCode(GetFcnNdx3) THEN
+			TempStr=FXCode(GetFcnNdx3)+"; "+Ops(KeyNdx3).Comment
+			IF Ops(KeyNdx3).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx3
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode4
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx3
+RETURN
+
+GetFcnCode4:
+FOR GetFcnNdx4=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx4)="Finish"
+	TempStr=FXCode(GetFcnNdx4)
+	FcnName=TempStr
+	FOR KeyNdx4=1 TO LastKey
+		IF Ops(KeyNdx4).OpName=FXCode(GetFcnNdx4) THEN
+			TempStr=FXCode(GetFcnNdx4)+"; "+Ops(KeyNdx4).Comment
+			IF Ops(KeyNdx4).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx4
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode5
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx4
+RETURN
+
+GetFcnCode5:
+FOR GetFcnNdx5=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx5)="Finish"
+	TempStr=FXCode(GetFcnNdx5)
+	FcnName=TempStr
+	FOR KeyNdx5=1 TO LastKey
+		IF Ops(KeyNdx5).OpName=FXCode(GetFcnNdx5) THEN
+			TempStr=FXCode(GetFcnNdx5)+"; "+Ops(KeyNdx5).Comment
+			IF Ops(KeyNdx5).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx5
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode6
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx5
+RETURN
+
+GetFcnCode6:
+FOR GetFcnNdx6=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx6)="Finish"
+	TempStr=FXCode(GetFcnNdx6)
+	FcnName=TempStr
+	FOR KeyNdx6=1 TO LastKey
+		IF Ops(KeyNdx6).OpName=FXCode(GetFcnNdx6) THEN
+			TempStr=FXCode(GetFcnNdx6)+"; "+Ops(KeyNdx6).Comment
+			IF Ops(KeyNdx6).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx6
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode7
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx6
+RETURN
+
+GetFcnCode7:
+FOR GetFcnNdx7=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx7)="Finish"
+	TempStr=FXCode(GetFcnNdx7)
+	FcnName=TempStr
+	FOR KeyNdx7=1 TO LastKey
+		IF Ops(KeyNdx7).OpName=FXCode(GetFcnNdx7) THEN
+			TempStr=FXCode(GetFcnNdx7)+"; "+Ops(KeyNdx6).Comment
+			IF Ops(KeyNdx7).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx7
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode8
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx7
+RETURN
+
+GetFcnCode8:
+FOR GetFcnNdx8=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx8)="Finish"
+	TempStr=FXCode(GetFcnNdx8)
+	FcnName=TempStr
+	FOR KeyNdx8=1 TO LastKey
+		IF Ops(KeyNdx8).OpName=FXCode(GetFcnNdx8) THEN
+			TempStr=FXCode(GetFcnNdx8)+"; "+Ops(KeyNdx8).Comment
+			IF Ops(KeyNdx8).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				UnrollFlag=TRUE
+			ENDIF
+		ENDIF
+	NEXT KeyNdx8
+	FcnText.ADDITEM TempStr
+	IF UnrollFlag=TRUE THEN
+		UnrollFlag=FALSE
+		GOSUB FindFcnName
+		GOSUB GetFcnCode9
+		FcnText.ADDITEM "<<<<<Unroll Done>>>>>"
+	ENDIF
+NEXT GetFcnNdx8
+RETURN
+
+GetFcnCode9:
+FOR GetFcnNdx9=FindFcnNdx+1 TO FXCodeLines
+	EXITIF FXCode(GetFcnNdx9)="Finish"
+	TempStr=FXCode(GetFcnNdx9)
+	FcnName=TempStr
+	FOR KeyNdx9=1 TO LastKey
+		IF Ops(KeyNdx9).OpName=FXCode(GetFcnNdx9) THEN
+			TempStr=FXCode(GetFcnNdx9)+"; "+Ops(KeyNdx9).Comment
+			IF Ops(KeyNdx9).Unroll=TRUE AND UnrollEnabled=TRUE THEN
+				TempStr=TempStr+" <Unrolled>"
+				MSGBOX "Error","Recursive Overflow",MB_OK
+				END
+			ENDIF
+		ENDIF
+	NEXT KeyNdx9
+	FcnText.ADDITEM TempStr
+NEXT GetFcnNdx9
+RETURN
+
+UnrollButton.command
+IF UnrollEnabled=TRUE THEN
+	UnrollDisplay.TEXT="Disabled"
+	UnrollDisplay.BACKCOLOR=$0000ff
+ELSE
+	UnrollDisplay.TEXT="Enabled"
+	UnrollDisplay.BACKCOLOR=$00ff00
+ENDIF
+UnrollEnabled=NOT(UnrollEnabled)
+END EVENT
+
+MENU.COMMAND
+SELECT CASE MenuID
+	CASE MenuExit
+		END
+END SELECT
+END EVENT
+
+StepButton.command
+GOSUB StepCode
+END EVENT
+
+RunButton.command
+REPEAT
+	GOSUB StepCode
+UNTIL StepDone=TRUE
+END EVENT
+
+RecordButton.COMMAND
+IF RecordEnabled=TRUE THEN
+	RecordDisplay.BACKCOLOR=$00ff00
+	RecordDisplay.TEXT="Off"
+	CLOSE RecordFile
+ELSE
+	RecordDisplay.BACKCOLOR=$0000ff
+	RecordDisplay.TEXT="On"
+	ON ERROR GOTO NoRecordFile
+	DELETE "RecordFile.TXT"
+	NoRecordFile:
+	ON ERROR
+	CREATE RecordFile,"RecordFile.TXT":WRITE+BINARY
+ENDIF
+RecordEnabled=NOT(RecordEnabled)
+END EVENT
+
+DelButton.command
+TempInt=StackView.ITEMCOUNT
+StackView.DELETEITEM(TempInt)
+END EVENT
+
+ClrButton.command
+StackView.CLEAR
+RecordView.CLEAR
+VarView.CLEAR
+END EVENT
+
+AddButton.command
+TempStr=TextBox.TEXT
+IF TempStr="" THEN
+	MSGBOX "Error","Nothing To Add",MB_OK
+	RETURN
+ENDIF
+StackView.ADDITEM TempStr
+END EVENT
+
+NoCodeFile:
+MSGBOX "Error","fxcode.txt missing",MB_OK
+END
+
+StepCode:
+FcnTextSel=FcnText.SELITEM
+IF FcnTextSel=FcnTextItems THEN
+	StepDone=TRUE
+	RETURN
+ENDIF
+TempStr=FcnText.SELTEXT
+IF RecordEnabled=TRUE THEN
+	WRITE RecordFile,TempStr
+ENDIF
+RecordView.ADDITEM TempStr
+GOSUB PareComment
+PrimaryCode=TempStr
+LookupCode=TempStr
+dbg1.text=PrimaryCode
+IF LEFT$(TempStr,3)="Var" THEN
+	LookupCode=LEFT$(TempStr,3)
+ENDIF
+IF LEFT$(TempStr,5)="Const" THEN
+	LookupCode=LEFT$(TempStr,5)
+ENDIF	
+GOSUB FindKey
+IF TAppendWords>0 THEN
+	INCR FcnTextSel
+	FcnText.SELITEM=FcnTextSel
+	SecondaryCode=FcnText.SELTEXT
+	IF RecordEnabled=TRUE THEN
+		WRITE RecordFile,SecondaryCode
+	ENDIF
+	RecordView.ADDITEM SecondaryCode
+	IF TAppendWords=2 THEN
+		INCR FcnTextSel=FcnTextSel
+		FcnText.SELITEM=FcnTextSel
+	ENDIF		
+ELSE
+	SecondaryCode="blank"
+ENDIF
+;dbg2.text=SecondaryCode
+IncText:
+INCR FcnTextSel
+FcnText.SELITEM=FcnTextSel
+TempStr=FcnText.SELTEXT
+IF TempStr="<<<<<Unroll Done>>>>>" THEN IncText
+IF RIGHT$(TempStr,10)="<Unrolled>" THEN IncText
+IF LEFT$(TempStr,5)="ENDIF" THEN IncText
+IF LEFT$(TempStr,5)="BEGIN" THEN IncText
+IF LEFT$(TempStr,4)="ELSE" THEN IncText
+StackViewItems=StackView.ITEMCOUNT
+SELECT CASE TStackRemove
+	CASE 0
+		;
+	CASE 1
+		GOSUB Get1Op
+	CASE 2
+		GOSUB Get2Ops
+	CASE 3
+		GOSUB Get3Ops
+	CASE 4
+		GOSUB Get4Ops
+	CASE ELSE
+		MSGBOX "Error","Illegal TStackRemove",MB_OK
+		RETURN
+END SELECT
+StackViewItems=StackView.ITEMCOUNT
+IF KeyFound=TRUE THEN
+	GOSUB [Ops(KeyNdx).OpLabel]
+ELSE
+	GOSUB NOOPX
+ENDIF
+StackViewItems=StackView.ITEMCOUNT
+FOR L=1 TO StackViewItems
+	TempStr=StackView.TEXT(L)
+	WriteStr="        "+TempStr
+	RecordView.ADDITEM WriteStr
+	IF RecordEnabled=TRUE THEN
+		WRITE RecordFile,WriteStr
+	ENDIF
+NEXT L
+RETURN
+
+FindKey:
+KeyFound=FALSE
+TAppendWords=0
+FOR KeyNdx=1 TO LastKey
+	IF Ops(KeyNdx).OpName=LookupCode THEN
+		KeyFound=TRUE
+		TOpName=Ops(KeyNdx).OpName
+		TComment=Ops(KeyNdx).Comment
+		;TOpLabel=Ops(KeyNdx).OpLabel
+		TUnroll=Ops(KeyNdx).Unroll
+		TStackRemove=Ops(KeyNdx).StackRemove
+		TAppendWords=Ops(KeyNdx).AppendWords
+		RETURN
+	ENDIF
+NEXT KeyNdx
+RETURN
+
+Get1Op:
+IF StackViewItems<1 THEN
+	StackView.ADDITEM "Filler"
+ENDIF
+StackViewItems=StackView.ITEMCOUNT
+FORTHStack(1)=StackView.TEXT(StackViewItems)
+StackView.DELETEITEM(StackViewItems)
+RETURN
+
+Get2Ops:
+SELECT CASE StackViewItems
+	CASE 0
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+	CASE 1
+		StackView.ADDITEM "Filler"
+END SELECT
+StackViewItems=StackView.ITEMCOUNT
+FORTHStack(1)=StackView.TEXT(StackViewItems)
+FORTHStack(2)=StackView.TEXT(StackViewItems-1)
+StackView.DELETEITEM(StackViewItems)
+StackView.DELETEITEM(StackViewItems-1)
+RETURN
+
+Get3Ops:
+SELECT CASE StackViewItems
+	CASE 0
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+	CASE 1
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+	CASE 2
+		StackView.ADDITEM "Filler"
+END SELECT
+StackViewItems=StackView.ITEMCOUNT
+FORTHStack(1)=StackView.TEXT(StackViewItems)
+FORTHStack(2)=StackView.TEXT(StackViewItems-1)
+FORTHStack(3)=StackView.TEXT(StackViewItems-2)
+StackView.DELETEITEM(StackViewItems)
+StackView.DELETEITEM(StackViewItems-1)
+StackView.DELETEITEM(StackViewItems-2)
+RETURN
+
+Get4Ops:
+SELECT CASE StackViewItems
+	CASE 0
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+	CASE 1
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+	CASE 2
+		StackView.ADDITEM "Filler"
+		StackView.ADDITEM "Filler"
+	CASE 3
+		StackView.ADDITEM "Filler"
+END SELECT
+StackViewItems=StackView.ITEMCOUNT
+FORTHStack(1)=StackView.TEXT(StackViewItems)
+FORTHStack(2)=StackView.TEXT(StackViewItems-1)
+FORTHStack(3)=StackView.TEXT(StackViewItems-2)
+FORTHStack(3)=StackView.TEXT(StackViewItems-3)
+StackView.DELETEITEM(StackViewItems)
+StackView.DELETEITEM(StackViewItems-1)
+StackView.DELETEITEM(StackViewItems-2)
+StackView.DELETEITEM(StackViewItems-3)
+RETURN
+
+NOOPX:
+
+RETURN
+
+LITX:
+StackView.ADDITEM SecondaryCode
+RETURN
+
+LoadX:
+TempStr="["+FORTHStack(1)+"]"
+StackView.ADDITEM TempStr
+RETURN
+
+StoreX:
+TempStr="["+FORTHStack(1)+"]="+FORTHStack(2)
+;TempStr=FORTHStack(2)+"->["+FORTHStack(1)+"]"
+VarView.ADDITEM TempStr
+RETURN
+
+Store2X:
+TempStr="["+FORTHStack(1)+"]="+FORTHStack(2)
+VarView.ADDITEM TempStr
+TempStr="["+FORTHStack(1)+"+2]="+FORTHStack(3)
+VarView.ADDITEM TempStr
+RETURN
+
+Load2X:
+TempStr="["+FORTHStack(1)+"(Dbl)]"
+StackView.ADDITEM TempStr
+RETURN
+
+LoadCX:
+TempStr="["+FORTHStack(1)+"(Chr)]"
+StackView.ADDITEM TempStr
+RETURN
+
+SPLoadX:
+StackView.ADDITEM "SP"
+RETURN
+
+ADConvX:
+StackView.ADDITEM "ADData"
+RETURN
+
+SubtractX:
+TempStr=FORTHStack(2)+"-"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+DupX:
+TempStr=FORTHStack(1)
+StackView.ADDITEM TempStr
+StackView.ADDITEM TempStr
+RETURN
+
+Dup2X:
+TempStr=FORTHStack(2)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(1)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(2)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+MulX:
+TempStr=FORTHStack(2)+"*"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+AddX:
+TempStr=FORTHStack(2)+"+"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+DivX:
+TempStr=FORTHStack(2)+"/"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+Add1X:
+TextBox.text="Add1X"
+TempStr=FORTHStack(1)+"+1"
+StackView.ADDITEM TempStr
+RETURN
+
+Add2X:
+TempStr=FORTHStack(1)+"+2"
+StackView.ADDITEM TempStr
+RETURN
+
+Subtract1X:
+TempStr=FORTHStack(1)+"-1"
+StackView.ADDITEM TempStr
+RETURN
+
+AndX:
+TempStr=FORTHStack(2)+"&"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+OrX:
+TempStr=FORTHStack(2)+"|"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+XorX:
+TempStr=FORTHStack(2)+"^"+FORTHStack(1)
+StackView.ADDITEM TempStr
+RETURN
+
+Mul2X:
+TempStr=FORTHStack(1)+"*2"
+StackView.ADDITEM TempStr
+RETURN
+
+Div2X:
+TempStr=FORTHStack(1)+"/2"
+StackView.ADDITEM TempStr
+RETURN
+
+StoreTOSX:
+RStack=FORTHStack(1)
+RETURN
+
+RestoreTOSX:
+StackView.ADDITEM RStack
+RStack="Empty"
+RETURN
+
+SwapX:
+TempStr=FORTHStack(1)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(2)
+StackView.ADDITEM TempStr
+RETURN
+
+RotX:
+TempStr=FORTHStack(2)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(1)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(3)
+StackView.ADDITEM TempStr
+RETURN
+
+OverX:
+TempStr=FORTHStack(2)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(1)
+StackView.ADDITEM TempStr
+TempStr=FORTHStack(2)
+StackView.ADDITEM TempStr
+RETURN
+
+BoolX:
+StackView.ADDITEM "Boolean"
+RETURN
+
+VarX:
+StackView.ADDITEM PrimaryCode
+RETURN
+
+StackViewTitle.COMMAND
+IF ShowRecordView=TRUE THEN
+	StackView.VISIBLE=TRUE
+	RecordView.VISIBLE=FALSE
+ELSE
+	StackView.VISIBLE=FALSE
+	RecordView.VISIBLE=TRUE
+ENDIF
+ShowRecordView=NOT(ShowRecordView)
+END EVENT

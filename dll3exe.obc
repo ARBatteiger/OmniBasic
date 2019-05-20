@@ -1,0 +1,1 @@
+; Dimension Variablesdim a as longdim b as longdeclare fcn uf1(integer,integer) AS INTEGERbegin export	uf1end exportbegin fcn uf1(a,b)return a+bend fcn

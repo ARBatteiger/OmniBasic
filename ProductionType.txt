@@ -1,0 +1,39 @@
+TYPE ProductionType; Used to represent production data as blocks in ProductionFile
+    ProdActive AS BOOLEAN; True indicates WIP
+    ProdMachID AS BYTE; Numeric code for machine from MachConfig
+    ProdType AS BYTE; 1=Part 2=Family
+    ProdFirstShotNdx As LONG;(used for Run Framing)
+    ProdLastShotNdx As LONG; Last shot number (used for Run Framing and mold
+    ProdFirstModeNdx As LONG
+    ProdLastModeNdx As LONG
+    ProdFirstAlarmNdx As LONG
+    ProdLastAlarmNdx As LONG
+    ProdFirstSetupNdx As LONG
+    ProdLastSetupNdx As LONG
+    ProdPartDescription As String*30; Numeric code for part from PartConfig
+    ProdCustomer  As String*30; Customer Code from PartProfile dropdown of Customer database
+    ProdRunID As String*30; Text describing run from NewProduction screen
+    ProdStart As LONG; Date/time production run started
+    ProdEnd As LONG;  Date/time production run ended
+    ProdAccepted As LONG; Number of good parts (shots*Cavities-ProdRejected)
+    ProdRejected As LONG; Number of parts rejected (entered on Main screen boxes)
+    ProdMoldID As String*30; Description of mold from partConfig
+    ProdCavities AS BYTE; Actual Cavities selected on NewProduction.. modified on Main screen
+    ProdTolerance As Integer; Show mold run tolerance as Run%
+    ProdCycle As LONG
+    ProdWeight As LONG; Weight of each part in grams
+    ProdLabor As Integer; Operator(s) required (integer tenths)
+    ProdPrice As LONG; Price at time of run
+    ProdCavityNames(17) As String*30; Members active on family molds by member number
+    ProdCavityWeight(17) As LONG; Weight of each part in grams
+    ProdCavityLabor(17) As Integer; Operator(s) required (integer tenths)
+    ProdCavityPrice(17) As LONG; Price at time of run
+    ProdCavityAccepted(17) As LONG
+    ProdCavityRejected(17) As LONG
+    ProdMaterial As String*30
+    ProdDye As String*30
+    ProdAdditive As String*30
+    ProdCustOrderNum As String*30
+    ProdComment As String*30; Comment from PartConfig
+END TYPE
+DIM Production As ProductionType; Instance of ProductionData used for writing

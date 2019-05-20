@@ -1,0 +1,9 @@
+I revised robot paths on the 001 glass for primer, adhesive and stacking.
+The paths did not utilize the Remote tool center point and linear moves. In
+that condition primer and adhesive application speeds were unknown and not
+precise. Converted both programs to use proper tool center point and linear
+motions.
+I touched up robot paths on the 130 alternate glass patern.
+This work was done on-sight during the week of August 16th.
+17 hours at $81.50 = $1385.50
+

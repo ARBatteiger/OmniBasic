@@ -1,0 +1,1 @@
+; Dimension Variablesdim zip as obzipOBMain.CREATEzip.openzipfile "testzip.zip"zip.extractallzip.closezipfileEND EVENT

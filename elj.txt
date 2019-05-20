@@ -1,0 +1,129 @@
+FOR IMMEDIATE RELEASE
+
+ Contact: uwe@el...  / geoff@el... .. http://elj.sourceforge.net/
+
+ THE ELJ PROJECT ANNOUNCES THE RELEASE OF ELJ 0.7, OPEN SOURCE PROJECTS
+ AND LIBRARY BINDINGS FOR EIFFEL
+
+ Germany/Australia -- June 25, 2003. The ELJ Project is pleased to
+ announce the release of version 0.7.
+
+
+ The ELJ Project - http://elj.sourceforge.net/ - has the aim of providing
+ a platform for the development and support of open source libraries for
+ Eiffel developers. From this platform, significant applications can now
+ be developed.
+
+ The 0.7 release marks a significant milestone for the project as we now
+ provide support of the libraries under both SmartEiffel and ISE Eiffel.
+ Prior to this release, support was only provided for SmartEiffel. The
+ GOBO-Eiffel libraries and tools, as well as new ELJ Eifffel/C interface
+ classes, facilitated the support of both compilers. Those inclined to
+ provide multi-compiler support for their own libraries and applications
+ are encouraged to learn and build upon this approach.
+
+
+ Changes:
+
+  * Adapted to SmartEiffel (version 1.1)
+  * ISE Eiffel compatible (version 5.3)
+  * development of configuration scripts to target library dependencies
+    to selected Eiffel compiler and backend C compiler.
+  * interfaced wxWindows version is 2.4.1
+  * Lua 5.0 support
+  * libxml2 support
+  * a bunch of new wxEiffel classes, see documentation for wxEiffel
+  * examples added and improved
+  * new base classes (multi dimensional array, random number class etc)
+  * except for the wxEiffel.dll, eljgc.dll and sleepycat.dll, we do not
+    ship dlls any more, so please install the dynamic libs (libxml2, Lua,
+    sqlite etc) as you need them. The 0.8 release will provide built
+    scripts for the generation of interface dll's and libs. Ask at
+    elj-devel for more details, if required.
+
+
+ The ELJ Project supports several applications, relational databases,
+ native libraries and bindings to popular APIs.
+
+ GUI:
+    * wxEiffel: http://elj.sourceforge.net/projects/gui/ewxw/
+           wxWindows: http://www.wxwindows.org
+
+      wxEiffel is a GUI toolkit for the Eiffel programming language.
+      It allows Eiffel programmers to create programs with a robust,
+      highly functional graphical user interface, simply and easily.
+      It is implemented as a Eiffel interface library that wraps the
+      popular wxWindows cross platform GUI library, which is written
+      in C++.
+
+      A by-product from the wxEiffel project has been the development
+      of wx-c, a C interface to the wxWindows C++ library. The
+      wxHaskell project now co-maintains wx-c, as it is now integral
+      to their project. We hope that other projects can take advantage
+      of wx-c.
+
+ Database Interfaces:
+    * Firebird  http://elj.sf.net/projects/db/firebird/
+    * Berkely DB (SleepyCat)  http://elj.sf.net/projects/db/sleepycat/
+    * MySQL  http://elj.sf.net/projects/db/mysql/
+    * PostgreSQL  http://elj.sf.net/projects/db/postgres/
+    * SQLite  http://elj.sf.net/projects/db/sqlite/
+
+ Lua Interface:
+    * Lua: an embeddable scripting language
+      http://elj.sf.net/projects/other/lua/
+
+ libxml Interface:
+    * http://www.libxml.org/
+
+ Compression:
+    * zlib  http://elj.sf.net/projects/other/compression/zlib/
+    * bzip2  http://elj.sf.net/projects/other/compression/bzip2/
+
+ OS Support
+    * elj-win32api  http://elj.sf.net/projects/os/win32api/
+
+ Native Libraries:
+    * Common libraries -- a libraries that provide time, random number,
+      support libraries to support development of Eiffel/C interfaces.
+
+ Applications:
+    * ELJ GIRLS -- a CRM, especially for software companies, based on
+       wxEiffel and Firebird. http://www.sf.net/projects/elj-girls
+    * Diuturnal -- a multiplayer turn-based strategy game, containing
+      a mix of Civilization and Warcraft. Based on the wxEiffel.
+      http://sourceforge.net/projects/diuturnal/
+    * SEED2 -- a SmartEiffel IDE (underdevelopment)
+
+ For more information about the ELJ project, visit:
+    http://elj.sourceforge.net/
+
+ For ELJ project support, subscribe to mailing lists:
+     * users:
+        http://lists.sourceforge.net/lists/listinfo/elj-users/
+     * developers:
+        http://lists.sourceforge.net/lists/listinfo/elj-devel/
+        http://lists.sourceforge.net/lists/listinfo/elj-commits/
+
+ For more about the SmartEiffel compiler, visit:
+    http://smarteiffel.loria.fr/
+
+ For more about the ISE Eiffel compiler visit:
+    http://www.eiffel.com/
+
+ For more on the Gobo project, visit:
+    http://www.gobosoft.com/
+
+ International Eiffel Programming Contest: Eiffel Class Struggle 2003
+ (entries close 31 Oct 03)
+    http://www.eiffel-nice.org/eiffelstruggle/2003/
+
+ Visit the IRC channel for eiffel, named #eiffel on
+    irc.openprojects.net
+
+ Comp.lang.eiffel at Google Groups:
+
+ http://groups.google.com/groups?hl=en&lr=&ie=UTF-8&group=comp.lang.eiffel
+
+ Cetus Links:
+    http://www.cetus-links.org/oo_eiffel.html

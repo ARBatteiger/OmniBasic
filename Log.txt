@@ -1,0 +1,19 @@
+March 15, 2000
+
+Notes on new Log program:
+
+The program will behave as before when called from WARP,
+but will also allow command line parameter operation as
+it may be used from a command window (DOS window) or in a
+shell statement from Visual Basic or other scripting language.
+
+The form of the command line operation is as follows:
+
+Log StartDate EndDate File Path
+
+Example:
+
+Log 000221 000225 Test.csv C:\temp
+
+Notice that the 4 feilds must be entered after the Log
+command and must be separated by spaces.

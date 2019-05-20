@@ -1,0 +1,16 @@
+( FX100 FILE LOAD CONTROL ROM RESIDENT         07:18 07/20/89 ) 
+( These files are loaded into ROM 8000->BFFF                  ) 
+INCLUDE D:711TESTS.650 32 37 ( KEYBOARD ACTIVATED TST ROUTINES) 
+INCLUDE D:INITOPTS.650 0  0         ( Clock/Printer Initialize) 
+INCLUDE D:ROMPREP.650  6  7  ( ROMABLE APPLICATION TERMINATION) 
+                                                                
+( NOTE:                                                         
+( When all files are loaded, issue 1 of the following to        
+( establish the version in ROM space before pulling S record    
+( TYPE ">FX101" to establish model FX101                        
+( TYPE ">FX100" to establish model FX100                        
+( TYPE ">TORBEX for the name TORBEX to be displayed             
+( TYPE ">VICAM  for the name VICAMX to be displayed             
+                                                                
+                                                                
+                                                                

@@ -1,0 +1,1 @@
+; Dimension Variablesdim t(10) as longdim x(2,3) as bytedim y(4,5) as bytedim s(16,8) as string*100type havis	a(2,3) as byte	b(2,3) as byteend typedim q(1,1) as havisdim r as havisdim p(10) as bytedim z(7,9) as longOBMain.CREATEt(6)=0x(2,2)=0z(5,6)=0y(1,2)=0q(1,1).a(1,2)=0r.b(1,2)=0p(5)=0END EVENT

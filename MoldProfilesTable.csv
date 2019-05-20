@@ -1,0 +1,393 @@
+Type,Tool No,Owner,Cav,Comments,M1,M2,M3,M4,M5,M6,M7,M8,M9,M10,M11,M12,M13,M14,M15,M16
+Mold,927,FARNAM,9,,,Y,Y,,,,,,,,,,,,,
+Mold,927,HOOSIER,9,,,Y,Y,,,,,,,,,,,,,
+Mold,1074,GATES,8,,Y,,,Y,,,,,,,,,,,,
+Mold,1076,GATES,8,,,,,,,,,,Y,,,,,,,
+Mold,2802,POLLAK,8,,,,,,,Y,Y,,,,,,,,,
+Mold,3117,GATES,4,,,Y,Y,,,,,,,,,,,,,
+Mold,3120,GATES,3,,,,,,,,,,,,,,,,Y,
+Mold,3426,GATES,4,,Y,,,Y,,,,,,,,,,,,
+Mold,3426,GATES,4,,Y,,,Y,,,,,,,,,,,,
+Mold,3487,LEAR,4,,,,,,,Y,Y,,,,,,,,,
+Mold,3561,LEAR,4,,,,,,,Y,,,,,,,,,,
+Mold,3561,CHOCTAW MFG,4,,,,,,,Y,,,,,,,,,,
+Mold,3722,LEAR,4,,,,,,,Y,Y,,,,,,,,,
+Mold,3722,ALCOA,4,,,,,,,Y,Y,,,,,,,,,
+Mold,3722,DELPHI AUTOMOTIVE,4,,,,,,,Y,Y,,,,,,,,,
+Mold,3771,GATES,6,,Y,,,Y,,,,
+Mold,3893,GATES,4,,Y,,,Y,,,,
+Mold,4073,GATES,4,,,,,,,Y,Y,
+Mold,4074,GATES,4,,Y,,,Y,,,,
+Mold,4128,GATES,4,,,,,,,Y,Y,
+Mold,4245,GATES,4,,,,,,,,,Y
+Mold,4378,LEAR,2,,,Y,Y,,,,,
+Mold,4379,LEAR,1,,,Y,Y,,,,,
+Mold,4380,LEAR,2,,,Y,Y,,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,
+Mold,4434,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,
+Mold,4435,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,
+Mold,4436,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,
+Mold,4571,TRW-AEN,4,,,Y,Y,,,,,,,,,,,,
+Mold,4572,TRW-AEN,4,,,,Y,,,,,,,,,,,,
+Mold,4573,TRW-AEN,4,,,,,,,,,,,,,,,,Y
+Mold,4574,TRW-AEN,4,,,,,,,,,,,,,,,,Y
+Mold,4575,TRW-AEN,2,,,,,,,,,,,,,,,,Y
+Mold,4575,TRW-AEN,2,,,,,,,,,,,,,,,,Y
+Mold,4575,TRW-AEN,2,,,,,,,,,,,,,,,,Y
+Mold,4626,TRW-AEN,4,,,Y,Y,,,,,,,,,,,,
+Mold,4626,TRW-AEN,4,,,Y,Y,,,,,,,,,,,,
+Mold,4630,WILSON COOK,2,,,Y,Y,,,,,,,,,,,,
+Mold,4630,WILSON COOK,2,,,Y,Y,,,,,,,,,,,,
+Mold,4738,PRESTOLITE,4,,Y,,,Y,,,,,,,,,,,
+Mold,4739,PRESTOLITE,4,,Y,,,Y,,,,,,,,,,,
+Mold,4789,WILSON COOK,2,,,Y,Y,,,,,
+Mold,4800,GATES,4,,,,,,,Y,Y,
+Mold,4801,GATES,4,,,,,,,Y,Y,
+Mold,4801,GATES,4,,Y,,,Y,,,,
+Mold,4802,GATES,4,,,,,,,,,Y
+Mold,,GATES,4,,,,,,,,,Y
+Mold,4802,GATES,4,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,Y,Y,,,,,
+Mold,4856,WILSON COOK,2,,Y,,,Y,,,,
+Mold,4856,WILSON COOK,2,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,,,,,,,Y
+Mold,4856,WILSON COOK,2,,,Y,Y,,,,,
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4857,WILSON COOK,2,,Y,,,Y
+Mold,4935,TRW-STEERING,8,,,,,,,,,Y,,,,,,,
+Mold,4993,GATES,4,,,,,,,,,Y,,,,,,,
+Mold,4993,GATES KOREA,4,,,,,,,,,Y,,,,,,,
+Mold,5075,LEAR,1,,,Y,Y,,,,,,,,,,,,
+Mold,5115,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,
+Mold,5134,TRW-AEN,4,,,Y,Y,,,,,,,,,,,,
+Mold,5162,GATES,4,,Y,,,Y,,,,,,,,,,,
+Mold,5186,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,5187,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,5242,TRW-AE,2,,Y,,,Y,,,,,,,,,,,
+Mold,5244,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,5248,ACCURATE,16,,Y,,,Y,,,,,,,,,,,
+Mold,5253,TRW-AE,4,,,,,,,,,Y,,,,,,,
+Mold,5255,GATES,8,,,,,,,,,,,,,,,,Y
+Mold,5255,GATES,8,,,,,,,,,,,,,,,,Y
+Mold,5262,PED,2,,Y,,,Y,,,,,,,,,,,
+Mold,,PED,2,,Y,,,Y,,,,,,,,,,,,
+Family Mold,,PED,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5281,TRW-AE,4,,,Y,Y,,,,,,,,,,,,,
+Mold,5282,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,,
+Mold,5284,ROSS,8,,Y,,,Y,,,,,,,,,,,,
+Mold,5335,YAZAKI,4,,,,,,,,,,,,,,,,,Y
+Mold,5361,TRW-STEERING,8,,,,,,,Y,Y,,,,,,,,,
+Mold,5370,LEAR-ZAINESVILLE,4,,,,,,,,,,,,,,,,,Y
+Mold,5371,TRW-AEN,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5371,TRW-AEN,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5371,TRW-AEN,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5371,TRW-AEN,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5371,TRW-AEN,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5371,TRW-AEN,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5412,PED,2,,,,,,,,,,,,,,,,Y,
+Mold,5499,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,,
+Mold,5500,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,
+Mold,5501,TRW-AEN,4,,,Y,Y,,,,,,,,,,,,
+Mold,5502,TRW-AEN,2,,,,,,,,,,,,,,,,Y
+Mold,5503,TRW-AEN,4,,,,,,,,,,,,,,,,Y
+Mold,5537,TRW-AE,8,,Y,,,Y,,,,,,,,,,,
+Mold,5538,TRW-AE,4,,Y,,,Y,,,,,,,,,,,
+Mold,5539,TRW-AE,4,,Y,,,Y,,,,,,,,,,,
+Mold,5540,TRW-AE,4,,Y,,,Y,,,,,,,,,,,
+Mold,5553,TRW-AE,4,,,,,,,,,,,,Y,,,,
+Mold,5554,TRW-AE,8,,,,,,,,,Y,,,,,,,
+Mold,5595,TRW-AEN,2,,,,,,,,,,,,,,,,Y
+Mold,5596,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,
+Mold,,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,
+Mold,,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,
+Mold,5630,YAZAKI,4,,,,,,,,,,,,,,,Y,
+Mold,5649,PRESTOLITE,8,,Y,,,Y,,,,,,,,,,,
+Mold,5734,GATES,2,,Y,,,Y,,,,,,,,,,,
+Mold,5735,GATES,1,,,,,,Y,,,,,,,,,,
+Mold,5756,WILSON COOK,2,,,Y,Y,,,,,,,,,,,,
+Mold,5757,WILSON COOK,2,,,Y,Y,,,,,,,,,,,,
+Mold,5758,WILSON COOK,2,,Y,,,Y,,,,,,,,,,,
+Mold,5771,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,
+Mold,5801,GATES KOREA,4,,,,,,,,,Y,,,,,,,
+Mold,5802,GATES KOREA,4,,,,,,,Y,Y,,,,,,,,
+Mold,5803,GATES KOREA,4,,Y,,,Y,,,,,,,,,,,
+Mold,5880,GATES,4,,,,,,,,,Y,,,,,,,
+Mold,5884,YAZAKI,2,,,,,,,Y,Y,,,,,,,,
+Mold,5908,WILSON COOK,1,,Y,,,Y,,,,,,,,,,,
+Mold,5908,WILSON COOK,1,,,,,,,,,,Y,,,,,,
+Mold,5910,TRW-STEERING,8,,Y,,,Y,,,,,,,,,,,
+Mold,5923,TRW-AEN,4,,,,,,,,,,,,,,,,Y
+Mold,5923,TRW-AEN,4,,,,,,,,,,,,,,,,Y
+Mold,,TRW-AEN,4,,,,,,,,,,,,,,,,Y,
+Mold,5928,TRW-STEERING,4,,,,,,,,,,,,,,,,,Y
+Mold,5929,TRW-AE,2,,Y,,,Y,,,,,,,,,,,,
+Mold,5931,TRW-STEERING,4,,,,,,,,,,,,,,,,Y,
+Mold,5971,ASC,6,,Y,,,Y,,,,,,,,,,,,
+Mold,5990,GM ONSTAR,1,,,Y,Y,,,,,,,,,,,,,
+Mold,5991,GM ONSTAR,1,,,Y,Y,,,,,,,,,,,,,
+Mold,5992,TRW-AEN,8,,,Y,Y,,,,,,,,,,,,,
+Mold,5992,TRW-AEN,8,,,,,,,,,Y,,,,,,,,
+Mold,5992,TRW-AEN,8,,,Y,Y,,,,,,,,,,,,,
+Mold,5993,YAZAKI,4,,,,,,,Y,Y,,,,,,,,,
+Mold,6005,YAZAKI,4,,,,,,,Y,Y,,,,,,,,,
+Mold,6007,TRW-AEN,2,,,,,,,,,,,,,,,,Y,
+Mold,6008,TRW-AEN,2,,,,,,,,,,,,,,,,Y,
+Mold,6012,GM ONSTAR,1,,,,,,,,,,,,,,,,Y,
+Mold,6013,PRESTOLITE,1,,Y,,,Y,,,,,,,,,,,,
+Mold,6013,PRESTOLITE,1,,Y,,,Y,,,,,,,,,,,,
+Mold,6013,PRESTOLITE,1,,Y,,,Y,,,,,,,,,,,,
+Mold,6014,ASC,4,,,Y,Y,,,,,,,,,,,,,
+Mold,6014,ASC,4,,,Y,Y,,,,,,,,,,,,,
+Mold,6042,YAZAKI,4,,,,,,,Y,Y,,,,,,,,,
+Mold,6050,YAZAKI,4,,,,,,,,,,,,,Y,,,,
+Mold,6126,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,,
+Mold,,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,,
+Mold,6127,TRW-AEN,4,,Y,,,Y,,,,,,,,,,,,
+Mold,6128,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6128,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6129,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6129,TRW-AEN,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6149,PRESTOLITE,4,,,,,,,,,,,,,,,,,Y
+Mold,6149,PRESTOLITE,4,,,,,,,,,,,,,,,,,Y
+Mold,6149,PRESTOLITE,4,,,,,,,,,,,,,,,,,Y
+Mold,6154,TRW-AEN,2,,,Y,Y,
+Mold,6157,TRW-AE,2,,,Y,Y,
+Mold,6157,TRW-AE,2,,,Y,Y,
+Mold,6158,TRW-AE,2,,Y,,,Y
+Mold,6158,TRW-AE,2,,Y,,,Y
+Mold,6168,TRW-AEN,2,,Y,,,Y
+Mold,6174,TRW-AEN,1,,,Y,Y,
+Mold,6175,TRW-AEN,1,,Y,,,Y
+Mold,6176,TRW-AEN,1,,,Y,Y,
+Mold,6211,TRW-AEN,1,,Y,,,Y
+Mold,6211,TRW-AEN,1,,Y,,,Y
+Mold,6211,TRW-AEN,1,,Y,,,Y
+Mold,,PED,1,,,Y,Y,
+Mold,,PED,1,,Y,,,Y
+Mold,6240,TRW-AEN,2,,Y,,,Y
+Mold,6255,POLLAK,2,,,Y,Y,
+Mold,6274,TRW-AEN,4,,Y,,,Y,,,,,,,,
+Mold,6275,TRW-AEN,2,,Y,,,Y,,,,,,,,
+Mold,6275,TRW-AEN,2,,Y,,,Y,,,,,,,,
+Mold,6315,TRW-AEN,4,,Y,,,Y,,,,,,,,
+Mold,6373,TRW-AEN,1,,,Y,Y,,,,,,,,,
+Mold,6387,WILSON COOK,1,,,,,,,,,,Y,,,
+Mold,6387,WILSON COOK,1,,,Y,Y,,,,,,,,,
+Mold,,WILSON COOK,1,,,Y,Y,,,,,,,,,
+Mold,6387,WILSON COOK,1,,,Y,Y,,,,,,,,,
+Mold,,WILSON COOK,1,,,,,,,,,,Y,,,
+Mold,,WILSON COOK,1,,,,,,,,,,Y,,,
+Mold,6387,WILSON COOK,1,,,,,,,,,,Y,,,
+Mold,6387,WILSON COOK,1,,,,,,,,,,Y,,,
+Mold,6400,TRW-AEN,16,,,,,,,,,,,,,Y
+Mold,6401,TRW-AEN,16,,Y,,,Y,,,,,,,,
+Mold,6402,TRW-AEN,16,,Y,,,Y,,,,,,,,
+Mold,6402,TRW-AEN,16,,Y,,,Y,,,,,,,,
+Mold,6404,TRW-AEN,8,,,,,,,,,,,Y,,
+Mold,6405,TRW-AEN,16,,,,,,,,,,,Y,,
+Mold,6406,TRW-AEN,16,,,,,,,,,,,,,Y
+Mold,6407,TRW-AEN,4,,,,,,,,,,,,,
+Mold,6407,TRW-AEN,4,,,,,,,,,,,,,
+Mold,6430,ASC,8,,,Y,Y,,,,,,,,,
+Mold,6439,TRW-AEN,8,,Y,,,Y,,,,,,,,
+Mold,6440,TRW-AEN,8,,,,,,,Y,Y,,,,,
+Mold,6442,PED,1,,Y,,,Y,,,,,,,,
+Mold,6465,TRW-AEN,1,,,Y,Y,,,,,,,,,
+Mold,6466,TRW-AEN,1,,,Y,Y,,,,,,,,,
+Mold,6467,TRW-AEN,1,,,Y,Y,,,,,,,,,
+Mold,6469,GM ONSTAR,1,,,,,,,,,,Y,,,
+Mold,6472,MICH. IND. SER.,7,,,,,,,,,,,,,Y
+Mold,6494,TRW-AEN,1,,,Y,Y,,,,,,,,,
+Mold,6495,TRW-AEN,1,,Y,,,Y,,,,,,,,,,,,
+Mold,6497,GM ONSTAR,1,,,Y,Y,,,,,,,,,,,,,
+Mold,6498,GM ONSTAR,1,,,Y,Y,,,,,,,,,,,,,
+Mold,6500,GM ONSTAR,1,,,Y,Y,,,,,,,,,,,,,
+Mold,6501,GM ONSTAR,1,,,Y,Y,,,,,,,,,,,,,
+Mold,6502,GM ONSTAR,1,,Y,,,Y,,,,,,,,,,,,
+Mold,6509,ASC,1,,,Y,Y,,,,,,,,,,,,,
+Mold,6509,ASC,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6509,ASC,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6512,GATES,4,,,,,,,,,,,,,,,,,
+Mold,,GATES,4,,,,,,,,,,,,,,,,,
+Mold,6512,GATES,4,,,,,,,,,,,,,,,Y,,
+Mold,6513,GATES,4,,,,,,,,,,,,,,,,Y,
+Mold,6513,GATES,4,,,,,,,,,,,,,,,,Y,
+Mold,6514,GATES,4,,,,,,,,,,,,,,,,,Y
+Mold,6548,TRW-AE,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6548,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,6548,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,6549,TRW-AE,4,,,,,,,,,,,,,,,,Y
+Mold,6549,TRW-AE,4,,,,,,,,,,,,,,,,Y
+Mold,6549,TRW-AE,4,,,,,,,,,,,,,,,,Y
+Mold,6550,TRW-AE,1,,,Y,Y,,,,,,,,,,,,
+Mold,6551,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,6551,TRW-AE,2,,,Y,Y,,,,,,,,,,,,
+Mold,6563,GATES,4,,,,,,,,,,,,,,,,
+Mold,6566,GATES,0,,,,,,,,,,,,,,,,
+Mold,6567,GATES,1,,,,,,Y,,,,,,,,,,
+Mold,6575,BAYER,1,,,,,,,,,,,,,,,,
+Mold,6575,BAYER,2,,,,,,,,,,,,,,,,
+Mold,6575,BAYER,2,,,,,,,,,,,,,,,,
+Mold,6576,BAYER,2,,,,,,Y,,,,,,,,,,
+Mold,6598,GATES,4,,,,,,,,,,,,,Y,,,
+Mold,6599,ASC,1,,,,,,,,,,,,,,,,Y,
+Mold,,ASC,2,,,,,,,,,,,,,,,,Y,
+Mold,,ASC,2,,,,,,,,,,,,,,,,Y,
+Mold,6600,WILSON COOK,1,,,,,,,,,Y,,,,,,,,
+Mold,6601,TRW-AE,2,,,,,,,,,Y,,,,,,,,
+Mold,6602,TRW-AE,2,,,,,,,,,Y,,,,,,,,
+Mold,6606,TRW-AE,4,,,Y,Y,,,,,,,,,,,,,
+Mold,6614,WILSON COOK,1,,,,,,,,,Y,,,,,,,,
+Mold,6615,WILSON COOK,1,,,,,,,,,,Y,,,,,,,
+Mold,6615,WILSON COOK,1,,,,,,,,,,Y,,,,,,,
+Mold,6615,WILSON COOK,1,,,,,,,,,,Y,,,,,,,
+Mold,6615,WILSON COOK,1,,,,,,,,,,,,,,,,,
+Mold,6621,YAZAKI,4,,,,,,,Y,Y,,,,,,,,,
+Mold,6622,BAYER,1,,,,,,,,,,,,,,,,,Y
+Mold,6623,BAYER,1,,,,,,,,,,,,,,,,,
+Mold,6624,BAYER,2,,,Y,Y,,,,,,,,,,,,,
+Mold,6625,BAYER,2,,,Y,Y,,,,,,,,,,,,
+Mold,6627,PRESTOLITE,16,,Y,,,Y,,,,,,,,,,,
+Mold,6628,PRESTOLITE,16,,Y,,,Y,,,,,,,,,,,
+Mold,6638,WILSON COOK,2,,,,,,,Y,Y,,,,,,,,
+Mold,,WILSON COOK,2,,,,,,,Y,Y,,,,,,,,
+Mold,6638,WILSON COOK,2,,,,,,,Y,Y,,,,,,,,
+Mold,6684,ASC,1,,Y,,,Y,,,,,,,,,,,
+Mold,,ASC,1,,Y,,,Y,,,,,,,,,,,
+Mold,,ASC,1,,Y,,,Y,,,,,,,,,,,
+Mold,6685,ASC,1,,,,,,,,,,,,,,,,Y
+Mold,,ASC,1,,,,,,,,,,Y,,,,,,
+Mold,,ASC,1,,,,,,,,,,Y,,,,,,
+Mold,6714,TRW-AEN,2,,,,,,,,,,,,,,,,Y
+Mold,6722,TRW-AEN,8,,,,,,,Y,Y,,,,,,,,
+Mold,6725,WILSON COOK,1,,,,,,,,,Y,,,,,,,
+Mold,6730,TRW-VSSI,8,,,,,,,,,,,,Y,,,,
+Mold,6731,TRW-VSSI,8,,,,,,,,,,,,Y,,,
+Mold,6754,YAZAKI,4,,,,,,,,,,,,,,,
+Mold,6755,TRW-STEERING,8,,,,,,,,,,,Y,,,,
+Mold,6768,ASC,2,,,Y,Y,,,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6805,TRW-VSSI,8,,,,,,Y,,,,,,,,,
+Mold,6845,TRW-VSSI,16,,,,,,Y,,,,,,,,,
+Mold,6845,TRW-VSSI,16,,,,,,Y,,,,,,,,,
+Mold,6846,TRW-VSSI,8,,,,,,,,,,,,,,Y,
+Mold,6846,TRW-VSSI,8,,,,,,,,,,,,,,Y,
+Mold,6847,TRW-VSSI,8,,,,,,,,,,,,,,,Y
+Mold,6870,TRW-AEN,4,,,,Y,,,,,,,,,,,
+Mold,6871,TRW-AEN,4,,,,,,,,,Y,,,,,,
+Mold,6872,TRW-VSSI,4,,,,,,Y,,,,,,,,,
+Mold,6887,TRW-VSSI,8,,,,,,,,,,,,Y,,,
+Mold,6887,TRW-VSSI,8,,,,,,,,,,,,,Y,,
+Mold,6907,PRESTOLITE,8,,,,,,,,,,,,,Y,,
+Mold,6927,TRW-VSSI,4,,,,,,,Y,,,,,,,,
+Mold,6963,TRW-VSSI,8,,,,,,,,,,,,,,,
+Mold,6985,TRW-AEN,2,,,Y,Y,,,,,,,,,,,
+Mold,6986,TRW-AEN,2,,,,,,,,,Y,,,,,,
+Mold,6988,TRW-AEN,4,,,,,,,,,,,Y,,,,
+Mold,6988,TRW-AEN,4,,,,,,,,,,,Y,,,,
+Mold,6988,TRW-AEN,4,,,,,,,,,,,Y,,,,
+Mold,7040,TRW-VSSI,4,,,,,,,,,,,,Y,,,
+Mold,7041,TRW-VSSI,4,,,,,,,,,,,,Y,,,
+Mold,7068,YAZAKI,4,,,,,,,,,,,,,,,Y
+Mold,7090,TRW-AEN,2,,,,,,,,,,Y,,,,,,,
+Mold,7093,TRW-AEN,2,,,,,,,,,,Y,,,,,,,
+Mold,7104A,TRW-VSSI,4,,Y,,,Y,,,,,,,,,,,,
+Mold,7114,PRESTOLITE,8,,Y,,,Y,,,,,,,,,,,,
+Mold,7116,PRESTOLITE,2,,,,,,,,,,,,,,,,,Y
+Mold,7153,WEBASTO,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7153,WEBASTO,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7153,WEBASTO,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7154,WEBASTO,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7154,WEBASTO,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7154,WEBASTO,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7155,WEBASTO,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7155,WEBASTO,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7155,WEBASTO,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7173,TRW-AEN,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7191,LEAR-DEARBORN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7191,LEAR-DEARBORN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7191,LEAR-DEARBORN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7192,LEAR-DEARBORN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7192,LEAR-DEARBORN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7193,LEAR-DEARBORN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7209,TRW-AEN,4,,,,,,,,,,,,,,,,,
+Mold,7210,TRW-AEN,4,,,,,,,,,,,,,Y,,,,
+Mold,7246,WILSON COOK,1,,,,,,,,,Y,,,,,,,,
+Mold,7246,WILSON COOK,2,,,,,,,,,Y,,,,,,,,
+Mold,7246,WILSON COOK,2,,,,,,,,,Y,,,,,,,,
+Mold,7249,WILSON COOK,4,,,,,,,,,Y,,,,,,,,
+Mold,7250,WILSON COOK,2,,,Y,Y,,,,,,,,,,,,,
+Mold,7255,WEBASTO,2,,,,,,,,,,,,,,,,,Y
+Mold,7265,GATES,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7295,ALLEN TELECOM,2,,,Y,Y,,,,,,,,,,,,,
+Mold,7296,ALLEN TELECOM,2,,,,,,,,,,,,,,,,Y,
+Mold,7298,ALLEN TELECOM,2,,,,,,,,,,,,,,,,Y,
+Mold,7299,ALLEN TELECOM,2,,,,,,,,,,,,,,,Y,,
+Mold,7301,ALLEN TELECOM,2,,,Y,Y,,,,,,,,,,,,,
+Mold,7306,PONTIAC COIL,4,,,,,,,Y,Y,,,,,,,,,
+Mold,7308,GATES,2,,,Y,Y,,,,,,,,,,,,,
+Mold,7313,WEBASTO,1,,,,,,,,,,,,,,,,,Y
+Mold,7334,TRW-AEN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7334,TRW-AEN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7334,TRW-AEN,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7335,TRW-AEN,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7335,TRW-AEN,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7335,TRW-AEN,1,,Y,,,Y,,,,,,,,,,,,
+Mold,7336,PREMIER ROOF SYSTEMS,1,,,Y,Y,,,,,,,,,,,,,
+Mold,7336,PREMIER ROOF SYSTEMS,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7336,PREMIER ROOF SYSTEMS,2,,Y,,,Y,,,,,,,,,,,,
+Mold,7363,PREMIER ROOF SYSTEMS,4,,Y,,,Y,,,,,,,,,,,,
+Mold,7365,PREMIER ROOF SYSTEMS,1,,,Y,Y,,,,,,,,,,,
+Mold,7377,PRESTOLITE,4,,,,,,,,,,,,,,,
+Mold,7431,COLLINS & AIKMAN,4,,Y,,,Y,,,,,,,,,,
+Mold,7435,ALLEN TELECOM,2,,,,,,,,,,,,,,,Y
+Mold,7438,MILLIPORE,1,,Y,,,Y,,,,,,,,,,
+Mold,7438,MILLIPORE,1,,Y,,,Y,,,,,,,,,,
+Mold,7468,TRW-AEN,4,,,Y,Y,,,,,,,,,,,
+Mold,7469,TRW-AEN,4,,,,,,,,,,Y,,,,,
+Mold,7526,ASC,1,,,Y,Y,,,,,,,,,,,
+Mold,7529,LM GEAR,4,,,,,,,,,,Y,,,,,
+Mold,7532,ASC,1,,,,,,,,,,,,,,,
+Mold,7534,ASC,1,,,,,,,,,,,,,,,
+Mold,7535,ASC,1,,,,,,,,,,,,,,,
+Mold,7536,ASC,1,,,,,,,,,,,,,,,
+Mold,7536,ASC,2,,,,,,,,,,,,,,,
+Family Mold,7536,ASC,2,,,,,,,,,,,,,,,
+Mold,7537,ASC,1
+Mold,7537,ASC,2
+Family Mold,7537,ASC,2
+Mold,7538,ASC,1
+Mold,7538,ASC,2
+Family Mold,7538,ASC,2
+Mold,7540,ASC,1
+Mold,7540,ASC,2
+Family Mold,7540,ASC,2

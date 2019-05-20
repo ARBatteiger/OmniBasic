@@ -1,0 +1,31 @@
+;; SP@
+C348
+     $83; Code
+     "SP@"; Name
+     $C336; Backward Link
+SP@exec:
+C34E $C350
+
+C350   L_C350   TSX		; Set X to SP
+C351            STX     $00E0   ; $00E0 now holds SP value
+C353            LDX     #$00E0	; X points to holder of SP
+C356            JMP     LoadD
+
+C02E   LoadD:   LDA A   $00,X	; Get 1st byte of TOS
+C030            LDA B   $01,X	; Get 2nd byte of TOS
+C032   PUSHD:   PSH B		; Push SP onto TOS
+C033            PSH A		; "
+C034   NEXT:    LDX     XSafe 	  
+C036   NEXT1:   INX  
+C037            INX  
+C038            STX     XSafe   
+C03A            LDX     $00,X
+C03C   Disptch: STX     $00EA   
+C03E            LDX     $00,X
+C040            JMP     $00,X
+C041
+
+The effect of this is to push the SP itself onto the TOS.
+
+16 Instuctions total.
+

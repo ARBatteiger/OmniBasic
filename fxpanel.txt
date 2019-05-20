@@ -1,0 +1,160 @@
+( FX100 KEYPAD SUPPORT                         08:03 03/08/90 ) 
+: UPDATEkeyQ  fTEST @ 0= MONITORkeyQ                            
+  fTEST @ AND IF 711.EXE THEN                                   
+  F1key @ CALflg @ 0= AND fTEST @ 0= AND                        
+           IF DROP 'RECAL @ EXECUTE TESTrtn THEN ;              
+: PCkey fTEST @ 0= key SWAP                                     
+  fTEST @ AND IF 711.EXE THEN                                   
+  DUP F1 = CALflg @ 0= AND fTEST @ 0= AND                       
+           IF DROP 'RECAL @ EXECUTE TESTrtn THEN ;              
+                                                                
+: WAIT-ENT "ACK DISPLAY2 w-TYPE BEGIN PCkey 13 ( ENT) = UNTIL ; 
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( FLOATING POINT NUMBER DISPLAY                09:43 02/03/90 ) 
+0 VARIABLE MINx  0 VARIABLE MAXx                                
+0 VARIABLE INITVLU 6 ALLOT-RAM                                  
+3 CONSTANT #DIGITS   0 VARIABLE f+/-#  0 VARIABLE F#SGN         
+0 VARIABLE fDPok    1 CONSTANT DPdigits  0 VARIABLE fDP         
+0 VARIABLE fDP0                                                 
+: N#CNVRT 0 <# #S #> ;                                          
+: d#CNVRT <# #S #> MAXx @ MIN ;                                 
+: n#CNVRT ( n -- adr,cnt) 0 d#CNVRT ;                           
+: .1CNVRT ( d --)  <# # 46 HOLD #S #> ;                         
+: .2CNVRT ( d --)  <# # # 46 HOLD #S #> ;                       
+: .3CNVRT ( d --)  <# # # # 46 HOLD #S #> ;                     
+HERE                                                            
+' d#CNVRT CFA , ' .1CNVRT CFA , ' .2CNVRT CFA , ' .3CNVRT CFA , 
+CONSTANT CNVRTTBL                                               
+                                                                
+( FLOATING POINT NUMBER DISPLAY                09:43 02/03/90 ) 
+: F#CNVRT ( d,j--adr,cnt) ABS >R DROP            ( abs j, d->n) 
+  R 4 > IF R 4 DO 10 / LOOP THEN    ( If exp < -4 divide data)  
+  R 3 > IF 10 /MOD SWAP 4 > IF 1+ THEN THEN                     
+  0 R> 3 MIN 2* CNVRTTBL + @ EXECUTE ;                          
+                                                                
+                                                                
+                                                                
+' F#CNVRT CFA 'F#CNVRT !               ( Set vector to F#CNVRT) 
+                                                                
+0 VARIABLE OUTBUF 40 ALLOT-RAM                                  
+: FORMAT-ANSWER ( d,j -- adr,cnt) OVER >R >R DABS R>            
+     F#CNVRT OUTBUF 1+ SWAP DUP 1+ >R CMOVE                     
+     R> R> 0< IF 45 ELSE 32 THEN OUTBUF C! OUTBUF SWAP ;        
+                                                                
+                                                                
+( j,d->2DIGIT WITH ROUNDUP                     07:49 02/07/90 ) 
+0 VARIABLE REM  0 VARIABLE Rsgn 4                               
+0 VARIABLE 2DIGrslt 6 ALLOT-RAM                                 
+: j,d>2DIG ( j,d --   j2,d2 saved,  j2&d2 limited to 2 DIGITS)  
+  0 REM ! DUP Rsgn !  DABS ROT                 ( j,d -- dABS,j) 
+  >R BEGIN 2DUP 99. D>                                          
+       IF 10 M/MOD ROT REM ! R> 1+ >R 0 ELSE 1 THEN UNTIL       
+ REM @ 4 >                  ( Rnd up then ensure 2 digits only) 
+ IF 1. D+ 2DUP 99. D> IF 10 D/ R> 1+ >R THEN THEN               
+ 0 >990err ! R> DUP 0>                                          
+ IF 3 MIN BEGIN >R 10 D* 2DUP 9900. D> IF -1 >990err ! THEN     
+                R> 1- DUP 0<= UNTIL THEN                        
+ >R Rsgn @ 0< IF DMINUS THEN 2DIGrslt 2!                        
+ R> [ 2DIGrslt 4 + ] LITERAL ! ;                                
+: TST2DIG  j,d>2DIG 2DIGrslt 2@ 2DIGrslt 4 + @ F#CNVRT  ( **)   
+  CR TYPE ;                                                     
+( FLOATING POINT NUMBER ENTRY                  08:49 05/07/89 ) 
+: CLR-OLDDATA  CHRBUF2 ( 1+) BUF2pntr !                         
+  x2 @ 1+ MINx @ ( Clear the display)                           
+  DO 32 I DISPLAY2 wx-emit                                      
+     I BUF2pntr @ + C@ 32 = IF LEAVE THEN LOOP                  
+  MINx @ x2 !                          ( Reset dsply clmn pntr) 
+  fDPok @ IF #DIGITS MAXx ! THEN  ( Reset max number of digits) 
+  0 F#SGN ! 0 fDP ! CLR-CHRBUF2 ;                               
+: ENTER-DP -1 fDP ! 1 MAXx +! ;                                 
+: ENTER-SGN ( c[-] -- c[0]) F#SGN ! 48 ( 0) 1 MAXx +! ;         
+: LEGAL-DIGIT? ( c -- c,f)                                      
+ ( If char is a 0->9 digit, OR if a DP and DPs are allowed)     
+ 47 OVER < OVER 58 < AND OVER 46 = fDPok @ AND fDP @ 0= AND OR  
+ ( OR, if minus sgn AND neg data allowed AND at 1st char entry) 
+ OVER 45 ( -) = f+/-# @ AND BUF2pntr @ 0= AND OR ;              
+                                                                
+( FLOATING POINT NUMBER ENTRY                  08:49 05/07/89 ) 
+: getF# ( --  CHRBUF2 contains char string)                     
+  BEGIN x2 @ MAXx @ >        ( Display clmn pntr > last clmn ?) 
+    IF 0 BUF2pntr ! 0 fDP ! THEN      ( clear char buffer pntr) 
+    BEGIN ?KEYPAD UNTIL PCkey                                   
+    LEGAL-DIGIT? ( Ensure 0->9 digit, legal DP, or legal - sgn) 
+    IF BUF2pntr @ 0= IF CLR-OLDDATA THEN                        
+       DUP x2 @ DISPLAY2 wx-emit 1 x2 +!   ( Display character) 
+     ( DUP 45 = IF ENTER-SGN THEN        ( If -,set sgn,0->dig) 
+       DUP 46 = IF ENTER-DP THEN  ( Enter dp or exit if dp err) 
+       95 ( _) x2 @ DISPLAY2 wx-emit  ( Display nxt chr prompt) 
+       DUP BUF2pntr @ C! 1 BUF2pntr +!    ( Enter digit in buf) 
+    THEN                                                        
+    x2 @ MAXx @ >        ( Display clmn pntr > last clmn ?)     
+    IF 32 ( sp) x2 @ DISPLAY2 wx-emit THEN ( If so, clr prompt) 
+  ENT = UNTIL ;                                                 
+( FLOATING POINT NUMBER ENTRY                  08:49 05/07/89 ) 
+0 VARIABLE NUMLEN                                               
+: INIT-GET#                                                     
+ CLR-CHRBUF2                              ( Clear digit buffer) 
+ 0 fDP ! 0 fDP0 !                        ( Clr dp entered flag) 
+ INITVLU 2@ DUP 0< F#SGN ! DABS INITVLU 4 + @ F#CNVRT           
+ 2DUP OVER + SWAP             ( Check for INITVLU=n.m with m>0) 
+ DO I C@ DUP 46 ( .) = fDP0 +! 48 > fDP0 @ 0> AND fDP +! LOOP   
+ ( DUP F#SGN @ IF 1+ THEN MAXx !  ( Set max num of chars dsplyed
+ DUP NUMLEN ! CHRBUF2 ( 1+) F#SGN @                             
+ IF 45 OVER C! 1 NUMLEN +! 1 MAXx +! 1+ THEN                    
+ SWAP DUP MAXx +! CMOVE       ( Put init value strng in buffer) 
+ CHRBUF2 NUMLEN @ MINx @ DISPLAY2 wx-TYPE  ( Dsply init vlu)    
+ MAXx @ 1+ x2 ! ;               ( Set dsply clmn > max allowed) 
+                                                                
+                                                                
+( FLOATING POINT NUMBER ENTRY                  07:03 05/12/89 ) 
+: GET[F#] ( -- j,d)                                             
+  #DIGITS MAXx ! -1 fDPok !    ( Init for dp entry allowed)     
+  INIT-GET# getF#     ( Init digit entry & get float dp number) 
+  CHRBUF2 1- NUMBER                                             
+  ( **F#SGN @ IF DMINUS THEN**)                                 
+  2DUP INITVLU 2! >R >R                                         
+  DPL @ 0 MAX MINUS DUP INITVLU 4 + ! R> R> ;                   
+: GET[n#] ( -- n) 0 fDPok ! ( Init for whole number entry only) 
+    INIT-GET# getF#      ( Init digit entry & get whole number) 
+    CHRBUF2 1- NUMBER 2DUP INITVLU 2! DROP >R                   
+    DPL @ 0 MAX MINUS INITVLU 4 + ! R> ;                        
+                                                                
+                                                                
+                                                                
+                                                                
+( DELAY TIME     NUMBER ENTRY                  08:49 05/07/89 ) 
+                                                                
+: D-SPACES ( n --) DUP 0= IF DROP EXIT THEN                     
+  0 DO 32 DSPLYwrite LOOP ;                                     
+                                                                
+: TYPE-SEC  CHRBUF2 COUNT 1 DISPLAY2 wx-TYPE \ Dsply init vlu)  
+  4 CHRBUF2 C@ - 0 MAX D-SPACES 2 CHRBUF2 C@ SETcurser ;        
+                                                                
+: INIT-DLYTME                                                   
+ CLR-CHRBUF2                              ( Clear digit buffer) 
+ INITVLU 2@ DABS <# #S #>                                       
+ CHRBUF2 C! CHRBUF2 COUNT CMOVE  \ Put init vlu str in buffer   
+ 2 1 SETcurser 5 D-SPACES                                       
+ CHRBUF2 COUNT 1 DISPLAY2 wx-TYPE \ Dsply init vlu)             
+ 4 CHRBUF2 C! ;                                                 
+                                                                
+( FLOATING POINT NUMBER ENTRY                  08:49 05/07/89 ) 
+: GET[sec] ( -- n) INIT-DLYTME                                  
+  BEGIN                                                         
+    BEGIN ?KEYPAD UNTIL PCkey                                   
+    47 OVER < OVER 59 < AND \ 0-9 digit ?                       
+    IF CHRBUF2 C@ 4 >= IF CHRBUF2 5 32 FILL 0 CHRBUF2 C! THEN   
+       DUP CHRBUF2 COUNT + C!                                   
+       CHRBUF2 C@ 1+ CHRBUF2 C!                                 
+       TYPE-SEC             \ Display Dly Sec Data              
+    THEN                                                        
+  ENT = UNTIL                                                   
+  CHRBUF2 NUMBER 2DUP INITVLU 2! DROP >R                        
+  0 INITVLU 4 + ! R> ;                                          
+                                                                
+                                                                
+                                                                

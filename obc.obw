@@ -1,0 +1,1 @@
+; Dimension Variablesdim obc1 as obcommdim obc2(10) as obcommdim x(10) as longdim b1 as buttondim havis as stringOBMain.CREATEhavis="Com2"obc1.openobc1.closeobc1.baudrate=9600obc2(5).baudrate=19200obc1.portname="Com1"obc2(3).portname=havishavis=obc1.inputhavis=obc2(7).inputobc2(6).parity=nobc1.output="abc"obc2(2).output=havisEND EVENT

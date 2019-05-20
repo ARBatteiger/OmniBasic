@@ -1,0 +1,5 @@
+While most acknowledge the leadership of OmniBasic in the area of portability,
+it has been a well kept secret that OmniBasic is among the fastest Basics
+available at any cost or for any system. Recent benchmarks against Power Basic
+and GFA Basic (considered by most as the ones to beat) have shown that OmniBasic
+is the one to beat. These benchmark results are available upon request.

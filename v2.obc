@@ -1,0 +1,12 @@
+dim s(10) as string*10
+dim x(10) as byte alias s
+dim i as long
+
+s(1)="ABCDEFGHIJ"
+
+for i=1 to 10
+	print x(i)
+next i
+
+
+

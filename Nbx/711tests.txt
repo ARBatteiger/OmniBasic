@@ -1,0 +1,752 @@
+( 711 NOISE & DRIFT TEST                         11:26 07/01/91 
+"STRNG" "NTST    | NOISE/DRIFT TEST        |                    
+"STRNG" "Ns#     | MEASUREMENT #      DONE |                    
+"STRNG" "Ts      | MEASUREMENT INTERVAL  |                      
+                 ( 1234567890123456789012345678901234567890)    
+"STRNG" "CVHdr2  |                     Sig    Ref   READING|    
+"STRNG" "CVHdr3  |   N         %DLTA  Count  Count      PPB|    
+"STRNG" "PASSED  | PASSED|                                      
+"STRNG" "FAILED  | FAILED|                                      
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( 711 NOISE & DRIFT TEST                         11:26 07/01/91 
+0 VARIABLE Ts  0 VARIABLE Ns  0 VARIABLE NS                     
+0 VARIABLE Dsgn                                                 
+0 VARIABLE TST# 20 ALLOT-RAM                                    
+: PRINT-STDCLMN DUP 0< IF 45 ELSE 32 THEN Dsgn !                
+  DABS <# #S Dsgn @ HOLD #> 7 MIN 7 OVER - 1 MAX PSPACES        
+  PRINTSTRING ;                                                 
+: PRNT-Ts "Ts Count PRINTSTRING                                 
+  Ts @ 10 / 0 <# #S #> PRINTSTRING 32 PRNTCHAR                  
+  "Dsec Count PRINTSTRING PRNTcrlf ;                            
+: DSPLY-NS "Ns# DISPLAY2 w-TYPE                                 
+     NS @ 0 <# #S #> 14 DISPLAY2 wx-TYPE ;                      
+: PRNT-FAIL/PASS ( f --)                                        
+  DUP TST# 2+ TST# @ + C!                                       
+  IF "FAILED ELSE "PASSED THEN Count                            
+  34 PSPACES BOLD PRINTSTRING PNORMAL PRNTcrlf ;                
+( 711 NOISE & DRIFT TEST                         11:25 07/01/91 
+0 VARIABLE 1stRd 4 ALLOT-RAM  0 VARIABLE NF/P                   
+: PRNdta NS @ 0 <# #S #> 3 OVER - 0 MAX PSPACES PRINTSTRING     
+  PNORMAL  8 PSPACES                                            
+  Dlta @ 0 -2 FORMAT-ANSWER 5 OVER - 1 MAX PSPACES PRINTSTRING  
+  SIG[Ave] @ S->D PRINT-STDCLMN                                 
+  REF[Ave] @ S->D PRINT-STDCLMN                                 
+  nFresult 2@ S->D ROT FORMAT-ANSWER 9 OVER - 1 MAX PSPACES     
+  PRINTSTRING PRNTcrlf ;                                        
+: PRNT-UNRND "UNRND Count DUP >R PRINTSTRING                    
+        nFresult 2@ S->D ROT FORMAT-ANSWER                      
+        40 OVER R> + - PSPACES                                  
+        PRINTSTRING PRNTcrlf ;                                  
+                                                                
+                                                                
+                                                                
+( 711 NOISE & DRIFT TEST                         11:25 07/01/91 
+: DO-STATS                                                      
+  BOLD "CVHdr2 Count PRINTSTRING PNORMAL PRNTcrlf               
+  BOLD "CVHdr3 Count PRINTSTRING PNORMAL PRNTcrlf               
+  0 NF/P ! 11 1                                                 
+  DO I NS ! 0 fABORT ! SP@ S0 @ <> IF S0 @ SP! THEN             
+     BEGIN TOGOt 2@ @RUNTIME[10ths] D<= ?VIAL-OUT OR UNTIL      
+     Ts @ 0 TOGOt 2@ D+ TOGOt 2!                                
+     ?VIAL-IN                                                   
+     IF MEASURE-SAMPLE CALC-RESULTS PRNdta DSPLY-NS             
+        I 1 = IF nFresult 2@ CR 2DUP . . 1stRd 2!               
+              ELSE nFresult 2@ CR 2DUP . . 1stRd 2@ nF- ABS     
+                   0 1 nF- 0> DUP . IF -1 NF/P ! THEN DROP      
+              THEN                                              
+     ELSE LEAVE                                                 
+     THEN LOOP NF/P @ PRNT-FAIL/PASS ;                          
+( 711 NOISE & DRIFT TEST                         11:25 07/01/91 
+: NTST BOLD "NTST Count PRINTSTRING PRNTcrlf PNORMAL            
+  ?VIAL-OUT                                                     
+  IF BEGIN "STRT DISPLAY2 w-TYPE ?VIAL-IN UNTIL THEN            
+  CLR-RUNTIME 3 GAINlimit !                                     
+  600 DUP Ts ! 0 @RUNTIME[10ths] D+ TOGOt 2!                    
+  PRNT-Ts                                                       
+  "NTST DISPLAY1 w-TYPE 2 BLANKline                             
+  0 NS ! DSPLY-NS DO-STATS ;                                    
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( TEST ROUTINES                                08:02 07/18/89 ) 
+0 VARIABLE MINxSV  0 VARIABLE MAXxSV                            
+: DSPLY-TEST                                                    
+  "TSTMENU DISPLAY1 w-TYPE ".SCROLL DISPLAY2 w-TYPE ;           
+: GAINSET MINx @ MINxSV ! MAXx @ MAXxSV !                       
+  "SETGAIN1 DISPLAY1 w-TYPE "SETGAIN2 DISPLAY2 w-TYPE           
+  BEGIN 17 MINx ! 17 MAXx !                                     
+    GAINexp @ 0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !            
+    GET[n#] DUP GAINexp ! 0 OVER <= SWAP 3 <= AND               
+  UNTIL 0 GAINexp @ 1+ 0 DO 10 * 1 MAX LOOP SETGAIN             
+  MINxSV @ MINx ! MAXxSV @ MAXx ! ;                             
+: CAL-REQRD "CALREQ DISPLAY1 w-TYPE                             
+        "ACK DISPLAY2 w-TYPE WAIT-ENT ;                         
+                                                                
+                                                                
+                                                                
+( BACKLIGHT TEST                               22:13 03/09/90 ) 
+                                                                
+"STRNG" "BKLIT1   | DISPLAY BACK LIGHT TEST |                   
+"STRNG" "BON    | ON|                                           
+"STRNG" "BOFF   | OFF|                                          
+: BKLITEtst 1 BLANKline 2 BLANKline  "BKLIT1 DISPLAY1 w-TYPE    
+  "BON Count 1 DISPLAY2 wx-TYPE "BOFF Count 22 DISPLAY2 wx-TYPE 
+  BEGIN PCkey DUP F1 = IF BKliteON THEN                         
+              DUP F3 = IF BKliteOFF THEN ENT = UNTIL ;          
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( BACKLIGHT TEST                               07:26 03/10/90 ) 
+"STRNG" "RAMERR1  | RAM ERROR AT ADDR XXXX  |                   
+"STRNG" "RAMERR2  | WRITTEN XXXX READ XXXX  |                   
+: CHK-RAM CLEAR-DISPLAY                                         
+  "RAMCK Count 1 DISPLAY1 wx-TYPE CKRAM 0=                      
+  IF "RAMERR1 DISPLAY1 w-TYPE BASE @ HEX                        
+     XPNTR @ 0 <# # # # # #> 19 DISPLAY1 wx-TYPE                
+     "RAMERR2 DISPLAY2 w-TYPE                                   
+     Xwrt @ 0 <# # # # # #> 9 DISPLAY2 wx-TYPE                  
+     Xrd @ 0 <# # # # # #> 19 DISPLAY2 wx-TYPE BASE !           
+     BEGIN PCkey ENT = UNTIL                                    
+  ELSE "PASED Count 18 DISPLAY1 wx-TYPE WAIT-ENT THEN ;         
+                                                                
+                                                                
+                                                                
+                                                                
+( OFFSET MEASUREMENT & DISPLAY                 08:02 07/18/89 ) 
+: OSTEST GAINSET                                                
+  "MEASOS1 DISPLAY1 w-TYPE "MEASOS2 DISPLAY2 w-TYPE             
+  GAINvlu @ 0 <# #S #> 6 DISPLAY2 wx-TYPE                       
+  SET[Offset]                                                   
+  BEGIN 0 4 0 DO FIRE-LAMP GET[Sig] + LOOP                      
+        4 / 0 <# # # # # #> 19 DISPLAY2 wx-TYPE                 
+        ?KEYPAD IF PCkey ENT = ELSE 0 THEN UNTIL                
+  SET[Normal] ;                                                 
+                                                                
+( : DSPLYSET fDSPLY @ IF 0 ELSE -1 THEN DUP fDSPLY !            
+(   IF "DON ELSE "DOFF THEN                                     
+(   7 18 DISPLAY2 wx-TYPE 1000 DELAY[ms]                        
+(   fDSPLY @ IF DISPLAY-DATA THEN ;                             
+( : RECALC-RESULT -1 SHOWcalc ! CALC-RESULTS 0 SHOWcalc ! ;     
+                                                                
+( TEST ROUTINES                                07:21 07/20/89 ) 
+0 VARIABLE DTAerr?                                              
+: SHOW-RSLTS  ACQUIRE-READING                                   
+    SIG[Ave] @ N#CNVRT 5 DISPLAY1 wx-TYPE                       
+    REF[Ave] @ N#CNVRT 14 DISPLAY1 wx-TYPE                      
+    GAINexp  @ N#CNVRT 24 DISPLAY1 wx-TYPE                      
+    SIGok @ 0= REFok @ 0= OR fEr<Limit @ 0= OR fABORT @ OR      
+    LMPERR @ 0> OR                                              
+    IF "DTAerr DISPLAY2 w-TYPE -1 DTAerr? !                     
+    ELSE DTAerr? @ IF "SIG/REF DISPLAY2 w-TYPE 0 DTAerr? ! THEN 
+      @AVE[S/R] SWAP DROP S->D -4                               
+      FORMAT-ANSWER 6 MIN 6 DISPLAY2 wx-TYPE                    
+      CALok @ IF CALC-RESULTS RESULTS 2@ RESULTS 4 + @          
+                 FORMAT-ANSWER 5 MIN 20 DISPLAY2 wx-TYPE        
+              ELSE "CALreq Count 13 DISPLAY2 wx-TYPE THEN       
+    THEN ;                                                      
+( CONTINUOUS READ TEST ROUTINE                 08:06 07/18/89 ) 
+0 VARIABLE OUTcnt   0 VARIABLE TICSBUF 41 ALLOT-RAM             
+: CONT-READ ?VIAL-OUT                                           
+   IF BEGIN "STRT DISPLAY1 w-TYPE ?VIAL-IN UNTIL THEN           
+   "CONTREAD2 DISPLAY1 w-TYPE 2 BLANKline -1 DTAerr? !          
+   BEGIN SP@ S0 @ <> IF S0 @ SP! CR ." READ -DIRTY STACK" THEN  
+     ?VIAL-IN IF SHOW-RSLTS DISPLAY-DATA THEN ?VIAL-OUT UNTIL ; 
+: CLR-TICSBUF [ TICSBUF 40 + ] LITERAL DUP TICSBUF              
+              DO 32 I C! LOOP 0 SWAP C! ;                       
+( : DA/TM INIT-RTC DATE/TIME ;                                  
+: WAIT-ENTKEY BEGIN PCkey ENT = UNTIL ;                         
+"STRNG" "DSPLYCHK   |       DISPLAY TEST      |                 
+"STRNG" "ENTSTRT    | PRESS ENT TO START/STOP |                 
+: DSPLYCHK 1 BLANKline "DSPLYCHK Count 1 DISPLAY1 wx-TYPE       
+  "ENTSTRT DISPLAY2 w-TYPE WAIT-ENTKEY CHK-DSPLYS               
+   WAIT-ENTKEY ;                                                
+( CONT MEASUREMENT                             15:26 02/27/90 ) 
+: CONT-MEAS CALok @ 0= IF CAL-REQRD EXIT THEN                   
+            GET-DELAYTIME 2 BLANKline                           
+   ?VIAL-OUT IF BEGIN "STRT DISPLAY1 w-TYPE ?VIAL-IN UNTIL THEN 
+   "CONTMEAS DISPLAY1 w-TYPE 2 BLANKline -1 DTAerr? !           
+   BEGIN SP@ S0 @ <> IF S0 @ SP! CR ." READ -DIRTY STACK" THEN  
+     DO-SMPLDLY                                                 
+     DO-TEST ?VIAL-IN                                           
+     IF "UNRND Count DUP >R PRINTSTRING                         
+        nFresult 2@ S->D ROT FORMAT-ANSWER                      
+        40 OVER R> + - PSPACES                                  
+        PRINTSTRING PRNTcrlf THEN                               
+    ?VIAL-OUT UNTIL ;                                           
+                                                                
+                                                                
+                                                                
+( LAMPFIRE RATE LIMIT CHECK                    08:35 03/11/90 ) 
+0 VARIABLE TrigDly 0 VARIABLE TrigMS                            
+CODE RSTLMP ( -- TrigDly)                                       
+   LMPstat .A LD, LMPreset # .A AND,                            
+   ACQRI/O .A ST, TrigDly 1+ .B LD, PSHB, TrigDly .B LD, PSHB,  
+   NEXT,                                                        
+CODE PLSELMP LMPstat .A LD, STARTacqr # .A OR,                  
+   LMPstat .A ST, ACQRI/O .A ST, NEXT,             ( Fire lamp) 
+CODE RDYWAIT .B CLR,                                            
+  BEGIN, .B INC, 100 # .B CMP, 0=                               
+    IF, -1 # LDX, fLMPERR STX, NEXT, ENDIF,                     
+    A/DStatus .A LD, LMPDtaRdy # .A AND, 0= UNTIL,              
+  0 # LDX, fLMPERR STX, NEXT,                                   
+: FIRE-TEST RSTLMP DELAY[ms]            ( Wait for HV recharge) 
+  PLSELMP RDYWAIT ;                                             
+TrigDly 'TrigDly ! ' FIRE-TEST CFA 'FIRE-TEST !                 
+( LAMPFIRE RATE LIMIT CHECK                    09:17 01/22/90 ) 
+: LAMP-LIMITS                                                   
+  "LMPLIM DISPLAY1 w-TYPE                                       
+  128 DUP TrigMS ! TrigDly !                                    
+  8 0 DO 50 0 DO FIRE-TEST fLMPERR @ IF LEAVE THEN LOOP         
+         fLMPERR @ 0=                                           
+         IF TrigMS @ -1 XOR TrigDly @ AND TrigDly ! THEN        
+         TrigMS @ 2/ DUP TrigMS ! TrigDly @ OR TrigDly ! LOOP   
+  "LMPLIM2 DISPLAY2 w-TYPE                                      
+  BOLD "LMPLIM  Count DUP >R PRINTSTRING PNORMAL                
+  10000. TrigDly @ D/ -1 FORMAT-ANSWER 35 OVER - R> - PSPACES   
+  2DUP PRINTSTRING "HZ Count PRINTSTRING PRNTcrlf               
+  16 DISPLAY2 wx-TYPE                                           
+  QAflg @ IF EXIT THEN                                          
+  "ACK DISPLAY1 w-TYPE BEGIN PCkey ENT = UNTIL ;                
+                                                                
+                                                                
+"STRNG" "MODL#0  | FX100/FX101 SELECT      |                    
+"STRNG" "MODL#1  | FX100              FX101|                    
+: GETMODEL# "MODL#0 DISPLAY1 w-TYPE "MODL#1 DISPLAY2  w-TYPE    
+  0 BEGIN DROP PCkey F1 OVER = OVER F3 = OR UNTIL               
+  F1 = IF 100 ELSE 101 THEN MODEL# !                            
+  SET-DEFAULTS  ;    ( Set TEST DELAY and CALIB VALUE defaults) 
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( CONTINUOUS/MANUAL LAMP FIRE                  08:35 03/11/90 ) 
+"STRNG" "FIREt1  | CONTINUOUS LAMP FIRE    |                    
+"STRNG" "FIREt2  |       DELAY MILLISECONDS|                    
+"STRNG" "ANYKEY  | PRESS ANY KEY TO QUIT   |                    
+( "STRNG" "1FIRE1  | MANUAL LAMP FIRE        |                  
+( "STRNG" "1FIRE2  | ANY KEY=FIRE    ENT=QUIT|                  
+"STRNG" "RUNIN   | BURN-IN LAMP FIRE CYCLE |                    
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( BURN-IN TEST                                 12:49 03/21/90 ) 
+HEX                                                             
+CODE QUIT-RUNIN FFFE LDX, 0 ,X JMP, NEXT, ( PowerOn Restart)    
+DECIMAL                                                         
+: DO-RUNIN                                                      
+  BEGIN RSTLMP DROP @RUNDLY DELAY[ms]   ( Wait for HV recharge) 
+     PLSELMP RDYWAIT ?KEYPAD IF PCkey ENT = ELSE 0 THEN         
+  UNTIL 0 !TSTBYTE QUIT-RUNIN ;                                 
+' DO-RUNIN CFA 'DO-RUNIN !                                      
+                                                                
+: RUNIN "RUNIN DISPLAY1 w-TYPE "FIREt2 DISPLAY2 w-TYPE          
+  500 0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !                    
+  1 MINx ! 3 MAXx ! GET[n#] !RUNDLY 123 !TSTBYTE                
+  BEGIN ?KEYPAD 0= UNTIL DO-RUNIN ;                             
+                                                                
+                                                                
+( CONTINUOUS LAMP FIRE                         08:35 03/11/90 ) 
+: CONT-FIRE "FIREt1 DISPLAY1 w-TYPE "FIREt2 DISPLAY2 w-TYPE     
+  RSTLMP 0 MAX 0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !           
+  1 MINx ! 3 MAXx ! GET[n#] DUP TrigDly ! TRIGDLY !             
+\ 1 GAINexp ! ( Set Gain=10)                                    
+  "ANYKEY DISPLAY2 w-TYPE 0 fLMPERR !                           
+  BEGIN ?KEYPAD 0= UNTIL                                        
+  BEGIN fLMPERR @ FIRE-TEST fLMPERR @ XOR                       
+        IF fLMPERR @ IF "LMPFAIL1 ELSE "FIREt1 THEN             
+           DISPLAY1 w-TYPE THEN                                 
+        ?KEYPAD UNTIL PCkey DROP ;                              
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+0 VARIABLE KEYtmp  0 VARIABLE EntKey 15 ALLOT-RAM               
+: MARK-KEY F1 OVER = OVER F2 = OR OVER F3 = OR                  
+    IF   DUP F1 = IF DROP "F1 0 EntKey 10 + C! THEN             
+         DUP F2 = IF DROP "F2 0 EntKey 11 + C! THEN             
+         DUP F3 = IF DROP "F3 0 EntKey 12 + C! THEN             
+         Count 2DUP PRINTSTRING 22 DISPLAY2 wx-TYPE             
+    ELSE DUP 48 - DUP 0<                                        
+         IF DROP DUP 45 ( ASCII .) = IF 0 EntKey 13 + C! THEN   
+                 DUP 46 ( ASCII .) = IF 0 EntKey 14 + C! THEN   
+         ELSE 0 SWAP 9 MIN EntKey + C!                          
+         THEN                                                   
+         DUP PRNTCHAR 22 DISPLAY2 wx-emit                       
+    THEN ;                                                      
+                                                                
+                                                                
+( KEY TEST                                     10:07 01/22/90 ) 
+: KEY-TEST "KEYTST1 DISPLAY1 w-TYPE "KEYTST2 DISPLAY2 w-TYPE    
+  BOLD "KEYTST1 Count PRINTSTRING PRNTcrlf                      
+  0 OUTcnt ! CALflg @ KEYtmp ! -1 CALflg ! EntKey 15 255 FILL   
+  BEGIN PCkey DUP ENT =                                         
+    IF DROP KEYtmp @ CALflg !                                   
+       0 EntKey 15 + EntKey DO I C@ OR LOOP                     
+       PRNTcrlf PRNT-FAIL/PASS EXIT                             
+    THEN                                                        
+    "KEYTST2 DISPLAY2 w-TYPE MARK-KEY                           
+    32 PRNTCHAR                                                 
+    OUTcnt @ 1+ DUP 15 >= IF PRNTcrlf DROP 0 THEN OUTcnt !      
+  0 UNTIL ;                                                     
+                                                                
+                                                                
+                                                                
+( GAIN MEASUREMENT                             14:53 01/22/90 ) 
+: PRNGAINS  BOLD "GAIN1 Count 16 MIN PRINTSTRING                
+  BOLD "GAIN2 Count PRINTSTRING PRNTcrlf PNORMAL 14 PSPACES     
+  16 4                                                          
+  DO DltaGains I + @ 0 -3                                       
+     FORMAT-ANSWER ( d,j -- adr,cnt)                            
+     2DUP 8 OVER - 0 MAX PSPACES PRINTSTRING                    
+     TICSBUF I 4 - 2* + SWAP CMOVE 4 +LOOP PRNTcrlf ;           
+: TEST-GAINS                                                    
+  ?VIAL-IN IF "REMOV DISPLAY1 w-TYPE "BLANK DISPLAY2 w-TYPE THEN
+  BEGIN ?VIAL-OUT UNTIL                                         
+  CLR-TICSBUF "GAIN1 DISPLAY1 w-TYPE "WAIT DISPLAY2 w-TYPE      
+  CALC-GAINS  ( Go Calculate all gains and save in DltaGains    
+  PRNGAINS TICSBUF DISPLAY2 w-TYPE QAflg @ IF EXIT THEN         
+  "ACK DISPLAY1 w-TYPE BEGIN PCkey ENT = UNTIL ;                
+                                                                
+( PRINTER TEST                                 06:18 02/13/90 ) 
+: PRNTCHK "PRNt DISPLAY1 w-TYPE 2 BLANKline                     
+  BOLD "PRNt Count PRINTSTRING PRNTcrlf PNORMAL                 
+  DUMP-PRINTER                                                  
+  CLR-RUNTIME                                                   
+  58 48 DO 40 0 DO I J + PRNTCHAR LOOP PRNTcrlf LOOP            
+  DUMP-PRINTER                                                  
+  -2 10000 0 @RUNTIME[10ths] DROP nF/ 0 ROT FORMAT-ANSWER       
+  BOLD "PSPD Count DUP >R PRINTSTRING PNORMAL                   
+  40 OVER R> + - PSPACES PRINTSTRING PRNTcrlf                   
+  10000 @RUNTIME[10ths] DROP / 40 < PRNT-FAIL/PASS              
+  PRNTcrlf ;                                                    
+: PRNTTST# PRNTcrlf 1 TST# +!                                   
+  BIGBOLD "QA#1 Count PRINTSTRING TST# @ 0 <# #S #> PRINTSTRING 
+  BIGBOLD "QA#2 Count PRINTSTRING PRNTcrlf PNORMAL ;            
+: CYCLE-PRINTER BEGIN PRNTCHK 0 UNTIL ;                         
+( 711 TEST EXTENSIONS                          06:11 01/25/90 ) 
+0 VARIABLE OSDTA 16 ALLOT-RAM                                   
+: QAHEADER PRNTcrlf "QA2 DISPLAY1 w-TYPE 2 BLANKline            
+  BIGBOLD  "QA1 Count PRINTSTRING PRNTcrlf PNORMAL              
+  BOLD model# 100 = IF "MODEL100 ELSE "MODEL101 THEN            
+               Count PRINTSTRING PRNTcrlf                       
+       "QA2    Count PRINTSTRING PRNTcrlf PRNTcrlf              
+  BOLD "PDaTm Count PRINTSTRING PRNTcrlf                        
+  'PRNTRDaTm 2000.EXE PNORMAL PRNBUF1 Count PRINTSTRING PRNTcrlf
+  PRNTcrlf PRNTcrlf ;                                           
+88 CONSTANT "X                                                  
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+: FAIL/PASS ( f,adr --  f<>0 FAIL) Count DUP >R PRINTSTRING     
+  IF -1 fFAIL ! "FAILED ELSE "PASSED THEN Count                 
+  34 R> - 0 MAX PSPACES BOLD PRINTSTRING PNORMAL PRNTcrlf ;     
+: QATEST1                                                       
+  "QASELF DISPLAY1 w-TYPE                                       
+  PRNTTST#                                                      
+  BOLD "QASELF Count PRINTSTRING PRNTcrlf PNORMAL               
+  DUMP-PRINTER                                ( Wait prnt done) 
+  CKRAM 0= "RAMCK FAIL/PASS                                     
+  CALC-CHKSUM8 1+ "ROMCK1 FAIL/PASS                             
+  CALC-CHKSUM2 1+ "ROMCK2 FAIL/PASS                             
+  PRIME-LAMP-CONTROL #LMPERR @ 5 > "LMPCK FAIL/PASS             
+  fFAIL @ IF STOP THEN ;                                        
+                                                                
+                                                                
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+: OSREAD SET[Offset]   "OSTST1 DISPLAY1 w-TYPE                  
+  BOLD "OSHDR1 Count PRINTSTRING PRNTcrlf                       
+  "OSHDR2 Count PRINTSTRING PNORMAL                             
+  SIGchan MUXset ! SET-ANALOG-Cntrl A/DCNVRT DROP               
+  0 4 0 DO 10 * 1 MAX DUP SETGAIN                               
+           0. 50 0 DO FIRE-LAMP A/DCNVRT 0 D+ LOOP              
+           2DUP OSDTA I 4 * + 2! 50 D/ 0 FORMAT-ANSWER          
+           6 OVER - 0 MAX PSPACES PRINTSTRING                   
+        LOOP DROP PRNTcrlf DUMP-PRINTER SET[Normal] ;           
+: QAOFFSET OSREAD                                               
+  3 0 DO I 4 * OSDTA + 2@ 50 D/ 5. 2OVER D> >R 100. D> R> OR    
+         TST# @ TST# + DUP >R C@ OR R> C! LOOP                  
+  OSDTA 12 + 2@ 50 D/ 5. 2OVER D> >R 300. D> R> OR              
+  PRNT-FAIL/PASS ;                                              
+                                                                
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+0 VARIABLE LEKDTA 16 ALLOT-RAM                                  
+: LEAKTHRU "LEKTST DISPLAY1 w-TYPE                              
+  16 0 DO OSDTA I + 2@ LEKDTA I + 2! 4 +LOOP ( Sav orig OS's)   
+  OSREAD   ( Measure offsets @ gains 1/10/100/1000 & save data) 
+  BOLD "OSHDR3 Count PRINTSTRING PRNTcrlf                       
+  "OSHDR2 Count PRINTSTRING PNORMAL                             
+  16 0 DO LEKDTA I + 2@ OSDTA I + 2@                            
+          D- DABS 50 M/MOD DROP SWAP 24 > IF 1+ THEN            
+          DUP I 2/ LEKDTA + ! S->D 0 FORMAT-ANSWER ( d,j -adr,n)
+            6 OVER - 0 MAX PSPACES PRINTSTRING                  
+       4 +LOOP PRNTcrlf                                         
+  0 6 0 DO I LEKDTA + @ 20 > OR 2 +LOOP                         
+  LEKDTA 6 + @ 100 > OR                                         
+  PRNT-FAIL/PASS ;                                              
+                                                                
+( CALIBRATOR MEASUREMENT                       18:10 02/09/90 ) 
+: PRNT-S/G/R "CALTST DISPLAY1 w-TYPE                            
+  BOLD "CVhdr Count PRINTSTRING PRNTcrlf                        
+  "CVhdr1 Count PRINTSTRING 1 PSPACES PNORMAL                   
+  SIG[Ave] @ S->D PRINT-STDCLMN                                 
+  GAINvlu @ S->D PRINT-STDCLMN                                  
+  REF[Ave] @ S->D PRINT-STDCLMN                                 
+  PRNTcrlf ;                                                    
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+"STRNG" "OPAQIN   | INSERT OPAQUE SAMPLE    |                   
+"STRNG" "OPAQOUT  | REMOVE OPAQUE SAMPLE    |                   
+"STRNG" "BADLMP   | BAD LAMP DETECTION TEST |                   
+: LOOP-FIRE  0 10 0 DO FIRE-LAMP LMPERR @ + LOOP ;              
+: BADLMP-DET                                                    
+  BOLD "BADLMP Count PRINTSTRING PRNTcrlf                       
+  "OPAQIN  DISPLAY1 w-TYPE                                      
+  "ACK     DISPLAY2 w-TYPE                                      
+  BEGIN PCkey 13 = UNTIL                                        
+  LOOP-FIRE 7 < PRNT-FAIL/PASS                                  
+  "OPAQOUT DISPLAY2 w-TYPE WAIT[VialOut] ;                      
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+"STRNG" "LRGIN    | INSERT BLACK VIAL       |                   
+"STRNG" "LRGOUT   | REMOVE BLACK VIAL       |                   
+"STRNG" "LRGSIG   | LARGE SIGNAL TEST       |                   
+: LRGSIG                                                        
+  BOLD "LRGSIG Count PRINTSTRING PRNTcrlf                       
+  "LRGIN   DISPLAY1 w-TYPE                                      
+  "ACK     DISPLAY2 w-TYPE                                      
+  BEGIN PCkey 13 = UNTIL                                        
+  DO-TEST                                                       
+  RESULTS 2@ 500. D> RESULTS 4 + @ 0= AND 0=                    
+  PRNT-FAIL/PASS                                                
+  "LRGOUT DISPLAY2 w-TYPE WAIT[VialOut] ;                       
+                                                                
+                                                                
+                                                                
+                                                                
+0 VARIABLE fon/off                                              
+: DSPLYon/off                                                   
+  "QADON1 DISPLAY1 w-TYPE                                       
+  "REMOVCAL DISPLAY2 w-TYPE                                     
+  0 fon/off !                                                   
+  BEGIN fon/off @ 0= DUP fon/off !                              
+        IF BKliteON ELSE BKliteOFF THEN                         
+        30 0 DO 10 DELAY[ms] ?VIAL-OUT IF LEAVE THEN LOOP       
+        ?VIAL-OUT                                               
+  UNTIL BKliteON ;                                              
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+"STRNG" "C/BDlta   | CAL/BLANK %Dlta TEST|                      
+"STRNG" "C%DLTA    | CALIBRATOR %DLTA |                         
+"STRNG" "B%DLTA    | BLANK      %DLTA |                         
+: CHK-CALnoise                                                  
+  BOLD "C/BDlta Count PRINTSTRING PRNTcrlf PNORMAL              
+  "C%DLTA Count PRINTSTRING                                     
+  CAL%Dlta @ 0 <# # # 46 HOLD #S #> PRINTSTRING PRNTcrlf        
+  "B%DLTA Count PRINTSTRING                                     
+  BLANK%Dlta @ 0 <# # # 46 HOLD #S #> PRINTSTRING PRNTcrlf      
+  CAL%Dlta @ 100 > BLANK%Dlta @ 200 > OR                        
+  PRNT-FAIL/PASS ;                                              
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+"STRNG" "BLNKMEAS   | BLANK MESASUREMENT TEST|                  
+: BLANK-TEST BOLD "BLNKMEAS Count PRINTSTRING PRNTcrlf PNORMAL  
+  "INBLNK1 DISPLAY1 w-TYPE                                      
+  "ACK     DISPLAY2 w-TYPE                                      
+  BEGIN PCkey 13 = UNTIL                                        
+  -1 fNEGOK ! DO-TEST                                           
+  RESULTS 4 + @ RESULTS 2@ DROP -1 -10 nF-                      
+  ABS SWAP DUP -1 <>                                            
+  IF DUP -1 < IF -1 DO 10 / -1 +LOOP                            
+              ELSE DROP 10 * THEN                               
+  ELSE DROP THEN                                                
+  20 > PRNT-FAIL/PASS                                           
+  "REMOVBLNK  DISPLAY1 w-TYPE                                   
+  "BLANK      DISPLAY2 w-TYPE                                   
+  WAIT[VialOut] ;                                               
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+: SIG/GAIN-TST GAINvlu @ 10 OVER = SWAP 100 = OR                
+  SIG[Ave] @ DUP 300 > SWAP 3600 < AND AND                      
+  REF[Ave] @ DUP 2500 > SWAP 3600 < AND AND                     
+  0= PRNT-FAIL/PASS                                             
+  ;                                                             
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+: QATESTS                                                       
+  100 MODEL# !                ( Set model 100 during QA BATTERY 
+  60 SMPLDLY !                      ( Set default Sample Delay) 
+  240. CALIBVLU 2! -1 CALIBVLU 4 + !   ( Set CAL value default) 
+  -10. BLNKVLU 2! 1 BLNKVLU 4 + !     ( Set BLANK value to -1 ) 
+  0 TST# ! QAHEADER CLEAR-DISPLAY                               
+  QATEST1 PRNTcrlf CLEAR-DISPLAY -1 QAflg !                     
+  PRNTTST# KEY-TEST PRNTcrlf CLEAR-DISPLAY                      
+  PRNTTST# QAOFFSET PRNTcrlf CLEAR-DISPLAY                      
+  PRNTTST# DO-CALIBRATION CLEAR-DISPLAY ( Calibrate instrument) 
+  PRNTTST# CHK-CALnoise                                         
+  PRNTTST# PRNGAINS                                             
+  0 16 4           ( Check all gain factors 8.0 < factor < 1.2) 
+  DO DltaGains I + @ 8000 OVER > SWAP 12000 > OR OR 4 +LOOP     
+  PRNT-FAIL/PASS                                                
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+  PRNTTST# BLANK-TEST                                           
+  PRNTTST# BADLMP-DET PRNTcrlf CLEAR-DISPLAY                    
+  PRNTTST# LRGSIG PRNTcrlf CLEAR-DISPLAY                        
+  BEGIN "INCAL1 DISPLAY1 w-TYPE          ( Wait for CALIB vial) 
+        "ACK DISPLAY2 w-TYPE WAIT-ENT ?VIAL-IN UNTIL            
+  CLEAR-DISPLAY                                                 
+  PRNTTST# DO-TEST ( Measure the CALIBRATOR)                    
+  PRNT-S/G/R CLEAR-DISPLAY                                      
+  SIG/GAIN-TST ( Calib Sig & Gain Range check)                  
+  PRNTTST# "LMPLIM DISPLAY1 w-TYPE LAMP-LIMITS ( PRNTcrlf)      
+  10000  TrigDly @ / 20 < PRNT-FAIL/PASS                        
+                                                                
+                                                                
+                                                                
+                                                                
+( QA TEST BATTERY                              12:36 02/09/90 ) 
+  PRNTTST# LEAKTHRU PRNTcrlf CLEAR-DISPLAY                      
+  PRNTTST# PRNTCHK CLEAR-DISPLAY                                
+  PRNTTST# NTST CLEAR-DISPLAY                                   
+  "QADON1 DISPLAY1 w-TYPE                                       
+  "QADON2 DISPLAY2 w-TYPE                                       
+  PRNTcrlf ( PRNTcrlf)                                          
+  CLR-PRNBUF1 "QA2 Count PRNBUF1 SWAP CMOVE                     
+  0 TST# @ 1 DO TST# 2+ I + C@ 0> OR LOOP                       
+  IF "FAILED ELSE "PASSED THEN Count PRNBUF1 34 + SWAP CMOVE    
+  BOLD PRNBUF1 40 PRINTSTRING PNORMAL PRNTcrlf                  
+  BOLD "QADON1 Count PRINTSTRING PRNTcrlf PNORMAL               
+  8 0 DO PRNTcrlf LOOP                                          
+  DSPLYon/off ( Go blink display until vial removed)            
+  model# MODEL# !                    ( Reset FX100/FX101 model#)
+  0 QAflg ! ;                                                   
+( TEST ROUTINE VECTOR TABLE                    19:01 09/23/89 ) 
+0 VARIABLE TSTNDX HERE                                          
+".SCROLL   , ' DSPLY-TEST CFA ,                                 
+"PRGMRTN   , ' TESTrtn CFA ,                                    
+"MODL#0    , ' GETMODEL# CFA ,                                  
+"DSPLYCHK  , ' DSPLYCHK CFA ,                                   
+"BKLIT1    , ' BKLITEtst CFA ,                                  
+"RUNIN     , ' RUNIN CFA ,                                      
+"FIREt1    , ' CONT-FIRE CFA ,                                  
+( "CHKROMS   , ' CHK-ROMS CFA ,                                 
+( "CHKRAMS   , ' CHK-RAM CFA ,                                  
+( "1FIRE1    , ' LMP-1SHOT CFA ,                                
+( "MEASDLY   , ' GET-DELAYTIME CFA ,                            
+( "MODPRIMES , ' CHANGE-PRIMES CFA ,                            
+( "MODFLTR   , ' CHANGE-FILTER CFA ,                            
+                                                                
+( TEST ROUTINE VECTOR TABLE                    19:01 09/23/89 ) 
+( "SETDSPLY1 , ' DSPLYSET CFA ,                                 
+( "CALCRSLTS , ' RECALC-RESULT CFA ,                            
+"MEASOS1   , ' OSTEST CFA ,                                     
+"SETGAIN1  , ' GAINSET CFA ,                                    
+"CONTREAD1 , ' CONT-READ CFA ,                                  
+"LMPLIM    , ' LAMP-LIMITS CFA ,                                
+"KEYTST1   , ' KEY-TEST CFA ,                                   
+"GAIN1     , ' TEST-GAINS CFA ,                                 
+"PRNt      , ' PRNTCHK CFA ,                                    
+( "CLK       , ' DA/TM CFA ,                                    
+"NTST      , ' NTST CFA ,                                       
+"QA2       , ' QATESTS CFA ,                                    
+"CONTMEAS  , ' CONT-MEAS CFA ,                                  
+HERE OVER - ABS 4 / CONSTANT TSTLIMIT                           
+CONSTANT TSTTBL                                                 
+( TEST ROUTINE EXECUTE                         08:14 05/29/89 ) 
+: 711TESTS 0 TSTNDX ! S0 @ SP! INIT-keyQ -1 fTEST !             
+  10 SETGAIN 1 GAINexp ! ( Set Initial Amp Gain=10)             
+  BEGIN SP@ S0 @ <> IF CR ." TEST- DIRTY STACK" S0 @ SP! THEN   
+    "TSTMENU DISPLAY1 w-TYPE                                    
+    TSTNDX @ 4 * TSTTBL + @ DISPLAY2 w-TYPE PCkey               
+    DUP 46 ( .) = IF TSTNDX @ 1+ 0 MAX TSTLIMIT MIN             
+                     DUP TSTLIMIT = IF DROP 0 THEN TSTNDX !     
+                  THEN                                          
+    DUP 45 ( -) = IF TSTNDX @ 1- DUP 0<                         
+                     IF DROP TSTLIMIT 1- THEN TSTNDX !          
+                  THEN                                          
+    ENT = IF TSTNDX @ 4 * 2+ TSTTBL + @ EXECUTE THEN            
+  0 UNTIL ;                                                     
+' 711TESTS CFA '711TESTS !                    ( Set ROM vector) 
+                                                                
+\ OLD DELETED ROUTINES                                          
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+"STRNG" "CHKROMS  | CHECK INSTRUMENT ROMS   |                   
+"STRNG" "CHKRAMS  | CHECK INSTRUMENT RAM    |                   
+: CHK-ROMS  CLEAR-DISPLAY                                       
+  1 BLANKline "ROMCK1 Count 1 DISPLAY1 wx-TYPE                  
+  CALC-CHKSUM8 1+ IF "FAIL ELSE "PASED THEN                     
+  Count 18 DISPLAY1 wx-TYPE WAIT-ENT                            
+  1 BLANKline "ROMCK2 Count 1 DISPLAY1 wx-TYPE                  
+  CALC-CHKSUM2 1+ IF "FAIL ELSE "PASED THEN                     
+  Count 18 DISPLAY1 wx-TYPE WAIT-ENT ;                          
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DATA FILTER CHANGE                           16:07 02/07/90 ) 
+: CHANGE-#OUTLYERS "NTR#OUTLR DISPLAY2 w-TYPE                   
+  21 MINx ! 22 MAXx !                                           
+  GAINexp @ 2* #OUTLYRtbl + @                                   
+  0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !                        
+  GET[n#] #OUTLYERS ! ;                                         
+                                                                
+: CHANGE-SMPLS "TOTAL= DISPLAY1 w-TYPE                          
+  BEGIN "NTR#SMPLS DISPLAY2 w-TYPE 21 MINx ! 22 MAXx !          
+    GAINexp @ 2* #SMPLtbl + @                                   
+    0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !                      
+    GET[n#] 1 MAX #SMPLS ! CHANGE-#OUTLYERS                     
+    #OUTLYERS @ #SMPLS @ + 100 >                                
+    DUP IF "DTALIM DISPLAY1 w-TYPE THEN 0= UNTIL ;              
+                                                                
+                                                                
+( CHANGE LAMP PRIME                            16:17 02/07/90 ) 
+: CHANGE-FILTER "FLTRGAIN1 DISPLAY1 w-TYPE                      
+   BEGIN "FLTRGAIN2 DISPLAY2 w-TYPE 21 MINx ! 21 MAXx !         
+     GAINexp @ 0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !           
+     GET[n#] DUP GAINexp !                                      
+   3 <= UNTIL CHANGE-SMPLS                                      
+   #SMPLS @ GAINexp @ 2* #SMPLtbl + !                           
+   #OUTLYERS @ GAINexp @ 2* #OUTLYRtbl + ! ;                    
+: CHANGE-PRIMES "PRIMLIM DISPLAY1 w-TYPE                        
+  BEGIN "#PRIMES DISPLAY2 w-TYPE 21 MINx ! 22 MAXx !            
+    #PRIMES @ 0 INITVLU 2! 0 INITVLU 4 + ! 0 f+/-# !            
+    GET[n#] DUP 0> OVER 100 <= AND                              
+    IF #PRIMES ! -1 ELSE DROP 0 THEN                            
+  UNTIL ;                                                       
+                                                                
+                                                                
+( GAIN MEASUREMENT  BACKUP SCREEN 9/10/91      14:53 01/22/90 ) 
+: PRNGAINS  16 4                                                
+  DO DltaGains I + @ 0 -3                                       
+     FORMAT-ANSWER ( d,j -- adr,cnt) CR 2DUP TYPE               
+     TICSBUF I 4 - 2* + SWAP CMOVE 4 +LOOP                      
+  TICSBUF DISPLAY2 w-TYPE                                       
+  BOLD "GAIN1 Count 16 MIN PRINTSTRING                          
+  BOLD "GAIN2 Count PRINTSTRING PRNTcrlf PNORMAL                
+  16 PSPACES TICSBUF 23 PRINTSTRING PRNTcrlf ;                  
+: TEST-GAINS                                                    
+  ?VIAL-IN IF "REMOV DISPLAY1 w-TYPE "BLANK DISPLAY2 w-TYPE THEN
+  BEGIN ?VIAL-OUT UNTIL                                         
+  CLR-TICSBUF "GAIN1 DISPLAY1 w-TYPE "WAIT DISPLAY2 w-TYPE      
+  CALC-GAINS  ( Go Calculate all gains and save in DltaGains    
+  PRNGAINS QAflg @ IF EXIT THEN                                 
+  "ACK DISPLAY1 w-TYPE BEGIN PCkey ENT = UNTIL ;                
+( QA TEST BATTERY  BACK UP                     12:36 02/09/90 ) 
+: QAOFFSET SET[Offset]                                          
+  "OSTST1 DISPLAY1 w-TYPE                                       
+  BOLD "OSHDR1 Count PRINTSTRING PRNTcrlf                       
+  "OSHDR2 Count PRINTSTRING PNORMAL                             
+  SIGchan MUXset ! SET-ANALOG-Cntrl A/DCNVRT DROP               
+  0 4 0 DO 10 * 1 MAX DUP SETGAIN                               
+           0. 50 0 DO FIRE-LAMP A/DCNVRT 0 D+ LOOP              
+           2DUP OSDTA I 4 * + 2! 50 D/ 0 FORMAT-ANSWER          
+           6 OVER - 0 MAX PSPACES PRINTSTRING                   
+        LOOP DROP PRNTcrlf SET[Normal]                          
+  0 12 0 DO I OSDTA + 2@ 50 D/                                  
+            5. 2OVER D> >R 100. D> R> OR OR 4 +LOOP             
+  OSDTA 12 + 2@ 50 D/ 5. 2OVER D> >R 300. D> R> OR OR           
+  PRNT-FAIL/PASS ;                                              
+                                                                
+                                                                
+: TST-F/P                                                       
+  0 TST# @ 1 DO TST# 2+ I + C@ 0> OR LOOP                       
+  IF "FAILED ELSE "PASSED THEN Count PRNBUF1 34 + SWAP CMOVE    
+  BOLD PRNBUF1 40 PRINTSTRING PNORMAL PRNTcrlf                  
+  BOLD "QADON1 Count PRINTSTRING PRNTcrlf PNORMAL               
+  8 0 DO PRNTcrlf LOOP                                          
+  0 QAflg ! ( QUIT  JMPSTRT ) ;                                 
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+: TST                                                           
+  0 TST# ! QAHEADER CLEAR-DISPLAY                               
+  QATEST1 PRNTcrlf CLEAR-DISPLAY -1 QAflg !                     
+  PRNTTST# QAOFFSET PRNTcrlf CLEAR-DISPLAY                      
+  0 QAflg ! ;                                                   
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                

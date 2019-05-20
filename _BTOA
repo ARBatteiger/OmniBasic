@@ -1,0 +1,25 @@
+/* _BtoA() */
+/* Enter with boolean as arg */
+/* Exits with ASCII STRING in _ConvBuf1 */
+
+extern char _ConvBuf1[22];
+static char _TrueStr[]="TRUE";
+static char _FalseStr[]="FALSE";
+
+void _BtoA(_BoolVal)
+char _BoolVal;
+{
+char *_bufptr;
+char *_strptr;
+
+_bufptr=_ConvBuf1;
+if (_BoolVal) _strptr=_TrueStr;
+else _strptr=_FalseStr;
+while (*_strptr != 0)
+	{
+	*_bufptr=*_strptr;
+	_bufptr++;
+	_strptr++;
+	}
+*_bufptr=0;
+}

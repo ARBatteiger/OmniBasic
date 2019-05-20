@@ -1,0 +1,116 @@
+Intelligent MC6800 Disassembler --- Version 2.0 --- FREEWARE.
+
+File name:  M68DIS20.ZIP (containing M68DIS.EXE)
+Author:  Joe da Silva (C) 1983, 1984, 2000
+Email address:  j_ds@email.com
+Special requirements:  None
+Shareware payment required from private users:  No
+Shareware payment required from corporate users:  No
+Demo:  No
+Self-documenting:  Yes, use /?
+
+DESCRIPTION:
+
+The M68DIS program is a disassembler for MC6800/6802. It's operation
+is controlled by a command file, which tells it what binary code image
+file(s) to load, the addresses for code entry points such as RST, NMI,
+etc. (optional), and the addresses for any code or subroutines which
+may not be explicitly called within the MC6800/6802 code. The program
+then processes the code, tracing execution paths and identifying jump
+locations, subroutines and data tables. The program output is normally
+in "list" format, with an address column at the start of each line,
+however, this address column is omitted if the specified output file
+name ends in ".ASM".
+
+WARNING/DISCLAIMER:
+
+This software/program is supplied "as is". Although this program is
+believed to function correctly, the author is unable to guarantee this
+under all conditions. Therefore, if you wish to use this program, you
+must do so at your own risk. If you are unable or unwilling to accept
+said risk, then you are not permitted to use this program.
+
+DISTRIBUTION:
+
+You may distribute this software freely, provided all the following
+conditions are met:
+
+1. You must distribute the executable file and this documentation
+   without modification (compression and additional documentation is OK).
+2. You must charge no more than a nominal fee to cover the cost of
+   distribution.
+3. You must not bundle this software together with any commercial
+   software or hardware unless you also make it readily available
+   separately, as "freeware".
+
+LICENSE:
+
+You are permitted to use this software only if all the following
+conditions are met:
+
+1. You must read, understand, and agree to accept, the above disclaimer.
+2. You must not use this software to acquire the intellectual property
+   of others.
+3. You may only use this software on your own behalf. You are not
+   permitted to use this software on behalf of other parties or to
+   provide a "disassembly" service to other parties.
+
+INSTRUCTIONS:
+
+1. Usage :   M68DIS  Command_File  [Output_File]
+
+   The Command_File is a text file which controls the operation of
+   the program, and is further described below.
+
+   The Output_File is optional and can be any suitable file name,
+   however, as described earlier, the output format is determined
+   by the file name extension. If no file name is given, standard
+   output (ie. the console) is used.
+
+2. Command file format :
+
+   Each line is either a comment or a command. A comment line
+   starts with either a '*' or ';' character. A command line
+   (valid or otherwise) starts with any other character. The
+   commands are not case-sensitive. All address parameters
+   are hexadecimal and have neither a prefix nor a suffix.
+   Possible commands are :
+
+   a) LOAD  file_name  [address]
+
+      Loads the specified file, containing a binary image of
+      the MC6800/6802 code, at a given address (default is 0).
+      Multiple such files can be loaded (one per command),
+      provided there is no address overlap between the files.
+      Load command(s) should appear at the top of the command
+      file.
+
+   b) RST  address
+
+      Specifies the location of the RST entry point. This command
+      is used when the reset vector is not available via one of
+      binary image files. Note - can use "RES" in lieu of "RST".
+
+   c) NMI  address
+
+      Similar to above.
+
+   d) IRQ  address
+
+      Similar to above. Note - can use "INT" in lieu of "IRQ".
+
+   e) SWI  address
+
+      Similar to above.
+
+   f) CODE  address  [address ...]
+
+      Specifies the address of code entry point(s). May be required
+      when there is no explicit jump/branch to a code fragment. Up
+      to 1000 such addresses may be defined.
+
+   g) SUBR  address  [address ...]
+
+      Similar to above, but for subroutines. Up to 2000 such
+      subroutines may be defined.
+

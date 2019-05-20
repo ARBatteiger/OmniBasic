@@ -1,0 +1,27 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file gizmosc.pyd
+
+File Type: DLL
+
+  Section contains the following exports for gizmosc.pyd
+
+           0 characteristics
+    3E7B81D3 time date stamp Fri Mar 21 15:19:15 2003
+        0.00 version
+           1 ordinal base
+           1 number of functions
+           1 number of names
+
+    ordinal hint RVA      name
+
+          1    0 0000C7F0 initgizmosc
+
+  Summary
+
+        5000 .data
+        A000 .rdata
+        3000 .reloc
+        D000 .text

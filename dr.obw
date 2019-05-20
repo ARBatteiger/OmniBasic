@@ -1,0 +1,1 @@
+; Dimension Variablesdim frame as framedim rb1 as radiobuttonOBMain.CREATEconstruct frame,10,10,100,100construct rb1,20,20,50,20 in framerb1.backcolor=$ff0000END EVENT

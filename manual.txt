@@ -1,0 +1,21 @@
+*****************************************************************************************
+
+FINDITEM
+
+FINDITEM Objectname,StartingNdx,FindString,SelectIfFound
+
+ObjectName must be the Name of a ListBox or ComboBox
+FindString is the case-insensitive string to match
+SelectIfFound must be either YES or NO
+
+Notes:
+1) The FIRST characters of in the ListBox or ComboBox must match the FindString
+2) The search is case-insensitive
+3) If SelectIfFound is YES then the item is selected if found
+4) The system variable STATUS contains the index of the found item, or 0 if not found
+   (-1 if BASE is 0)
+
+*****************************************************************************************
+
+
+

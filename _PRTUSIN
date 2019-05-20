@@ -1,0 +1,658 @@
+
+
+void _PrtUsing();
+void _ReadBool();
+void _ReadByte();
+void _ReadShort();
+void _ReadLong();
+void _ReadFlt();
+void _ReadStr();
+void _MovArg();
+void _MovStr();
+long _CmpStr();
+long _StrLen();
+long _SubStr();
+void _MidStr();
+void _LeftStr();
+void _RightStr();
+void _ClrConv();
+double _AtoD();
+long _AtoL();
+void _ZLtoH();
+void _ZLtoA();
+void _LtoA();
+void _DtoA();
+void _LtoH();
+void _PrintStr();
+void _PrintTab();
+void _InpData();
+void _ReadLn();
+void _BtoA();
+
+#define _BufSize 300
+#include "basic.h"
+
+typedef struct {
+void *_Ptr;
+long _Len;
+void *_Lnk;
+} _vector;
+
+typedef struct {
+void *_BufPtr;
+long _BufSiz;
+} _buffer;
+
+typedef struct {
+long _Limit;
+long _Step;
+} _loopvec;
+
+extern long _PUArgs[15];
+extern int _ArgCount;
+extern char *_ArgPtr;
+extern char _Prompt;
+extern char _NewLine;
+extern char _CRLF[2];
+extern long STATUS;
+extern jmp_buf _ebuf;
+extern time_t _t;
+extern struct tm *_systime;
+extern long _ErrFlag;
+extern void *_SrcAddr;
+extern void *_DestAddr;
+extern long _BlkCnt;
+extern long _DummyArg;
+extern long XferCount;
+extern void *_XferAddr;
+extern short _Digits;
+extern short _Decimals;
+extern long _ArgSafe0;
+extern long _ArgSafe1;
+extern unsigned char _PrtPthNum;
+extern short _SafeZone;
+extern long _IOBufPtr;
+extern _vector _IOBufVec;
+extern long POS;
+extern _vector _PBufVec;
+extern unsigned char *_DataPtr;
+extern unsigned char *_DataPtrSaf;
+extern unsigned char _True;
+extern char _ConvBuf[22];
+extern char _ConvBuf1[22];
+extern _vector _CBufVec;
+extern _vector _CBuf1Vec;
+extern char _NullStr[2];
+
+
+static long _LoopCtr[10];
+
+/*User Declaration and Variable Section*/
+
+/* LN:1 * Copyright 1996 Computer Design Lab */
+/* LN:2 * All Rights Reserved */
+/* LN:4 * _PrtUsing(NumArgs,_BufAddr,_BufSize) */
+/* LN:5 * Prints the PrintArgs according to template contained */
+/* LN:6 * in PrintArg1. */
+/* LN:8 #FCN _PrtUsing() void global */
+void _PrtUsing();
+/* LN:9 #SBRTN _ProcArg */
+/* LN:10 #SBRTN _GetByte */
+/* LN:11 #SBRTN _ScanField */
+/* LN:13  DIM _PUArgs(15):LONG EXTERNAL */
+extern long _PUArgs[15];
+/* LN:14  DIM _PUBufSize:LONG */
+static long _PUBufSize;
+/* LN:15  DIM _NumArgs:LONG */
+static long _NumArgs;
+/* LN:16  DIM _BufPtr:STRING[300] POINTER */
+static unsigned char *_BufPtr;
+/* LN:17  DIM _Ctr:LONG */
+static long _Ctr;
+/* LN:18  DIM _Template:STRING[300] VECTOR */
+static _vector _Template;
+/* LN:19  DIM _Arg:STRING[300] VECTOR */
+static _vector _Arg;
+/* LN:20  DIM _PUBuffer:STRING[300] VECTOR */
+static _vector _PUBuffer;
+/* LN:21  DIM _ArgAdrPtr:LONG */
+static long _ArgAdrPtr;
+/* LN:22  DIM _ByteCount:LONG */
+static long _ByteCount;
+/* LN:23  DIM _ArgNum:LONG */
+static long _ArgNum;
+/* LN:24  DIM _EndFlag:BYTE */
+static unsigned char _EndFlag;
+/* LN:25  DIM _OutOfArgs:BYTE */
+static unsigned char _OutOfArgs;
+/* LN:26  DIM _FieldEnd:BYTE */
+static unsigned char _FieldEnd;
+/* LN:27  DIM _TempByte:STRING[1] */
+static unsigned char _TempByte[1];
+/* LN:28  DIM _FieldByte:STRING[1] */
+static unsigned char _FieldByte[1];
+/* LN:29  DIM _FieldOrg:LONG */
+static long _FieldOrg;
+/* LN:30  DIM _FieldLen:LONG */
+static long _FieldLen;
+
+/*Temporary Vector*/
+static _vector _TmpVec1;
+
+static char _StrConst1[]="<";
+
+/*Temporary Vector*/
+static _vector _TmpVec2;
+
+static char _StrConst2[]="^";
+static char _StrConst3[]=">";
+static char _StrConst4[]=" ";
+static char _StrConst5[]="<";
+static char _StrConst6[]="^";
+
+/*Temporary Variable*/
+static long _Tmp1;
+
+
+/*Temporary Variable*/
+static long _Tmp2;
+
+
+/*Temporary Variable*/
+static long _Tmp3;
+
+
+/*Temporary Variable*/
+static long _Tmp4;
+
+
+/*Temporary Variable*/
+static long _Tmp5;
+
+void _ScanField();
+static char _StrConst7[]=" ";
+void _ProcArg();
+void _GetByte();
+
+/*Function and Subroutine Section*/
+
+void _PrtUsing(_numargs,_PUBufAddr,_pubufsize)
+
+long _numargs; /* LN:33  PARAM _numargs:LONG */
+long _PUBufAddr; /* LN:34  PARAM _PUBufAddr:LONG */
+long _pubufsize; /* LN:35  PARAM _pubufsize:LONG */
+
+{
+
+/*Pseudo Registers*/
+register long _d0;
+register long _d1;
+double _d0f;
+double _d1f;
+register void *_a0;
+
+
+_d0=_PUBufAddr;
+(long)_BufPtr=_d0;
+/* LN:38  _PUBufSize=_pubufsize */
+_PUBufSize=_pubufsize;
+/* LN:39  _NumArgs=_numargs */
+_NumArgs=_numargs;
+/* LN:40  SETVEC _PUBuffer=_PUBufAddr,_PUBufSize */
+_d0=_PUBufAddr;
+(long)_PUBuffer._Ptr=_d0;
+_d0=_PUBufSize;
+_PUBuffer._Len=_d0;
+(long)_PUBuffer._Lnk=0;
+/* LN:41 * initialize buffer to $ff */
+for (_Ctr=1; _Ctr<_PUBufSize; _Ctr++) *_BufPtr++=0xff;
+/* LN:43  _ArgNum=0 */
+_ArgNum=0x0;
+/* LN:44  _EndFlag=0 */
+_EndFlag=0x0;
+/* LN:45  _ByteCount=0 */
+_ByteCount=0x0;
+/* LN:46  GOSUB _ProcArg */
+_ProcArg();
+_Template=_Arg;
+BufLoop:;
+/* LN:49  GOSUB _GetByte */
+_GetByte();
+/* LN:50  IF _EndFlag=$ff THEN */
+_True=0;
+_d0=_EndFlag;
+_d1=0xff;
+if (_d0 == _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl1;
+/* LN:51 	rem print buffer here */
+/* LN:52 	_BufPtr=_PUBufAddr */
+_d0=_PUBufAddr;
+(long)_BufPtr=_d0;
+STATUS=write(_PrtPthNum,_BufPtr,_ByteCount);
+/* LN:54 	return */
+return ;
+/* LN:55  ENDIF */
+_Lbl1:;
+/* LN:56  IF _TempByte<>"<" AND _TempByte<>"^" AND _TempByte<>">" THEN */
+_True=0;
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_StrConst1;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_d0=_CmpStr(&_TmpVec1,&_TmpVec2);
+if (_d0 != 1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_StrConst2;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_d0=_CmpStr(&_TmpVec1,&_TmpVec2);
+if (_d0 != 1) _d0=0xff;
+else _d0=0;
+_True=_True&_d0;
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_StrConst3;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_d0=_CmpStr(&_TmpVec1,&_TmpVec2);
+if (_d0 != 1) _d0=0xff;
+else _d0=0;
+_True=_True&_d0;
+if (_True==0) goto _Lbl2;
+/* LN:57 	MID$(_PUBuffer,_ByteCount,1)=_TempByte */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_ByteCount;
+_d1=0x1;
+_MidStr(_a0,_d0,_d1,255);
+_a0=_TempByte;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=1;
+_TmpVec2._Lnk=0;
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:58 	GOTO BufLoop */
+goto BufLoop;
+/* LN:59  ENDIF */
+_Lbl2:;
+/* LN:60  MID$(_PUBuffer,_ByteCount,1)=" " */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_ByteCount;
+_d1=0x1;
+_MidStr(_a0,_d0,_d1,255);
+_a0=_StrConst4;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:61  _FieldOrg=_ByteCount */
+_FieldOrg=_ByteCount;
+/* LN:62  _FieldLen=1 */
+_FieldLen=0x1;
+/* LN:63  _FieldEnd=0 */
+_FieldEnd=0x0;
+/* LN:64  _FieldByte=_TempByte */
+_a0=_FieldByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_TempByte;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=1;
+_TmpVec2._Lnk=0;
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:65  GOSUB _ProcArg */
+_ProcArg();
+/* LN:66  IF _TempByte="<" THEN LJust */
+_True=0;
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_StrConst5;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_d0=_CmpStr(&_TmpVec1,&_TmpVec2);
+if (_d0 == 1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl3;
+goto LJust;
+_Lbl3:;
+/* LN:67  IF _TempByte="^" THEN CJust */
+_True=0;
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_StrConst6;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_d0=_CmpStr(&_TmpVec1,&_TmpVec2);
+if (_d0 == 1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl4;
+goto CJust;
+_Lbl4:;
+/* LN:68 * RJust */
+/* LN:69  GOSUB _ScanField */
+_ScanField();
+/* LN:70  IF _OutOfArgs=$ff THEN BufLoop */
+_True=0;
+_d0=_OutOfArgs;
+_d1=0xff;
+if (_d0 == _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl5;
+goto BufLoop;
+_Lbl5:;
+/* LN:71  IF LEN(_Arg)>_FieldLen THEN */
+_True=0;
+_Tmp1=_StrLen(&_Arg);
+_d0=_Tmp1;
+_d1=_FieldLen;
+if (_d0 > _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl6;
+/* LN:72 	RIGHT$(MID$(_PUBuffer,_FieldOrg,_FieldLen),_FieldLen)=RIGHT$(_Arg,_FieldLen) */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_FieldOrg;
+_d1=_FieldLen;
+_MidStr(_a0,_d0,_d1,255);
+_a0=&_TmpVec1;
+_d0=_FieldLen;
+_RightStr(_a0,_d0,255);
+_TmpVec2=_Arg;
+_a0=&_TmpVec2;
+_d0=_FieldLen;
+_RightStr(_a0,_d0,0);
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:73  ELSE */
+goto _Lbl7;
+_Lbl6:;
+/* LN:74 	RIGHT$(MID$(_PUBuffer,_FieldOrg,_FieldLen),LEN(_Arg))=RIGHT$(_Arg,LEN(_Arg)) */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_FieldOrg;
+_d1=_FieldLen;
+_MidStr(_a0,_d0,_d1,255);
+_Tmp1=_StrLen(&_Arg);
+_a0=&_TmpVec1;
+_d0=_Tmp1;
+_RightStr(_a0,_d0,255);
+_Tmp2=_StrLen(&_Arg);
+_TmpVec2=_Arg;
+_a0=&_TmpVec2;
+_d0=_Tmp2;
+_RightStr(_a0,_d0,0);
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:75  ENDIF */
+_Lbl7:;
+/* LN:76  GOTO BufLoop */
+goto BufLoop;
+CJust:;
+/* LN:78  GOSUB _ScanField */
+_ScanField();
+/* LN:79  IF _OutOfArgs=$ff THEN BufLoop */
+_True=0;
+_d0=_OutOfArgs;
+_d1=0xff;
+if (_d0 == _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl8;
+goto BufLoop;
+_Lbl8:;
+/* LN:80  IF LEN(_Arg)>=_FieldLen THEN */
+_True=0;
+_Tmp1=_StrLen(&_Arg);
+_d0=_Tmp1;
+_d1=_FieldLen;
+if (_d0 >= _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl9;
+/* LN:81 	LEFT$(MID$(_PUBuffer,_FieldOrg,_FieldLen),LEN(_Arg))=_Arg */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_FieldOrg;
+_d1=_FieldLen;
+_MidStr(_a0,_d0,_d1,255);
+_Tmp1=_StrLen(&_Arg);
+_a0=&_TmpVec1;
+_d0=_Tmp1;
+_MidStr(_a0,1,_d0,255);
+_MovStr(&_TmpVec1,&_Arg);
+/* LN:82  ELSE */
+goto _Lbl10;
+_Lbl9:;
+/* LN:83 	MID$(MID$(_PUBuffer,_FieldOrg,_FieldLen),(_FieldLen-LEN(_Arg))/2+1,LEN(_Arg))=_Arg */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_FieldOrg;
+_d1=_FieldLen;
+_MidStr(_a0,_d0,_d1,255);
+_Tmp1=_StrLen(&_Arg);
+_d0=_FieldLen;
+_d1=_Tmp1;
+_d0=_d0-_d1;
+_Tmp2=_d0;
+_d0=_Tmp2;
+_d1=0x2;
+_d0=_d0/_d1;
+_Tmp3=_d0;
+_d0=_Tmp3;
+_d1=0x1;
+_d0=_d0+_d1;
+_Tmp4=_d0;
+_Tmp5=_StrLen(&_Arg);
+_a0=&_TmpVec1;
+_d0=_Tmp4;
+_d1=_Tmp5;
+_MidStr(_a0,_d0,_d1,255);
+_MovStr(&_TmpVec1,&_Arg);
+/* LN:84  ENDIF */
+_Lbl10:;
+/* LN:85  GOTO BufLoop */
+goto BufLoop;
+LJust:;
+/* LN:87  GOSUB _ScanField */
+_ScanField();
+/* LN:88  IF _OutOfArgs=$ff THEN BufLoop */
+_True=0;
+_d0=_OutOfArgs;
+_d1=0xff;
+if (_d0 == _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl11;
+goto BufLoop;
+_Lbl11:;
+/* LN:89  LEFT$(MID$(_PUBuffer,_FieldOrg,_FieldLen),LEN(_Arg))=_Arg */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_FieldOrg;
+_d1=_FieldLen;
+_MidStr(_a0,_d0,_d1,255);
+_Tmp1=_StrLen(&_Arg);
+_a0=&_TmpVec1;
+_d0=_Tmp1;
+_MidStr(_a0,1,_d0,255);
+_MovStr(&_TmpVec1,&_Arg);
+/* LN:90  GOTO BufLoop */
+goto BufLoop;
+/* LN:91  RETURN\ for framing only */
+return ;
+}
+
+void _ScanField()
+{
+
+/*Pseudo Registers*/
+register long _d0;
+register long _d1;
+double _d0f;
+double _d1f;
+register void *_a0;
+
+_SF1:;
+/* LN:95  GOSUB _GetByte */
+_GetByte();
+/* LN:96  IF _TempByte<>_FieldByte THEN */
+_True=0;
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_a0=_FieldByte;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=1;
+_TmpVec2._Lnk=0;
+_d0=_CmpStr(&_TmpVec1,&_TmpVec2);
+if (_d0 != 1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl12;
+/* LN:97 	_FieldEnd=$ff */
+_FieldEnd=0xff;
+/* LN:98 	DEC _ByteCount */
+_ByteCount--;
+/* LN:99 	RETURN */
+return ;
+/* LN:100  ENDIF */
+_Lbl12:;
+/* LN:101  IF _EndFlag=$ff THEN */
+_True=0;
+_d0=_EndFlag;
+_d1=0xff;
+if (_d0 == _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl13;
+/* LN:102 	_FieldEnd=$ff */
+_FieldEnd=0xff;
+/* LN:103 	RETURN */
+return ;
+/* LN:104  ENDIF */
+_Lbl13:;
+/* LN:105  INC _FieldLen */
+_FieldLen++;
+/* LN:106  MID$(_PUBuffer,_ByteCount,1)=" " */
+_TmpVec1=_PUBuffer;
+_a0=&_TmpVec1;
+_d0=_ByteCount;
+_d1=0x1;
+_MidStr(_a0,_d0,_d1,255);
+_a0=_StrConst7;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=2;
+_TmpVec2._Lnk=0;
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:107  GOTO _SF1 */
+goto _SF1;
+/* LN:108  RETURN\ for framing only */
+return ;
+}
+
+void _ProcArg()
+{
+
+/*Pseudo Registers*/
+register long _d0;
+register long _d1;
+double _d0f;
+double _d1f;
+register void *_a0;
+
+_vector *_Op1;
+/* LN:112  INC _ArgNum */
+_ArgNum++;
+/* LN:113  IF _ArgNum>_NumArgs THEN */
+_True=0;
+_d0=_ArgNum;
+_d1=_NumArgs;
+if (_d0 > _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl14;
+/* LN:114 	_OutOfArgs=$ff */
+_OutOfArgs=0xff;
+/* LN:115 	RETURN */
+return ;
+/* LN:116  ENDIF */
+_Lbl14:;
+(long)_Op1=_PUArgs[_ArgNum-1];
+_Arg=*_Op1;
+/* LN:119  RETURN */
+return ;
+}
+
+void _GetByte()
+{
+
+/*Pseudo Registers*/
+register long _d0;
+register long _d1;
+double _d0f;
+double _d1f;
+register void *_a0;
+
+/* LN:122  INC _ByteCount */
+_ByteCount++;
+/* LN:123  IF _ByteCount>LEN(_Template) OR _ByteCount>_PUBufSize THEN */
+_True=0;
+_Tmp1=_StrLen(&_Template);
+_d0=_ByteCount;
+_d1=_Tmp1;
+if (_d0 > _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+_d0=_ByteCount;
+_d1=_PUBufSize;
+if (_d0 > _d1) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl15;
+/* LN:124 	DEC _ByteCount */
+_ByteCount--;
+/* LN:125 	_EndFlag=$ff */
+_EndFlag=0xff;
+/* LN:126 	RETURN */
+return ;
+/* LN:127  ENDIF */
+_Lbl15:;
+/* LN:128  _TempByte=MID$(_Template,_ByteCount,1) */
+_a0=_TempByte;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=1;
+_TmpVec1._Lnk=0;
+_TmpVec2=_Template;
+_a0=&_TmpVec2;
+_d0=_ByteCount;
+_d1=0x1;
+_MidStr(_a0,_d0,_d1,0);
+_MovStr(&_TmpVec1,&_TmpVec2);
+/* LN:129  RETURN */
+return ;
+}

@@ -1,0 +1,682 @@
+
+
+
+
+          FIX for Windows
+          Dynamic Properties Report
+
+          Report Date: 11/19/98
+          Report Time: 11:06:49
+
+          Report File Name:  floor.ODR
+          ODF Version:       610
+
+
+          **********  Picture-Specific Properties  **********
+          Picture name:                 floor.odf
+          Picture width:                7.940
+          Picture height:               4.720
+          Background Color              255  255  255
+          Refresh rate:                 0.10
+          Key macro:                    None
+          Security area:                None
+          Picture Type:                 Standard
+          Title bar:                    Yes
+          System menu:                  No
+          Resizable:                    Yes
+          Bitmap format:                No
+
+          Previous Picture
+             Picture name:  None
+             Tag group:     None
+
+          Next Picture
+             Picture name:  None
+             Tag group:     None
+
+          Commands on Open
+
+          SQL Commands on Open
+
+          Commands on Close
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 2
+
+Object: RECT     2000, 210, 2980, 690
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             DECLARE #TRND_SEL STRING GLOBAL
+             DECLARE #GROUPTAG STRING GLOBAL
+             #GROUPTAG = "M1PART"
+             #TRND_SEL = "M1TRND"
+             #PIC_LABEL = "200 TON TOYO"
+             OPENPIC C:\FIX32\PIC\DATA1 -1 * M1DATA
+
+
+Object: RECT     3040, 540, 3750, 800
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             #PIC_LABEL = "200 TON TOYO"
+             OPENPIC C:\FIX32\PIC\PARTSEL -1 * M1DATA
+
+
+Object: RECT     3150, 1580, 3860, 1840
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             #PIC_LABEL = "150 TON TOYO"
+             OPENPIC C:\FIX32\PIC\PARTSEL -1 * M2DATA
+
+
+Object: RECT     2090, 1340, 3070, 1820
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             DECLARE #TRND_SEL STRING GLOBAL
+             DECLARE #GROUPTAG STRING GLOBAL
+             #GROUPTAG = "M2PART"
+             #TRND_SEL = "M2TRND"
+             #PIC_LABEL = "150 TON TOYO"
+             OPENPIC C:\FIX32\PIC\DATA1 -1 * M2DATA
+
+
+Object: RECT     5060, 2640, 5770, 2900
+
+          Controllable: 0
+          Modifiable: 1
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 3
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             #PIC_LABEL = "90 TON TOYO"
+             OPENPIC C:\FIX32\PIC\PARTSEL -1 * M3DATA
+
+
+Object: RECT     4000, 2390, 4980, 2870
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             DECLARE #TRND_SEL STRING GLOBAL
+             DECLARE #GROUPTAG STRING GLOBAL
+             #GROUPTAG = "M3PART"
+             #TRND_SEL = "M3TRND"
+             #PIC_LABEL = "90 TON TOYO"
+             OPENPIC C:\FIX32\PIC\DATA1 -1 * M3DATA
+
+
+Object: RECT     3480, 3500, 4190, 3760
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             #PIC_LABEL = "110 TON TOYO"
+             OPENPIC C:\FIX32\PIC\PARTSEL -1 * M4DATA
+
+
+Object: RECT     2430, 3280, 3410, 3760
+
+          Controllable: 0
+          Modifiable: 1
+
+          Commands On-Down List
+             DECLARE #PIC_LABEL STRING GLOBAL
+             DECLARE #TRND_SEL STRING GLOBAL
+             DECLARE #GROUPTAG STRING GLOBAL
+             #GROUPTAG = "M4PART"
+             #TRND_SEL = "M4TRND"
+             #PIC_LABEL = "110 TON TOYO"
+             OPENPIC C:\FIX32\PIC\DATA1 -1 * M4DATA
+
+
+Object: DATALINK     1430, 4520, 2160, 4730
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M4_COUNTER.F_CV
+
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 4
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: DATALINK     5510, 1620, 6240, 1830
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M2_COUNTER.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: DATALINK     5360, 400, 6090, 610
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M1_COUNTER.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: DATALINK     1440, 2822, 2170, 3032
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M3_COUNTER.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: DATALINK     4480, 199, 7360, 399
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M1_CURRENT_PART.A_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     3930, 10, 6350, 610
+
+
+          Text: TOYO 200 TON PRESS STATUSPART:                   SHOT #
+
+Object: TEXT     4080, 1230, 6500, 1830
+
+
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 5
+
+          Text: TOYO 150 TON PRESS STATUSPART:                   SHOT #
+
+Object: DATALINK     4650, 1419, 7530, 1619
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M2_CURRENT_PART.A_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     20, 2430, 2350, 3030
+
+
+          Text: TOYO 90 TON PRESS STATUSPART:                   SHOT #
+
+Object: DATALINK     530, 2629, 3410, 2829
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M3_CURRENT_PART.A_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     10, 4130, 2430, 4730
+
+
+          Text: TOYO 110 TON PRESS STATUSPART:                   SHOT #
+
+Object: DATALINK     530, 4339, 3410, 4539
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M4_CURRENT_PART.A_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     6570, 1210, 7060, 1410
+
+          Visible/Invisible
+
+             Tagname: FIX:M2_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 11.00
+
+
+          Text: AUTO
+
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 6
+
+Object: TEXT     6551, 1208, 7521, 1408
+
+          Visible/Invisible
+
+             Tagname: FIX:M2_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 9.00
+
+
+          Text: SEMI AUTO
+
+Object: TEXT     6526, 1224, 6876, 1424
+
+          Visible/Invisible
+
+             Tagname: FIX:M2_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 1.00
+
+
+          Text: OFF
+
+Object: TEXT     6530, 1210, 7180, 1410
+
+          Visible/Invisible
+
+             Tagname: FIX:M2_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 3.00
+
+
+          Text: ALARM
+
+Object: TEXT     6532, 1218, 7302, 1418
+
+          Visible/Invisible
+
+             Tagname: FIX:M2_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 6.00
+
+
+          Text: MANUAL
+
+Object: TEXT     6440, 20, 6930, 220
+
+          Visible/Invisible
+
+             Tagname: FIX:M1_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 11.00
+
+
+          Text: AUTO
+
+Object: TEXT     6400, 30, 7370, 230
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 7
+
+          Visible/Invisible
+
+             Tagname: FIX:M1_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 9.00
+
+
+          Text: SEMI AUTO
+
+Object: TEXT     6460, 30, 6810, 230
+
+          Visible/Invisible
+
+             Tagname: FIX:M1_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 1.00
+
+
+          Text: OFF
+
+Object: TEXT     6390, 20, 7040, 220
+
+          Visible/Invisible
+
+             Tagname: FIX:M1_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 3.00
+
+
+          Text: ALARM
+
+Object: TEXT     6400, 20, 7170, 220
+
+          Visible/Invisible
+
+             Tagname: FIX:M1_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 6.00
+
+
+          Text: MANUAL
+
+Object: TEXT     2436, 4140, 2926, 4340
+
+          Visible/Invisible
+
+             Tagname: FIX:M4_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 11.00
+
+
+          Text: AUTO
+
+Object: TEXT     2415, 4129, 3385, 4329
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 8
+
+
+          Visible/Invisible
+
+             Tagname: FIX:M4_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 9.00
+
+
+          Text: SEMI AUTO
+
+Object: TEXT     2441, 4138, 2791, 4338
+
+          Visible/Invisible
+
+             Tagname: FIX:M4_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 1.00
+
+
+          Text: OFF
+
+Object: TEXT     2490, 4126, 3140, 4326
+
+          Visible/Invisible
+
+             Tagname: FIX:M4_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 3.00
+
+
+          Text: ALARM
+
+Object: TEXT     2449, 4137, 3219, 4337
+
+          Visible/Invisible
+
+             Tagname: FIX:M4_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 6.00
+
+
+          Text: MANUAL
+
+Object: TEXT     2376, 2436, 2866, 2636
+
+          Visible/Invisible
+
+             Tagname: FIX:M3_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 11.00
+
+
+          Text: AUTO
+
+Object: TEXT     2396, 2437, 3366, 2637
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 9
+
+
+          Visible/Invisible
+
+             Tagname: FIX:M3_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 9.00
+
+
+          Text: SEMI AUTO
+
+Object: TEXT     2398, 2435, 2748, 2635
+
+          Visible/Invisible
+
+             Tagname: FIX:M3_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 1.00
+
+
+          Text: OFF
+
+Object: TEXT     2398, 2426, 3048, 2626
+
+          Visible/Invisible
+
+             Tagname: FIX:M3_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 3.00
+
+
+          Text: ALARM
+
+Object: TEXT     2402, 2427, 3172, 2627
+
+          Visible/Invisible
+
+             Tagname: FIX:M3_MODE.F_CV
+
+             Condition: Tol= 0.5           Value: 6.00
+
+
+          Text: MANUAL
+
+Object: DATALINK     5400, 3030, 5780, 3260
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M3_UPTIME.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: DATALINK     1520, 870, 1900, 1100
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 10
+
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M1_UPTIME.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     1420, 710, 1990, 900
+
+
+          Text: UPTIME
+
+Object: TEXT     1480, 1780, 2050, 1960
+
+
+          Text: UPTIME
+
+Object: TEXT     3760, 3800, 4350, 4000
+
+
+          Text: UPTIME
+
+Object: DATALINK     1570, 1930, 1950, 2160
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M2_UPTIME.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: DATALINK     3800, 3930, 4180, 4160
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:M4_UPTIME.F_CV
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     220, 100, 630, 330
+
+
+          Text: Plant
+
+Object: TEXT     30, 260, 850, 490
+
+
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 11
+
+          Text: Utilization
+
+Object: TEXT     1930, 890, 2060, 1080
+
+
+          Text: %
+
+Object: TEXT     2000, 1960, 2130, 2140
+
+
+          Text: %
+
+Object: TEXT     5830, 3060, 5960, 3240
+
+
+          Text: %
+
+Object: TEXT     4230, 3960, 4360, 4150
+
+
+          Text: %
+
+Object: RECT     100, 490, 810, 760
+
+          Controllable: 0
+          Modifiable: 0
+
+
+Object: DATALINK     160, 510, 540, 740
+
+          Controllable: 0
+          Modifiable: 0
+
+
+          Tagname: FIX:PLANT_UPTIME.F_CV
+
+          Foreground Color    by value
+
+             Tagname: FIX:PLANT_UPTIME.F_CV
+             Blink on new alarm: 0
+
+             Value               Color               Property
+             0.300               255, 0, 0           VISIBLE
+             0.400               254, 95, 28         VISIBLE
+             0.500               255, 255, 0         VISIBLE
+             0.600               159, 255, 44        VISIBLE
+             0.7                 0, 192, 0           VISIBLE
+             0.8                 0, 140, 0           VISIBLE
+             0.9                 0, 128, 0           VISIBLE
+
+          Visible Background Colors: 255, 255, 255
+
+
+Object: TEXT     600, 510, 750, 740
+
+
+
+
+          Dynamic Properties Report, floor.ODR          page 12
+
+
+          Foreground Color    by value
+
+             Tagname: FIX:PLANT_UPTIME.F_CV
+             Blink on new alarm: 0
+
+             Value               Color               Property
+             30.0                255, 0, 0           VISIBLE
+             40.0                254, 95, 28         VISIBLE
+             50.0                255, 255, 0         VISIBLE
+             60.0                159, 255, 44        VISIBLE
+             70.0                0, 192, 0           VISIBLE
+             80.0                0, 140, 0           VISIBLE
+             90.0                0, 128, 0           VISIBLE
+
+
+          Text: %
+
+Object: TEXT     5300, 2860, 5910, 3040
+
+
+          Text: UPTIME
+
+

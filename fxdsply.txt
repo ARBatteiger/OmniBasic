@@ -1,0 +1,144 @@
+( Back Light                                   09:07 01/03/90 ) 
+8 CONSTANT BKLITEbit                                            
+0 VARIABLE BKLOFFt 1800 CONSTANT BKLTtime ( Seconds)            
+0 VARIABLE LAST[t] 4 ALLOT-RAM                                  
+HEX 7007 CONSTANT BKLITEI/O DECIMAL                             
+: BKliteON BKLTtime BKLOFFt !                                   
+  MUXstat @ BKLITEbit OR BKLITEI/O C! ;                         
+: BKliteOFF BKLITEbit BKLITEI/O C!                              
+  MUXstat @ BKLITEbit -1 XOR AND BKLITEI/O C! ;                 
+: ?BKliteOFF LAST[t] 2@ @RUNTIME 2DUP LAST[t] 2! D<>            
+  IF BKLOFFt @ 0> IF -1 BKLOFFt +! ELSE BKliteOFF THEN THEN ;   
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DISPALY BUFFERS                              09:35 10/22/89 ) 
+HEX                                                             
+7005 CONSTANT DSPLY_DTA   7006 CONSTANT DSPLY_INSTR             
+DECIMAL                                                         
+0 CONSTANT CLMN0  24 CONSTANT CLMNn  24 CONSTANT DSPLYwdth      
+0 VARIABLE CHRBUF1 25 ALLOT-RAM 0 VARIABLE CHRBUF2 25 ALLOT-RAM 
+0 VARIABLE BUF1pntr 0 VARIABLE BUF2pntr                         
+: CLR-CHRBUF1 CHRBUF1 DSPLYwdth + CHRBUF1 DO 32  I C! LOOP      
+      CHRBUF1 BUF1pntr ! ;                                      
+: CLR-CHRBUF2 CHRBUF2 DSPLYwdth + CHRBUF2 DO 32  I C! LOOP      
+      CHRBUF2 BUF2pntr ! ;                                      
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DISPLAY I/O ADDR & PRINT BUFFERS             06:53 10/21/89 ) 
+                                                                
+0 VARIABLE LOCKup                                               
+: MAJOR_ERROR CR ." DISPLAY NOT RESPONDING" QUIT ;              
+: ?LOCKup 1 LOCKup +! LOCKup @ 1000 > IF MAJOR_ERROR THEN ;     
+: RESET_LOCKup 0 LOCKup ! ;                                     
+                                                                
+DECIMAL                                                         
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DISPLAY I/O & HANDLERS                       12:51 07/15/89 ) 
+HEX                                                             
+: ?DSPLY_RDY DSPLY_INSTR C@ 80 AND 0= ( -- 1=RDY ) ;            
+: DSPLY_WAIT RESET_LOCKup BEGIN ?LOCKup ?DSPLY_RDY UNTIL ;      
+: CLEARSCREEN                                                   
+  DSPLY_WAIT  38 DSPLY_INSTR C! ( Set FUNCTIONING)              
+  DSPLY_WAIT  0C DSPLY_INSTR C! ( Set Char only ON, no cursor)  
+  DSPLY_WAIT  06 DSPLY_INSTR C! ( Set Entry Mode)               
+  DSPLY_WAIT  01 DSPLY_INSTR C! ( Clr dsply & home)             
+  CLR-CHRBUF1 CLR-CHRBUF2 ;                                     
+DECIMAL                                                         
+: DSPLYwrite ( c --) DSPLY_DTA C! ;                             
+                                                                
+: D-SPACES ( n --) DUP 0= IF EXIT THEN                          
+  0 DO 32 DSPLYwrite LOOP ;                                     
+                                                                
+( DISPLAY HANDLERS cont.                       12:17 07/15/89 ) 
+HEX                                                             
+: SETcurser ( line#[1/2],column#[1-24]) DSPLY_WAIT              
+    SWAP 1 > IF C0 ( line 2 code) ELSE 80 ( line 1 code) THEN   
+     + 1- DSPLY_INSTR C! ;                                      
+DECIMAL                                                         
+: BLANKline ( row# -- ) DUP 1 SETcurser                         
+    DSPLYwdth 0 DO DSPLY_WAIT 32 DSPLYwrite LOOP DROP ;         
+: CLEAR-DISPLAY 1 BLANKline 2 BLANKline ;                       
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DISPLAY STRING AND LINE ROUTINES ) DECIMAL                    
+: DSPLYline ( strng adr, line#[1-2] )                           
+  1 SETcurser >R                                                
+  CLMNn R + CLMN0 R> + OVER >R                                  
+  DO I C@ DUP 0= IF I SWAP LEAVE ELSE DSPLYwrite THEN LOOP      
+  0= IF R SWAP DO 32 DSPLYwrite LOOP THEN                       
+  R> DROP ;                                                     
+: DSPLYstring ( strng adr, line#[1-2],column#[1-24] )           
+  SETcurser >R                                                  
+  CLMNn R + CLMN0 R> +                                          
+  DO I C@ DUP 0= IF DROP LEAVE ELSE DSPLYwrite THEN LOOP ;      
+DECIMAL ;S                                                      
+                                                                
+                                                                
+                                                                
+                                                                
+( DISPLAY 1 & 2 DEFINITIONS                    09:42 12/01/88 ) 
+ 1 CONSTANT DISPLAY1                                            
+ 2 CONSTANT DISPLAY2                                            
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DISPLAY WRITE CONTROLS                       11:23 07/11/89 ) 
+0 VARIABLE x1  0 VARIABLE x2                                    
+: SETx ( wpb,n -- wpb) OVER DISPLAY1 = IF x1 ELSE x2 THEN ! ;   
+: w-home ( wpb --) 0 SETx 1 SETcurser ;                         
+: w-TYPE ( StrAdr, wpb --) 1 DSPLYstring ;                      
+: wx-TYPE ( adr,cnt,x,wpb -- ) SWAP SETcurser                   
+   OVER + SWAP DO I C@ DSPLYwrite LOOP ;                        
+: wx-emit ( c,x,wpb --) SWAP SETcurser DSPLYwrite ;             
+: FORMAT-wxTYPE ( adr,cnt,x,n,wpb --  inserts lead spaces)      
+  SWAP >R SWAP SETcurser                                        
+  R> OVER - 0 MAX DUP 0>                                        
+  IF 0 DO 32 DSPLYwrite LOOP ELSE DROP THEN                     
+  OVER + SWAP DO I C@ DSPLYwrite LOOP ;                         
+                                                                
+                                                                
+                                                                
+( IBM/OXB COMPATABILITY DEFINITIONS            11:20 07/11/89 ) 
+0 VARIABLE REFRESH1 25 ALLOT-RAM                                
+0 VARIABLE REFRESH2 25 ALLOT-RAM                                
+: LINEsav ( bufadr,line# --)  1 SETcurser 0 OVER 25 + C!        
+  24 OVER + SWAP DO DSPLY_DTA C@ I C! LOOP ;                    
+: LINE#1sav REFRESH1 1 LINEsav ;                                
+: LINE#2sav REFRESH2 2 LINEsav ;                                
+: #1REFRESH REFRESH1 DISPLAY1 w-TYPE ;                          
+: #2REFRESH REFRESH2 DISPLAY2 w-TYPE ;                          
+: CHK-DSPLYS 25 1 DO 255 I DISPLAY1 wx-emit LOOP                
+             25 1 DO 255 I DISPLAY2 wx-emit LOOP ;              
+( : SHOW-HELP1 ;                                                
+( : SHOW-HELP2 ;                                                
+( 1 CONSTANT NORMAL                                             
+( : NORMAL>DSPLY1 NORMAL DSPLY_INSTR C! ;                       
+( : NORMAL>DSPLY2 NORMAL DSPLY_INSTR C! ;                       

@@ -1,0 +1,232 @@
+DIM Edit AS SCINTILLA
+DIM StatusBar AS STATUSBAR
+DIM FileName AS STRING
+DIM SaveFileName AS STRING
+DIM FileFilter AS STRING
+DIM FilterArray(100) AS BYTE VECTOR
+DIM InitDir AS STRING
+DIM TempInt AS LONG
+DIM TempStr AS STRING
+DIM SaveValid AS BOOLEAN
+DIM FindStr AS STRING
+DIM ReplaceStr AS STRING
+DIM FontStr AS STRING
+DIM RGB AS LONG
+
+OBMain_Load:
+SETPOSITION OBMain,0,0,1024,745
+CONSTRUCT StatusBar,0,0,0,0
+CONSTRUCT Edit,0,32,1015,668
+MENU OBMain
+	MENUBAR MainMenu
+		MENUTITLE FileMenu,"File"
+			MENUITEM "New",mnuNew
+			MENUITEM "Open",mnuOpen
+			MENUITEM "Save",mnuSave
+			MENUITEM "Save As",mnuSaveAs
+			MENUSEPARATOR
+			MENUITEM "Print",mnuPrint
+			MENUSEPARATOR
+			MENUITEM "Exit",mnuExit
+		MENUTITLE EditMenu,"Edit"
+			MENUITEM "Undo",mnuUnDo
+			MENUITEM "Redo",mnuReDo
+			MENUSEPARATOR
+			MENUITEM "Cut",mnuCut
+			MENUITEM "Copy",mnuCopy
+			MENUITEM "Paste",mnuPaste
+			MENUSEPARATOR
+			MENUITEM "Select All",mnuSelectAll
+			MENUSEPARATOR
+			MENUITEM "Goto Line",mnuGotoLine
+			MENUSEPARATOR
+			MENUITEM "Find",mnuFind
+			MENUITEM "Replace",mnuReplace
+		MENUTITLE OptionMenu,"Option"
+			MENUITEM "Preferences",mnuPreferences
+			MENUSEPARATOR
+			MENUITEM "Colors",mnuColors
+			MENUSEPARATOR
+			MENUITEM "Font",mnuFont
+		MENUTITLE CompileMenu,"Compile"
+			MENUITEM "Compile To EXE",mnuCompile
+			MENUITEM "Compile And Run",mnuCompileAndRun
+			MENUITEM "Run",mnuRun
+			MENUSEPARATOR
+			MENUITEM "Test Compile",mnuTestCompile
+			MENUITEM "Compile To Asm",mnuCompileToAsm
+			MENUSEPARATOR
+			MENUITEM "Assemble",mnuAssemble
+		MENUTITLE DebugMenu,"Debug"
+			MENUITEM "Start",mnuStart
+			MENUITEM "Stop",mnuStop
+			MENUITEM "Step",mnuStep
+			MENUITEM "End",mnuEnd
+		MENUTITLE HelpMenu,"Help"
+			MENUITEM "Help",mnuHelp
+			MENUSEPARATOR
+			MENUITEM "About",mnuAbout							
+END MENU
+DISABLEMENUITEM MainMenu,mnuSave
+DISABLEMENUITEM MainMenu,mnuSaveAs
+SaveFileName=""
+Edit.HSCROLL=TRUE
+SaveValid=FALSE
+InitDir="C:\nb"
+SETVEC FilterArray=ADDR(FileFilter)
+FilterArray(1)=ASC("O")
+FilterArray(2)=ASC("B")
+FilterArray(3)=ASC(" ")
+FilterArray(4)=ASC("C")
+FilterArray(5)=ASC("o")
+FilterArray(6)=ASC("n")
+FilterArray(7)=ASC("s")
+FilterArray(8)=ASC("o")
+FilterArray(9)=ASC("l")
+FilterArray(10)=ASC("e")
+FilterArray(11)=0
+FilterArray(12)=ASC("*")
+FilterArray(13)=ASC(".")
+FilterArray(14)=ASC("o")
+FilterArray(15)=ASC("b")
+FilterArray(16)=ASC("c")
+FilterArray(17)=0
+FilterArray(18)=ASC("O")
+FilterArray(19)=ASC("B")
+FilterArray(20)=ASC(" ")
+FilterArray(21)=ASC("W")
+FilterArray(22)=ASC("i")
+FilterArray(23)=ASC("n")
+FilterArray(24)=ASC("d")
+FilterArray(25)=ASC("o")
+FilterArray(26)=ASC("w")
+FilterArray(27)=0
+FilterArray(28)=ASC("*")
+FilterArray(29)=ASC(".")
+FilterArray(30)=ASC("o")
+FilterArray(31)=ASC("b")
+FilterArray(32)=ASC("w")
+FilterArray(33)=0
+FilterArray(34)=ASC("A")
+FilterArray(35)=ASC("s")
+FilterArray(36)=ASC("m")
+FilterArray(37)=ASC(" ")
+FilterArray(38)=ASC("F")
+FilterArray(39)=ASC("i")
+FilterArray(40)=ASC("l")
+FilterArray(41)=ASC("e")
+FilterArray(42)=ASC("s")
+FilterArray(43)=0
+FilterArray(44)=ASC("*")
+FilterArray(45)=ASC(".")
+FilterArray(46)=ASC("a")
+FilterArray(47)=ASC("s")
+FilterArray(48)=ASC("m")
+FilterArray(49)=0
+FilterArray(50)=ASC("A")
+FilterArray(51)=ASC("l")
+FilterArray(52)=ASC("l")
+FilterArray(53)=ASC(" ")
+FilterArray(54)=ASC("F")
+FilterArray(55)=ASC("i")
+FilterArray(56)=ASC("l")
+FilterArray(57)=ASC("e")
+FilterArray(58)=ASC("s")
+FilterArray(59)=0
+FilterArray(60)=ASC("*")
+FilterArray(61)=ASC(".")
+FilterArray(62)=ASC("*")
+FilterArray(63)=0
+FilterArray(64)=0
+RETURN
+
+MENU.command
+SELECT CASE MenuID
+	CASE mnuNew
+		Edit.CLEAR
+		SaveValid=FALSE
+		OBMain.TEXT="Untitled"
+		DISABLEMENUITEM MainMenu,mnuSave
+		DISABLEMENUITEM MainMenu,mnuSaveAs
+	CASE mnuOpen
+		FileName=""
+		OPENDIALOG FileName,FileFilter,InitDir 
+		IF STATUS<>0 THEN
+			Edit.LOADFILE FileName
+			SaveFileName=FileName
+			SaveValid=True
+			EnableMENUITEM MainMenu,mnuSave
+			EnableMENUITEM MainMenu,mnuSaveAs
+			OBMain.TEXT=FileName
+		ENDIF
+	CASE mnuSave
+		IF SaveValid=TRUE THEN
+			Edit.SAVEFILE SaveFileName
+			DISABLEMENUITEM MainMenu,mnuSave
+		ENDIF
+	CASE mnuSaveAs
+		FileName=""
+		SAVEDIALOG FileName,FileFilter,InitDir
+		IF STATUS<>0 THEN
+			Edit.SAVEFILE FileName
+			SaveFileName=FileName
+			OBMain.TEXT=FileName
+		ENDIF
+	CASE mnuPrint
+
+	CASE mnuExit
+		END
+	CASE mnuUnDo
+
+	CASE mnuReDo
+
+	CASE mnuCut
+
+	CASE mnuCopy
+
+	CASE mnuPaste
+
+	CASE mnuSelectAll
+
+	CASE mnuGotoLine
+
+	CASE mnuFind
+		FindStr="Find String"
+		FINDDIALOG FindStr
+	CASE mnuReplace
+		FindStr="Find String"
+		ReplaceStr="Replace String"
+		REPLACEDIALOG FindStr,ReplaceStr
+	CASE mnuPreferences
+
+	CASE mnuColors
+		COLORDIALOG RGB
+		TempStr=HEX$(RGB)
+		Edit.TEXT=TempStr
+	CASE mnuFont
+		FONTDIALOG FontStr
+	CASE mnuCompile
+
+	CASE mnuCompileAndRun
+
+	CASE mnuTestCompile
+
+	CASE mnuCompileToAsm
+
+	CASE mnuAssemble
+
+	CASE mnuStart
+
+	CASE mnuStop
+
+	CASE mnuStep
+
+	CASE mnuEnd
+
+	CASE mnuHelp
+
+	CASE mnuAbout
+
+END SELECT
+END EVENT
+

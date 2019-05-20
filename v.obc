@@ -1,0 +1,6 @@
+dim x as long
+dim y(4) as byte alias x
+
+x=0
+y(2)=1
+print x

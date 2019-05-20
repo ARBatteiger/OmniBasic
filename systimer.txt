@@ -1,0 +1,8 @@
+Use of SysTimer
+
+ImportFcnTable(ptrSetTimer).ImportFcnUse=TRUE
+OutBuf="invoke SetTimer,[!OBMain],[_ArgSafe0],eax,NULL"
+GOSUB OutCodeData
+
+ImportFcnTable(ptrSetTimer).ImportFcnUse=TRUE
+invoke SetTimer,[!OBMain],$ffff,millisecs,0

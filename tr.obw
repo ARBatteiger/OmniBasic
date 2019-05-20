@@ -1,0 +1,1 @@
+; Dimension Variablesdim s as statictextdim l as statictextOBMain.CREATEOBMain.backcolor=$ffffconstruct l,110,110,30,30l.text="XX"l.Backcolor=$ffl.forecolor=$ffffffconstruct s,100,100,50,50,base+blackframes.text="Test"s.backcolor=$ffffffffEND EVENT

@@ -1,0 +1,19 @@
+
+
+New Board Only
+1   HS103-1.25-ND Heat Sink
+2   345-1022-ND Heat Sink
+1   LM323K STEEL-ND Voltage Regulator
+1   296-10141-5- ND Driver/Receiver
+2   RS402LDI-ND Bridge Rectifier
+1   P6913-ND Capacitor
+2   74F273PC-ND Integrated Circuit
+
+
+Old and New Board
+10  CKC3004-ND Voltage Selector Switch
+10  A2096-ND Conn D-Sub Rt Angle
+2   A26269-ND 14 Pin Header
+1   Q218-ND AC Power Receptacle
+1   MC7815CT-ND
+

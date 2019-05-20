@@ -1,0 +1,451 @@
+;System Variable Assignments
+XSafe    equ $00EC
+ 
+;Varible Assignments
+fNMIOFF  equ $0204
+MUXstat  equ $05E4
+PrintBuf equ $0680
+PBufPtr  equ $0A84
+GAINvlu  equ $0ECA
+Tmpx     equ $0EDC
+MUXset   equ $0E50
+A/Ddta   equ $0EC8
+GAINexp  equ $0ECC
+ACQRmode equ $0ECE
+LMPERR   equ $0ED0
+flMPERR  equ $0ED2
+#LMPERR  equ $0ED4
+TRIGerr  equ $OED6
+TRIGDLY  equ $0ED8
+XPNTR    equ $11E0
+Xrd      equ $11E2
+Xwrt     equ $11E4
+fFAIL    equ $11E6
+TMPhrs   equ $11E8
+CLKERRcnt equ $11EA
+fPM      equ $11EC
+
+; Variable Assignments
+GAINlimit	equ $0E12; VarGAINlimit	equ $21D6; GainLimit
+// DIM GainLimit AS INTEGER
+BLANKdata *16	equ $0E14; VarBLANKdata	equ $21E6; BlankData
+// DIM BlankData(16) AS INTEGER
+TESTRTN		equ $0E26; VarTESTRTN	equ $21F4; TestRtn
+// DIM TestRtn AS INTEGER
+CALflg		equ $0E28; VarCALflg	equ $2201; CalFlag
+// DIM CalFlag AS INTEGER
+CALok		equ $0E2A; VarCALok	equ $220D; CalOK
+// DIM CalOK AS BOOLEAN
+TESTR0		equ $0E2C; VarTESTR0	equ $221A; TestR0
+// DIM TestR0 AS INTEGER
+fABORT		equ $0E2E; VarfABORT	equ $2227; FAbort
+// DIM FAbort AS BOOLEAN
+CLKBUF	*30	equ $0E30; VarCLKBUF	equ $2234; ClkBuf
+// DIM ClkBuf(30) AS INTEGER
+MUXset		equ $0E50; VarMUXset	equ $2241; MuxSet
+// DIM MuxSet AS INTEGER
+MUXstat		equ $05E4; VarMUXstat	equ $224F; MuxStat
+// DIM MuxStat AS INTEGER
+fDSPLY		equ $0E52; VarfDSPLY	equ $226A; FDisplay
+// DIM FDisplay AS INTEGER
+fVIAL		equ $0E54; VarfVIAL	equ $2276; FVial
+// DIM FVial AS INTEGER
+RESULTS	 *12	equ $0E56; VarRESULTS	equ $2284; Results
+// DIM Results(12) AS INTEGER
+nFresult  	equ $0E64; VarnFresult	equ $2293; NFResult
+// DIM NFResult AS INTEGER
+>990err		equ $0E6E; Var>990err	equ $22A1; Over990Err
+// DIM Over990Err AS INTEGER
+QAflg		equ $0E70; VarQAflg	equ $22A2; QAFlag
+// DIM QAFlag AS BOOLEAN
+f>MENU		equ $0E72; Varf>MENU	equ $3292; FMenu
+// DIM FMenu AS INTEGER
+MINx		equ $0E74; VarMINx	equ $3371; MinX
+// DIM MinX AS INTEGER
+MAXx		equ $0E76; VarMAXx	equ $337C; MaxX
+// DIM MaxX AS INTEGER
+INITVLU		equ $0E78; VarINITVLU	equ $338A; InitValue
+// DIM InitValue AS INTEGER
+f+/-#		equ $0E80; Varf+/-#	equ $33A4; Havis1
+// DIM Havis1 AS INTEGER
+F#SGN		equ $0E82; VarF#SGN	equ $33B0; FSgn
+// DIM FSgn AS INTEGER
+fDPok		equ $0E84; VarfDPok	equ $33BC; FDPok
+// DIM FDPok AS INTEGER
+fDP		equ $0E86; VarfDP	equ $33D5; FDP
+// DIM FDP AS INTEGER
+fDP0		equ $0E88; VarfDP0	equ $33E0; FDP0
+// DIM FDP0 AS INTEGER
+OUTBUF	*40	equ $0E8A; VarOUTBUF	equ $3502; OutBuf
+// DIM OutBuf(40) AS INTEGER
+REM		equ $0EB4; VarREM	equ $3558; Remm
+// DIM Remm AS INTEGER
+Rsgn		equ $0EB6; VarRsgn	equ $3563; Rsgn
+// DIM RSgn AS INTEGER
+2DIGrslt  *6	equ $0EB8; Var2DIGrslt	equ $3572; TwoDigitResult
+// DIM TwoDigitResult(6) AS INTEGER
+NUMLEN		equ $0EC0; VarNUMLEN	equ $383C; NumLen
+// DIM NumLen AS INTEGER
+ACQcntrl	equ $0EC2; VarACQcntrl	equ $3ADF; ACQCntl
+// DIM ACQCntl AS INTEGER
+LMPstat		equ $0EC4; VarLMPstat	equ $3B4C; LampStat
+//DIM LampStat AS INTEGER
+BTST		equ $0EC6; VarBTST	equ $3B57; BTest
+// DIM BTest AS INTEGER
+A/Ddta		equ $0EC8; VarA/Ddta	equ $3B64; ADData
+// DIM ADData AS INTEGER
+GAINvlu		equ $0ECA; VarGAINvlu	equ $3B72; GainValue
+// DIM GainValue AS INTEGER
+GAINexp		equ $0ECC; VarGAINexp	equ $3B80; GainExp
+// DIM GainExp AS INTEGER
+ACQRmode	equ $0ECE; VarACQRmode	equ $3BFD; AcqrMode
+// DIM AcqrMode AS INTEGER
+LMPERR		equ $0ED0; VarLMPERR	equ $3C0A; LampErr
+// DIM LampErr AS INTEGER
+flMPERR		equ $0ED2; VarflMPERR	equ $3C26; FLampErr
+// DIM FLampErr AS INTEGER
+#LMPERR		equ $0ED4; Var#LMPERR	equ $3C6f; PLampErr
+// DIM PLampErr AS INTEGER
+TRIGerr		equ $0ED6; VarTRIGerr	equ $3C8D; TrigErr
+// DIM TrigErr AS INTEGER
+TRIGDLY		equ $0ED8; VarTRIGDLY	equ $3C9B; TrigDly
+// DIM TrigDly AS INTEGER
+Rt~		equ $0EDA; VarRt~	equ $3DCE; RtQ
+// DIM RtQ AS INTEGER
+TmpX		equ $0EDC; VarTmpX	equ $3DD9; TmpX
+// DIM TmpX AS INTEGER
+SIG[Offset]	equ $0EDE; VarSIG[Offset] equ $3E54; SigOffset
+DIM SigOffset AS INTEGER
+SVstat		equ $0EE0; VarSVstat	equ $3E61; SVStat
+// DIM SVStat AS INTEGER
+'GET[Sig]	equ $0EE2; Var'GET[Sig]	equ $3E71; GetSigVar
+// DIM GetSigVar AS INTEGER
+#PRIMES		equ $0EE4; Var#PRIMES	equ $3E7F; PPrimes
+// DIM PPrimes AS INTEGER
+Temp		equ $0EE6; VarTemp	equ $3EF7; Temp
+// DIM Temp AS INTEGER
+rtn		equ $0EE8; Varrtn	equ $3F01; rtn
+// DIM rtn AS INTEGER
+
+DltaGains  *20	equ $0EEC; VarDltaGains	equ $3FBf; DltaGains
+// DIM DltaGains(20) AS INTEGER
+s0		equ $0F02; Vars0	equ $403D; S0
+// DIM S0 AS INTEGER
+CYCL[n]		equ $0F04; VarCYCL[n]	equ $4097; CycleN
+// DIM CycleN AS INTEGER
+MINSMPL#	equ $0F06; VarMINSMPL#	equ $40A6; MinSampleNum
+// DIM MinSampleNum AS INTEGER
+R[Hi]		equ $0F08; VarR[Hi]	equ $40B2; RHi
+// DIM RHi AS INTEGER
+R[Lo]		equ $0F0A; VarR[Lo]	equ $40BE; RLo
+// DIM RLo AS INTEGER
+Dlta		equ $0F0C; VarDlta	equ $40C9; Dlta
+// DIM Dlta AS INTEGER
+SUM[Rn]	 *4	equ $0F0E; VarSUM[Rn]	equ $40D7; SumRn
+// DIM SumRn(4) AS INTEGER
+1/Dlta		equ $0F14; Var1/Dlta	equ $40E4; RDlta
+// DIM RDlta AS LONG
+fNFg>Lim	equ $0F1A; VarfNFg>Lim equ $410E; OverLimit
+// DIM OverLimit AS INTEGER
+fOffset		equ $0F1C; VarfOffset	equ $411C; FOffset
+// DIM FOffset AS INTEGER
+fGERR		equ $0F1E; VarfGERR	equ $44A8; FGErr
+// DIM FGErr AS INTEGER
+AVE[S/R]   *8 	equ $0F20; VarAVE[S/R]	equ $4754; AverSigRef
+// DIM AverSigRef(8) AS LONG
+SIG[Ave]   *8	equ $0F2A; VarSIG[Ave]	equ $4763; SigAver
+// DIM SigAver(8) AS LONG
+REF[Ave]	equ $0F34; VarREF[Ave]	equ $4772; RefAver
+// DIM RefAver(8) AS LONG
+SIG[Ave]/REF[Ave] equ $0F3E ; VarSIG[Ave]/REF[Ave] equ 478A; SigRefAver
+// DIM SigRefAver AS LONG
+SIGQUE	 *200	equ $0F48; VarSIGQUE	equ $47C5; SigQue
+// DIM SigQue(200) AS INTEGER
+REFQUE		equ $1012; VarREFQUE	equ $47D2; RegQue
+// DIM RefQue(200) AS INTEGER
+S/RQUE	 *200	equ $10DC; VarS/RQUE	equ $47C9; SigRefQue
+// DIM SigRefQue(200) AS INTEGER
+#SMPLS		equ $11A6; Var#SMPLS	equ $47EC; NumSamples
+// DIM NumSamples AS INTEGER
+#OUTLYERS	equ $11A8; Var#OUTLYERS	equ $47FC; NumOutlyers
+// DIM NumOutlyers AS INTEGER
+SMPL#		equ $11AA; VarSMPL#	equ $4808; SampleNum
+// DIM SampleNum AS INTEGER
+SMPLtotal	equ $11AC; VarSMPLtotal	equ $481C; SampleTotal
+// DIM SampleTotal AS INTEGER
+SMPLNDX		equ $11AE; VarSMPLNDX	equ $4826; SampleNdx
+// DIM SampleNdx AS INTEGER
+NDXlimit	equ $11B0; VarNDXlimit	equ $4835; NdxLimit
+// DIM NdxLimit AS INTEGER
+f1stTEST	equ $11B2; Varf1stTEST	equ $4844; FirstTest
+// DIM FirstTest AS INTEGER
+ASMBLY		equ $11B4; VarASMBLY	equ $4851; Assembly
+// DIM Assembly AS INTEGER
+#SMPLtbl   *8	equ $11B6; Var#SMPLtbl	equ $4860; SampleTable
+// DIM SampleTable(8) AS INTEGER
+#OUTLYRtbl   *8	equ $11C0; Var#OUTLYRtbl equ $4871; OutlyerTable
+// DIM  OutlyerTable(8) AS INTEGER
+MAXSMPL		equ $11CA; VarMAXSMPL	equ $4A12; MaxSample
+// DIM MaxSample AS INTEGER
+MINSMPL		equ $11CE: VarMINSMPL	equ $4A2D; MinSample
+// DIM MinSample AS INTEGER
+MINNDX		equ $11D0; VarMINNDX	equ $4A3A; MinNdx
+// DIM MinNdx AS INTEGER
+%DIF		equ $11D2; Var%DIF	equ $4B70; PctDif
+// DIM PctDif AS INTEGER
+S/Rjst		equ $11D4; VarS/Rjst	equ $4BD7; SRJst
+// DIM SRJst AS INTEGER
+SIGok		equ $11D6; VarSIGok	equ $4C79; SigOK
+// DIM SigOK AS INTEGER
+REFok		equ $11D8; VarREFok	equ $4C85; RefOK
+// DIM RefOK AS INTEGER
+#BADPNTS	equ $11DA; Var#BADPNTS	equ $4C94; NumBadPnts
+// DIM NumBadPnts AS INTEGER
+f-		equ $11DC; Varf-	equ $4E1D; FMinus
+// DIM FMinus AS INTEGER
+DTALINE		equ $11DE; VarDTALINE	equ $4E2B; DataLine
+// DIM DataLine AS INTEGER
+XPNTR		equ $11E0; VarXPNTR	equ $505A; XPtr
+// DIM XPtr AS INTEGER
+Xrd		equ $11E2; VarXrd	equ $5064; XRd
+// DIM XRd AS INTEGER
+Xwrt		equ $11E4; VarXwrt	equ $506F; XWrt
+// DIM XWrt AS INTEGER
+fFAIL		equ $11E6; VarfFAIL	equ $5178; FFail
+// DIM FFail AS INTEGER
+TMPhrs		equ $11E8; VarTMPhrs	equ $53F3; TmpHours
+// DIM TmpHours AS INTEGER
+CLKERRcnt	equ $11EA; VarCLKERRcnt	equ $5403; ClkErrCnt
+// DIM ClkErrCnt AS INTEGER
+fPM		equ $11EC; VarfPM	equ $540D; PMFlag
+// DIM PMFlag AS BOOLEAN
+PRNBUF1		equ $12F0; VarPRNBUF1	equ $8048; PrintBuf1
+// DIM PrintBuf1 AS STRING*41
+PRNBUF2		equ $131B; VarPRNBUF2	equ $8056; PrintBuf2
+// DIM PrintBuf2 AS STRING*41
+fNMIOFF		equ $0204; VarfNMIOFF	equ $DB25; NMIOffFlag
+// DIM NMIOffFlag AS BOOLEAN
+J1		equ $05BE; VarJ1	equ $E0F8; J1
+// DIM J1 AS INTEGER
+J2		equ $05C0; VarJ2	equ $E101; J2
+// DIM J2 AS INTEGER
+sgn1		equ $05C2; Varsgn1	equ $E10C; Sgn1
+// DIM Sgn1 AS INTEGER
+sgn2		equ $05C4; Varsgn2	equ $E117; Sgn2
+// DIM Sgn2 AS INTEGER
+j1		equ $05C6; Varj1	equ $E120; j1
+// DIM J1 AS INTEGER
+j2		equ $05C8; Varj2	equ $E120; j1
+// DIM J2 AS INTEGER
+n		equ $05CA; Varn		equ $E131; n
+// DIM n AS INTEGER
+CALCERR		equ $05CC; VarCALCERR	equ $E13F; CalcErr
+// DIM CalcErr AS INTEGER
+n1		equ $05CE; Varn1	equ $E148; n1
+// DIM n1(6) AS INTEGER
+n2		equ $05D4; Varn2	equ $E151; n2
+// DIM n2(6) AS INTEGER
+n3		equ $05DA; Varn3	equ $E45A; n3
+// DIM n3 AS INTEGER
+Fsgn		equ $05E0; VFsgn	equ $E465; FSgn
+// DIM FSgn AS INTEGER
+
+; Constant Assignments
+CHANmux		equ $7007; ConstCHANmux	equ $225D; ChanMux
+// Const ChanMux=$7007
+#DIGITS		equ $0003; Const#DIGITS equ $3398; NumDigits
+// Const NumDigits=$0003
+DPdigits	equ $0001; ConstDPdigits equ $33CB; DPDigits
+// Const DPDigits=$0001
+A/DHiByte	equ $7002; ConstA/DHiByte equ $3AAF; ADHiByte
+// DIM ADHiByte AS BYTE VECTOR
+// SETVEC ADHiByte=$7002
+A/DLowByte	equ $7001; ConstA/DLoByte equ $3AC0; ADLoByte
+// DIM ADLoByte AS BYTE VECTOR
+// SETVEC ADLoByte=$7001
+A/DStatus	equ $7002; ConstA/DStatus equ $3AD0; ADStatus
+// DIM ADStatus AS BYTE VECTOR
+// SETVEC ADStatus=$7002
+VIALSWI/O	equ $7002; ConstVIALSWI/O equ $3AEF; VialSw
+// DIM VialSw AS BYTE VECTOR
+// SETVEC VialSw=$7002
+VIALbit		equ $0020; ConstVIALbit	equ $3AFD; VialBit
+// CONST VialBit=$0020
+X1		equ $0007; ConstX1	equ $3B89; GainX1
+// CONST GainX1=$0007
+X10		equ $0006; ConstX10	equ $3B93; GainX10
+// CONST GainX10=$0006
+X100		equ $0004; ConstX100	equ $3B9E; GainX100
+// CONST GainX100=$0004
+X1000		equ $0000; ConstX1000	equ $3BAA; GainX1000
+// CONST GainX1000=$0000
+REFchan		equ $0090; ConstREFchan	equ $3BB8; RefChan
+// CONST RefChan=$0090
+SIGchan		equ $0050; ConstSIGchan	equ $3BC6; SigChan
+// CONST SigChan=$0050
+LMPinten	equ $0030; ConstLMPinten equ $3BD5; LampIntensity
+// CONST LampIntensity=$0030
+Agnd		equ $0000; ConstAgnd	equ $3BE0; AGnd
+// CONST AGnd=$0000
+ACQRI/O		equ $7002; ConstACQRI/O	equ $3BEE; AcqrIO
+// CONST AcqrIO=$7002
+RUNmode		equ $0000; ConstRUNmode	equ $3C18; RunMode
+// CONST RunMode=$0000
+TESTmode	equ $0060; ConstTESTmode equ $3C35; TestMode
+// CONST TestMode=$0060
+OSmode		equ $0020; ConstOSmode	equ $3C42; OSMode
+// CONST OSMode=$0020
+STARTacqr	equ $0080; ConstSTARTacqr equ $3C52; StartAcqr
+// CONST StartAcqr=$0080
+LMPreset	equ $007F; ConstLMPreset equ $36C1; LampReset
+// CONST LampReset
+LMPDtaRdy	equ $0040; ConstLMPDtaRdy equ $3C7F; LampDataRdy
+// CONST LampDataRdy=$0040
+#GTRIES		equ $0032; Const#GTRIES	equ $40F2; NumGTries
+// CONST NumGTries=$0032
+GLimit		equ $03E8; ConstGLimit	equ $40FF; GLimit
+// CONST GLimit=$03E8
+QSIZ		equ $0064; ConstQSIZ	equ $47B8; QueSize
+// Const QueSize=$0064
+RAMEND		equ $2000; ConstRAMEND	equ $5111; RAMEnd
+// Const RAMEnd=$1FFF
+RMSTRT		equ $0000; ConstRMSTRT	equ $511E; RAMBegin
+// Const RAMBegin=$0000
+DTAREQI/O	equ $6010; ConstDTAREQI/O equ $52BC; RTCDataReq
+// DIM RTCDataReq AS BYTE VECTOR
+// SETVEC RTCDataReq=$6010 
+DTAREGI/O	equ $6011; ConstDTAREGI/O equ $52CC; RTCDataReg
+// DIM RTCDataReg AS BYTE VECTOR
+// SETVEC RTCDataReg=$6011
+RTCsec		equ $0000; ConstRTCsec	equ $52D9; RTCSeconds
+// CONST RTCSeconds=$0000
+RTCmin		equ $0002; ConstRTCmin	equ $52E6; RTCMinutes
+// CONST RTCMinutes=$0002
+RTChrs		equ $0004; ConstRTChrs	equ $52F3; RTCHours
+// CONST RTCHours=$0004
+RTCday		equ $0007; ConstRTCday	equ $5300; RTCDay
+// CONST RTCDay=$0007
+RTCmonth	equ $0008; ConstRTCmonth equ $530F; RTCMonth
+// CONST RTCMonth=$0008
+RTCyr		equ $0009; ConstRTCyr	equ $531B; RTCYear
+// CONST RTCYear=$0009
+UIPreg		equ $000A; ConstUIPreg	equ $5328; UIPReg
+// CONST UIPReg=$000A
+UIPbit		equ $0080; ConstUIPbit	equ $5335; UIPBit
+// CONST UIPBit=$0080
+CLKset		equ $000B; ConstCLKset	equ $5342; ClkSet
+// CONST ClkSet=$000B
+SETbit		equ $0080; ConstSETbit	equ $534F; SetBit
+// CONST SetBit=$0080
+REGA		equ $000A; ConstREGA	equ $535A; RegA
+// CONST RegA=$000A
+REGB		equ $000B; ConstREGB	equ $5365; RegB
+// CONST RegB=$000B
+REGC		equ $000C; ConstREGC	equ $5370; RegC
+// CONST RegC=$000C
+REGD		equ $000D; ConstREGD	equ $537B; RegD
+// CONST RegD=$000D
+Ainit		equ $0023; ConstAinit	equ $5387; AInit
+// CONST AInit=$0023
+Binit		equ $000C; ConstBinit	equ $5393; BInit
+// CONST BInit=$000C
+DAY0		equ $000E; ConstDAY0	equ $539E; Day0
+VTRbit		equ $0080; ConstVTRbit	equ $53AB; VTRBit
+// CONST VTRBit=$0080
+MSBSMPL#	equ $000F; ConstMSBSMPL# equ $53BA; MSBSampleNum
+// CONST MSBSampleNum=$000F
+LSBSMPL#	equ $0010; ConstLSBSMPL# equ $53C9; LSBSampleNum
+// CONST LSBSampleNum=$0010
+RUNDLY#		equ $003D; ConstRUNDLY#	equ $53D7; RunDlyP
+// CONST RunDlyP=$003D
+TSTBYTE#	equ $003F; ConstTSTBYTE# equ $53E6; TestByteP
+// CONST TestByteP=$003F
+MDELAY		equ $0000; ConstMDELAY	equ $84F2; MDelay
+// CONST MDelay=$0000
+MUNITS		equ $0002; ConstMUNITS	equ $84FF; MUnits
+// CONST MUnits=$0002
+MFORMAT		equ $0004; ConstMFORMAT	equ $850D; MFormat
+// CONST MFormat=$0004
+HCALVLU		equ $0006; ConstHCALVLU	equ $851B; HiCalValue
+// CONST HiCalValue=$0006
+LCALVLU		equ $000C; ConstLCALVLU	equ $8529; LoCalValue
+// Const LoCalValue=$000C
+MDATE		equ $0012; ConstMDATE	equ $8503; MDate
+// Const MDate=$0012
+MCKSUM		equ $001A; ConstMCKSUM	equ $8542; MChecksum
+// CONST MChecksum=$001A
+MDEFAULT	equ $8546; ConstMDEFAULT equ $856D; MDefault
+// CONST MDefault=$8546
+VBOOT		equ $0556; ConstVBOOT	equ $D02B; VBoot
+// CONST VBoot=$0556
+RUNHR		equ $0210; ConstRUNHR	equ $DA78; RunHour
+// CONST RunHour=$0210
+RUNMIN		equ $0211; ConstRUNMIN	equ $DA85; RunMinute
+// CONST RunMinute=$0211
+RUNSEC		equ $0212; ConstRUNSEC	equ $DA92; RunSecond
+// CONST RunSecond=$0212
+msTIMER		equ $020B; ConstmsTIMER	equ $DAA2; MSTimer
+// CONST MSTimer=$020B
+'EXTIRQ		equ $BFFC; Const'EXTIRQ	equ $DB33; ExtIRQ
+// CONST ExtIRQ=$BFFC
+'EXTSWI		equ $BFF6; Const'EXTSWI	equ $DB41; ExtSWI
+// CONST ExtSWI=$BFF6
+'EXTNMI		equ $BFFA; Const'EXTNMI	equ $DB4F; ExtNMI
+// CONST ExtNMI=$BFFA
+'EXTRST		equ $BFFA; Const'EXTRST	equ $DB5D; ExtRST
+// CONST ExtRST=$BFFA
+'EXTROM		equ $BFFE; Const'EXTROM	equ $DB6B; ExtROM
+// CONST ExtROM=$BFFE
+'DP0		equ $C01E; Const'DP0	equ $C01E; DP0
+// CONST DP0=$C01E
+'FENCE0		equ $C01C; Const'FENCE0	equ $DB84; Fence
+// CONST XFence=$C01C
+WARMSTART	equ $FFFF; ConstWARMSTART equ $DEE6; WarmStart
+// CONST WarmStart=$FFFF
+PPUSHBA		equ $FFEC; ConstPPUSHBA	equ $DEF4; PPushBA
+// CONST PPushBA=$FFEC
+'PUSHBA		equ $C032; Const'PUSHBA	equ $DF02; XPushBA
+// CONST XPushBA=$C032
+'PCEMIT		equ $DF10; Const'PCEMIT	equ $DF10; XPCEmit
+// CONST XPCEmit=$DF10
+'PCKEY		equ $D3FC; Const'PCKEY	equ $DF1D; XPCKey
+// CONST XPCKey=$D3FC
+'PEDIT		equ $D0FD; Const'PEDIT	equ $DF2A; XPEdit
+// CONST XPEdit=$D0FD
+'PASSEM		equ $D0EA; Const'PASSEM	equ $DF38; XPAssember
+// CONST XPAssember=$D0EA
+'PFORTH		equ $DF46; Const'PFORTH	equ $DF46; XPForth
+// CONST XPForth=$DF46
+JSTTB`		equ $E08C; ConstJSTTB`	equ $E0EF; JSTTB
+// CONST JSTTB=$E08C
+
+
+;I/O Assignments
+;Real Time Clock
+RTCControl equ $6010; write
+RTCData equ $6011; r/w
+
+;DUART
+ModeRegA equ $6020; r/w
+StatRegA equ $6021; read
+ClkRegA  equ $6021; write
+CmdRegA  equ $6022; write
+RcvDtaA  equ $6023; read
+XmitDtaA equ $6023; write
+PortChg  equ $6024; read
+ACRA     equ $6024; write
+ImaskRgA equ $6025; write
+ModeRegB equ $6028; r/w
+StatRegB equ $6029; read
+ClkRegB  equ $6029; write
+CmdRegB  equ $602A; write
+RcvDtaB  equ $602B; read
+XmitDtaB equ $602B; write
+ACRB     equ $602C; write
+ImaskRgB equ $602D; write
+
+A/DLowByte equ $7001
+A/DHiByte equ $7002
+A/DStatus equ $7002
+Key	  equ $7003
+MuxControl equ $7007

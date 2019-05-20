@@ -1,0 +1,160 @@
+( FX100 PRINTER BUFFER SUPPORT                 12:41 03/08/90 ) 
+' WAIT-PRNTCLR CFA 'WAIT-PRNTCLR !                              
+' RECHECK-PRNTR CFA 'RECHECK-PRNTR !                            
+' PRNTcrlf CFA 'PRNTcrlf !                                      
+0 VARIABLE PRNBUF1 41 ALLOT-RAM 0 VARIABLE PRNBUF2 41 ALLOT-RAM 
+: !PRNBUF1x ( c,x--c saved in PRNBUF1 at x) PRNBUF1 + 1- C! ;   
+: CLR-PRNBUF1 [ PRNBUF1 40 + ] LITERAL PRNBUF1                  
+  DO 32 I C! LOOP 0 [ PRNBUF1 40 + ] LITERAL C! ;               
+: CLR-PRNBUF2 [ PRNBUF2 40 + ] LITERAL PRNBUF2                  
+  DO 32 I C! LOOP 0 [ PRNBUF2 40 + ] LITERAL C! ;               
+( FX100 PRINTER ATTRIBUTE CONTROL)                              
+: BOLD  27 PRNTCHAR 71 PRNTCHAR ;                               
+: BIG 14 PRNTCHAR ;                                             
+: BIGBOLD BIG BOLD ;                                            
+: PNORMAL 27 PRNTCHAR 72 PRNTCHAR ;                             
+                                                                
+( PRINTER DATE/TIME                            06:13 01/08/90 ) 
+: PRNTRDaTm CLR-PRNBUF1                                         
+  STOPCLK         ( Stop clock updates while reading DATE/TIME) 
+  CNVRTdate                                                     
+  PRNBUF1 SWAP CMOVE                                            
+  CNVRTtime                                                     
+  PRNBUF1 15 + SWAP 2DUP + >R CMOVE                             
+  fPM @                                                         
+  IF "PM ELSE "AM THEN Count R> SWAP 2DUP + >R CMOVE            
+  0 R> 1+ C!                                                    
+  STRTCLK ;                         ( Restart clock after read) 
+: PRNanswer >990err @ 0=                                        
+  IF 2DIGrslt 2@ DUP 0< IF 45 PRNTCHAR THEN DABS                
+     2DIGrslt 4 + @ 'F#CNVRT @ EXECUTE PRINTSTRING              
+     PPM/PPB @ IF "UPPM ELSE "UPPB THEN Count PRINTSTRING       
+  ELSE ">990err Count PRINTSTRING THEN PRNTcrlf ;               
+( FX100 PRINTER INTERFACE                      10:54 01/03/90 ) 
+: PRINT-RESULTS PRNTOPTI/O C@ PRNTOPTbit AND IF EXIT THEN       
+  PRNTcrlf                                                      
+  BOLD "SMPL# Count PRINTSTRING PNORMAL 'GET-SMPL# @ EXECUTE    
+  0 <# #S #> PRINTSTRING PRNTcrlf                               
+  BOLD "PDa Count PRINTSTRING PNORMAL PRNBUF1 10 PRINTSTRING    
+  BOLD "PTm Count PRINTSTRING PNORMAL                           
+  PRNBUF1 15 + 11 PRINTSTRING PRNTcrlf                          
+  BOLD "Rslts Count PRINTSTRING PNORMAL                         
+  PRNanswer PRNTcrlf ;                                          
+: COMNTS  BOLD "COMNTS Count DUP >R PRINTSTRING                 
+  PNORMAL 40 R> DO 95 PRNTCHAR LOOP  6 0 DO PRNTcrlf LOOP ;     
+' COMNTS CFA 'COMNTS !                                          
+                                                                
+                                                                
+                                                                
+( FX100 PRINTER INTERFACE                      10:54 01/03/90 ) 
+: PRN-CALVLUS CLR-PRNBUF2                                       
+  BOLD "PCAL Count PRINTSTRING PRNTcrlf                         
+  PNORMAL CLR-PRNBUF2                                           
+  CALIBVLU 2@ DUP >R DABS CALIBVLU 4 + @ F#CNVRT 4 MIN          
+  PRNBUF2 R> 0< IF 45 OVER C! 1+ THEN SWAP 2DUP + >R CMOVE      
+  PPM/PPB @ IF "PPM ELSE "PPB THEN                              
+  Count R> 1+ SWAP CMOVE                                        
+  BLNKVLU 2@ DUP >R DABS BLNKVLU 4 + @ F#CNVRT 4 MIN            
+  PRNBUF2 15 + R> 0< IF 45 OVER C! 1+ THEN                      
+  SWAP 2DUP + >R CMOVE                                          
+  PPM/PPB @ IF "PPM ELSE "PPB THEN Count R> 1+ SWAP CMOVE       
+  SMPLDLY @ 0 <# #S #> PRNBUF2 25 + SWAP 2DUP + >R CMOVE        
+  "Dsec Count R> SWAP CMOVE                                     
+  PRNBUF2 Count PRINTSTRING PRNTcrlf ;                          
+                                                                
+( FX100 PRINTER INTERFACE                      10:54 01/03/90 ) 
+                                                                
+: PRINT-CALIB PRNTcrlf CLR-PRNBUF2                              
+  BIGBOLD "PNAM1 Count PRINTSTRING PRNTcrlf                     
+  BOLD "PNAM2 Count PRINTSTRING PRNTcrlf                        
+  BOLD "PDaTm Count PRINTSTRING PRNTcrlf                        
+  PNORMAL PRNBUF1 Count PRINTSTRING PRNTcrlf                    
+  PRN-CALVLUS PRNTcrlf                                          
+  PRNTcrlf PRNTcrlf PRNTcrlf ;                                  
+                                                                
+: PRNTHDR PRNTRDaTm PRINT-CALIB ;                               
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( FX100 PRINTER INTERFACE                      10:54 01/03/90 ) 
+: INIT-PRINTER                                                  
+  -1 PRNTerr !                                                  
+  INIT-PORT2              ( Initialize the Printer serial port) 
+  Terr PRNTIMER ! 0 PRNTerr !    ( Clr Prnt Err& Set Err Timer) 
+  24 PRNTCHAR         ( Clear any power up `glitch' characters) 
+  PRNTcrlf 20 DELAY[ms]                                         
+  @RUNTIME[10ths] 40. D+                                        
+  BEGIN 2DUP @RUNTIME[10ths] D< PBUF!pntr @ PBUF@pntr @ = OR    
+  UNTIL 2DROP PRNTcrlf ;                                        
+' PRINT-CALIB CFA 'PRINT-CALIB !                                
+' PRINT-RESULTS CFA 'PRINT-RESULTS !                            
+' PRNTRDaTm CFA 'PRNTRDaTm !                                    
+' INIT-PRINTER CFA 'INIT-PRINTER !                              
+                                                                
+                                                                
+( OLD  TIME CLOCK                              06:13 01/08/90 ) 
+: PRNTRDaTm ( --f) "DaTm1 CLKBUF 25 CMOVE  ( Put format in buf) 
+  STOPCLK         ( Stop clock updates while reading DATE/TIME) 
+  RTCmonth @CLKDTA 10 /MOD DUP 0= IF DROP 32 ELSE 48 + THEN     
+  6 !CLKBUFx 48 +  7 !CLKBUFx                                   
+  RTCday @CLKDTA 10 /MOD                                        
+  48 +  9 !CLKBUFx 48 + 10 !CLKBUFx                             
+  RTCyr @CLKDTA 10 /MOD                                         
+  48 + 12 !CLKBUFx 48 + 13 !CLKBUFx                             
+  @CLKHRS DUP 12 /                                              
+  IF "PM ELSE "AM THEN Count CLKBUF 24 + SWAP CMOVE             
+  12 /MOD 0> OVER 0= AND IF DROP 12 THEN                        
+  10 /MOD DUP 0= IF DROP 32 ELSE 48 + THEN                      
+  20 !CLKBUFx 48 + 21 !CLKBUFx                                  
+  RTCmin @CLKDTA 10 /MOD 48 + 23 !CLKBUFx 48 + 24 !CLKBUFx      
+  STRTCLK ;                         ( Restart clock after read) 
+( OLD WAIT-PRNTCLR                             10:54 01/03/90 ) 
+0 VARIABLE TCflg                                                
+: WAIT-PRNTCLR CALflg @ TCflg ! -1 CALflg !    ( Lockout CALIB) 
+  LINE#1sav LINE#2sav                                           
+  "PRNER1 DISPLAY1 w-TYPE "Y/N DISPLAY2 w-TYPE                  
+  BEGIN PCkey F1 OVER = OVER F3 = OR UNTIL                      
+  F3 = IF 0                                                     
+       ELSE 0 PRNTIMER !                                        
+            PBUFstrt DUP PBUF!pntr ! PBUF@pntr ! -1             
+       THEN                                                     
+  DUP PRNTR? ! PRNTerr !                                        
+  TCflg @ CALflg !                ( Restore CALIB disable flag) 
+  #1REFRESH #2REFRESH ;                                         
+' WAIT-PRNTCLR CFA 'WAIT-PRNTCLR !                              
+                                                                
+                                                                
+( OLD PrntChar     CODE PRINTER SUPPORT        08:12 08/19/89 ) 
+CODE PrntChar ( c --)                                           
+ PRNTR? .A LD, PRNTerr .A OR, ( EXIT if no printer or prnt err) 
+ 0= NOT IF, PULLD, NEXT, ENDIF,                                 
+ PBUF!pntr LDX, PBUFend CPXI, 0=       ( If pntr=BUFend, reset) 
+ IF, PBUFstrt # LDX, ENDIF,                                     
+ PULLD, 0 ,X .B ST,                                             
+ INX,                                                           
+ BEGIN, PBUF@pntr CPXE, 0= NOT UNTIL, PBUF!pntr STX, NEXT,      
+ FORTH DECIMAL                                                  
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( OLD NMI ASSEMBLY CODE PRINTER SUPPORT        08:12 08/19/89 ) 
+CODE CHK-PRINT PRNTR? .A LD, 0= NOT ( If PRNTR?=-1, no printer) 
+ IF, ' PRNTRDY? JSR, .A TST, 0= NOT ( Rechk printer for active) 
+  IF, 0 # LDX, PRNTR? STX, PRNTerr STX, ( Clr Err if prntr act) 
+  ENDIF, RTS, ENDIF,                                            
+ PBUF@pntr LDX, PBUFend CPXI, 0=       ( If pntr=BUFend, reset) 
+ IF, PBUFstrt # LDX, PBUF@pntr STX, ENDIF,                      
+ PBUF!pntr CPXE, 0=           ( If BUFs =, NO output required?) 
+ IF, Terr # LDX, PRNTIMER STX, RTS, ENDIF,                      
+ ' PRNTRDY? JSR, .A TST, 0=        ( ACCA=0, Printer NOT ready) 
+ IF, PRNTIMER LDX, 0= IF, -1 # LDX, PRNTerr STX, RTS, ENDIF,    
+     DEX, PRNTIMER STX, RTS,                                    
+ ELSE, 0 # LDX, PRNTerr STX, ENDIF,                             
+ PBUF@pntr LDX, 0 ,X .A LD, PRNTRD .A ST,                       
+ INX, PBUF@pntr STX, Terr # LDX, PRNTIMER STX, RTS,             
+ FORTH DECIMAL                                                  

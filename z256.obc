@@ -1,0 +1,12 @@
+dim x(262144) as byte
+dim f as file
+dim i as long
+
+for i=1 to 262144
+	x(i)=0
+next i
+
+CREATE f,"zero256k":WRITE
+put f,x
+close f
+

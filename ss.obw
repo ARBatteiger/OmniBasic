@@ -1,0 +1,1 @@
+; Dimension Variablesdim tempstr as string*32dim a as stringdim x(1) as byte vectordim y(1) as long vectorOBMain.CREATEset vector x=addr(tempstr)tempstr="abc"OBMain.text=tempstr;hex(x(1))END EVENT

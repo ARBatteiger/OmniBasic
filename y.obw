@@ -1,0 +1,98 @@
+DIM Frame AS statictext
+dim rb1 as statictext
+dim mousex as long
+dim mousey as long
+dim xoffs as long
+dim yoffs as long
+dim mousedown as boolean
+DIM MoveButton AS BUTTON
+dim NormalButton as button
+dim TestButton as combobox
+
+OBMain.create
+mousedown=false
+CONSTRUCT Frame,10,10,130,140
+Frame.backcolor=255
+construct rb1,10,10,50,20 in Frame
+construct NormalButton,10,160,80,20
+NormalButton.text="Normal"
+construct MoveButton,100,160,80,20
+MoveButton.text="Move"
+construct TestButton,200,160,80,20
+'TestButton.text="Test"
+end event
+
+MoveButton.command
+setcapture TestButton
+TestButton.intercepton
+Frame.intercepton
+Timer1.interval=500
+end event
+
+NormalButton.command
+'TestButton.interceptoff
+Frame.interceptoff
+Timer1.stop
+OBMain.flashwindow=false
+end event
+
+TestButton.intercept
+select case wmsg
+	case WM_MOUSEMOVE
+		if mousedown=true then
+			getcursorposition
+			SETPOSITION TestButton,CursorPosX-mousex-xoffs,CursorPosY-mousey-yoffs,80,20
+			'SETPOSITION Frame,CursorPosX-mousex-xoffs,CursorPosY-mousey-yoffs,130,140
+		endif
+	case WM_LBUTTONDOWN
+		'setcapture TestButton
+		mousedown=true
+		xoffs=OBMain.left		
+		yoffs=OBMain.top
+		'StaticText1.backcolor=$00ff00
+		gosub getmousepos
+	case WM_LBUTTONUP
+		'releasecapture
+		mousedown=false
+		'StaticText1.backcolor=$ffffff
+	case else
+		passinterceptevent
+end select
+end event
+
+Frame.intercept
+select case wmsg
+	case WM_MOUSEMOVE
+		if mousedown=true then
+			getcursorposition
+			'SETPOSITION rb1,CursorPosX-mousex-xoffs,CursorPosY-mousey-yoffs,50,20
+			SETPOSITION Frame,CursorPosX-mousex-xoffs,CursorPosY-mousey-yoffs,130,140
+		endif
+	case WM_LBUTTONDOWN
+		setcapture Frame
+		mousedown=true
+		xoffs=OBMain.left		
+		yoffs=OBMain.top
+		'StaticText1.backcolor=$00ff00
+		gosub getmousepos
+	case WM_LBUTTONUP
+		releasecapture
+		mousedown=false
+		'StaticText1.backcolor=$ffffff
+	case else
+		passinterceptevent
+end select
+end event
+
+getmousepos:
+mousex=lparam
+mousex=land(mousex,$ffff)
+mousey=lparam
+mousey=shr(mousey,16)
+return
+
+Timer1.timer
+OBMain.flashwindow=true
+Timer1.interval=500
+end event
+

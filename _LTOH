@@ -1,0 +1,63 @@
+/* _LtoH() */
+/* Enter with integer (long) as arg */
+/* Exits with ASCII STRING in _ConvBuf1 */
+
+extern char _ConvBuf[22];
+extern char _ConvBuf1[22];
+
+void _LtoH(_IntVal,_HexType)
+unsigned long _IntVal;
+unsigned long _HexType;
+{
+int _BufNdx;
+int _Buf1Ndx;
+char _Result;
+_BufNdx=0;
+_Buf1Ndx=0;
+if (_HexType == 0){
+_ConvBuf1[0]='$';
+_Buf1Ndx=1;}
+if (_HexType == 1){
+_ConvBuf1[0]='0';
+_Buf1Ndx=1;}
+if (_HexType == 2){
+_ConvBuf1[0]='0';
+_ConvBuf1[1]='x';
+_Buf1Ndx=2;}
+if (_IntVal==0)
+{
+_ConvBuf1[1]='0';
+_Buf1Ndx=2;
+goto _AddNull;
+}
+_ConvBuf[8]=0;
+_ClrLp:;
+_ConvBuf[_BufNdx]=0x30;
+_BufNdx++;
+if (_BufNdx<8) goto _ClrLp;
+_BufNdx--;
+_ConvLp:;
+_Result=_IntVal%16;
+if (_Result<10) _Result=_Result+0x30;
+else _Result=_Result+0x57;
+_ConvBuf[_BufNdx]=_Result;
+_BufNdx--;
+_IntVal=_IntVal/16;
+if (_IntVal>0) goto _ConvLp;
+_BufNdx=0;
+_SkipLoop:;
+if (_ConvBuf[_BufNdx] != 0x30) goto _XferLoop;
+_BufNdx++;
+goto _SkipLoop;
+_XferLoop:;
+if (_ConvBuf[_BufNdx]==0) goto _AddNull;
+_ConvBuf1[_Buf1Ndx]=_ConvBuf[_BufNdx];
+_Buf1Ndx++;
+_BufNdx++;
+goto _XferLoop;
+_AddNull:;
+if (_HexType == 1){
+_ConvBuf1[_Buf1Ndx]='h';
+_Buf1Ndx++;}
+_ConvBuf1[_Buf1Ndx]=0;
+}

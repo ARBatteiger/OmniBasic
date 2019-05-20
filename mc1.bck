@@ -1,0 +1,8 @@
+LOAD c:\nb\u20.bin 8000
+code 8028
+code 803b
+code c032
+code dd6b
+code dd8d
+
+

@@ -1,0 +1,29 @@
+dim InpFile as file
+dim RawData(65535) as byte
+dim results(256) as long
+dim i as long
+dim j as long
+
+OPEN InpFile,"romer.bin":READ
+get InpFile,RawData
+
+for i=0 to $ff
+	for j=0 to $ffff
+		if RawData(j+1)=i then
+			incr results(i+1)
+		endif
+	next j
+;print i
+next i
+
+for i=0 to $ff
+	if results(i+1)<18 then
+		print hex(i)
+		print results(i+1)
+	endif
+next i
+
+
+
+
+

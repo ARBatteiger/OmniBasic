@@ -1,0 +1,21 @@
+dim InpFile as file
+dim OutFile as file
+dim TempStr as string
+dim TempHex as string
+dim x as byte
+dim i as long
+
+open InpFile,"zz.bin":read
+create OutFile,"zz.hex":write
+for i=1 to 2048
+	bufread InpFile,addr(x),1
+	TempStr=hex(x)
+	if len(TempStr)=1 then
+		TempHex="0"+TempStr
+	else
+		TempHex=TempStr
+	endif
+	write OutFile,TempHex
+next i
+close InpFile
+close OutFile	

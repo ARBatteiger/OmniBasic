@@ -1,0 +1,160 @@
+( MIXED DIVIDE AND ROUND                       06:16 10/24/89 ) 
+DECIMAL                                                         
+0 VARIABLE AVE[S/R] 8 ALLOT-RAM                                 
+0 VARIABLE SIG[Ave] 8 ALLOT-RAM                                 
+0 VARIABLE REF[Ave] 8 ALLOT-RAM                                 
+0 VARIABLE SIG[Ave]/REF[Ave] 8 ALLOT-RAM                        
+: /RND ( d,n1 -- n2 rounded)                                    
+   DUP >R M/MOD DROP SWAP R> 2/ 1- > IF 1+ THEN ;               
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( DATA QUES                                    0 17:23 05/10/81 
+100 CONSTANT QSIZ                                               
+0 VARIABLE SIGQUE QSIZ 2* ALLOT-RAM                             
+0 VARIABLE REFQUE QSIZ 2* ALLOT-RAM                             
+0 VARIABLE S/RQUE QSIZ 2* ALLOT-RAM                             
+0 VARIABLE #SMPLS 0 VARIABLE #OUTLYERS                          
+0 VARIABLE SMPL#  0 VARIABLE SMPLtotal                          
+0 VARIABLE SMPLNDX 0 VARIABLE NDXlimit                          
+0 VARIABLE f1stTEST 0 VARIABLE ASMBLY                           
+0 VARIABLE #SMPLtbl 8 ALLOT-RAM                                 
+0 VARIABLE #OUTLYRtbl 8 ALLOT-RAM                               
+HERE  2 ,  2 ,  2 ,  2 , CONSTANT #OUTLYRtbl0                   
+HERE  8 ,  8 ,  8 ,  8 , CONSTANT #SMPLtbl0                     
+: INIT-FLTRTBLS                                                 
+ 8 0 DO #SMPLtbl0 I + @ #SMPLtbl I + !                          
+        #OUTLYRtbl0 I + @ #OUTLYRtbl I + ! 2 +LOOP ;            
+( DATA READ                                    1 17:26 05/10/81 
+: SET-#SMPLS ( gain --) 2* #SMPLtbl + @ #SMPLS ! ;              
+: SET-#OUTLYRS ( gain --) 2* #OUTLYRtbl + @ #OUTLYERS ! ;       
+: INIT-MEASURE-CYCLE GAINexp @ DUP SET-#SMPLS SET-#OUTLYRS      
+  #SMPLS @ #OUTLYERS @ 2* +                                     
+  DUP SMPLtotal ! 2* NDXlimit ! 0 SMPL# ! 0 SMPLNDX ! ;         
+( PRIME-LAMP-CONTROL ;)                                         
+: READ-SAMPLE 10000 ( Preload scaler) FIRE-LAMP                 
+  GET[Sig] SIG[Offset] @ - 1 MAX DUP SIGQUE SMPLNDX @ + !       
+  GET[Ref] 1 MAX DUP REFQUE SMPLNDX @ + !                       
+  */ S/RQUE SMPLNDX @ + ! 2 SMPLNDX +! ;                        
+: INIT-MEASURE-DATA                                             
+  0. AVE[S/R] 2! 0. SIG[Ave] 2! 0. REF[Ave] 2!                  
+  0. SIG[Ave]/REF[Ave] 2! ;                                     
+                                                                
+                                                                
+( OUTLYER REJECT                               08:10 05/25/89 ) 
+0 VARIABLE MAXSMPL  0 VARIABLE MAXNDX                           
+0 VARIABLE MINSMPL  0 VARIABLE MINNDX                           
+: CHK-MIN/MAX ( n,I --) >R                                      
+      DUP MAXSMPL @ > IF DUP MAXSMPL ! R MAXNDX ! THEN          
+      DUP MINSMPL @ < MAXNDX @ R <> AND                         
+                      IF DUP MINSMPL ! R MINNDX ! THEN          
+      R> 2DROP ;                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( OUTLYER REJECT                               16:10 10/23/89 ) 
+( Each pass through REJECT-OUTLYER marks the data point with    
+( the highest S/R for reject by writing -1 for the S/R value,   
+( the lowest S/R for reject by writing -2 for the S/R value     
+: REJECT-OUTLYER 0 MAXSMPL ! 32767 MINSMPL !                    
+  -1 MAXNDX ! -1 MINNDX ! #OUTLYERS @ 0>                        
+  IF NDXlimit @ 0                                               
+       DO S/RQUE I + @ DUP 0>=                                  
+          IF I ( n,I--) CHK-MIN/MAX ELSE DROP THEN              
+          2 +LOOP                                               
+     MAXNDX @ DUP 0>= OVER NDXlimit @ < AND                     
+     IF S/RQUE + -1 SWAP ! ELSE DROP THEN                       
+     MINNDX @ DUP 0>= OVER NDXlimit @ < AND                     
+     IF S/RQUE + -2 SWAP ! ELSE DROP THEN                       
+  THEN ;                                                        
+: REJECT-OUTLYERS #OUTLYERS @ 0 DO REJECT-OUTLYER LOOP ;        
+( AVERAGE RATIO CALCULATION                    06:29 10/24/89 ) 
+0 VARIABLE %DIF  0 VARIABLE S/Rjst                              
+: SHFTDATA                                                      
+  AVE[S/R] 2@ [ AVE[S/R] 4 + ] LITERAL 2!                       
+  SIG[Ave] 2@ [ SIG[Ave] 4 + ] LITERAL 2!                       
+  REF[Ave] 2@ [ REF[Ave] 4 + ] LITERAL 2!                       
+  SIG[Ave]/REF[Ave] 2@ [ SIG[Ave]/REF[Ave] 4 + ] LITERAL 2! ;   
+: @AVE[S/R] ( - J,n) GAINexp @ MINUS AVE[S/R] @ EXIT            
+  0 [ AVE[S/R] 4 + ] LITERAL @ 0 D+ 2 D/ 0 S/Rjst !             
+  10 0 DO 2DUP 32767. D>                                        
+         IF 1 S/Rjst +! 10 D/ ELSE LEAVE THEN LOOP              
+  DROP GAINexp @ S/Rjst @ + MINUS SWAP ;                        
+: ?DATA-STABLE ( -- f     Difference < 5%? of AVE or .0015 ABS) 
+  AVE[S/R] @ [ AVE[S/R] 4 + ] LITERAL @ 2DUP + 2/ >R            
+  - ABS DUP 15 < SWAP 10000 R> */ DUP %DIF ! 500 < OR ;         
+                                                                
+( AVERAGE RATIO CALCULATION                    06:29 10/24/89 ) 
+0 VARIABLE SIGok 0 VARIABLE REFok 0 VARIABLE #BADPNTS           
+: AVE-DATA ( -- d =sum S/R) 0 #BADPNTS ! 0. NDXlimit @ 0        
+  DO S/RQUE I + @ DUP 0< 0=                                     
+     IF SIGQUE I + @ DUP SIG[Offset] @ +                        
+                         4085 > DUP IF 0 SIGok ! THEN ( n1,n2,f 
+        REFQUE I + @ 4085 OVER < OVER 1000 < OR ( n1,n2,f,n3,f2 
+        DUP IF 0 REFok ! THEN ROT OR 0=                         
+        IF 0 REF[Ave] 2@ D+ REF[Ave] 2!                         
+           0 SIG[Ave] 2@ D+ SIG[Ave] 2!                         
+           0 D+                                                 
+        ELSE 2DROP DROP -3 S/RQUE I + ! -1 #BADPNTS +!          
+        THEN                                                    
+     ELSE DROP THEN                                             
+  2 +LOOP ;                                                     
+                                                                
+( AVERAGE RATIO CALCULATION                    06:29 10/24/89 ) 
+( CALC[AveS/R] calculates the averages of sig/ref, sig, & ref.  
+( In the process it rejects saturated sig points and points     
+( where the ref is saturated or too low                         
+: CALC[AveS/R] ( -- n   n = 0->10000 = 0.0->1.0000 )            
+  0. SIG[Ave] 2! 0. REF[Ave] 2! -1 SIGok ! -1 REFok !           
+  AVE-DATA                                  ( Rtn with SUM S/R) 
+  #SMPLS @ #BADPNTS @ + 1 MAX DUP >R /RND DUP AVE[S/R] !        
+  10000 SIG[Ave] 2@ R /RND DUP SIG[Ave] !                       
+        REF[Ave] 2@ R> /RND DUP REF[Ave] !                      
+  */ DUP 0< IF DROP 32000 THEN SIG[Ave]/REF[Ave] !              
+  #SMPLS @ #BADPNTS @ ABS 1 MAX / 1 >                           
+  IF -1 SIGok ! -1 REFok ! THEN ;                               
+                                                                
+                                                                
+                                                                
+( DATA DISPLAY                                 11:44 05/25/89 ) 
+0 VARIABLE f-  0 VARIABLE DTALINE                               
+: TYPEdata DUP 0< MINUS f- ! ABS 0 <# #S #> 6 OVER - f- @ +     
+   0 DO 32 EMIT LOOP f- @ IF 45 ( -) EMIT THEN TYPE ;           
+: DISPLAY-QUES NDXlimit @ 0                                     
+  DO CR CR  ." Sig " I 20 + NDXlimit @ MIN I                    
+       DO SIGQUE I + @ TYPEdata 2 +LOOP                         
+     CR  ." Ref " I 20 + NDXlimit @ MIN I                       
+       DO REFQUE I + @ TYPEdata 2 +LOOP                         
+     CR  ." S/R " I 20 + NDXlimit @ MIN I                       
+     DO S/RQUE I + @ TYPEdata 2 +LOOP                           
+  20 +LOOP ;                                                    
+                                                                
+                                                                
+                                                                
+                                                                
+( DATA DISPLAY                                 0 14:34 05/09/81 
+: DISPLAY-DATA                                                  
+  ( If flag not set exit, flag is set/cleared in TEST mode)     
+  fDSPLY @ 0= IF EXIT THEN                                      
+  DISPLAY-QUES                                                  
+  CR                                                            
+  ." GAIN=" GAINvlu @ .                                         
+  ."  AVE[S/R]=" AVE[S/R] @ .                                   
+  ."  %DLTA=" %DIF @ 0 <# # # 46 HOLD #S #> TYPE                
+  ."  BLANK[S/R]=" GAINexp @ 4 * BLANKdata + @ .                
+  CR                                                            
+  ." AVE[Sig]=" SIG[Ave] @ .                                    
+  ."  AVE[Ref]=" REF[Ave] @ . CR CR ;                           
+                                                                
+                                                                
+                                                                

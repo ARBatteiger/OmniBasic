@@ -1,0 +1,27 @@
+/* _ZLtoH() */
+/* Enter with integer (long) as arg */
+/* Exits with ASCII STRING in _ConvBuf1 */
+
+extern char _ConvBuf1[22];
+
+void _ZLtoH(_IntVal)
+unsigned long _IntVal;
+{
+int _BufNdx;
+char _Result;
+_BufNdx=0;
+_ConvBuf1[8]=0;
+_ClrLp:;
+_ConvBuf1[_BufNdx]=0x30;
+_BufNdx++;
+if (_BufNdx<8) goto _ClrLp;
+_BufNdx--;
+_ConvLp:;
+_Result=_IntVal%16;
+if (_Result<10) _Result=_Result+0x30;
+else _Result=_Result+0x57;
+_ConvBuf1[_BufNdx]=_Result;
+_BufNdx--;
+_IntVal=_IntVal/16;
+if (_IntVal>0) goto _ConvLp;
+}

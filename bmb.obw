@@ -1,0 +1,1 @@
+; Dimension Variablesdim b1 as buttondim bm as bitmapOBMain.CREATECONSTRUCT b1,5,0,32,32,VISIBLE+CHILD+DEFPUSHBUTTON+BITMAPcreatebitmap bm,obcopenb1.bitmap=bmEND EVENT

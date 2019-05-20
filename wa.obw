@@ -1,0 +1,149 @@
+dim Window2 as form
+dim Window3 as form
+dim myicon as icon
+dim b1 as button
+dim b2 as button
+dim b3 as button
+dim b4 as button
+dim b5 as button
+dim b6 as button
+dim b7 as button
+dim stx1 as statictext
+dim stx2 as statictext
+dim stx3 as statictext
+dim stx4 as statictext
+
+OBMain.create
+construct b1,10,10,50,20
+construct b2,70,10,50,20
+construct b4,130,10,50,20
+construct b5,190,10,50,20
+construct b7,270,10,80,20
+construct stx1,10,100,100,20
+construct stx2,220,100,100,20
+construct stx3,220,200,100,20
+construct stx4,10,200,100,20
+b7.text="Exit"
+OBMain.text="OBMain"
+createicon myicon,clock06
+END EVENT
+
+b1.command
+construct Window2,500,500,200,100
+Window2.text="Window2"
+Window2.icon=myicon
+;construct b3,10,30,30,20 in Window2
+;b2.text="b2"
+END EVENT
+
+Window2.create
+Timer1.interval=1
+end event
+
+Timer1.Timer
+Timer1.stop
+construct b3,10,30,30,20 in Window2
+b2.text="b2"
+endevent
+
+b2.command
+b3.text="b3"
+END EVENT
+
+b3.command
+b1.text="b1"
+construct Window3,500,300,200,100
+Window3.text="Window3"
+construct b6,10,30,30,20 in Window3
+b6.text="b6"
+END EVENT
+
+b4.command
+Window2.visible=false
+END EVENT
+
+b5.command
+Window2.visible=true
+END EVENT
+
+b6.command
+b5.text="b5"
+END EVENT
+
+b7.command
+end
+END EVENT
+
+OBMain.system
+select case STATUS
+	case $f020
+		stx2.text="Minimize"
+	case $f030
+		stx2.text="Maximize"
+	case $f060
+		stx2.text="Close"
+end select
+stx1.text="OBMain"
+stx3.text=hex(STATUS)
+END EVENT
+
+OBMain.resize
+stx2.text="Resize"
+stx1.text="OBMain"
+END EVENT
+
+OBMain.move
+stx2.text="Move"
+stx1.text="OBMain"
+END EVENT
+
+Window2.system
+select case STATUS
+	case $f020
+		stx2.text="Minimize"
+	case $f030
+		stx2.text="Maximize"
+	case $f060
+		stx2.text="Close"
+		passsystemevent
+end select
+stx1.text="Window2"
+stx3.text=hex(STATUS)
+END EVENT
+
+Window2.resize
+stx2.text="Resize"
+stx1.text="Window2"
+END EVENT
+
+Window2.move
+stx2.text="Move"
+stx1.text="Window2"
+END EVENT
+
+Window3.system
+select case STATUS
+	case $f020
+		stx2.text="Minimize"
+	case $f030
+		stx2.text="Maximize"
+	case $f060
+		stx2.text="Close"
+end select
+stx1.text="Window3"
+stx3.text=hex(STATUS)
+END EVENT
+
+Window3.resize
+stx2.text="Resize"
+stx1.text="Window3"
+END EVENT
+
+Window3.move
+stx2.text="Move"
+stx1.text="Window3"
+END EVENT
+
+mouse1:
+stx4.text=hex(STATUS)
+return

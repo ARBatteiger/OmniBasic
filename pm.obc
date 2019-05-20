@@ -1,0 +1,1 @@
+; Dimension Variablesdim x as long; Code Sectionbegin loop	input x	if x=99 then t2	if x<0 then		print "minus"	endif	if x=0 then		print "0"	endif	if x>0 then		print "positive"	endif	print xend loopt2:x=-1print x

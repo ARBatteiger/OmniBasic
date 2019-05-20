@@ -1,0 +1,43 @@
+Customer:
+John Monnig
+Monnig Industries, Inc.
+P.O. Box 98
+Glasgow, Missouri 65254
+Telephone 660-338-2242
+Facsimile 660-338-5199
+
+Called by Kenny Nation Friday evening. Worked with him for 1.5 hours over
+phone to get system operational in manual mode.
+Service Time 1.5 hours
+
+Monday traveled to site. Evaluated equipment and determined that the DL-470
+Computer had failed.
+Removed computer and returned to office to work on computer. Ordered an
+adapter to allow us to extract the software off of the DL-470 hard drive.
+Travel Time 4 hours
+On site Time 2.5 hours
+Mileage 208
+
+Tuesday received the adapter and successfully removed and backed up all
+programs on the DL-470 hard drive. Contacted Automation Direct to attempt to
+get a downloadable install for the system. They recommended I contact the
+original supplier National Instruments, Inc. They no longer supported the
+software. They might be able to help me if I could find the original serial
+number or order number. Contacted another person at Automation Direct. He
+tracked down a copy of the old software that I could download. We down
+loaded the software and then installed everything onto a new computer. The
+default software install was not loading all necessary components. We had
+to do a custom install and install the ODBC section before the software
+became operational.
+Service Time 5 hours.
+
+
+Wednesday traveled to site. Installed new computer. Worked with Automation
+Direct to re-establish comunications between the computer and the
+programmable controller.
+Travel Time 4 hours
+On site time 2.5 hours
+Mileage 208
+
+
+

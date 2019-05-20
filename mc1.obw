@@ -1,0 +1,1 @@
+; Dimension Variablesdim uu as mycontrol1dim vv as ragriddim x as longOBMain.CREATEcreate uu,10,10,100,100create vv,150,150,100,100x=uu.handleOBMain.text=str(x)END EVENT

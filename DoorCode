@@ -1,0 +1,18 @@
+Dim One(5) As Long
+Dim Two(5) As Long
+
+Private Sub cmdGo_Click()
+For I = 0 To 4
+    lbl1(I) = One(I)
+    lbl2(I) = Two(I)
+Next I
+End Sub
+
+Private Sub Form_Load()
+Open "c:\nb\test.txt" For Input As #1
+For I = 0 To 4
+    Input #1, One(I)
+    Input #1, Two(I)
+Next I
+End Sub
+

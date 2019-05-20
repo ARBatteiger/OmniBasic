@@ -1,0 +1,1 @@
+; Dimension Variablesdim i as longdim x(10) as bytedim v(10) as byte vectordeclare proc up1(integer)dim lb as listboxOBMain.CREATEcreate lb,10,10,300,200for i=1 to 10	x(i)=i*2next icall proc up1(addr(x))END EVENTbegin proc up1(x1)set vector v=x1for i=1 to 10	lb.additem str(v(i))next iend proc

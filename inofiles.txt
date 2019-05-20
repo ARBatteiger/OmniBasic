@@ -1,0 +1,40 @@
+DIM ConfigFile AS FILE
+OPEN "_InoHost" FOR INPUT AS ConfigFile
+GET ConfigFile,ConfigData
+
+
+DIM CommLogFile AS FILE
+
+
+DIM LogFile AS FILE
+
+
+DIM MachAlarmFile AS FILE
+OPEN "AlarmFile"+STR(CommNum) FOR APPEND AS MachAlarmFile
+PUT MachAlarmFile,MachAlarmData(CommNum)
+DIM MachAlarmData(16) As ToyoAlarmData
+
+DIM MachModeFile AS FILE
+OPEN "ModeFile"+STR(CommNum) FOR APPEND AS MachModeFile
+PUT MachModeFile,MachModeData(CommNum)
+DIM MachModeData(16) As ToyoModeData
+
+DIM MachShotFile AS FILE
+OPEN "ShotFile"+STR(CommNum) FOR APPEND AS MachShotFile
+PUT MachShotFile,MachShotData(CommNum)
+DIM MachShotData(16) As ToyoShotData
+
+DIM CurrentShotFile AS FILE
+OPEN "CurrentShot" FOR UPDATE AS CurrentShotFile
+GET CurrentShotFile,CurrentShot
+DIM CurrentShot As CurrentShotType
+
+DIM CurrentProdFile AS FILE
+OPEN "CurrentProduction" FOR UPDATE AS CurrentProdFile
+GET CurrentProdFile,CurrentProd
+DIM CurrentProd AS CurrentProdData
+
+DIM ProductionFile AS FILE
+OPEN "Prod_"CurrentProd.CurrentPartDescription(CurrentNdx) FOR UPDATE AS ProductionFile
+PUT ProductionFile, CurrentProd.CurrentRecordNum(CurrentNdx), Production;;;
+DIM Production As ProductionData

@@ -1,0 +1,1 @@
+; Dimension Variablesdim x as long; Code Sectionx=0Label1:mov eax,11retLabel2:mov eax,22retLabel3:mov eax,33retbegin export	Label1	Label2	Label3end export

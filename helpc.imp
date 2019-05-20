@@ -1,0 +1,231 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file helpc.pyd
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    wxmsw24h.dll
+              10003058 Import Address Table
+              10003630 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                236A  ?MSWOnMeasure@wxControl@@UAE_NPAPAX@Z
+                2480  ?OnCtlColor@wxControl@@UAEKKKIIIJ@Z
+                2354  ?MSWDestroyWindow@wxWindow@@UAEXXZ
+                2383  ?MSWTranslateMessage@wxWindow@@UAE_NPAPAX@Z
+                237C  ?MSWProcessMessage@wxWindow@@UAE_NPAPAX@Z
+                237F  ?MSWShouldPreProcessMessage@wxWindow@@UAE_NPAPAX@Z
+                2352  ?MSWDefWindowProc@wxWindow@@UAEJIIJ@Z
+                2384  ?MSWWindowProc@wxButton@@UAEJIIJ@Z
+                236C  ?MSWOnMeasureItem@wxWindow@@UAE_NHPAPAX@Z
+                2368  ?MSWOnDrawItem@wxWindow@@UAE_NHPAPAX@Z
+                236D  ?MSWOnNotify@wxControl@@UAE_NHJPAJ@Z
+                237A  ?MSWOnScroll@wxWindow@@UAE_NHGGK@Z
+                2CE4  ?SetupColours@wxWindow@@UAEXXZ
+                 F86  ?AdoptAttributesFromHWND@wxWindow@@UAEXXZ
+                1284  ?CreateWindowFromHWND@wxWindow@@UAEPAV1@PAV1@K@Z
+                233C  ?MSWCommand@wxButton@@UAE_NIG@Z
+                235A  ?MSWGetParent@wxWindow@@UBEKXZ
+                235B  ?MSWGetStyle@wxButton@@MBEKJPAK@Z
+                1170  ?ContainsHWND@wxWindow@@UBE_NK@Z
+                2323  ?LoadNativeDialog@wxWindow@@UAE_NPAV1@AAH@Z
+                2324  ?LoadNativeDialog@wxWindow@@UAE_NPAV1@ABVwxString@@@Z
+                148A  ?DragAcceptFiles@wxWindow@@UAEX_N@Z
+                 F7C  ?AdjustForParentClientOrigin@wxWindowBase@@MBEXAAH0H@Z
+                142B  ?DoPopupMenu@wxWindow@@UAE_NPAVwxMenu@@HH@Z
+                146C  ?DoSetToolTip@wxWindow@@MAEXPAVwxToolTip@@@Z
+                1426  ?DoMoveWindow@wxWindow@@MAEXHHHH@Z
+                144A  ?DoSetClientSize@wxWindow@@MAEXHH@Z
+                1467  ?DoSetSize@wxWindow@@MAEXHHHHH@Z
+                13C4  ?DoGetBestSize@wxButton@@MBE?AVwxSize@@XZ
+                13DF  ?DoGetClientSize@wxWindow@@MBEXPAH0@Z
+                13FE  ?DoGetSize@wxWindow@@MBEXPAH0@Z
+                13F3  ?DoGetPosition@wxWindow@@MBEXPAH0@Z
+                1439  ?DoReleaseMouse@wxWindow@@MAEXXZ
+                1374  ?DoCaptureMouse@wxWindow@@MAEXXZ
+                1407  ?DoHitTest@wxWindowBase@@MBE?AW4wxHitTest@@HH@Z
+                1441  ?DoScreenToClient@wxWindow@@MBEXPAH0@Z
+                1376  ?DoClientToScreen@wxWindow@@MBEXPAH0@Z
+                1908  ?GetDefaultBorder@wxWindowBase@@MBE?AW4wxBorder@@XZ
+                1A8D  ?GetHandle@wxWindow@@UBEKXZ
+                22E5  ?Layout@wxWindowBase@@UAE_NXZ
+                1CFB  ?GetPositionConstraint@wxWindowBase@@UBEXPAH0@Z
+                1856  ?GetClientSizeConstraint@wxWindowBase@@UBEXPAH0@Z
+                1DF5  ?GetSizeConstraint@wxWindowBase@@UBEXPAH0@Z
+                23D8  ?MoveConstraint@wxWindowBase@@UAEXHH@Z
+                2BEB  ?SetSizeConstraint@wxWindowBase@@UAEXHHHH@Z
+                142A  ?DoPhase@wxWindowBase@@UAE_NH@Z
+                22E9  ?LayoutPhase2@wxWindowBase@@UAE_NPAH@Z
+                22E8  ?LayoutPhase1@wxWindowBase@@UAE_NPAH@Z
+                2905  ?SetConstraintSizes@wxWindowBase@@UAEX_N@Z
+                1965  ?GetDropTarget@wxWindowBase@@UBEPAVwxDropTarget@@XZ
+                2985  ?SetDropTarget@wxWindow@@UAEXPAVwxDropTarget@@@Z
+                27E1  ?ScrollPages@wxWindow@@UAE_NH@Z
+                27DE  ?ScrollLines@wxWindow@@UAE_NH@Z
+                27E7  ?ScrollWindow@wxWindow@@UAEXHHPBVwxRect@@@Z
+                1D9B  ?GetScrollRange@wxWindow@@UBEHH@Z
+                1D9C  ?GetScrollThumb@wxWindow@@UBEHH@Z
+                1D98  ?GetScrollPos@wxWindow@@UBEHH@Z
+                2BB4  ?SetScrollPos@wxWindow@@UAEXHH_N@Z
+                2BB9  ?SetScrollbar@wxWindow@@UAEXHHHH_N@Z
+                1E6D  ?GetTextExtent@wxWindow@@UBEXABVwxString@@PAH111PBVwxFont@@@Z
+                170B  ?GetCharWidth@wxWindow@@UBEHXZ
+                1707  ?GetCharHeight@wxWindow@@UBEHXZ
+                29E0  ?SetFont@wxWindow@@UAE_NABVwxFont@@@Z
+                2916  ?SetCursor@wxWindow@@UAE_NABVwxCursor@@@Z
+                29ED  ?SetForegroundColour@wxButton@@UAE_NABVwxColour@@@Z
+                2862  ?SetBackgroundColour@wxButton@@UAE_NABVwxColour@@@Z
+                2620  ?PrepareDC@wxWindowBase@@UAEXAAVwxDC@@@Z
+                2DA4  ?Thaw@wxWindow@@UAEXXZ
+                163A  ?Freeze@wxWindow@@UAEXXZ
+                10CD  ?Clear@wxWindow@@UAEXXZ
+                2E0C  ?Update@wxWindow@@UAEXXZ
+                2364  ?MSWOnDraw@wxBitmapButton@@UAE_NPAPAX@Z
+                1142  ?Command@wxButton@@UAEXAAVwxCommandEvent@@@Z
+                2E49  ?WarpPointer@wxWindow@@UAEXHH@Z
+                283E  ?SetAcceleratorTable@wxWindowBase@@UAEXABVwxAcceleratorTable@@@Z
+                20CD  ?InitDialog@wxWindowBase@@UAEXXZ
+                2DC3  ?TransferDataFromWindow@wxWindowBase@@UAE_NXZ
+                2DC4  ?TransferDataToWindow@wxWindowBase@@UAE_NXZ
+                2E2F  ?Validate@wxWindowBase@@UAE_NXZ
+                1ED5  ?GetValidator@wxWindowBase@@UAEPAVwxValidator@@XZ
+                2C8B  ?SetValidator@wxWindowBase@@UAEXABVwxValidator@@@Z
+                2734  ?RemoveChild@wxWindowBase@@UAEXPAV1@@Z
+                 F36  ?AddChild@wxWindowBase@@UAEXPAV1@@Z
+                2761  ?Reparent@wxWindow@@UAE_NPAVwxWindowBase@@@Z
+                2272  ?IsTopLevel@wxWindowBase@@UBE_NXZ
+                2C5D  ?SetTmpDefaultItem@wxWindowBase@@UAEXPAVwxWindow@@@Z
+                295D  ?SetDefaultItem@wxWindowBase@@UAEPAVwxWindow@@PAV2@@Z
+                1921  ?GetDefaultItem@wxWindowBase@@UBEPAVwxWindow@@XZ
+                 EE5  ?AcceptsFocusFromKeyboard@wxWindowBase@@UBE_NXZ
+                 EE2  ?AcceptsFocus@wxWindowBase@@UBE_NXZ
+                29CF  ?SetFocusFromKbd@wxWindow@@UAEXXZ
+                29CE  ?SetFocus@wxWindow@@UAEXXZ
+                1E73  ?GetThemeEnabled@wxWindowBase@@UBE_NXZ
+                2C40  ?SetThemeEnabled@wxWindowBase@@UAEX_N@Z
+                239E  ?MakeModal@wxWindowBase@@UAEX_N@Z
+                29A6  ?SetExtraStyle@wxWindowBase@@UAEXJ@Z
+                2247  ?IsRetained@wxWindowBase@@UBE_NXZ
+                1F48  ?GetWindowStyleFlag@wxWindowBase@@UBEJXZ
+                2CD7  ?SetWindowStyleFlag@wxWindow@@UAEXJ@Z
+                1510  ?Enable@wxWindow@@UAE_N_N@Z
+                2CFE  ?Show@wxWindow@@UAE_N_N@Z
+                16A1  ?GetBestVirtualSize@wxWindowBase@@UBE?AVwxSize@@XZ
+                1404  ?DoGetVirtualSize@wxWindowBase@@UBE?AVwxSize@@XZ
+                146F  ?DoSetVirtualSize@wxWindowBase@@UAEXHH@Z
+                1BBA  ?GetMaxSize@wxWindowBase@@UBE?AVwxSize@@XZ
+                1BDC  ?GetMinHeight@wxWindowBase@@UBEHXZ
+                1BE3  ?GetMinWidth@wxWindowBase@@UBEHXZ
+                2CB9  ?SetVirtualSizeHints@wxWindowBase@@UAEXHHHH@Z
+                2BED  ?SetSizeHints@wxWindowBase@@UAEXHHHHHH@Z
+                15FF  ?FitInside@wxWindowBase@@UAEXXZ
+                15FD  ?Fit@wxWindowBase@@UAEXXZ
+                1842  ?GetClientAreaOrigin@wxWindow@@UBE?AVwxPoint@@XZ
+                2336  ?Lower@wxWindow@@UAEXXZ
+                2678  ?Raise@wxWindow@@UAEXXZ
+                1C0A  ?GetName@wxWindowBase@@UBE?AVwxString@@XZ
+                2AF1  ?SetName@wxWindowBase@@UAEXABVwxString@@@Z
+                1B3F  ?GetLabel@wxWindowBase@@UBE?AVwxString@@XZ
+                2A83  ?SetLabel@wxBitmapButtonBase@@EAEXABVwxString@@@Z
+                1E88  ?GetTitle@wxWindow@@UBE?AVwxString@@XZ
+                2C54  ?SetTitle@wxWindow@@UAEXABVwxString@@@Z
+                130C  ?Destroy@wxWindowBase@@UAE_NXZ
+                13D9  ?DoGetClientData@wxEvtHandler@@MBEPAXXZ
+                1445  ?DoSetClientData@wxEvtHandler@@MAEXPAX@Z
+                13DB  ?DoGetClientObject@wxEvtHandler@@MBEPAVwxClientData@@XZ
+                1447  ?DoSetClientObject@wxEvtHandler@@MAEXPAVwxClientData@@@Z
+                199E  ?GetEventTable@wxContextHelpButton@@MBEPBUwxEventTable@@XZ
+                27EA  ?SearchEventTable@wxEvtHandler@@UAE_NAAUwxEventTable@@AAVwxEvent@@@Z
+                264B  ?ProcessEvent@wxEvtHandler@@UAE_NAAVwxEvent@@@Z
+                173D  ?GetClassInfo@wxContextHelpButton@@UBEPAVwxClassInfo@@XZ
+                  E8  ??0wxContextHelpButton@@QAE@PAVwxWindow@@HABVwxPoint@@ABVwxSize@@J@Z
+                314B  ?wxDefaultSize@@3VwxSize@@B
+                 618  ??1wxContextHelpButton@@UAE@XZ
+                2F28  ?ms_helpProvider@wxHelpProvider@@0PAV1@A
+                2745  ?RemoveHelp@wxSimpleHelpProvider@@UAEXPAVwxWindowBase@@@Z
+                 F55  ?AddHelp@wxSimpleHelpProvider@@UAEXPAVwxWindowBase@@ABVwxString@@@Z
+                 F54  ?AddHelp@wxSimpleHelpProvider@@UAEXHABVwxString@@@Z
+                2D05  ?ShowHelp@wxSimpleHelpProvider@@UAE_NPAVwxWindowBase@@@Z
+                1AA0  ?GetHelp@wxSimpleHelpProvider@@UAE?AVwxString@@PBVwxWindowBase@@@Z
+                 4D8  ??0wxStringHashTable@@QAE@I@Z
+                 C67  ??_7wxHelpProvider@@6B@
+                 79A  ??1wxSimpleHelpProvider@@UAE@XZ
+                31BB  ?wxEVT_DETAILED_HELP@@3HB
+                31D3  ?wxEVT_HELP@@3HB
+                2A37  ?SetImageLabel@wxButtonBase@@UAEXABVwxBitmap@@@Z
+                2A3F  ?SetImageMargins@wxButtonBase@@UAEXHH@Z
+                2949  ?SetDefault@wxBitmapButton@@UAEXXZ
+                2ABA  ?SetMargins@wxBitmapButtonBase@@UAEXHH@Z
+                2566  ?OnSetBitmap@wxBitmapButtonBase@@MAEXXZ
+                14B8  ?DrawFace@wxBitmapButton@@UAEXKHHHH_N@Z
+                14A8  ?DrawButtonFocus@wxBitmapButton@@UAEXKHHHH_N@Z
+                14A7  ?DrawButtonDisable@wxBitmapButton@@UAEXKHHHH_N@Z
+                152E  ?EndContextHelp@wxContextHelp@@QAE_NXZ
+                1013  ?BeginContextHelp@wxContextHelp@@QAE_NPAVwxWindow@@@Z
+                 617  ??1wxContextHelp@@UAE@XZ
+                  E7  ??0wxContextHelp@@QAE@PAVwxWindow@@_N@Z
+                173C  ?GetClassInfo@wxContextHelp@@UBEPAVwxClassInfo@@XZ
+                 9A7  ??4wxString@@QAEAAV0@ABV0@@Z
+                 6C2  ??1wxHelpEvent@@UAE@XZ
+                31FC  ?wxEVT_NULL@@3HB
+                314A  ?wxDefaultPosition@@3VwxPoint@@B
+                  DC  ??0wxCommandEvent@@QAE@HH@Z
+                322F  ?wxEmptyString@@3PBDB
+                1782  ?GetClassInfo@wxHelpEvent@@UBEPAVwxClassInfo@@XZ
+                1273  ?CreateRefData@wxObject@@MBEPAVwxObjectRefData@@XZ
+                1123  ?CloneRefData@wxObject@@MBEPAVwxObjectRefData@@PBV2@@Z
+                10FF  ?Clone@wxHelpEvent@@UBEPAVwxEvent@@XZ
+                26D3  ?Refresh@wxWindow@@UAEX_NPBVwxRect@@@Z
+                1FC7  ?HasCapture@wxWindowBase@@UBE_NXZ
+
+    python23.dll
+              10003024 Import Address Table
+              100035FC Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  1B  PyCObject_Import
+                 2A8  Py_InitModule4
+                 13E  PyModule_GetDict
+                  F8  PyInt_FromLong
+                  53  PyDict_SetItemString
+                 1FC  PyString_FromStringAndSize
+                  B8  PyExc_TypeError
+                  78  PyErr_SetString
+                   2  PyArg_ParseTupleAndKeywords
+                  65  PyErr_Occurred
+                 28C  Py_BuildValue
+                 302  _Py_NoneStruct
+
+    MSVCRT.dll
+              10003008 Import Address Table
+              100035E0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  9D  _adjust_fdiv
+                 291  malloc
+                 10F  _initterm
+                   F  ??2@YAPAXI@Z
+                  10  ??3@YAXPAX@Z
+                 25E  free
+
+    KERNEL32.dll
+              10003000 Import Address Table
+              100035D8 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                  84  DisableThreadLibraryCalls
+
+  Summary
+
+        2000 .data
+        3000 .rdata
+        1000 .reloc
+        2000 .text

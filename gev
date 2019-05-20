@@ -1,0 +1,64 @@
+grd.imageclick
+'grd.sort 1,inverting
+tb1.text="ImageClick"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.beforeselchange
+'grd.sort 1,inverting
+tb1.text="BSelCng"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.afterselchange
+'grd.sort 1,inverting
+tb1.text="ACellChange"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.beforeedit
+'grd.sort 1,inverting
+tb1.text="BeforeEdit"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.afteredit
+'grd.sort 1,inverting
+tb1.text="AfterEdit"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.beforeupdate
+'grd.sort 1,inverting
+tb1.text="BeforUpd"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.afterupdate
+'grd.sort 1,inverting
+tb1.text="AfterUpd"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+
+grd.userconvert
+'grd.sort 1,inverting
+tb1.text="UserInvert"
+invoke SendMessage, dword [edi+44],GM_GETCURCOL,0,0
+mov [TempInt],eax
+tb2.text=str(TempInt)
+end event
+

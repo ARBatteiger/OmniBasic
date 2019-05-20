@@ -1,0 +1,1 @@
+dim havis as statictextset position OBMain,0,0,100,50create havis,10,10,80,20havis.text="test"havis.backcolor=$ffffhavis.forecolor=$ffhavis.tooltip="Tooltip"

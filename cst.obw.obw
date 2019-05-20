@@ -1,0 +1,1 @@
+; Dimension Variablesdim tb1 as textboxdim lb1 as listboxOBMain.CREATEcreate tb1,10,10,100,20tb1.text="123"+"456"create lb1,10,40,100,100lb1.additem "first"+" item"lb1.additem "second"+" item"END EVENT

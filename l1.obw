@@ -1,0 +1,64 @@
+dim positioner(8) as button
+dim sizer(8) as button
+dim combo as combobox
+dim ctr as long
+dim tempstr as string
+dim leftpos as long
+dim toppos as long
+
+OBMain.create
+
+construct positioner(1),0,0,20,20
+construct positioner(2),0,20,20,20
+construct positioner(3),0,40,20,20
+construct positioner(4),20,0,20,20
+construct positioner(5),20,40,20,20
+construct positioner(6),40,0,20,20
+construct positioner(7),40,20,20,20
+construct positioner(8),40,40,20,20
+
+construct sizer(1),100,0,20,20
+construct sizer(2),100,20,20,20
+construct sizer(3),100,40,20,20
+construct sizer(4),120,0,20,20
+construct sizer(5),120,40,20,20
+construct sizer(6),140,0,20,20
+construct sizer(7),140,20,20,20
+construct sizer(8),140,40,20,20
+
+construct combo,200,200,80,20
+leftpos=combo.left
+toppos=combo.top
+
+positioner.intercepton
+
+end event
+
+positioner.intercept
+tempstr=str(ArrayIndex)
+combo.text=tempstr
+SELECT CASE ArrayIndex
+	case 2
+		if wmsg=WM_LBUTTONDOWN then
+			'Timer2.interval=500
+combo.backcolor=$ff0000
+		endif
+		if wmsg=WM_LBUTTONUP then
+			'Timer2.stop
+combo.backcolor=$ffff00
+		endif	
+	case 7
+		if wmsg=WM_LBUTTONDOWN then
+			'Timer7.interval=500
+combo.backcolor=$ff00
+		endif
+		if wmsg=WM_LBUTTONUP then
+			'Timer7.stop
+combo.backcolor=$ff
+		endif
+	case else
+		passinterceptevent
+end select
+end event
+
+

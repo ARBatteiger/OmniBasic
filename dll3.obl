@@ -1,0 +1,1 @@
+; Dimension Variablesdim a as longdim b as longdim i as longdim sv as stringdim bv as booleandeclare fcn uf1(integer,integer) AS INTEGERdeclare fcn uf2(string) as stringdeclare fcn uf3(boolean) as booleanbegin export	uf3	uf2	uf1end exportbegin fcn uf1(a,b)return a+bend fcnbegin fcn uf2(sv)return ucase(sv)end fcnbegin fcn uf3(bv)return not(bv)end fcn

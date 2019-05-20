@@ -1,0 +1,1 @@
+DIM HelloSign AS STATICTEXTOBMain.createSET POSITION OBMain,40,40,100,50CREATE HelloSign,5,5,80,80HelloSign.text="Hello World"END EVENT

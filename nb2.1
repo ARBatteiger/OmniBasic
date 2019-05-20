@@ -1,0 +1,9131 @@
+' OmniBasic Copyright 1995,1996,1997,1998,1999 Computer Design Lab
+' All Rights Reserved
+'
+' This source file is provided for educational, documentation, and porting
+' purposes only. The recipient agrees to hold this information in strict
+' confidence. The recipient agrees to these terms by accepting this software
+' source code. Violations may result in criminal and/or civil penalties under
+' the copyright and trade secret laws of the United States of America.
+
+' Edition History
+' 10-18-02 OmniBasic release 1.44 as base for adaptation
+' 10-18-02 Remove most XForms stuff
+' 10-18-02 Remove all conditional code
+' 10-18-02 Remove ANSI and ANSIFile code
+' 10-18-02 Remove CType, WinType, Version, _exp, risc
+
+'***** Subroutine Declarations ******
+
+FUNCTION Add() VOID
+FUNCTION AddLftGrp() VOID
+FUNCTION AddMulti() VOID
+FUNCTION AddRtGrp1() VOID
+FUNCTION AddRtGrp2() VOID
+FUNCTION And() VOID
+FUNCTION BldComment() VOID
+FUNCTION BldOffset() VOID
+FUNCTION BufRW() VOID
+FUNCTION CSChk() VOID
+FUNCTION CallErr() VOID
+FUNCTION ClassOp() VOID
+FUNCTION ClassOp1() VOID
+FUNCTION ClrDatTyp() VOID
+FUNCTION ClrERR() VOID
+FUNCTION ClrSym() VOID
+FUNCTION ClrSymTab() VOID
+FUNCTION CmdLine() VOID
+FUNCTION CmpBool() VOID
+FUNCTION CmpNum() VOID
+FUNCTION CmpOps() VOID
+FUNCTION CmpString() VOID
+FUNCTION DateTime() VOID
+FUNCTION DecVar() VOID
+FUNCTION DevChk() VOID
+FUNCTION DimVar() VOID
+FUNCTION Div() VOID
+FUNCTION EndCasex() VOID
+FUNCTION Expr() VOID
+SUBROUTINE F0'  EOF
+SUBROUTINE F1'  LEN
+SUBROUTINE F2'  STR$
+SUBROUTINE F3'  VAL
+SUBROUTINE F4'  LAND
+SUBROUTINE F5'  MID$
+SUBROUTINE F6'  LOR
+SUBROUTINE F7'  LEFT$
+SUBROUTINE F8'  MOD
+SUBROUTINE F9'  CHR$
+SUBROUTINE F10'  RIGHT$
+SUBROUTINE F11'  ASC
+SUBROUTINE F12'  NOT
+SUBROUTINE F13'  BUFADR
+SUBROUTINE F14'  BUFSIZ
+SUBROUTINE F15'  TAB
+SUBROUTINE F16'  PEEK
+SUBROUTINE F17'  ADDR
+SUBROUTINE F18'  LXOR
+SUBROUTINE F19'  LNOT
+SUBROUTINE F20'  INDEX
+SUBROUTINE F21'  SIZE
+SUBROUTINE F22'  IVAL
+SUBROUTINE F23'  FVAL
+SUBROUTINE F24'  TRM$
+SUBROUTINE F25'  FILSIZ
+SUBROUTINE F26'  FILPOS
+SUBROUTINE F27'  SQR
+SUBROUTINE F28'  INT
+SUBROUTINE F29'  ABS
+SUBROUTINE F30'  SIN
+SUBROUTINE F31'  COS
+SUBROUTINE F32'  TAN
+SUBROUTINE F33'  ASN
+SUBROUTINE F34'  ACS
+SUBROUTINE F35'  ATN
+SUBROUTINE F36'  LOG
+SUBROUTINE F37'  LOG10
+SUBROUTINE F38'  GETMENU
+SUBROUTINE F39'  GETFILE
+SUBROUTINE F40'  THOUR
+SUBROUTINE F41'  TMIN
+SUBROUTINE F42'  TSEC
+SUBROUTINE F43'  TYEAR
+SUBROUTINE F44'  TMON
+SUBROUTINE F45'  TDAT
+SUBROUTINE F46'  TDAY
+SUBROUTINE F47'  MBUTTON
+SUBROUTINE F48'  HEX$
+SUBROUTINE F49'  BITTST
+SUBROUTINE F50'  SHL
+SUBROUTINE F51'  SHR
+SUBROUTINE F52'  ROL
+SUBROUTINE F53'  ROR
+SUBROUTINE F54'  BITCHG
+SUBROUTINE F55'  BITCLR
+SUBROUTINE F56'  BITSET
+SUBROUTINE F57'  SUBSTR
+SUBROUTINE F58'  ZSTR$
+SUBROUTINE F59'  ZHEX$
+SUBROUTINE F60'  USING
+SUBROUTINE F61'  Vacant
+SUBROUTINE F62'  Vacant
+SUBROUTINE F63'  Vacant
+SUBROUTINE F64'  Vacant
+SUBROUTINE F65'  Vacant
+SUBROUTINE F66'  Vacant
+SUBROUTINE F67'  Vacant
+SUBROUTINE F68'  Vacant
+SUBROUTINE F69'  Vacant
+SUBROUTINE F70'  Vacant
+SUBROUTINE F71'  RND
+SUBROUTINE F72'  Vacant
+SUBROUTINE F73'  Vacant
+SUBROUTINE F74'  Vacant
+SUBROUTINE F75'  Vacant
+SUBROUTINE F76'  Vacant
+SUBROUTINE F77'  LCASE$
+SUBROUTINE F78'  UCASE$
+SUBROUTINE F79'  REMNANT$
+SUBROUTINE F80'  FINDADDR
+SUBROUTINE F81'  FINDOFFS
+
+FUNCTION FDInit() VOID
+FUNCTION FDGetObjTyp() VOID
+FUNCTION FDGetObjCls() VOID
+FUNCTION FcnRegs() VOID
+FUNCTION GenCase() VOID
+FUNCTION GenXfrCnt() VOID
+FUNCTION GetAccMod() VOID
+FUNCTION GetBase() VOID
+FUNCTION GetChrVec() VOID
+FUNCTION GetColon() VOID
+FUNCTION GetComma() VOID
+FUNCTION GetDtaTyp() VOID
+FUNCTION GetEqual() VOID
+FUNCTION GetExp() VOID
+FUNCTION GetFilePtr() VOID
+FUNCTION GetFltOp() VOID
+FUNCTION GetFltTmp() VOID
+FUNCTION GetIntOp() VOID
+FUNCTION GetIntTmp() VOID
+FUNCTION GetLopVec() VOID
+
+FUNCTION GetOpSize() VOID
+FUNCTION GetPthNum() VOID
+FUNCTION GetPthNum1() VOID
+FUNCTION GetPthNum2() VOID
+FUNCTION GetPthNam() VOID
+FUNCTION GetPut() VOID
+FUNCTION GetRP1() VOID
+FUNCTION GetRegPrm() VOID
+FUNCTION GetStrVec() VOID
+FUNCTION GetTmp() VOID
+FUNCTION GetTmpVec() VOID
+FUNCTION GetVarSiz() VOID
+FUNCTION GtRootSym() VOID
+FUNCTION IncConStk() VOID
+FUNCTION IncExpNdx() VOID
+FUNCTION KeyLook() VOID
+FUNCTION LoadReg() VOID
+FUNCTION LookUp() VOID
+FUNCTION MacDefInc() VOID
+FUNCTION MacToken() VOID
+FUNCTION MakString() VOID
+FUNCTION MakTmpVec() VOID
+FUNCTION MidLftRt() VOID
+FUNCTION Mul() VOID
+FUNCTION MultiInsert() VOID
+FUNCTION NexToken() VOID
+FUNCTION NexToken3() VOID
+FUNCTION NumToA() VOID
+FUNCTION Or() VOID
+FUNCTION OutCRLF() VOID
+FUNCTION OutCode() VOID
+FUNCTION OutFcn() VOID
+FUNCTION OutMain() VOID
+FUNCTION OutVar() VOID
+FUNCTION OutLabel() VOID
+FUNCTION OutNewLine() VOID
+FUNCTION OutRead() VOID
+FUNCTION OutWrite() VOID
+FUNCTION ParenScan() VOID
+FUNCTION ParseOpt() VOID
+FUNCTION PreScan() VOID
+FUNCTION PreScan1() VOID
+FUNCTION ProcExp() VOID
+FUNCTION ProcKonst() VOID
+FUNCTION ReadSource() VOID
+FUNCTION ReadWrite() VOID
+FUNCTION RegInit() VOID
+FUNCTION Remark() VOID
+FUNCTION ReqTmpVec() VOID
+FUNCTION SETDx1() VOID
+FUNCTION SetStrVec() VOID
+FUNCTION SetTmpVec() VOID
+FUNCTION SolveTerm() VOID
+FUNCTION SquishExp() VOID
+FUNCTION StoreD0() VOID
+FUNCTION StrSiz() VOID
+FUNCTION Sub() VOID
+FUNCTION SubLoad() VOID
+FUNCTION SymInsert() VOID
+FUNCTION SymSearch() VOID
+FUNCTION SymSrch() VOID
+FUNCTION TokenSym() VOID
+FUNCTION TokenSym1() VOID
+FUNCTION UnBlkFcn() VOID
+FUNCTION UnDoToken() VOID
+FUNCTION Unary() VOID
+FUNCTION ValidFlt() VOID
+FUNCTION ValidHex() VOID
+FUNCTION ValidInt() VOID
+FUNCTION ValidSym() VOID
+FUNCTION VarBlank() VOID
+FUNCTION VecString() VOID
+FUNCTION VecSymNam() VOID
+FUNCTION Vectorize() VOID
+
+' MACROS
+
+MACRO CommaRet
+ GetComma()
+ ErrRet
+ENDMACRO
+
+MACRO CommaMain
+ GetComma()
+ ErrMain
+ENDMACRO
+
+MACRO ColonRet
+ GetColon()
+ ErrRet
+ENDMACRO
+
+MACRO ColonMain
+ GetColon()
+ ErrMain
+ENDMACRO
+
+MACRO EqualRet
+ GetEqual()
+ ErrRet
+ENDMACRO
+
+MACRO EqualMain
+ GetEqual()
+ ErrMain
+ENDMACRO
+
+MACRO InitReg0
+ D0Loaded=0
+ENDMACRO
+
+MACRO MakeLong
+ IF TDataMod&AddrBit=AddrBit THEN
+	TDataType=LONG
+ ENDIF
+ENDMACRO
+
+MACRO RET
+ if 0=0 then
+	return
+ endif
+ENDMACRO
+
+MACRO GenCode
+ OutCode()
+ENDMACRO
+
+MACRO GenVar
+ OutVar()
+ENDMACRO
+
+MACRO GenMain
+ OutMain()
+ENDMACRO
+
+MACRO GenFcn
+ OutFcn()
+ENDMACRO
+
+MACRO GenRead
+ OutRead()
+ENDMACRO
+
+MACRO GenWrite
+ OutWrite()
+ENDMACRO
+
+MACRO GenCRLF
+ OutCRLF()
+ENDMACRO
+
+MACRO GenNewLine
+ OutNewLine()
+ENDMACRO
+
+MACRO ErrRet
+;if (ErrNo) return;
+ENDMACRO
+
+MACRO ErrMain
+;if (ErrNo) goto MainLoop;
+ENDMACRO
+
+ CONST ErrUDSym=1
+ CONST ErrIVSNam=2
+ CONST ErrTypMis=3
+ CONST ErrIVExp=4
+ CONST ErrSyntax=5
+ CONST ErrDupSym=6
+ CONST ErrSymFul=7
+ CONST ErrUDFcn=8
+ CONST ErrIVType=9
+ CONST ErrIVMod=10
+ CONST ErrMacArg=11
+ CONST ErrIVDir=12
+ CONST ErrDupMac=13
+ CONST ErrEndStr=14
+ CONST ErrMacNst=15
+ CONST ErrMacBuf=16
+ CONST ErrIVMac=17
+ CONST ErrEndm=18
+ CONST ErrUBCon=19
+ CONST ErrNDeep=20
+ CONST ErrDecFcn=21
+ CONST ErrIVParm=22
+ CONST ErrParam=23
+ CONST ErrCpxExp=24
+ CONST ErrIVFunc=25
+ CONST ErrTmpUse=26
+ CONST ErrParen=27
+ CONST ErrFcn=28
+ CONST ErrIVTarg=29
+ CONST ErrFSNest=30
+ CONST ErrPrmCnt=31
+ CONST ErrERRTrp=32
+ CONST ErrArrSub=33
+
+ CONST COMPVAR=0
+ CONST BOOLEAN=1
+ CONST BYTE=2
+ CONST SHORT=3
+ CONST LONG=4
+ CONST FLOAT=5
+ CONST STRING=6
+ CONST LABEL=7
+ CONST MACRO=8
+ CONST OPER=9
+ CONST FCN=10
+ CONST PROC=11
+ CONST STRUCT=12
+ CONST VOIDX=13
+ CONST COMPLEX=14
+ CONST BUFFER=15
+
+ CONST ArrayBit=$0001
+ CONST AddrBit=$0002
+ CONST ConstBit=$0004
+ CONST MultiBit=$0008
+ CONST MemberBit=$0010
+ CONST VectorBit=$0020
+ CONST TempBit=$0040
+ CONST DataBit=$0080
+ CONST FileBit=$0100
+ CONST TmpVec=$60
+ CONST ArrayMsk=$fffe
+ CONST AddrOrFile=$0101
+
+ CONST NULLClass=0
+ CONST INTClass=1
+ CONST STRClass=2
+ CONST ARRClass=3
+ CONST CPXClass=4
+ CONST FLTClass=5
+ CONST BOOLClass=6
+ CONST OBJClass=7
+ CONST FRMClass=8
+
+ CONST TTypRelOp=1
+ CONST TTypPunct=2
+ CONST TTypMath=3
+ CONST TTypQuote=4
+ CONST TTypSym=5
+ CONST TTypInt=6
+ CONST TTypHex=7
+ CONST TTypParen=8
+ CONST TTypMisc=9
+ CONST TTypFloat=10
+
+ CONST VoidFcn=0
+ CONST IntFcn=1
+ CONST DblFcn=2
+
+ CONST ParamSize=32
+
+ CONST NumTemps=15
+
+ CONST _BufSize=300
+ CONST MacBufSiz=20000
+ CONST ExpTabSiz=100
+ CONST UserSym=195'  set to first user symbol in PreDefined
+
+ CONST SymTabSiz=3500
+
+ DIM FirstValidChar AS BOOLEAN
+ DIM HexType AS BYTE
+ DIM ANSIArgs(9) AS STRING*5
+ DIM FilBufSiz AS LONG
+ DIM FilBufAdr AS LONG
+ DIM ANSIArgCtr AS LONG
+ DIM ObjType AS BYTE
+ DIM ObjClass AS LONG
+ DIM TempObjClass AS LONG
+ DIM ObjSubClass AS LONG
+ DIM GroupFlag AS BYTE
+ DIM Place AS BYTE
+ DIM HaltFlag AS BYTE
+ DIM PromptFlag AS BYTE
+ DIM ProcedureFlag AS BYTE
+ DIM DLLFlag AS BYTE
+ DIM FloatFlag AS BYTE
+ DIM ExpFlag AS BYTE
+ DIM XSize AS LONG
+ DIM YSize AS LONG
+ DIM MultiNdx AS LONG
+ DIM LastMulti AS LONG
+ DIM FcnMulti AS LONG
+ DIM SubCtr AS BYTE
+ DIM SubCtrSaf AS BYTE
+ DIM MultiFlag AS BYTE
+ DIM DbgFlag AS BYTE
+ DIM SubValue(3) AS LONG
+ DIM SubValSaf(3) AS LONG
+ DIM PrtPthFlg AS BYTE
+ DIM VerbFlag AS BYTE
+ DIM VerbCmd AS STRING*10
+ DIM Comment AS STRING*64
+ DIM OldCompVar AS BYTE
+ DIM StdLib AS STRING*42
+ DIM AsmbCmd AS STRING*32
+ DIM ObjectCmd AS STRING*32
+ DIM OptionCmd AS STRING*32
+ DIM CompileCmd AS STRING*32
+ DIM AsmbFlag AS BYTE
+ DIM DirFlag AS BYTE
+ DIM CrOpFlag AS BYTE
+ DIM StatFlag AS BYTE
+ DIM LopCtrNum AS LONG
+ DIM LastSym AS LONG
+ DIM FcnSym AS LONG
+ DIM FcnHeader AS STRING*_BufSize
+ DIM FcnBlk(32) AS STRING*100
+ DIM LetFlag AS BYTE
+ DIM FcnBlkNdx AS BYTE
+ DIM FcnFlag AS BYTE
+ DIM SbrtnFlag AS BYTE
+ DIM FcnActive AS BYTE
+ DIM StartFlag AS BYTE
+ DIM DataFlag AS BYTE
+ DIM SelectFlag AS BYTE
+ DIM CaseFlag AS BYTE
+ DIM CaseElseFlag AS BYTE
+ DIM CaseToFlag AS BYTE
+ DIM XBufSize AS LONG
+ DIM LinkerOut AS String*40
+ DIM B AS STRING*10
+ DIM BufRWFlg AS BYTE
+ DIM NewLine AS BYTE
+ DIM Fmt AS STRING*79
+ DIM UDump AS BYTE
+ DIM StringNum AS LONG
+ DIM VectorFlg AS BYTE
+ DIM ParmCtr AS BYTE
+ DIM ParamCount AS BYTE
+ DIM ParmFlag AS BYTE
+ DIM FcnVarFlg AS BYTE
+ DIM ProcName AS STRING*28
+ DIM DtaRegNum AS BYTE
+ DIM LoopVars(40) AS STRING*28
+ DIM LopVarNdx AS LONG
+ DIM ProcFlag AS BYTE
+ DIM UsrFcnNam AS STRING*42
+ DIM UsrFcnNamx AS STRING*42
+ DIM SetObjNam AS STRING*42
+ DIM NumArgs AS BYTE
+ DIM ParamCnt AS BYTE
+ DIM LinkerOpt AS STRING*50
+ DIM LibList AS STRING*100
+ DIM ProgMode AS BYTE
+ DIM ObjectMode AS BYTE
+ DIM DumpSyms AS BYTE
+ DIM FloatOK AS BYTE
+ DIM OneDot AS BYTE
+ DIM LstExp AS LONG
+ DIM NoGen AS BYTE
+ DIM COut AS BYTE
+ DIM OptNdx AS LONG
+ DIM Opt AS STRING*1
+ DIM CondValid AS BYTE
+ DIM CondOp1 AS LONG
+ DIM CondOp2 AS LONG
+ DIM GenFlag(20) AS BYTE
+ DIM GFNdx AS LONG
+ DIM AddInst AS STRING*5
+ DIM DecInc AS STRING*2
+ DIM VarSize AS LONG
+ DIM SetMask AS BYTE
+ DIM ArrayBase AS BYTE
+ DIM TmpMax AS BYTE
+ DIM TmpVecMax AS BYTE
+ DIM FTmpMax AS BYTE
+ DIM ChrTmpMax AS BYTE
+ DIM StrTmpMax AS BYTE
+ DIM PrintFlag AS BYTE
+ DIM TabFlag AS BYTE
+ DIM DevFlag AS BYTE
+ DIM LastStmt AS STRING*8
+ DIM LastLabel AS STRING*28
+ DIM FcnCode AS BYTE
+ DIM FileStat AS BYTE
+ DIM DiskIO AS BYTE
+ DIM FileIO AS BYTE
+ DIM ReadFlag AS BYTE
+ DIM AndOrFlag AS BYTE
+ DIM CompFlag AS BYTE
+ DIM Promote AS BYTE
+ DIM Demote AS BYTE
+ DIM DataOp AS BYTE
+ DIM MathOp AS BYTE
+ DIM LdRegName AS STRING*4
+ DIM Reg0Name AS STRING*4
+ DIM Reg1Name AS STRING*4
+ DIM _DataType AS STRING*16
+ DIM DWSafe AS STRING*3
+ DIM D0Loaded AS BYTE
+ DIM Target AS BYTE
+ DIM TmpUse AS LONG
+ DIM TmpVecUse AS LONG
+ DIM FTmpUse AS LONG
+ Dim ChrTmpUse AS LONG
+ Dim StrTmpUse AS LONG
+ DIM Op1Class AS BYTE
+ DIM Operator AS BYTE
+ DIM Op2Class AS BYTE
+ DIM OpClass AS BYTE
+ DIM Op1Type AS BYTE
+ DIM Op1Mod AS INTEGER
+ DIM Op1Detail AS LONG
+ DIM Op2Type AS BYTE
+ DIM Op2Mod AS INTEGER
+ DIM Op2Detail AS LONG
+ DIM Op1Name AS STRING*42
+ DIM Op2Name AS STRING*42
+ DIM SwitchClass AS BYTE
+ DIM Op1DataSize AS LONG
+ DIM Op2DataSize AS LONG
+ DIM LNFlag AS BYTE
+ DIM VarName AS STRING*29
+ DIM BufName AS STRING*29
+ DIM AccMode AS STRING*40
+ DIM CreatMode AS STRING*40
+ DIM PathVar AS STRING*42
+ DIM PathName AS STRING*29
+ DIM ToSubFlag AS BYTE
+ DIM DigDec AS BYTE
+ DIM BitType AS BYTE
+ DIM FcnType AS BYTE
+ DIM FcnSpec AS BYTE
+ DIM JmpArgs AS LONG
+ DIM LabelNum AS LONG
+ DIM FcnLabNum AS LONG
+ DIM TableNum AS LONG
+ TYPE ConStruct
+	TermLabel AS LONG
+	ContLabel AS LONG
+	LoopName AS STRING*28
+	ConType AS BYTE
+	ConLine AS LONG
+	LoopVec AS LONG
+	LoopLabel AS LONG
+	NoStep AS BYTE
+	ImmTo AS BYTE
+	ImmToVal AS STRING*10
+	ImmStep AS BYTE
+	ImmStepVal AS STRING*10
+	NegImmStep AS BYTE
+ END TYPE
+ DIM CS(40) AS ConStruct
+ DIM CSP AS LONG
+ DIM InpFile(20) AS BYTE
+ DIM InpFilPtr AS LONG
+ DIM CodeFile AS BYTE GLOBAL
+ DIM VarFile AS BYTE
+ DIM FcnFile AS BYTE
+ DIM OutFile AS BYTE
+ DIM FDFile AS BYTE
+ DIM RawData AS STRING*1
+ DIM TempStr AS STRING*_BufSize
+ DIM FcnOp1Nam AS STRING*42
+ DIM FcnOp2Nam AS STRING*42
+ DIM TempName AS STRING*28
+ DIM TempInt AS LONG
+ DIM TempByte AS STRING*1
+ DIM ErrNo AS LONG
+ DIM NextByte AS STRING*1
+ DIM AsciiByte AS BYTE
+ DIM Konstant AS LONG
+ DIM StringCnt AS LONG
+ DIM StringLen AS LONG
+ DIM LoopNum AS LONG
+ TYPE Symbol
+	SymName AS STRING*28
+	DataType AS BYTE
+	WinMod AS BYTE
+	DataMod AS INTEGER
+	Detail AS LONG
+	DataAddr AS LONG
+	DataSize AS LONG
+	MultiPtr AS INTEGER
+ END TYPE
+ DIM SymTable(SymTabSiz) AS Symbol
+ DIM UMFlag AS BYTE
+ DIM GblVarFlg AS BYTE
+ DIM ExtVarFlg AS BYTE
+ DIM CVTemp AS LONG
+ DIM CVOp AS STRING*2
+ DIM NeedComma AS BYTE
+ DIM MacExFlag AS BYTE
+ DIM MacBuf(MacBufSiz) AS BYTE
+ DIM MacDefNdx AS LONG
+ DIM MacExNdx AS LONG
+ DIM MacTblPtr AS LONG
+ DIM MacArgBuf(16) AS STRING*100
+ DIM MacArgPtr AS LONG
+ DIM MaxArgNum AS BYTE
+ DIM PoolCtr AS LONG
+ DIM SymNdx AS LONG
+ DIM SymNdxSaf AS LONG
+ DIM SymType AS STRING*32
+ DIM ArraySize AS LONG
+ DIM ForNdx AS LONG
+ DIM DataTemp AS BYTE
+ DIM TSymName AS STRING*42
+ DIM VSymName AS STRING*42
+ DIM TDataType AS BYTE
+ DIM TWinMod AS BYTE
+ DIM TDataMod AS INTEGER
+ DIM TDetail AS LONG
+ DIM VDetail AS LONG
+ DIM TDataAddr AS LONG
+ DIM TDataSize AS LONG
+ DIM TMultiPtr AS INTEGER
+ DIM ExpTable(ExpTabSiz) AS LONG
+ DIM TypePtr AS LONG
+ DIM TypeFlag AS BYTE
+ DIM LastEntry AS Symbol
+ DIM SymTemp AS Symbol GLOBAL
+ DIM SrcLine AS STRING*_BufSize
+ DIM SrcLineCpy AS STRING*_BufSize
+ DIM UsrLine AS STRING*_BufSize
+ DIM _OutBuf AS STRING*_BufSize
+ DIM OutBuf AS STRING*_BufSize VECTOR GLOBAL
+ DIM TokenBuf AS STRING*_BufSize
+ DIM ExpEnd AS BYTE
+ DIM TokenLen AS BYTE
+ DIM ExpLen AS BYTE
+ DIM LastGroup AS BYTE
+ DIM TokenType AS BYTE
+ DIM LastByte AS BYTE
+ DIM IsOperator AS BYTE
+ DIM WasOperator AS BYTE
+ DIM TokenSaf AS STRING*_BufSize
+ DIM RootSym AS STRING*29
+ DIM Subscript(3) AS STRING*28
+ DIM SubscrErr AS BYTE
+ DIM KeyWord AS STRING*29
+ DIM KeyNdx AS LONG
+ DIM SymbolSaf AS STRING*29
+ DIM NumberOK AS BYTE
+ DIM HexOK AS BYTE
+ DIM SymbolOK AS BYTE
+ DIM IntOK AS BYTE
+ DIM DimFlag AS BYTE
+ DIM DimOK AS BYTE
+ DIM GlobalFlg AS BYTE
+ DIM BasicLineCtr AS LONG
+ DIM CLineCtr AS LONG
+ DIM QuoteFlg AS BYTE
+ DIM EscSeq AS BYTE
+ DIM ParenStk(100) AS BYTE
+ DIM ParenCnt AS BYTE
+ DIM FcnCtr AS BYTE
+ DIM AECtr AS BYTE
+ DIM LevelCnt AS BYTE
+ DIM SymFull AS BYTE
+ DIM SymFound AS BYTE
+ DIM ErrCnt AS BYTE
+ DIM VarBytRem AS LONG
+ DIM TypeBytes AS LONG
+ DIM TypeVars AS LONG
+ DIM LabelFlag AS BYTE
+ 
+ DIM ObjTypNdx AS LONG
+ DIM ObjClsNdx AS LONG
+ DIM AddFcnNam AS STRING*32
+ 
+ DIM DTCompVar AS BYTE
+ DIM DTBoolean AS BYTE
+ DIM DTByte AS BYTE
+ DIM DTShort AS BYTE
+ DIM DTLong AS BYTE
+ DIM DTFloat AS BYTE
+ DIM DTString AS BYTE
+ DIM DTLabel AS BYTE
+ DIM DTMacro AS BYTE
+ DIM DTOper AS BYTE
+ DIM DTFcn AS BYTE
+ DIM DTProc AS BYTE
+ DIM DTStruct AS BYTE
+ DIM DTVoid AS BYTE
+ DIM DTComplex AS BYTE
+ DIM DTBuffer AS BYTE
+ 
+ DIM DMData AS BYTE
+ DIM DMTemp AS BYTE
+ DIM DMVector AS BYTE
+ DIM DMMember AS BYTE
+ DIM DMMulti AS BYTE
+ DIM DMConst AS BYTE
+ DIM DMAddr AS BYTE
+ DIM DMArray AS BYTE
+
+ DIM TFileName AS STRING*28
+ DIM FileName AS STRING*28
+ DIM UseFilNam AS STRING*28
+ DIM Ctr1 AS LONG
+ DIM Ctr2 AS LONG
+ DIM Ctr3 AS LONG
+ DIM SrcNdx AS LONG
+ DIM SrcNdxSaf AS LONG
+ DIM ExpEndSaf AS BYTE
+ DIM NumberNdx AS LONG
+ DIM ValidNdx AS LONG
+ DIM LabNdx AS LONG
+ DIM ExpNdx AS LONG
+ DIM ExpLeft AS LONG
+ DIM ExpRight AS LONG
+ DIM PType AS LONG
+ 
+' Start
+ PRINT
+ PRINT "OmniBasic Version Exp0.1"
+
+ PRINT
+
+ PRINT "Copyright  1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002 Innomation Systems, Inc."
+ PRINT "All Rights Reserved"
+ PRINT
+ FileName=""
+ FileName=NextArg
+ IF LEN(FileName)=0 THEN
+	PRINT "No input file"
+	END
+ ENDIF
+ IF FileName="-?" THEN Help
+ IF RIGHT$(FileName,2)<>".b" AND RIGHT$(FileName,2)<>".B" THEN
+	PRINT "no recognized suffix"
+	END
+ ENDIF
+ ON ERROR GOTO NoInpFile
+ InpFilPtr=1
+ OPEN #InpFile(InpFilPtr),FileName:READ
+ 	
+ FileName=LEFT$(FileName,LEN(FileName)-2)
+ ON ERROR GOTO NoCodeFile
+ DELETE "_CodFile"
+NoCodeFile:
+ CREATE #CodeFile,"_CodFile":WRITE+TEXT
+ ON ERROR GOTO NoVarFile
+ DELETE "_VarFile"
+NoVarFile:
+ CREATE #VarFile,"_VarFile":WRITE+TEXT
+ ON ERROR GOTO NoFcnFile
+ DELETE "_FcnFile"
+NoFcnFile:
+ CREATE #FcnFile,"_FcnFile":WRITE+TEXT
+ ON ERROR
+ LinkerOut=""
+ LibList=""
+ LinkerOpt=""
+ GFNdx=1
+ GenFlag(GFNdx)=$ff
+ SETVEC OutBuf=ADDR(_OutBuf)
+ XBufSize=_BufSize
+ SelectFlag=0
+ CaseFlag=0
+ CaseElseFlag=0
+ GroupFlag=0' clear Group Flag
+ DataFlag=0'  clear Data Flag
+ NoGen=0'  default OFF
+ ExpFlag=0
+ HexType=0' $ (Motorola)
+
+ HaltFlag=0
+ PromptFlag=0
+ ProcedureFlag=0
+ VerbFlag=0
+ ParmFlag=0
+ FcnVarFlg=0
+ UDump=0'  default OFF
+ StartFlag=0
+ COut=0'  default OFF
+ DumpSyms=0'  default OFF
+ ProgMode=$ff'  default ON
+ ObjectMode=0'  default OFF
+ AsmbFlag=0'  default OFF
+ LopCtrNum=-1
+ ArrayBase=1'  default to base 1
+ PrtPthFlg=0
+ DtaRegNum=0
+ LastMulti=SymTabSiz+1
+ FcnMulti=LastMulti
+ FcnActive=0
+ FcnFlag=0
+ SbrtnFlag=0
+ TmpMax=0
+ TmpVecMax=0
+ FTmpMax=0
+ ChrTmpMax=0
+ StrTmpMax=0
+ ErrCnt=0
+ LastStmt=""
+ LastLabel=""
+ CSP=0
+ LopVarNdx=0
+ StringNum=0
+ LabelNum=0
+ FcnLabNum=0
+ TableNum=0
+ LoopNum=0
+ MacExFlag=0
+ BasicLineCtr=0
+ CLineCtr=0
+ ErrNo=0
+ PoolCtr=0
+ VarBytRem=0
+ DbgFlag=0
+
+ FOR LopVarNdx=1 to 40
+	LoopVars(LopVarNdx)="%"
+ NEXT LopVarNdx
+ 
+ FOR SymNdx=1 TO SymTabSiz
+	ClrSymTab()
+ NEXT SymNdx
+
+ FOR MacDefNdx=1 TO MacBufSiz
+	MacBuf(MacDefNdx)=0
+ NEXT MacDefNdx
+ MacDefNdx=1
+ 
+ RESTORE PreDefTbl
+ SymNdx=0
+InitSym:
+ INC SymNdx
+ READ SymTemp.SymName
+ IF SymTemp.SymName="%" THEN Preamble
+ READ SymTemp.DataType
+ READ SymTemp.DataMod
+ READ SymTemp.Detail
+ READ SymTemp.DataAddr
+ READ SymTemp.DataSize
+ SymTemp.MultiPtr=0
+ SymTable(SymNdx)=SymTemp
+ GOTO InitSym
+ 
+Preamble:
+ CmdLine()
+ Comment="Compiler Declaration and Variable Section"
+ BldComment()
+ GenVar
+ VarBlank()
+ 
+ OutBuf="typedef struct {"
+ GenVar
+ OutBuf="void *_Ptr;"
+ GenVar
+ OutBuf="long _Len;"
+ GenVar
+ OutBuf="void *_Lnk;"
+ GenVar
+ OutBuf="} _vector;"
+ GenVar
+ OutBuf=""
+ GenVar
+ OutBuf="typedef struct {"
+ GenVar
+ OutBuf="void *_BufPtr;"
+ GenVar
+ OutBuf="long _BufSiz;"
+ GenVar
+ OutBuf="} _buffer;"
+ GenVar
+ OutBuf=""
+ GenVar
+ OutBuf="typedef struct {"
+ GenVar
+ OutBuf="long _Limit;"
+ GenVar
+ OutBuf="long _Step;"
+ GenVar
+ OutBuf="} _loopvec;"
+ GenVar
+ OutBuf=""
+ GenVar
+ 
+ OutBuf="void _TrmStr();"
+ GenVar
+ OutBuf="void _PrtUsing();"
+ GenVar
+ OutBuf="void _ReadBool();"
+ GenVar
+ OutBuf="void _ReadByte();"
+ GenVar
+ OutBuf="void _ReadShort();"
+ GenVar
+ OutBuf="void _ReadLong();"
+ GenVar
+ OutBuf="void _ReadFlt();"
+ GenVar
+ OutBuf="void _ReadStr();"
+ GenVar
+ OutBuf="void _MovArg();"
+ GenVar
+ OutBuf="void _MovStr();"
+ GenVar
+ OutBuf="long _CmpStr();"
+ GenVar
+ OutBuf="long _StrLen();"
+ GenVar
+ OutBuf="long _SubStr();"
+ GenVar
+ OutBuf="void _MidStr();"
+ GenVar
+ OutBuf="void _LeftStr();"
+ GenVar
+ OutBuf="void _RightStr();"
+ GenVar
+ OutBuf="void _ClrConv();"
+ GenVar
+ OutBuf="double _AtoD();"
+ GenVar
+ OutBuf="long _AtoL();"
+ GenVar
+ OutBuf="void _ZLtoH();"
+ GenVar
+ OutBuf="void _ZLtoA();"
+ GenVar
+ OutBuf="void _LtoA();"
+ GenVar
+ OutBuf="void _DtoA();"
+ GenVar
+ OutBuf="void _LtoH();"
+ GenVar
+ OutBuf="void _PrintStr();"
+ GenVar
+ OutBuf="void _PrintTab();"
+ GenVar
+ OutBuf="void _InpData();"
+ GenVar
+ OutBuf="void _BtoA();"
+ GenVar
+ OutBuf="void _LCase();"
+ GenVar
+ OutBuf="void _UCase();"
+ GenVar
+ OutBuf="void _Remnant();"
+ GenVar
+
+ VarBlank()
+ OutBuf="#define _BufSize "+STR$(_BufSize)
+ GenVar
+ OutBuf="#include "+CHR$($22)+"basic.h"+CHR$($22)
+ GenVar
+ RESTORE RunVars
+RunVarLp:
+ READ TempInt,OutBuf
+ IF OutBuf="%" THEN RunVarDn
+ IF ObjectMode=$ff AND TempInt=1 THEN
+	TempStr="extern "+OutBuf
+	OutBuf=TempStr
+ ENDIF
+ GenVar
+ GOTO RunVarLp
+RunVarDn:
+
+'*** Win95/NT ****
+ VerbCmd=""
+ NewLine=$0a
+
+ IF ObjectMode=0 THEN
+	TempStr=""
+ ELSE
+	TempStr="extern "
+ ENDIF
+ OutBuf=TempStr+"char _IOBuffer[_BufSize];"
+ GenVar
+ OutBuf=TempStr+"char _PrintBuf[_BufSize];"
+ GenVar
+
+ VarBlank()
+ OutBuf="static long _LoopCtr[10];"
+ GenVar
+
+ VarBlank()
+ Comment="User Declaration and Variable Section"
+ BldComment()
+ GenVar
+ OutBuf=""
+ GenMain
+ Comment="Code Section"
+ BldComment()
+ GenMain
+ OutBuf=""
+ GenMain
+ IF ObjectMode=0 THEN
+	StartFlag=$ff'  for a short time only
+	OutBuf="main(argc,argv)"
+	GenMain
+	OutBuf="int argc;"
+	GenMain
+	OutBuf="char *argv[];"
+	GenMain
+	OutBuf="{"
+	GenMain
+	OutBuf=""
+	GenMain
+	Comment="Pseudo Registers"
+	BldComment()
+	GenMain
+	OutBuf="register long _d0;"
+	GenMain
+	OutBuf="register long _d1;"
+	GenMain
+	OutBuf="double _d0f;"
+	GenMain
+	OutBuf="double _d1f;"
+	GenMain
+	OutBuf="register void *_a0;"
+	GenMain
+	OutBuf=""
+	GenMain
+	Comment="Initialize Variables"
+	BldComment()
+	GenMain
+	TempInt=22
+	SymTemp.SymName="_CBufVec"
+	OutBuf="_a0=_ConvBuf;"
+	GenMain
+	SetStrVec()
+	SymTemp.SymName="_CBuf1Vec"
+	OutBuf="_a0=_ConvBuf1;"
+	GenMain
+	SetStrVec()
+	TempInt=_BufSize
+	SymTemp.SymName="_PBufVec"
+	OutBuf="_a0=_PrintBuf;"
+	GenMain
+	SetStrVec()
+	SymTemp.SymName="_IOBufVec"
+	OutBuf="_a0=_IOBuffer;"
+	GenMain
+	SetStrVec()
+	Comment="Set ERROR Vector"
+	BldComment()
+	GenMain
+	OutBuf="_ErrFlag=setjmp(_ebuf);"
+	GenMain
+	OutBuf="if (_ErrFlag) goto ErrExit;"
+	GenMain
+	Comment="Initialize System Variables"
+	BldComment()
+	GenMain
+	OutBuf="_Digits=15;"
+	GenMain
+	OutBuf="_Decimals=2;"
+	GenMain
+	OutBuf="POS=0;"
+	GenMain
+	OutBuf="errno=0;"
+	GenMain
+	OutBuf="XferCount=0;"
+	GenMain
+	OutBuf="STATUS=0;"
+	GenMain
+	OutBuf="_CRLF[0]=0x0d;"
+	GenMain
+	OutBuf="_CRLF[1]=0x0a;"
+	GenMain
+	OutBuf="_NewLine="+STR$(NewLine)+";"
+	GenMain
+	OutBuf="_Prompt='?';"
+	GenMain
+    	OutBuf="_ArgCount=argc;"
+    	GenMain
+    	OutBuf="_ArgNum=0;"
+    	GenMain
+    	OutBuf="_ArgList=(long)argv;"
+    	GenMain
+    	ReqTmpVec()
+    	OutBuf="_TmpVec1._Ptr=ProgramName;"
+    	GenCode
+    	OutBuf="_TmpVec1._Len=28;"
+    	GenCode
+    	OutBuf="_TmpVec1._Lnk=0;"
+    	GenCode
+ 	OutBuf="_MovArg(&_TmpVec1,_ArgList);"
+ 	GenCode
+	OutBuf=""
+	GenMain
+	StartFlag=0'  was on only to set up sys vars and vecs
+ ENDIF
+ OutBuf=""
+ GenFcn
+ Comment="Function and Subroutine Section"
+ BldComment()
+ GenFcn
+ OutBuf=""
+ GenFcn
+ 
+MainLoop:
+ ClrDatTyp()
+ LetFlag=0
+ ProcFlag=0
+ Target=0
+ PrintFlag=0
+ StatFlag=0
+ TabFlag=0
+ DevFlag=0
+ FileIO=0
+ DiskIO=0
+ BufRWFlg=0
+ FileStat=0
+ LabelFlag=$00
+ Op1Class=0
+ ReadFlag=0
+ CompFlag=0
+ Promote=0
+ Demote=0
+ LNFlag=$00
+ TmpUse=0
+ TmpVecUse=0
+ FTmpUse=0
+ ChrTmpUse=0
+ StrTmpUse=0
+ DimFlag=$00
+ TypeFlag=$00
+ TDataMod=0
+ IF ErrNo<>0 THEN
+	IF ErrNo=ErrMacArg THEN
+		PRINT "Fatal Error... MACRO argument error in line ";BasicLineCtr
+		END
+	ENDIF
+	PRINT UsrLine
+	OutBuf=""
+	IF SrcNdx<2 THEN
+		SrcNdx=2
+	ENDIF
+	For Ctr1=1 TO SrcNdx-1
+		OutBuf=OutBuf+" "
+	NEXT Ctr1
+	OutBuf=OutBuf+"^"
+	PRINT OutBuf
+	RESTORE ErrorTbl
+	FOR Ctr1=1 to ErrNo
+		READ TempStr
+	NEXT Ctr1
+	PRINT TempStr;" in line ";BasicLineCtr
+	IF ErrNo=ErrSymFul THEN
+		PRINT "Fatal Error... Symbol Table Full"
+		PRINT "Total symbols=";SymNdx
+		END
+	ENDIF
+	INC ErrCnt
+	IF HaltFlag<>0 THEN
+		END
+	END IF
+	ErrNo=0
+ ENDIF
+ IF MacExFlag=0 THEN
+	IF InpFilPtr=1 THEN
+		INC BasicLineCtr
+	ENDIF
+	ReadSource()
+	IF TempInt=0 THEN Finish
+ ELSE
+ 	SrcLine=""
+ 	SrcNdx=0
+MacExLp: AsciiByte=MacBuf(MacExNdx)
+	INC MacExNdx
+	IF AsciiByte=0 THEN'  end of MACRO
+		MacExFlag=0
+		GOTO MainLoop
+	ENDIF
+	IF AsciiByte=NewLine THEN ProcLine
+	IF LAND($80,AsciiByte)=$80 THEN
+		AsciiByte=LAND($7f,AsciiByte)
+		IF AsciiByte=0 THEN
+			SrcLine=SrcLine+STR$(SymTable(MacTblPtr).Detail)
+			GOTO MacExLp
+		ENDIF
+		IF AsciiByte>MaxArgNum THEN
+			ErrNo=ErrMacArg
+			GOTO MainLoop
+		ENDIF
+		MacArgPtr=AsciiByte
+		SrcLine=SrcLine+MacArgBuf(MacArgPtr)
+		GOTO MacExLp
+	ENDIF
+	SrcLine=SrcLine+CHR$(AsciiByte)
+	GOTO MacExLp
+ ENDIF
+ProcLine:
+ SrcNdx=0
+ IF GenFlag(GFNdx)=0 THEN
+ 	IF LEFT$(SrcLine,1)<>"#" THEN MainLoop
+	INC SrcNdx
+	NexToken()
+	IF TokenBuf<>"if" AND TokenBuf<>"else" AND TokenBuf<>"endif" THEN MainLoop
+	IF TokenBuf="if" THEN IFDx
+	IF TokenBuf="else" THEN ELSEDx
+	GOTO ENDIFDx
+ ENDIF
+ IF LEN(SrcLine)=0 THEN MainLoop
+ TempByte=LEFT$(SrcLine,1)
+ IF TempByte="'" THEN
+	Remark()
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF TempByte=";" THEN
+	OutBuf=MID$(SrcLine,2,LEN(SrcLine)-1)
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF TempByte="," THEN
+	OutBuf=MID$(SrcLine,2,LEN(SrcLine)-1)
+	GenVar
+	GOTO MainLoop
+ ENDIF
+ IF TempByte="." THEN
+	OutBuf=MID$(SrcLine,2,LEN(SrcLine)-1)
+	GenMain
+	GOTO MainLoop
+ ENDIF
+ IF TempByte="/" THEN
+	OutBuf=MID$(SrcLine,2,LEN(SrcLine)-1)
+	GenFcn
+	GOTO MainLoop
+ ENDIF
+ IF TempByte="+" THEN' AT&T Assembler code
+	OutBuf="__asm__ __volatile__("+CHR$($22)+MID$(SrcLine,2,LEN(SrcLine)-1)+CHR$($22)+");"
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF TempByte=CHR$($20) OR TempByte=CHR$($09) THEN ProcStmt
+ IF TempByte<>"#" THEN ProcLabel
+ 
+' Process Directive
+ Remark()
+ GenCode
+ INC SrcNdx
+ NexToken()
+ SELECT CASE TokenBuf
+ 	CASE "if"
+ 		GOTO IFDx
+ 	CASE "else"
+ 		GOTO ELSEDx
+ 	CASE "endif"
+ 		GOTO ENDIFDx
+ 	CASE ELSE
+ 		ErrNo=ErrSyntax
+ 		GOTO MainLoop
+ ENDSELECT 
+ 
+ProcLabel:
+ StartFlag=$ff
+ IF ParmFlag=$ff THEN
+	UnBlkFcn()
+	ErrMain
+ ENDIF
+ IF FcnVarFlg=$ff THEN
+	FcnVarFlg=0
+ ENDIF
+ IF DataFlag=$ff THEN
+	DataFlag=0
+	OutBuf="0};"
+	GenVar
+ ENDIF
+ LNFlag=$ff
+ TokenSym()
+ ErrMain
+ LabelFlag=$ff
+ TDataType=SymTable(SymNdx).DataType
+ TDetail=SymTable(SymNdx).Detail
+ TDataSize=SymTable(SymNdx).DataSize
+ LastLabel=SymbolSaf
+ IF SymFound<>0 THEN
+	IF TDataType<>LABEL AND TDataType<>FCN THEN
+		ErrNo=ErrDupSym
+		GOTO MainLoop
+	ENDIF
+	IF TDataType=LABEL THEN
+		IF TDetail=$ff OR TDetail=$1ff THEN
+			SymTable(SymNdx).Detail=SymTable(SymNdx).Detail&$100
+		ELSE
+			ErrNo=ErrDupSym
+			GOTO MainLoop
+		ENDIF
+	ENDIF
+	IF TDataType=FCN THEN
+		ParamCount=SymTable(SymNdx).Detail-1000
+		ParmCtr=0
+		IF TDataAddr=0 THEN
+			SymTable(SymNdx).DataAddr=1
+		ELSE
+			ErrNo=ErrDupSym
+			GOTO MainLoop
+		ENDIF
+		IF FcnFlag=$ff THEN
+			ErrNo=ErrFSNest
+			GOTO MainLoop
+		ENDIF
+		IF TDataSize&$03=0 THEN
+			FcnHeader="void "
+			FcnActive=VoidFcn
+		ENDIF
+		IF TDataSize&$03=1 THEN
+			FcnHeader="int "' was long
+			FcnActive=IntFcn
+		ENDIF
+		IF TDataSize&$03=2 THEN
+			FcnHeader="double "
+			FcnActive=DblFcn
+		ENDIF
+		GOTO ProcFcn
+	ENDIF
+ ELSE
+	ClrDatTyp()
+	TDataType=LABEL
+	SymTemp.DataType=LABEL
+	ClrSym()
+	SymTemp.DataMod=0
+	SymInsert()
+	ErrMain
+ ENDIF
+ NexToken()
+ IF TokenBuf=":" THEN
+ 	NexToken()' Eat the ':'
+ ENDIF
+ IF TokenBuf="(" THEN' &&&&&&&&&&&&
+	ErrNo=ErrUDFcn
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf="data" THEN
+	SymTable(SymNdx).DataMod=DataBit
+	GOTO S1'  DATA statement processing
+ ENDIF
+ UnDoToken()
+ IF SymTable(SymNdx).Detail=$100 AND TDataType=LABEL THEN'  (sbrtn)
+	OutBuf="void "+SymbolSaf+"();"
+	GenVar
+	TempStr="void "+SymbolSaf+"()"
+	SymbolSaf=TempStr
+	IF FcnFlag=$ff THEN
+		ErrNo=ErrFSNest
+		GOTO MainLoop
+	ENDIF
+	FcnFlag=$ff
+	SbrtnFlag=$ff
+	LabelFlag=$fe
+	FcnActive=VoidFcn
+	FcnSym=LastSym
+ ELSE
+	IF TDataType=LABEL THEN
+		SymbolSaf=SymbolSaf+":"
+	ENDIF
+ ENDIF
+ 
+ProcStmt:
+ NexToken()
+ IF TokenSaf="STATUS" THEN
+	EqualMain
+	NexToken()
+	StatFlag=$ff
+ ENDIF
+ IF LEN(TokenBuf)>0 THEN
+ 	LastStmt=TokenBuf
+ ENDIF
+ IF TokenLen=0 THEN
+	OutLabel()
+	GOTO MainLoop
+ ENDIF
+ KeyLook()
+ IF KeyNdx=0 THEN
+	REM maybe a macro or usrfcn
+	SymTemp.SymName=TokenSaf
+	SymSrch()
+
+	IF SymFound=$ff AND SymTable(SymNdx).DataType=MACRO THEN
+		Remark()
+		GenCode
+		MacTblPtr=SymNdx
+		MacExNdx=SymTable(SymNdx).DataAddr
+		SymTable(SymNdx).Detail=SymTable(SymNdx).Detail+1' inc macro occurrance
+		NeedComma=0
+		MaxArgNum=0
+		MacExFlag=$ff
+		OutLabel()
+		IF MID$(SrcLine,SrcNdx+1,1)=" " THEN
+			INC SrcNdx
+		ENDIF
+MacExLoop:
+		MacToken()
+		IF TokenLen=0 THEN
+			GOTO MainLoop
+		ENDIF
+		IF NeedComma=0 AND TokenSaf="," THEN
+			INC MaxArgNum
+			MacArgBuf(MaxArgNum)=""
+			GOTO MacExLoop
+		ENDIF
+		IF NeedComma=$ff AND TokenSaf<>"," THEN
+			ErrNo=ErrSyntax
+			GOTO MainLoop
+		ENDIF
+		IF NeedComma=$ff AND TokenSaf="," THEN
+			NeedComma=0
+			GOTO MacExLoop
+		ENDIF
+		INC MaxArgNum
+		MacArgBuf(MaxArgNum)=TokenSaf
+		NeedComma=$ff
+		GOTO MacExLoop
+	ENDIF
+	IF SymFound=$ff AND SymTable(SymNdx).DataType=FCN AND SymTable(SymNdx).Detail>=1000 THEN
+		StartFlag=$ff
+		IF NextByte="(" THEN
+			ProcFlag=$ff
+		ELSE
+			GOTO SetFcnPtr
+		ENDIF
+	ENDIF
+	KeyNdx=8
+	UnDoToken()
+ ENDIF
+ IF KeyNdx<>1 AND DataFlag=$ff THEN
+	DataFlag=0
+	OutBuf="0};"
+	GenVar
+ ENDIF
+ Remark()
+ IF ParmFlag=$ff AND KeyNdx<>50 THEN'  not PARAM stmt
+	UnBlkFcn()
+ ENDIF
+ IF FcnVarFlg=$ff AND KeyNdx<>7 THEN'  not DIM stmt
+	FcnVarFlg=0
+ ENDIF
+ IF KeyNdx=1 THEN'  DATA statement
+	GenVar
+	GOTO S1
+ ENDIF
+ IF KeyNdx=6 THEN'  TYPE
+	GenVar
+	GOTO S6
+ ENDIF
+ IF KeyNdx=7 THEN'  DIM
+	GOTO S7
+ ENDIF
+ IF KeyNdx=50 THEN'  PARAM
+	GOTO S50
+ ENDIF
+ StartFlag=$ff
+ GenCode' put out OmniBasic source as comment
+ OutBuf=""
+ OutLabel()
+ IF KeyNdx<51 THEN
+ 	ON KeyNdx GOTO S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19,S20,S21,S22,S23,S24,S25,S26,S27,S28,S29,S30,S31,S32,S33,S34,S35,S36,S37,S38,S39,S40,S41,S42,S43,S44,S45,S46,S47,S48,S49,S50
+ ELSE
+        ON KeyNdx-50 GOTO S51,S52,S53,S54,S55,S56,S57,S58,S59,S60,S61,S62,S63,S64,S65,S66,S67,S68,S69,S70,S71,S72,S73,S74,S75,S76,S77,S78,S79,S80,S81,S82,S83,S84,S85
+ ENDIF
+ PRINT "FATAL ERROR KeyWord LookUp Error:";BasicLineCtr,KeyNdx
+ END
+
+ProcCmd:
+ IF Op1Class<>STRClass THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf="_MovArg(&"+Op1Name+",_ArgList);"
+ GenCode
+ GOTO MainLoop
+
+SETDx:
+ SetMask=0
+ SETDx1()
+ GOTO MainLoop
+
+SETDx1
+' Changed into a subroutine because is called by
+' inline code OR CmdLine, so cannot "jump" to MainLoop as before.
+' This should be the only sbrtn outside (before) the sbrtn section
+ UMFlag=0
+ TokenSym()
+ ErrRet
+ IF SymFound=0 THEN
+	OldCompVar=0
+	SymTemp.DataType=COMPVAR
+	ClrSym()
+	SymInsert()
+	ErrRet
+ ELSE
+	OldCompVar=$ff
+	IF SymTable(SymNdx).DataType<>COMPVAR AND SymTable(SymNdx).DataType<> MACRO THEN
+		ErrNo=ErrTypMis
+		RETURN
+	ENDIF
+	IF LAND(SymTable(SymNdx).DataMod,$80)<>0 THEN
+		RETURN
+	ENDIF
+ ENDIF
+ SymNdxSaf=SymNdx
+ EqualRet
+ NexToken()
+ IF TokenBuf="-" THEN
+	UMFlag=$ff
+	NexToken()
+ ENDIF
+ IF TokenType=TTypInt THEN
+	ValidInt()
+	IF IntOK=0 THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	GOTO SetOp1
+ ENDIF
+ IF TokenType=TTypHex THEN
+	ValidHex()
+	IF HexOK=0 THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	GOTO SetOp1
+ ENDIF
+ IF TokenType=TTypSym THEN
+	TokenSym1()
+	ErrRet
+	IF SymFound=0 THEN
+		ErrNo=ErrUDSym
+		RETURN
+	ENDIF
+	TokenSaf=STR$(SymTable(SymNdx).Detail)
+	GOTO SetOp1
+ ENDIF
+ ErrNo=ErrIVExp
+ RET
+SetOp1:
+ IF UMFlag=$ff THEN
+	TempStr="-"
+ ELSE
+	TempStr=""
+ ENDIF
+ TempStr=TempStr+TokenSaf
+ IF MID$(TempStr,1,2)="--" THEN
+	TempStr=MID$(TempStr,2,LEN(TempStr)-2)
+ ENDIF
+ CVTemp=VAL(TempStr)
+ NexToken()
+ IF TokenLen=0 THEN SetFinish
+ IF TokenBuf="<" THEN
+	NexToken()
+	IF TokenBuf<>"<" THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	TokenType=TTypMath
+ ENDIF
+ IF TokenBuf=">>" THEN
+	TokenType=TTypMath
+ ENDIF
+ IF TokenType<>TTypMath THEN
+	ErrNo=ErrIVExp
+	RETURN
+ ENDIF
+ CVOp=TokenBuf
+ NexToken()
+ IF TokenType=TTypInt THEN
+	ValidInt()
+	IF IntOK=0 THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	GOTO SetOperator
+ ENDIF
+ IF TokenType=TTypHex THEN
+	ValidHex()
+	IF HexOK=0 THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	GOTO SetOperator
+ ENDIF
+ IF TokenType=TTypSym THEN
+	TokenSym1()
+	ErrRet
+	IF SymFound=0 THEN
+		ErrNo=ErrUDSym
+		RETURN
+	ENDIF
+	TokenSaf=STR$(SymTable(SymNdx).Detail)
+	GOTO SetOperator
+ ENDIF
+ ErrNo=ErrIVExp
+ RET
+SetOperator:
+ SymNdx=SymNdxSaf
+ SymTable(SymNdx).Detail=CVTemp
+ IF CVOp="+" THEN
+	CVTemp=SymTable(SymNdx).Detail+VAL(TokenSaf)
+ ENDIF
+ IF CVOp="-" THEN
+	CVTemp=SymTable(SymNdx).Detail-VAL(TokenSaf)
+ ENDIF
+ IF CVOp="*" THEN
+	CVTemp=SymTable(SymNdx).Detail*VAL(TokenSaf)
+ ENDIF
+ IF CVOp="/" THEN
+	CVTemp=SymTable(SymNdx).Detail/VAL(TokenSaf)
+ ENDIF
+ IF CVOp="&" THEN
+	CVTemp=SymTable(SymNdx).Detail&VAL(TokenSaf)
+ ENDIF
+ IF CVOp="|" THEN
+	CVTemp=SymTable(SymNdx).Detail|VAL(TokenSaf)
+ ENDIF
+ IF CVOp="<" OR CVOp=">>" THEN
+	CVTemp=SymTable(SymNdx).Detail
+	TempInt=VAL(TokenSaf)
+;if (CVOp[0] == '>') CVTemp=CVTemp>>TempInt;
+;else CVTemp=CVTemp<<TempInt;
+ ENDIF
+SetFinish:
+ SymNdx=SymNdxSaf
+ SymTable(SymNdx).Detail=CVTemp
+ SymTable(SymNdx).DataMod=SetMask
+ IF OldCompVar=$ff THEN
+	OutBuf="#undef "+SymTable(SymNdx).SymName
+	GenCode
+ ENDIF
+ OutBuf="#define "+SymTable(SymNdx).SymName+" "+STR$(CVTemp)
+ GenCode
+ RETURN
+ 
+MACRODx:
+ NexToken()
+ IF TokenType<>5 THEN'  symbol
+	ErrNo=ErrSyntax'  syntax error
+	GOTO MainLoop
+ ENDIF
+ SymTemp.SymName=TokenSaf
+ SymSrch()
+ IF SymFound=$ff THEN
+	ErrNo=ErrDupSym'  symbol already defined
+	GOTO MainLoop
+ ENDIF
+ SymTemp.DataType=MACRO
+ ClrSym()
+ SymTemp.DataAddr=MacDefNdx'  address of macro in macro buffer
+ SymInsert()
+ ErrMain
+' read a line of source code
+MacLp:
+ IF InpFilPtr=1 THEN
+	INC BasicLineCtr
+ ENDIF
+ ReadSource()
+ IF TempInt=0 THEN
+ 	PRINT "FATAL ERROR.. EOF in MACRO"
+ 	END
+ ENDIF
+MacLpExit:
+ NexToken()
+ IF TokenBuf="macro" THEN
+	ErrNo=ErrMacNst'  nested macro
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf="endmacro" THEN
+	MacBuf(MacDefNdx)=0
+	MacDefInc()
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf="end" THEN
+	NexToken()
+	IF TokenBuf="macro" THEN
+		MacBuf(MacDefNdx)=0
+		MacDefInc()
+		GOTO MainLoop
+	ENDIF
+ ENDIF	
+ SrcNdx=0
+lbl7027 INC SrcNdx
+ IF SrcNdx>LEN(SrcLine) THEN
+	MacBuf(MacDefNdx)=NewLine
+	MacDefInc()
+	ErrMain
+	GOTO MacLp
+ ENDIF
+ IF MID$(SrcLine,SrcNdx,1)="~" THEN
+	INC SrcNdx
+	TempByte=MID$(SrcLine,SrcNdx,1)
+	AsciiByte=ASC(TempByte)
+	IF TempByte>="0" AND TempByte<="9" THEN
+		AsciiByte=LAND($0f,AsciiByte)
+		AsciiByte=LOR($80,AsciiByte)
+		MacBuf(MacDefNdx)=AsciiByte
+		MacDefInc()
+		ErrMain
+		GOTO lbl7027
+	ENDIF
+        AsciiByte=AsciiByte&$4f' make upper case
+        TempByte=CHR$(AsciiByte)
+        IF TempByte>="A" AND TempByte<="F" THEN
+		AsciiByte=LAND($0f,AsciiByte)
+		AsciiByte=LOR($80,AsciiByte)
+                AsciiByte=AsciiByte+9
+		MacBuf(MacDefNdx)=AsciiByte
+		MacDefInc()
+		ErrMain
+		GOTO lbl7027
+	ENDIF
+	ErrNo=ErrIVMac
+	GOTO MainLoop
+ ENDIF
+ TempByte=MID$(SrcLine,SrcNdx,1)
+ AsciiByte=ASC(TempByte)
+ MacBuf(MacDefNdx)=AsciiByte
+ MacDefInc()
+ ErrMain
+ GOTO lbl7027
+ 
+ENDMDx:
+ ErrNo=ErrEndm
+ GOTO MainLoop
+ 
+IFDx:
+ CondValid=GenFlag(GFNdx)
+ INC GFNdx
+ IF GFNdx>20 THEN
+	PRINT "FATAL Error Conditional stack overflow"
+	END
+ ENDIF
+ UMFlag=0
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	ErrNo=ErrUDSym
+	GOTO MainLoop
+ ENDIF
+ IF SymTable(SymNdx).DataType<>COMPVAR THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ CondOp1=SymTable(SymNdx).Detail
+ EqualMain
+ NexToken()
+ IF TokenBuf="-" THEN
+	UMFlag=$ff
+	NexToken()
+ ENDIF
+ IF TokenType=TTypInt THEN
+	ValidInt()
+	IF IntOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO MainLoop
+	ENDIF
+	GOTO IFDx1
+ ENDIF
+ IF TokenType=TTypHex THEN
+	ValidHex()
+	IF HexOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO MainLoop
+	ENDIF
+	GOTO IFDx1
+ ENDIF
+ IF TokenType=TTypSym THEN
+	TokenSym1()
+	ErrMain
+	IF SymFound=0 THEN
+		ErrNo=ErrUDSym
+		GOTO MainLoop
+	ENDIF
+	TokenSaf=STR$(SymTable(SymNdx).Detail)
+	GOTO IFDx1
+ ENDIF
+ ErrNo=ErrIVExp
+ GOTO MainLoop
+IFDx1:
+ IF UMFlag=$ff THEN
+	TempStr="-"
+ ELSE
+	TempStr=""
+ ENDIF
+ TempStr=TempStr+TokenSaf
+ IF MID$(TempStr,1,2)="--" THEN
+	TempStr=MID$(TempStr,2,LEN(TempStr)-2)
+ ENDIF
+ CondOp2=VAL(TempStr)
+ IF CondOp1=CondOp2 AND CondValid=$ff THEN
+	GenFlag(GFNdx)=$ff
+ ELSE
+	GenFlag(GFNdx)=0
+ ENDIF
+ GOTO MainLoop
+ 
+ELSEDx:
+ IF GFNdx<2 THEN
+	PRINT "FATAL ERROR Conditional stack error (#ELSE)"
+	END
+ ENDIF
+ IF GenFlag(GFNdx-1)=$ff THEN
+	GenFlag(GFNdx)=LNOT(GenFlag(GFNdx))
+ ENDIF
+ GOTO MainLoop
+ 
+ENDIFDx:
+ DEC GFNdx
+ IF GFNdx=0 THEN
+	PRINT "FATAL ERROR Conditional stack error (#ENDIF)"
+	END
+ ENDIF
+ CondValid=GenFlag(GFNdx)
+ GOTO MainLoop
+ 
+USEDx:
+ UseFilNam=""
+UseLoop:
+ NexToken()
+ IF TokenLen=0 THEN USEDx1
+ UseFilNam=UseFilNam+TokenSaf
+ GOTO UseLoop
+USEDx1:
+ ON ERROR GOTO NoUseFile
+ INC InpFilPtr
+ IF InpFilPtr>20 THEN
+	PRINT "FATAL ERROR Use Stack OverFlow"
+	END
+ ENDIF
+ OPEN #InpFile(InpFilPtr),UseFilNam:READ
+ ON ERROR
+ GOTO MainLoop
+NoUseFile:
+ PRINT "Cannot open file: ";UseFilNam
+ END
+ 
+FCNDx:
+ ANSIArgCtr=0
+ FOR Ctr1=1 TO 9
+ 	ANSIArgs(Ctr1)=""
+ NEXT Ctr1
+ FcnSpec=0
+ TokenSym()
+ ErrMain
+ IF SymFound=$ff THEN
+	ErrNo=ErrDupSym
+	ErrMain
+ ENDIF
+ ClrSym()
+ SymTemp.DataType=FCN
+ SymTemp.DataMod=0
+ NexToken()
+ IF TokenBuf<>"(" THEN
+	ErrNo=ErrSyntax
+	ErrMain
+ ENDIF
+ NexToken()
+
+ IF TokenBuf<"1" OR TokenBuf>"9" THEN
+	IF TokenBuf="c" OR TokenBuf="C" OR TokenBuf=")" THEN
+		IF TokenBuf=")" THEN
+			UnDoToken()
+		ENDIF
+		TokenBuf="10"
+	ELSE
+		WHILE TokenBuf<>")" DO
+			IF ANSIArgCtr=10 THEN
+				ErrNo=ErrSyntax
+				GOTO MainLoop
+			ENDIF
+			IF TokenBuf="long" OR TokenBuf="double" OR TokenBuf="word" OR TokenBuf="integer" OR TokenBuf="byte" THEN
+				INC ANSIArgCtr
+			ELSE
+				IF TokenBuf<>"," THEN
+					ErrNo=ErrSyntax
+					ErrMain
+				ENDIF
+			ENDIF
+ 			NexToken()
+ 		ENDWHILE
+ 		TokenBuf=STR$(ANSIArgCtr)
+ 		UnDoToken()
+	ENDIF
+ ENDIF
+
+ SymTemp.Detail=VAL(TokenBuf)+1000
+ NexToken()
+ IF TokenBuf<>")" THEN
+	ErrNo=ErrSyntax
+	ErrMain
+ ENDIF
+ SymTemp.DataSize=1'  default for int
+ OutBuf=""
+FcnLoop:
+ NexToken()
+ IF TokenLen=0 THEN FcnBuild
+ IF TokenBuf="void" THEN
+	SymTemp.DataSize=0
+	TempStr="void "
+ GOTO FcnLoop
+ ENDIF
+ IF TokenBuf="long" THEN
+	SymTemp.DataSize=1
+	TempStr="int "
+ 	GOTO FcnLoop
+ ENDIF
+ IF TokenBuf="double" THEN
+	SymTemp.DataSize=2
+	TempStr="double "
+ GOTO FcnLoop
+ ENDIF
+ IF TokenBuf="pointer" THEN
+	SymTemp.DataSize=SymTemp.DataSize|$00000004
+	FcnSpec=BITSET(FcnSpec,0)
+ GOTO FcnLoop
+ ENDIF
+ IF TokenBuf="global" THEN
+	FcnSpec=BITSET(FcnSpec,1)
+ GOTO FcnLoop
+ ENDIF
+ IF TokenBuf="external" THEN
+	OutBuf=OutBuf+"extern "
+	FcnSpec=BITSET(FcnSpec,2)
+ GOTO FcnLoop
+ ENDIF
+ ErrNo=ErrSyntax
+ GOTO MainLoop
+FcnBuild:
+ IF FcnSpec=6 OR FcnSpec=7 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF NOT(BITTST(FcnSpec,1)) AND OutBuf<>"extern " THEN
+	OutBuf=OutBuf+"static "
+ ENDIF
+ OutBuf=OutBuf+TempStr
+ IF BITTST(FcnSpec,0) THEN
+	OutBuf=OutBuf+"(*"+SymTemp.SymName+")"
+ ELSE
+	OutBuf=OutBuf+SymTemp.SymName
+ ENDIF
+ OutBuf=OutBuf+"("
+ OutBuf=OutBuf+");"
+ GenVar
+ SymInsert()
+ GOTO MainLoop
+ 
+FIXDx:
+ SetMask=$80
+ SETDx1()
+ GOTO MainLoop
+
+LIBDx:
+ FOR Ctr1=5 TO LEN(SrcLine)
+ 	IF MID$(SrcLine,Ctr1,1)="-" THEN
+ 		LibList=LibList+" "
+ 	ENDIF
+ 	LibList=LibList+MID$(SrcLine,Ctr1,1)
+ NEXT Ctr1
+ GOTO MainLoop
+
+ENDCDx:
+ PRINT "FATAL ERROR... #ENDC sync error in line ";BasicLineCtr
+ END
+
+SBRTNDx:
+ LNFlag=$ff
+ TokenSym()
+ ErrMain
+ IF SymFound<>0 THEN
+	ErrNo=ErrDupSym
+	GOTO MainLoop
+ ENDIF
+ ClrSym()
+ SymTemp.DataType=LABEL
+ SymTemp.DataMod=0
+ SymTemp.Detail=$1ff
+ SymInsert()
+ ErrMain
+ GOTO MainLoop
+
+S1:
+' DATA
+ IF DataFlag=0 THEN
+	DataFlag=$ff
+	IF LabelFlag=0 OR SymTable(SymNdx).DataMod<>DataBit THEN
+		PRINT "FATAL ERROR... DATA block with no label in line ";BasicLineCtr
+		END
+	ENDIF
+	LastStmt="data"'  needed for first 'DATA' in block
+	Remark()
+	GenVar
+	OutBuf="static unsigned char "+SymbolSaf+"[]={"
+	GenVar
+ ENDIF
+ NeedComma=0
+DATALoop:
+ NexToken()
+ IF TokenLen=0 THEN
+	GOTO MainLoop
+ ENDIF
+ IF NeedComma=0 AND TokenBuf="," THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ IF NeedComma=$ff AND TokenBuf="," THEN
+	NeedComma=0
+	GOTO DATALoop
+ ENDIF
+ IF TokenType=TTypQuote THEN
+	TempStr=MID$(TokenSaf,2,LEN(TokenSaf)-2)
+	GOTO NextData
+ ENDIF
+ IF TokenType=TTypHex THEN
+	ValidHex()
+	IF HexOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO MainLoop
+	ENDIF
+	TempStr="0x"+MID$(TokenSaf,2,LEN(TokenSaf)-1)
+	GOTO NextData
+ ENDIF
+ IF TokenType=TTypInt THEN
+	ValidInt()
+	IF IntOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO MainLoop
+	ENDIF
+	TempStr=TokenSaf
+	GOTO NextData
+ ENDIF
+ IF TokenType=TTypFloat THEN
+	ValidFlt()
+	IF FloatOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO MainLoop
+	ENDIF
+	TempStr=TokenSaf
+	GOTO NextData
+ ENDIF
+ IF TokenType=TTypSym THEN
+	IF TokenBuf="true" OR TokenBuf="false" THEN
+		IF TokenBuf="true" THEN
+			TempStr="1"
+		ELSE
+			TempStr="0"
+		ENDIF
+		GOTO NextData
+	ENDIF
+	TokenSym1()
+	ErrMain
+	IF SymFound=0 THEN
+		ErrNo=ErrUDSym
+		GOTO MainLoop
+	ENDIF
+	IF SymTable(SymNdx).DataType<>0 THEN
+		ErrNo=ErrTypMis
+		GOTO MainLoop
+	ENDIF
+	Konstant=SymTable(SymNdx).Detail
+	TempStr=STR$(Konstant)
+	GOTO NextData
+ ENDIF
+ ErrNo=ErrSyntax
+NextData:
+ OutBuf=""
+ IF TempStr="" THEN
+	TempStr=CHR$($80)
+ ENDIF
+ FOR Ctr1=1 TO LEN(TempStr)
+	OutBuf=OutBuf+"'"+MID$(TempStr,Ctr1,1)+"',"
+ NEXT Ctr1
+ OutBuf=OutBuf+"0,"
+ GenVar
+ NeedComma=$ff
+ GOTO DATALoop
+ 
+S2:
+' RESTORE
+ LNFlag=$ff
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	SymTemp.DataType=LABEL
+	ClrSym()
+	SymTemp.Detail=$ff
+	SymTemp.DataMod=DataBit
+	SymInsert()
+	ErrMain
+ ENDIF
+ IF SymTable(SymNdx).DataType<>LABEL OR SymTable(SymNdx).DataMod<>DataBit THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf="_DataPtr="+SymbolSaf+";"
+ GenCode
+ OutBuf="_DataPtrSaf=_DataPtr;"
+ GenCode
+ GOTO MainLoop
+ 
+S3:
+' POKE
+ GetIntOp()' get addr
+ ErrMain
+ OutBuf="(long)_Poker=_d0;"
+ GenCode
+ CommaMain
+ GetIntOp()' get data
+ ErrMain
+ OutBuf="*_Poker=_d0;"
+ GenCode
+ GOTO MainLoop
+ 
+S4:
+' RETURN
+ IF FcnFlag=0 THEN
+	ErrNo=ErrFSNest
+	GOTO MainLoop
+ ENDIF
+ IF FcnActive<>VoidFcn THEN
+	Expr()
+	IF TSymName="~" THEN
+		IF FcnActive=IntFcn THEN
+			TSymName="_d0"
+		ELSE
+			TSymName="_d0f"
+		ENDIF
+	ENDIF
+ ELSE
+	TSymName=""
+ ENDIF
+ OutBuf="return"+" "+TSymName+";"
+ GenFcn
+ IF CSP=0 THEN
+	OutBuf="}"
+	GenFcn
+	FcnFlag=0
+	IF LastSym>FcnSym AND SbrtnFlag=0 THEN
+		FOR SymNdx=FcnSym+1 TO LastSym
+			ClrSymTab()
+		NEXT SymNdx
+		LastSym=FcnSym
+	ENDIF
+	IF LastMulti<FcnMulti AND SbrtnFlag=0 THEN
+		FOR MultiNdx=FcnMulti TO LastMulti STEP -1
+			ClrSymTab()
+		NEXT MultiNdx
+		LastMulti=FcnMulti
+	ENDIF
+	SbrtnFlag=0
+ ENDIF
+ GOTO MainLoop
+ 
+S5:
+' SEEK
+ DiskIO=$ff
+ GetPthNum()
+ ErrMain
+ Expr()
+ ErrMain
+ IF OpClass<>INTClass AND OpClass<>FLTClass THEN
+        ErrNo=ErrTypMis
+        ErrMain
+ ENDIF
+ IF TSymName="~" THEN
+        IF OpClass=INTClass THEN
+                TSymName="_d0"
+        ELSE
+                TSymName="_d0f"
+        ENDIF
+ ENDIF
+ OutBuf="STATUS=lseek(_IOPthNum,(long)"+TSymName+",0);"
+ GenCode
+ CallErr()
+ GOTO MainLoop
+ 
+S6:
+' TYPE
+ ClrDatTyp()
+ IF FcnFlag=$ff THEN
+	ErrNo=ErrDecFcn
+	GOTO MainLoop
+ ENDIF
+ TokenSym()
+ ErrMain
+ IF SymFound=$ff THEN
+	ErrNo=ErrDupSym
+	GOTO MainLoop
+ ENDIF
+ TypeFlag=$ff
+ TypePtr=SymNdx
+ TypeVars=0
+ TypeBytes=0
+ SymTemp.DataType=STRUCT
+ ClrSym()
+ SymInsert()
+ ErrMain
+StructLp:
+ TDataMod=0
+ IF InpFilPtr=1 THEN
+	INC BasicLineCtr
+ ENDIF
+ ReadSource()
+ IF TempInt=0 THEN
+	PRINT "Fatal Error: EOF in STRUCT"
+	END
+ ENDIF
+StructLp2:
+ NexToken()
+ IF TokenBuf="end" THEN
+ 	NexToken()
+ 	IF TokenBuf="type" THEN StructEnd
+ 	ErrNo=ErrSyntax
+ ENDIF
+ IF TokenBuf="endtype" THEN StructEnd
+ UnDoToken()		
+ IF LEFT$(SrcLine,1)="*" THEN StructLp
+ DimVar()
+ IF DimOK=0 THEN MainLoop
+ INC TypeVars
+
+ IF MOD(TypeBytes,2)=1 THEN
+	IF DTShort=$ff OR DTLong=$ff OR DTFloat=$ff THEN
+		INC TypeBytes
+	ENDIF
+ ENDIF
+
+ SymTemp.DataAddr=TypeBytes
+ SymInsert()
+ ErrMain 
+ TypeBytes=TypeBytes+SymTemp.DataSize
+ IF MultiFlag=$ff THEN
+	AddMulti()
+	ErrMain
+ ENDIF
+ GOTO StructLp
+StructEnd:
+	IF MOD(TypeBytes,2)<>0 THEN
+		INC TypeBytes
+	ENDIF
+
+ SymTable(TypePtr).DataSize=TypeBytes
+ SymTable(TypePtr).Detail=TypeVars
+ GOTO MainLoop
+
+S7:
+' DIM
+ IF FcnFlag=$ff AND FcnVarFlg=0 THEN
+	ErrNo=ErrDecFcn
+	GOTO MainLoop
+ ENDIF
+ GblVarFlg=0
+ DimVar()
+ IF DimOK=0 THEN MainLoop
+ SymInsert()
+ ErrMain
+
+ DecVar()
+ IF MultiFlag=$ff THEN
+	AddMulti()
+ ENDIF
+ GOTO MainLoop
+ 
+SetFcnPtr:
+ Remark()
+ GenCode
+ IF LAND(SymTable(SymNdx).DataSize,$00000004)=0 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ Op1Name=SymTable(SymNdx).SymName
+ Op1DataSize=SymTable(SymNdx).DataSize
+ EqualMain
+ NexToken()
+ SymTemp.SymName=TokenSaf
+ SymSrch()
+ IF SymFound=0 THEN
+	SymTemp.DataType=VOIDX
+ ELSE
+	SymTemp=SymTable(SymNdx)
+ ENDIF
+ IF SymTemp.DataType=FCN THEN
+	IF SymTemp.Detail<1000 THEN
+		ErrNo=ErrTypMis
+		GOTO MainLoop
+	ENDIF
+	TSymName=SymTemp.SymName
+	TempStr="=(long)"
+ ELSE
+	UnDoToken()
+	Expr()
+	IF DMVector<>0 THEN
+		VecSymNam()
+		TempStr="="
+	ELSE
+		TempStr="=(long)"
+	ENDIF
+	IF TDataType<>LONG AND DMAddr=0 THEN
+		ErrNo=ErrTypMis
+		GOTO MainLoop
+	ENDIF
+ ENDIF
+ OutBuf="(long)"+Op1Name+TempStr+TSymName+";"	
+ GenCode
+ GOTO MainLoop
+
+S8:
+' LET
+ IF ProcFlag=$ff THEN
+	Target=0
+ ELSE
+	Target=$ff
+	LetFlag=$ff
+ ENDIF
+ Expr()
+ ErrMain
+ IF ProcFlag=$ff THEN MainLoop
+ IF DMConst=$ff THEN
+	ErrNo=ErrIVExp
+	GOTO MainLoop
+ ENDIF
+ Op1Name=TSymName
+ Op1Class=OpClass
+ Op1Type=TDataType
+ Op1Mod=TDataMod
+ Op1Detail=TDetail
+ Op1DataSize=TDataSize
+ IF Op1Name="NextArg" THEN
+	ErrNo=ErrIVTarg
+	GOTO MainLoop
+ ENDIF
+ IF LAND(TempBit,Op1Mod)<>0 AND LAND(VectorBit,Op1Mod)=0 THEN
+	ErrNo=ErrIVTarg
+	GOTO MainLoop
+ ENDIF
+ IF LAND(FileBit,Op1Mod)=FileBit THEN
+	ErrNo=ErrIVTarg
+	GOTO MainLoop
+ ENDIF 
+ NexToken()
+ IF TokenBuf=":" THEN
+	NexToken()
+ ENDIF
+ IF TokenBuf<>"=" THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ IF Op1Type=LONG THEN' Function pointer assignment
+	NexToken()
+	SymTemp.SymName=TokenSaf
+	SymSrch()
+	IF SymFound=$ff AND SymTable(SymNdx).DataType=FCN AND NextByte<>"(" THEN
+		OutBuf="_d0=(long)"+SymTable(SymNdx).SymName+";"
+		GenCode
+		StoreD0()
+		GOTO MainLoop
+	ENDIF
+	UnDoToken()
+ ENDIF
+ LetFlag=0
+ GetExp()
+ ErrMain
+ Target=0
+ ProcExp()
+ ErrMain
+ ClassOp()
+ Op2Name=TSymName
+ Op2Class=OpClass
+ Op2Type=TDataType
+ Op2Mod=TDataMod
+ Op2Detail=TDetail
+ NexToken()
+ IF TokenLen<>0 THEN' check for junk on end
+ 	ErrNo=ErrSyntax
+ 	GOTO MainLoop
+ ENDIF
+ IF Op2Name="NextArg" THEN ProcCmd
+ IF Op1Class<>Op2Class THEN'  int=float for example
+	EXITIF Op1Class=INTClass AND Op2Class=FLTClass
+	EXITIF Op1Class=FLTClass AND Op2Class=INTClass
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=INTClass OR Op1Class=FLTClass OR Op1Class=BOOLClass THEN
+       IF TSymName<>"~" THEN
+		TDataType=Op1Type
+                GetDtaTyp()
+		IF LAND(Op1Mod,$7f)=0 AND Op2Mod=ConstBit THEN
+			IF Op2Type=BOOLEAN THEN
+				Op2Name=STR$(Op2Detail)
+			ENDIF
+			OutBuf=Op1Name+"="+Op2Name+";"
+			GenCode
+			GOTO MainLoop
+		ENDIF
+		IF LAND(Op1Mod,$7f)=0 AND LAND(Op2Mod,$7f)=0 AND Op1Type=Op2Type THEN
+			IF Op1Mod=0 And Op2Mod=0 THEN
+				OutBuf=Op1Name+"="+Op2Name+";"
+			ENDIF
+			GenCode
+			GOTO MainLoop
+		ENDIF
+		InitReg0
+		LoadReg()
+		ErrMain
+	ENDIF
+	StoreD0()
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=STRClass THEN
+	OutBuf="_MovStr(&"+Op1Name+",&"+Op2Name+");"
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=CPXClass OR Op1Class=ARRClass THEN
+	IF LAND(Op1Mod,VectorBit)=0 THEN
+		OutBuf="_DestAddr="+Op1Name+";"
+	ELSE
+		OutBuf="_DestAddr="+Op1Name+"._Ptr;"
+	ENDIF
+	GenCode
+	IF LAND(Op2Mod,VectorBit)=0 THEN
+		OutBuf="_SrcAddr="+Op2Name+";"
+	ELSE
+		OutBuf="_SrcAddr="+Op2Name+"._Ptr;"
+	ENDIF
+	GenCode
+	IF Op1Class=ARRClass THEN
+		TempInt=Op1DataSize
+	ELSE
+		TempInt=SymTable(Op1Detail).DataSize
+	ENDIF	
+	OutBuf="_BlkCnt="+STR$(TempInt)+";"
+	GenCode
+	OutBuf="while (_BlkCnt)"
+	GenCode
+	OutBuf="{"
+	GenCode
+	OutBuf="*((unsigned char*)_DestAddr)=*((unsigned char*)_SrcAddr);"
+	GenCode
+	OutBuf="(long)_DestAddr=(long)_DestAddr+1;"
+	GenCode
+	OutBuf="(long)_SrcAddr=(long)_SrcAddr+1;"
+	GenCode
+	OutBuf="_BlkCnt--;"
+	GenCode
+	OutBuf="}"
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=BOOLClass THEN
+	InitReg0
+	LoadReg()
+	ErrMain
+	StoreD0()
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=OBJClass THEN
+ 	ErrNo=ErrIVType
+ 	GOTO MainLoop
+ ENDIF
+ IF Op1Class=FRMClass THEN
+ 	ErrNo=ErrIVType
+ 	GOTO MainLoop
+ ENDIF 
+ PRINT "Internal Error"
+ END
+ 
+S9:
+' FOR
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	ErrNo=ErrUDSym
+	GOTO MainLoop
+ ENDIF
+ IncConStk()
+ ErrMain
+ CS(CSP).LoopName=SymTemp.SymName
+ SymTemp=SymTable(SymNdx)
+ ClassOp1()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ GetLopVec()
+ ErrMain
+ CS(CSP).LoopVec=LopVarNdx
+ CS(CSP).ConType=5
+ CS(CSP).ConLine=BasicLineCtr
+ EqualMain
+ Expr()
+ ErrMain
+ IF TSymName="~" THEN
+	TSymName="_d0"
+ ENDIF
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+' set initial value into loop var
+ OutBuf=CS(CSP).LoopName+"="+TSymName+";"
+ GenCode
+ NexToken()
+ IF TokenBuf<>"to" THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ Expr()
+ ErrMain
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF TSymName<>"~" AND DMConst<>0 THEN
+	CS(CSP).ImmTo=$ff
+	CS(CSP).ImmToVal=TSymName
+ ELSE
+	CS(CSP).ImmTo=0
+ ENDIF
+ IF TSymName="~" THEN
+	TSymName="_d0"
+ ENDIF
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+ IF CS(CSP).ImmTo=0 THEN
+	OutBuf="_LopVec"+STR$(LopVarNdx)+"._Limit="+TSymName+";"
+	GenCode
+ ENDIF
+ NexToken()
+ IF TokenLen=0 THEN
+	CS(CSP).NoStep=$ff
+ ELSE
+	IF TokenBuf<>"step" THEN
+		ErrNo=ErrSyntax
+		GOTO MainLoop
+	ENDIF
+	CS(CSP).NoStep=0
+	Expr()
+	IF OpClass<>INTClass THEN
+		ErrNo=ErrTypMis
+		GOTO MainLoop
+	ENDIF
+	ErrMain
+	CS(CSP).NegImmStep=0
+	IF TSymName<>"~" AND DMConst<>0 THEN
+		CS(CSP).ImmStep=$ff
+		CS(CSP).ImmStepVal=TSymName
+		IF LEN(TSymName)=10 THEN
+			IF Mid$(TSymName,3,1)>"7" THEN
+				CS(CSP).NegImmStep=$ff
+			ENDIF
+		ENDIF
+	ELSE
+		CS(CSP).ImmStep=0
+		IF TSymName="~" THEN
+			TSymName="_d0"
+		ENDIF
+		IF DMVector=$ff THEN
+			VecSymNam()
+		ENDIF
+		OutBuf="_LopVec"+Str$(LopVarNdx)+"._Step="+TSymName+";"
+		GenCode
+	ENDIF
+ ENDIF
+ INC LabelNum
+ OutBuf="_Lbl"+STR$(LabelNum)+":;"
+ GenCode
+ CS(CSP).LoopLabel=LabelNum
+ INC LabelNum
+ CS(CSP).ContLabel=LabelNum
+ INC LabelNum
+ CS(CSP).TermLabel=LabelNum
+' compare loopvar to "to" value
+ IF CS(CSP).ImmStep=$ff AND CS(CSP).NegImmStep=0 OR CS(CSP).NoStep=$ff THEN
+	IF CS(CSP).ImmTo=$ff THEN
+		OutBuf="if ("+CS(CSP).LoopName+">"+CS(CSP).ImmToVal+") goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+	ELSE
+		OutBuf="if ("+CS(CSP).LoopName+">_LopVec"+STR$(CS(CSP).LoopVec)+"._Limit) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+	ENDIF
+ ENDIF
+ IF CS(CSP).ImmStep=$ff AND CS(CSP).NegImmStep=$ff THEN
+	IF CS(CSP).ImmTo=$ff THEN
+		OutBuf="if ("+CS(CSP).LoopName+"<"+CS(CSP).ImmToVal+") goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+	ELSE
+		OutBuf="if ("+CS(CSP).LoopName+"<_LopVec"+STR$(CS(CSP).LoopVec)+"._Limit) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+	ENDIF
+ ENDIF
+ IF CS(CSP).ImmStep=0 AND CS(CSP).NoStep=0 THEN
+	IF CS(CSP).ImmTo=0 THEN
+		OutBuf="if ((_LopVec"+STR$(LopVarNdx)+"._Step>=0) && ("+CS(CSP).LoopName+">_LopVec"+STR$(CS(CSP).LoopVec)+"._Limit)) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+		OutBuf="if ((_LopVec"+STR$(LopVarNdx)+"._Step<0) && ("+CS(CSP).LoopName+"<_LopVec"+STR$(CS(CSP).LoopVec)+"._Limit)) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+	ELSE
+		OutBuf="if ((_LopVec"+STR$(LopVarNdx)+"._Step>=0) && ("+CS(CSP).LoopName+">"+CS(CSP).ImmToVal+")) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+		OutBuf="if ((_LopVec"+STR$(LopVarNdx)+"._Step<0) && ("+CS(CSP).LoopName+"<"+CS(CSP).ImmToVal+")) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+		GenCode
+	ENDIF
+ ENDIF
+ GOTO MainLoop
+ 
+S10:
+' IF
+ CmpOps()
+ ErrMain
+ INC LabelNum
+ IF TokenLen=0 THEN StructIF' This makes the 'THEN' optional
+ IF TokenBuf<>"then" THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ NexToken()
+ IF TokenLen=0 THEN StructIF
+ LNFlag=$ff
+ TokenSym1()
+ ErrMain
+ IF SymFound=0 THEN
+	ClrSym()
+	SymTemp.DataType=LABEL
+	SymTemp.DataMod=0
+	SymTemp.Detail=$ff
+	SymInsert()
+	ErrMain
+ ENDIF
+ IF SymTable(SymNdx).DataType<>7 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf="if (_True==0) goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ OutBuf="goto "+SymTemp.SymName+";"
+ GenCode
+ OutBuf="_Lbl"+STR$(LabelNum)+":;"
+ GenCode
+ GOTO MainLoop
+StructIF:
+ IncConStk()
+ ErrMain
+ CS(CSP).TermLabel=LabelNum
+ CS(CSP).ConType=0
+ CS(CSP).ConLine=BasicLineCtr
+ OutBuf="if (_True==0) goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ GOTO MainLoop
+ 
+S11:
+' GOTO
+ LNFlag=$ff
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	ClrSym()
+	SymTemp.DataType=LABEL
+	SymTemp.DataMod=0
+	SymTemp.Detail=$ff
+	SymInsert()
+	ErrMain
+ ENDIF
+ TempInt=SymTable(SymNdx).Detail
+ IF SymTable(SymNdx).DataType<>LABEL OR TempInt&$100<>0 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf="goto "+SymbolSaf+";"
+ GenCode
+ GOTO MainLoop
+ 
+S12:
+' GOSUB
+ LNFlag=$ff
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	ClrSym()
+	SymTemp.DataType=LABEL
+	SymTemp.DataMod=0
+	SymTemp.Detail=$1ff
+	SymInsert()
+	ErrMain
+ ENDIF
+ TempInt=SymTable(SymNdx).Detail
+ IF SymTable(SymNdx).DataType<>LABEL OR TempInt&$100<>$100 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf=SymbolSaf+"();"
+ GenCode
+ GOTO MainLoop
+ 
+S13:
+' ON
+ LNFlag=$ff
+ NeedComma=$00
+ JmpArgs=0
+ NexToken()
+ IF TokenBuf="error" THEN ON_ERROR
+ UnDoToken()
+
+ INC LabelNum
+ INC TableNum
+ GetIntOp()' get test integer
+ ErrMain
+ NexToken()
+ IF TokenBuf="goto" OR TokenBuf="gosub" THEN
+	IF TokenBuf="goto" THEN
+		ToSubFlag=0
+	ELSE
+		ToSubFlag=$ff
+	ENDIF
+ ELSE
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ SrcNdxSaf=SrcNdx
+ChkArgs:
+ NexToken()
+ IF TokenLen=0 THEN MakSwitch
+ IF TokenBuf="," AND NeedComma=$ff THEN
+	NeedComma=0
+	GOTO ChkArgs
+ ENDIF
+ IF TokenBuf="," AND NeedComma=0 THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf<>"," AND NeedComma=$ff THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ TokenSym1()
+ ErrMain
+ IF SymFound=0 THEN
+	SymTemp.DataType=LABEL
+	ClrSym()
+	SymTemp.DataMod=0
+	IF ToSubFlag=0 THEN
+		SymTemp.Detail=$ff
+	ELSE
+		SymTemp.Detail=$1ff
+	ENDIF
+	SymInsert()
+	ErrMain
+ ENDIF
+ TempInt=SymTable(SymNdx).Detail
+ TDataType=SymTable(SymNdx).DataType
+ IF TDataType=FCN AND SymTable(SymNdx).DataSize=0 AND TempInt=$3f2 THEN
+    REM Make VOID FCN look like SBRTN
+    TDataType=LABEL
+    TempInt=$100
+ ENDIF
+ IF TDataType<>LABEL THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF ToSubFlag=0 AND TempInt&$100<>0 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF ToSubFlag=$ff AND TempInt&$100<>$100 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ INC JmpArgs
+ NeedComma=$ff
+ GOTO ChkArgs
+MakSwitch:
+ SrcNdx=SrcNdxSaf
+ OutBuf="switch (_d0)"
+ GenCode
+ OutBuf="{"
+ GenCode
+ Ctr1=0
+MakCase:
+ NexToken()
+ IF TokenLen=0 THEN
+	OutBuf="}"
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf="," THEN MakCase
+ TokenSym1()
+ INC Ctr1
+ OutBuf="case "+STR$(Ctr1)+":"
+ GenCode
+ IF ToSubFlag=0 THEN
+	OutBuf="goto "+SymTemp.SymName+";"
+ ELSE
+	OutBuf=SymTemp.SymName+"();"
+	GenCode
+	OutBuf="break;"
+ ENDIF
+ GenCode
+ GOTO MakCase
+ON_ERROR:
+ IF FcnFlag<>0 THEN
+	ErrNo=ErrERRTrp
+	GOTO MainLoop
+ ENDIF
+ NexToken()
+ OutBuf="_ErrFlag=setjmp(_ebuf);"
+ GenCode
+ IF TokenLen=0 THEN
+	OutBuf="if (_ErrFlag) goto ErrExit;"
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf<>"goto" THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	SymTemp.DataType=LABEL
+	ClrSym()
+	SymTemp.DataMod=0
+	SymTemp.Detail=$ff
+	SymInsert()
+	ErrMain
+ ENDIF
+ IF SymTable(SymNdx).DataType<>7 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf="if (_ErrFlag) goto "+SymTemp.SymName+";"
+ GenCode
+ GOTO MainLoop
+ 
+S14:
+' PRINT
+ DevChk()
+ PrintFlag=$ff
+ IF DevFlag=$ff THEN
+	PrtPthFlg=$ff
+	GetPthNum1()
+	ErrMain
+	PrtPthFlg=0
+ ELSE
+	OutBuf="_PrtPthNum=1;"
+	GenCode
+ ENDIF
+ NexToken()
+ IF TokenBuf="using" THEN PrtUsing
+ UnDoToken()
+PrintLp:
+ NexToken()
+ IF TokenLen=0 THEN PrintEx
+ UnDoToken()
+ Expr()
+ ErrMain
+ IF TDataType=VOIDX THEN PrtArgSep
+ IF TabFlag=$ff THEN
+	TabFlag=0
+	GOTO PrtArgSep
+ ENDIF
+ IF TDataType<>STRING OR DMAddr=$ff THEN
+	MakString()
+	ErrMain
+ ENDIF
+ ClassOp()
+ OutBuf="_PrintStr(&"+TSymName+",_BufSize);"
+ GenCode
+ CallErr()
+ GenXfrCnt()
+PrtArgSep:
+ NexToken()
+ IF FileIO<>0 THEN
+	GenNewLine
+	IF TokenBuf="," OR TokenBuf=";" THEN
+		IF NextByte<>"" THEN PrintLp
+	ENDIF
+	GOTO PrintEx
+ ENDIF
+ IF TokenBuf="," THEN
+	OutBuf="_PrintTab(0);"
+	GenCode
+	CallErr()
+	GenXfrCnt()
+	IF NextByte="" THEN PrintEx
+	GOTO PrintLp
+ ENDIF
+ IF TokenBuf=";" THEN
+	IF NextByte="" THEN PrintEx
+	GOTO PrintLp
+ ENDIF
+PrintEx:
+ IF TokenBuf<>"," AND TokenBuf<>";" THEN
+	IF FileIO=0 THEN
+		GenCRLF
+	ENDIF
+	OutBuf="POS=0;"
+	GenCode
+ ENDIF
+ GOTO MainLoop
+
+PrtUsing:
+ UnDoToken()
+ Expr()
+ GOTO MainLoop
+
+S15:
+' INPUT
+ DevChk()
+ IF DevFlag=$ff THEN
+	GetPthNum1()
+	ErrMain
+ ELSE
+	OutBuf="_IOPthNum=0;"
+	GenCode
+ ENDIF
+ IF FileIO=0 THEN
+	NexToken()
+	UnDoToken()
+	IF TokenType=TTypQuote THEN
+		Expr()
+		ErrMain
+		OutBuf="STATUS=write(1,"+TSymName+"._Ptr,"+TSymName+"._Len);"
+		GenCode
+		CommaMain
+	ELSE
+		OutBuf="STATUS=write(1,&_Prompt,1);"
+		GenCode
+	ENDIF
+	CallErr()
+ ENDIF
+ Target=$ff
+ LOOP
+ 	Expr()
+ 	ErrMain
+ 	IF DMVector=0 THEN
+		Vectorize()
+		ErrMain
+		ClassOp()
+ 	ENDIF
+ 	IF DMVector=$ff AND DMTemp=0 THEN
+		SetTmpVec()
+		ErrMain
+ 	ENDIF
+ 	OutBuf="_InpData(&"+TSymName+","+STR$(TDataType)+",_BufSize);"
+ 	GenCode
+ 	CallErr()
+ 	GenXfrCnt()
+ 	NexToken()
+ 	EXITIF TokenBuf<>","
+ ENDLOOP
+ IF FileIO=0 AND NewLine=$0d THEN
+	GenCRLF
+ ENDIF
+ GOTO MainLoop
+ 
+S16:
+' READ
+ NeedComma=0
+ NexToken()
+ IF TokenBuf="#" THEN FileRead' Path# read
+ SymTemp.SymName=TokenSaf
+ SymSrch()
+ IF SymFound=0 THEN
+	ErrNo=ErrUDSym
+	GOTO MainLoop
+ ENDIF
+ SymTemp=SymTable(SymNdx)
+ IF SymTemp.DataMod&FileBit=FileBit THEN FileRead' File ptr read
+ UnDoToken()
+ Target=$ff
+ ReadFlag=$ff
+lbl8161:
+ IF NeedComma=$ff THEN
+	NexToken()
+	IF TokenLen=0 THEN MainLoop
+	IF TokenBuf<>"," THEN
+		ErrNo=ErrSyntax
+		GOTO MainLoop
+	ELSE
+		NeedComma=0
+	ENDIF
+ ENDIF
+ GetExp()
+ ErrMain
+ IF TokenLen=0 THEN MainLoop
+ ProcExp()
+ ErrMain
+ ClassOp()
+ GetBase()
+ IF TDataType=COMPVAR OR TDataType>6 THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF DMAddr=$ff THEN
+	TDataType=LONG
+ ENDIF
+ IF TDataType=BOOLEAN THEN
+	OutBuf="_ReadBool((long)_a0);"' Cast for ansi proto
+	GenCode
+	GOTO lbl8164
+ ENDIF
+ IF TDataType=BYTE THEN
+	OutBuf="_ReadByte((long)_a0);"' Cast for ansi proto
+	GenCode
+	GOTO lbl8164
+ ENDIF
+ IF TDataType=SHORT THEN
+	OutBuf="_ReadShort((long)_a0);"' Cast for ansi proto
+	GenCode
+	GOTO lbl8164
+ ENDIF
+ IF TDataType=LONG THEN
+	OutBuf="_ReadLong((long)_a0);"' Cast for ansi proto
+	GenCode
+	GOTO lbl8164
+ ENDIF
+ IF TDataType=FLOAT THEN
+	OutBuf="_ReadFlt((long)_a0);"' Cast for ansi proto
+	GenCode
+	GOTO lbl8164
+ ENDIF
+ IF TDataType=STRING THEN
+	OutBuf="_ReadStr((long)_a0,"+STR$(TDetail)+");"' Cast for ansi proto
+	GenCode
+	GOTO lbl8164
+ ENDIF
+lbl8164:
+ NeedComma=$ff
+ GOTO lbl8161
+FileRead:
+ UnDoToken()
+ ReadWrite()
+ ErrMain
+ OutBuf="_DataPtr=_a0;"
+ GenCode
+ OutBuf="_BlkCnt="+STR$(SymTemp.Detail)+";"
+ GenCode
+ INC LabelNum' Start label
+ INC LabelNum' Finish label
+ INC LabelNum' Error label
+
+ OutBuf="_Lbl"+STR$(LabelNum-2)+":;"
+ GenCode
+ OutBuf="STATUS=read(_IOPthNum,_IOBuffer,1);"
+ GenCode
+ OutBuf="if (STATUS == -1) goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ OutBuf="if (STATUS == 0) goto _Lbl"+STR$(LabelNum-1)+";"
+ GenCode
+ OutBuf="if (_IOBuffer[0] == _NewLine) goto _Lbl"+STR$(LabelNum-1)+";"
+ GenCode
+ OutBuf="*_DataPtr=_IOBuffer[0];"
+ GenCode
+ OutBuf="_DataPtr++;"
+ GenCode
+ OutBuf="_BlkCnt--;"
+ GenCode
+ OutBuf="if (_BlkCnt == 0) goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ OutBuf="goto _Lbl"+STR$(LabelNum-2)+";"
+ GenCode
+ OutBuf="_Lbl"+STR$(LabelNum-1)+":;"
+ GenCode
+ OutBuf="*_DataPtr=0;"
+ GenCode
+ OutBuf="_Lbl"+STR$(LabelNum)+":;"
+ GenCode
+ CallErr()
+
+ GenXfrCnt()
+ GOTO MainLoop
+ 
+S17:
+' WRITE
+ ReadWrite()
+ ErrMain
+ OutBuf="XferCount=_StrLen(&"+TSymName+");"
+ GenCode
+ OutBuf="_XferAddr=_a0;"
+ GenCode
+ GenWrite
+ OutBuf="_XferAddr=&_NewLine;"
+ GenCode
+ OutBuf="XferCount=1;"
+ GenCode
+ GenWrite
+ GOTO MainLoop
+ 
+S18:
+' GET
+ GetPut()
+ ErrMain
+ GenRead
+ GOTO MainLoop
+ 
+S19:
+' PUT
+ GetPut()
+ ErrMain
+ GenWrite
+ GOTO MainLoop
+ 
+S20:
+' END
+ NexToken()
+ IF TokenLen<>0 THEN
+ 	LastStmt=LastStmt+TokenBuf' prevents bug involving false 'end'
+ 	IF TokenBuf="if" THEN S29
+ 	IF TokenBuf="loop" THEN S33
+ 	IF TokenBuf="while" THEN S25
+ 	IF TokenBuf="exit" THEN S48
+ 	IF TokenBuf="select" THEN S74
+ 	IF TokenBuf="case" THEN S76
+ 	ErrNo=ErrSyntax
+ 	GOTO MainLoop
+ ENDIF
+ OutBuf="exit(0);"
+ GenCode
+ GOTO MainLoop
+ 
+S21:
+' CREATE
+ CrOpFlag=$ff
+ Target=$ff
+ GetPthNum()
+ ErrMain
+ Target=0
+ GetPthNam()
+ ErrMain
+ ColonMain
+ GetAccMod()
+ OutBuf="STATUS=open(_IOBuffer,"+AccMode+","+CreatMode+");"
+ GenCode
+ OutBuf=PathVar+"=STATUS;"
+ GenCode
+ CallErr()
+ GOTO MainLoop
+ 
+S22:
+' OPEN
+ CrOpFlag=0
+ Target=$ff
+ GetPthNum()
+ ErrMain
+ Target=0
+ GetPthNam()
+ ErrMain
+ ColonMain
+ GetAccMod()
+ ErrMain
+ IF DirFlag=$ff THEN
+	AccMode=AccMode+"|A_DIR"
+ ENDIF
+ OutBuf="STATUS=open(_IOBuffer,"+AccMode+");"
+ GenCode
+ OutBuf=PathVar+"=STATUS;"
+ GenCode
+ CallErr()
+ GOTO MainLoop
+ 
+S23:
+' CLOSE
+ DiskIO=$ff
+CloseLp
+ GetPthNum()
+ ErrMain
+ OutBuf="STATUS=close(_IOPthNum);"
+ GenCode
+ CallErr()
+ NexToken()
+ IF TokenLen=0 THEN MainLoop
+ IF TokenBuf<>"," THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ GOTO CloseLp
+ 
+S24:
+' WHILE
+ INC LabelNum
+ OutBuf="_Lbl"+STR$(LabelNum)+":;"
+ GenCode
+ CmpOps()
+ ErrMain
+ IF TokenLen<>0 THEN' This test makes the 'DO' optional
+ 	IF TokenBuf<>"do" THEN
+		ErrNo=ErrSyntax
+		GOTO MainLoop
+ 	ENDIF
+ ENDIF
+ IncConStk()
+ ErrMain
+ CS(CSP).LoopLabel=LabelNum
+ CS(CSP).ContLabel=LabelNum' For consistancy with CONTINUE statement
+ INC LabelNum
+ CS(CSP).TermLabel=LabelNum
+ CS(CSP).ConType=1
+ CS(CSP).ConLine=BasicLineCtr
+ OutBuf="if (_True==0) goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ GOTO MainLoop
+ 
+S25:
+' ENDWHILE
+ TempInt=1
+ CSChk()
+ ErrMain
+ OutBuf="goto _Lbl"+STR$(CS(CSP).LoopLabel)+";"
+ GenCode
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop
+ 
+S26:
+' NEXT
+ IF CSP=0 THEN
+	ErrNo=ErrUBCon
+	GOTO MainLoop
+ ENDIF
+ NexToken()
+ IF TokenLen=0 THEN
+ 	TokenSaf=CS(CSP).LoopName
+ ENDIF
+ IF TokenSaf<>CS(CSP).LoopName THEN
+	ErrNo=ErrUBCon
+	GOTO MainLoop
+ ENDIF
+ TempInt=5
+ OutBuf="_Lbl"+STR$(CS(CSP).ContLabel)+":;"
+ GenCode
+ CSChk()
+ ErrMain
+' add "step" to loop var
+ IF CS(CSP).NoStep=$ff THEN
+	OutBuf=CS(CSP).LoopName+"++;"
+	GenCode
+ ELSE
+	IF CS(CSP).ImmStep=0 THEN
+		OutBuf=CS(CSP).LoopName+"="+CS(CSP).LoopName+"+_LopVec"+STR$(CS(CSP).LoopVec)+"._Step;"
+		GenCode
+	ELSE
+		OutBuf=CS(CSP).LoopName+"="+CS(CSP).LoopName+"+"+CS(CSP).ImmStepVal+";"
+		GenCode
+	ENDIF
+ ENDIF
+' branch back to loop beginning
+ OutBuf="goto _Lbl"+STR$(CS(CSP).LoopLabel)+";"
+ GenCode
+' generate done label
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop
+ 
+S27:
+' REM
+ GOTO MainLoop
+ 
+S28:
+' ELSE
+ NexToken()'  make sure nothing follows
+ IF TokenLen<>0 THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ TempInt=0
+ CSChk()
+ ErrMain
+ INC LabelNum
+ OutBuf="goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ CS(CSP).TermLabel=LabelNum
+ GOTO MainLoop
+ 
+S29:
+' ENDIF
+ TempInt=0
+ CSChk()
+ ErrMain
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop
+ 
+S30:
+' DELETE
+ GetPthNam()
+ ErrMain
+ OutBuf="STATUS=unlink(_IOBuffer);"
+ GenCode
+ CallErr()
+ GOTO MainLoop
+ 
+S31:
+' BUFFER
+ TokenSym()
+ ErrMain
+ BufName=SymTemp.SymName
+ IF SymFound=0 THEN
+	OutBuf=""
+	GenVar
+	Comment="Memory Buffer"
+	BldComment()
+	GenVar
+	ClrSym()
+	SymTemp.DataMod=0
+	SymTemp.DataType=BUFFER
+	SymTemp.DataSize=8
+	SymInsert()
+	ErrMain
+	OutBuf="_buffer "+BufName+";"
+	GenVar
+ ENDIF
+ TDataType=SymTable(SymNdx).DataType
+ IF TDataType<>BUFFER THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ EqualMain
+ Expr()
+ IF DMConst=$ff AND TSymName="0x0" THEN
+	OutBuf="free("+BufName+"._BufPtr);"
+	GenCode
+ ELSE
+	IF TSymName<>"~" THEN
+		InitReg0
+		LoadReg()
+		ErrMain
+	ENDIF
+	OutBuf=BufName+"._BufSiz=_d0;"
+	GenCode
+	OutBuf="(long)"+BufName+"._BufPtr=malloc(_d0);"
+	GenCode
+	OutBuf="if ((long)"+BufName+"._BufPtr == 0) "+BufName+"._BufSiz=0;"
+	GenCode
+ ENDIF
+ GOTO MainLoop
+ 
+S32:
+' LOOP
+ IncConStk()
+ ErrMain
+ NexToken()
+ IF TokenLen=0 THEN
+	CS(CSP).ConType=3
+ ELSE
+	INC LopCtrNum
+	IF LopCtrNum>9 THEN
+		ErrNo=ErrTmpUse
+		GOTO MainLoop
+	ENDIF
+	IF TokenBuf<>"count" THEN
+		ErrNo=ErrSyntax
+		GOTO MainLoop
+	ENDIF
+	EqualMain
+	GetIntOp()
+ 	ErrMain
+	OutBuf="_LoopCtr["+STR$(LopCtrNum)+"]=_d0;"
+	GenCode
+	CS(CSP).ConType=4
+ ENDIF
+ CS(CSP).ConLine=BasicLineCtr
+ INC LabelNum
+ OutBuf="_Lbl"+STR$(LabelNum)+":;"
+ GenCode
+ CS(CSP).LoopLabel=LabelNum
+ CS(CSP).ContLabel=LabelNum' For consistancy with CONTINUE statement
+ INC LabelNum
+ CS(CSP).TermLabel=LabelNum
+ GOTO MainLoop
+ 
+S33:
+' ENDLOOP
+ TempInt=3
+ CSChk()
+ IF ErrNo<>0 THEN
+	ErrNo=0
+	TempInt=4
+	CSChk()
+	ErrMain
+ ENDIF
+ IF TempInt=3 THEN
+	OutBuf="goto _Lbl"+STR$(CS(CSP).LoopLabel)+";"
+ ELSE
+	OutBuf="_LoopCtr["+STR$(LopCtrNum)+"]--;"
+	GenCode
+	OutBuf="if (_LoopCtr["+STR$(LopCtrNum)+"] !=0) goto _Lbl"+STR$(CS(CSP).LoopLabel)+";"
+	DEC LopCtrNum
+ ENDIF
+ GenCode
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop
+ 
+S34:
+' REPEAT
+ IncConStk()
+ ErrMain
+ INC LabelNum
+ OutBuf="_Lbl"+STR$(LabelNum)+":;"
+ GenCode
+ CS(CSP).LoopLabel=LabelNum
+ CS(CSP).ConLine=BasicLineCtr
+ CS(CSP).ConType=2
+ INC LabelNum
+ CS(CSP).ContLabel=LabelNum
+ INC LabelNum
+ CS(CSP).TermLabel=LabelNum
+ GOTO MainLoop
+ 
+S35:
+' UNTIL
+ TempInt=2
+ CSChk()
+ ErrMain
+ OutBuf="_Lbl"+STR$(CS(CSP).ContLabel)+":;"
+ GenCode
+ CmpOps()
+ ErrMain
+ IF TokenLen<>0 THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ OutBuf="if (_True==0) goto _Lbl"+STR$(CS(CSP).LoopLabel)+";"
+ GenCode
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop
+ 
+S36:
+' EXITIF
+ CmpOps()
+ ErrMain
+ IF CSP<1 THEN
+	ErrNo=ErrUBCon
+	GOTO MainLoop
+ ENDIF
+ IF TokenLen=0 THEN
+	OutBuf="if (_True) goto _Lbl"+STR$(CS(CSP).TermLabel)+";"
+	GenCode
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf<>"then" THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ NexToken()
+ IF TokenLen<>0 THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ IncConStk()
+ ErrMain
+ INC LabelNum
+ CS(CSP).TermLabel=LabelNum
+ CS(CSP).ConLine=BasicLineCtr
+ CS(CSP).ConType=6
+ OutBuf="if (_True==0) goto _Lbl"+STR$(LabelNum)+";"
+ GenCode
+ GOTO MainLoop
+
+S37:
+' SHELL
+ Expr()
+ IF TDataType<>STRING THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ OutBuf="_MovStr(&_IOBufVec,&"+TSymName+");"
+ GenCode
+ OutBuf="system(_IOBuffer);"
+ GenCode
+ GOTO MainLoop
+
+S38:
+' FPRINT
+ FileIO=$ff
+ GOTO S14
+
+S39:
+' FINPUT
+ FileIO=$ff
+ GOTO S15
+
+S40:
+' BASE
+ NexToken()
+ IF TokenBuf<>"0" AND TokenBuf<>"1" THEN
+	ErrNo=ErrSyntax
+	GOTO MainLoop
+ ENDIF
+ IF TokenBuf="0" THEN
+	ArrayBase=0
+ ELSE
+	ArrayBase=1
+ ENDIF
+ GOTO MainLoop
+
+S41:
+' INC
+ DecInc="++"
+INCx1
+ Target=$ff
+ Expr()
+ ErrMain
+ FcnOp1Nam=TSymName
+ IF DMConst=$ff THEN
+	ErrNo=ErrIVExp
+	GOTO MainLoop
+ ENDIF
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF DMAddr=0 THEN
+	IF VectorBit&TDataMod=VectorBit THEN
+		OutBuf="(*(("+_DataType+"*)"+SymTemp.SymName+"._Ptr))"+DecInc+";"
+	ELSE
+		OutBuf=SymTemp.SymName+DecInc+";"
+	ENDIF
+ ELSE
+	GetVarSiz()
+	IF VectorBit&TDataMod=VectorBit THEN
+		OutBuf="(long)"+SymTemp.SymName+"._Ptr=(long)"+SymTemp.SymName+"._Ptr"+LEFT$(DecInc,1)+STR$(VarSize)+";"
+		GenCode
+		OutBuf="*((long*)_a0)=(long)"+SymTemp.SymName+"._Ptr;"
+	ELSE
+		OutBuf=SymTemp.SymName+"="+SymTemp.SymName+LEFT$(DecInc,1)+STR$(VarSize)+";"
+	ENDIF
+ ENDIF
+ GenCode
+ GOTO MainLoop
+
+S42:
+' DEC
+ DecInc="--"
+ GOTO INCx1
+
+S43:
+' BUFREAD
+ BufRW()
+ ErrMain
+ GenRead
+ GOTO MainLoop
+
+S44:
+' BUFWRITE
+ BufRW()
+ ErrMain
+ GenWrite
+ GOTO MainLoop
+
+S45:
+' DECIMALS
+ DigDec=0
+Decimals1
+ GetIntOp()
+ ErrMain
+ IF DigDec=0 THEN
+	OutBuf="_Decimals=_d0;"
+ ELSE
+	OutBuf="_Digits=_d0;"
+ ENDIF
+ GenCode
+ GOTO MainLoop
+
+S46:
+' EXCHANGE
+ Target=$ff
+ Expr()
+ ErrMain
+ IF DMConst=$ff THEN
+	ErrNo=ErrIVExp
+	GOTO MainLoop
+ ENDIF
+ Op1Name=TSymName
+ Op1Class=OpClass
+ Op1Type=TDataType
+ Op1Mod=TDataMod
+ Op1Detail=TDetail
+ Op1DataSize=TDataSize
+ IF Op1Name="NextArg" THEN
+	ErrNo=ErrIVTarg
+	GOTO MainLoop
+ ENDIF
+ CommaMain
+ Expr()
+ ErrMain
+ IF DMConst=$ff THEN
+	ErrNo=ErrIVExp
+	GOTO MainLoop
+ ENDIF
+ Op2Name=TSymName
+ Op2Class=OpClass
+ Op2Type=TDataType
+ Op2Mod=TDataMod
+ Op2Detail=TDetail
+ Op2DataSize=TDataSize
+ IF Op2Name="NextArg" THEN
+	ErrNo=ErrIVTarg
+	GOTO MainLoop
+ ENDIF
+ IF Op1Type<>Op2Type THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class<>CPXClass AND Op1DataSize<>Op2DataSize THEN
+	IF Op1Type<>STRING THEN
+		ErrNo=ErrTypMis
+		GOTO MainLoop
+	ELSE
+		IF Op1Detail<>Op2Detail THEN
+			ErrNo=ErrTypMis
+			GOTO MainLoop
+		ENDIF
+	ENDIF
+ ENDIF
+ IF Op1Class=CPXClass AND SymTable(Op1Detail).DataSize<>SymTable(Op2Detail).DataSize THEN
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=FLTClass OR Op1Class=INTClass OR Op1Class=BOOLClass THEN
+	Promote=$ff
+	SymTemp.SymName=Op1Name
+	LoadReg()
+	ErrMain
+	SymTemp.SymName=Op2Name
+	LoadReg()
+	ErrMain
+	TempStr=Op1Name
+	Op1Name=Op2Name
+	Op2Name=TempStr
+	StoreD0()
+	ErrMain
+	OutBuf="_d0=_d1;"
+	GenCode
+	Op1Name=Op2Name
+	StoreD0()
+	GOTO MainLoop
+ ENDIF
+ IF Op1Class=CPXClass OR Op1Class=ARRClass OR Op1Type=STRING THEN
+	IF LAND(Op1Mod,VectorBit)=0 THEN
+		OutBuf="_DestAddr="+Op1Name+";"
+	ELSE
+		OutBuf="_DestAddr="+Op1Name+"._Ptr;"
+	ENDIF
+	GenCode
+	IF LAND(Op2Mod,VectorBit)=0 THEN
+		OutBuf="_SrcAddr="+Op2Name+";"
+	ELSE
+		OutBuf="_SrcAddr="+Op2Name+"._Ptr;"
+	ENDIF
+	GenCode
+	IF Op1Class=ARRClass THEN
+		TempInt=Op1DataSize
+	ELSE
+		IF Op1Type=STRING THEN
+			TempInt=Op1Detail
+		ELSE
+			TempInt=SymTable(Op1Detail).DataSize
+		ENDIF
+	ENDIF		
+	OutBuf="_BlkCnt="+STR$(TempInt)+";"	
+	GenCode
+	OutBuf="while (_BlkCnt)"
+	GenCode
+	OutBuf="{"
+	GenCode
+	OutBuf="_True=*((unsigned char*)_DestAddr);"
+	GenCode
+	OutBuf="*((unsigned char*)_DestAddr)=*((unsigned char*)_SrcAddr);"
+	GenCode
+	OutBuf="*((unsigned char*)_SrcAddr)=_True;"
+	GenCode
+	OutBuf="(long)_DestAddr=(long)_DestAddr+1;"
+	GenCode
+	OutBuf="(long)_SrcAddr=(long)_SrcAddr+1;"
+	GenCode	
+	OutBuf="_BlkCnt--;"
+	GenCode
+	OutBuf="}"
+	GenCode
+	GOTO MainLoop	
+ ENDIF
+ ErrNo=ErrIVType
+ GOTO MainLoop
+
+S47:
+' VACANT
+ GOTO MainLoop
+
+S48:
+' ENDEXIT
+ TempInt=6
+ CSChk()
+ ErrMain
+ OutBuf="goto _Lbl"+STR$(CS(CSP-1).TermLabel)+";"
+ GenCode
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop
+
+S49:
+' Vacant Statement
+ GOTO MainLoop
+
+S50:
+' PARAM
+ IF ProcedureFlag<>0 THEN ParamType2
+ IF ParmFlag=0 THEN
+	ErrNo=ErrParam
+	GOTO MainLoop
+ ENDIF
+ GblVarFlg=0
+ DimVar()
+ IF DimOK=0 THEN MainLoop
+ IF RIGHT$(FcnHeader,1)<>"(" THEN
+	FcnHeader=FcnHeader+","
+ ENDIF
+ FcnHeader=FcnHeader+SymTemp.SymName
+ INC ParmCtr
+ SymInsert()
+ ErrMain
+ DecVar()
+ IF MultiFlag=$ff THEN
+	AddMulti()
+ ENDIF
+ GOTO MainLoop
+ParamType2:
+ REM This type of PARAM is to declare a var and get it from command line or file
+ GOTO MainLoop
+
+S51:
+' SETVEC
+ TokenSym()
+ ErrMain
+ IF SymFound=0 THEN
+	ErrNo=ErrUDSym
+	GOTO MainLoop
+ ENDIF
+ ProcName=SymTemp.SymName
+ IF SymTable(SymNdx).DataType=STRING THEN
+	VDetail=SymTable(SymNdx).Detail
+ ELSE
+	VDetail=0
+ ENDIF
+ TDataMod=SymTable(SymNdx).DataMod
+ IF LAND(TDataMod,VectorBit)=0 THEN' Not a vector
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ EqualMain
+ GetIntOp()
+ ErrMain
+ OutBuf="(long)"+ProcName+"._Ptr=_d0;"
+ GenCode
+ IF VDetail<>0 THEN'  must be STRING.. do rest of vector
+	NexToken()
+	IF TokenLen=0 THEN
+		OutBuf=ProcName+"._Len="+STR$(VDetail)+";"
+	ELSE
+		IF TokenBuf<>"," THEN
+			ErrNo=ErrSyntax
+			GOTO MainLoop
+		ENDIF
+		GetIntOp()
+ 		ErrMain
+		OutBuf=ProcName+"._Len=_d0;"
+	ENDIF
+	GenCode
+	OutBuf="(long)"+ProcName+"._Lnk=0;"
+	GenCode
+ ENDIF
+ GOTO MainLoop
+
+S52:
+' DIGITS
+ DigDec=$ff
+ GOTO Decimals1
+
+S53:
+' MACRO
+ GOTO MACRODx
+
+S54:
+' END MACRO
+ ErrNo=ErrEndm
+ GOTO MainLoop
+ 
+S55:
+' FUNCTION
+ GOTO FCNDx
+
+S56:
+' SUBROUTINE
+ GOTO SBRTNDx
+ 
+S57:
+' INCLUDE
+ GOTO USEDx
+ 
+S58:
+' FREEZE
+ GOTO FIXDx
+ 
+S59:
+' LIBRARY
+ GOTO LIBDx
+  
+S60:
+' Vacant
+ GOTO MainLoop
+
+S61:
+' Vacant
+ GOTO MainLoop
+ 
+S62:
+' Vacant
+ GOTO MainLoop
+
+S63:
+' Vacant
+ GOTO MainLoop
+ 
+S64:
+' Vacant
+ GOTO MainLoop
+
+S65:
+' Vacant
+ GOTO MainLoop
+ 
+S66:
+' RANDOMIZE
+ NexToken()
+ IF TokenLen<>0 THEN
+ 	UnDoToken()
+ 	GetIntOp()
+ 	ErrMain
+ 	OutBuf="srand(_d0);"
+ ELSE
+ 	OutBuf="srand(time(NULL)/2);"
+ ENDIF
+ GenCode
+ GOTO MainLoop
+ 
+S67:
+' Vacant
+ GOTO MainLoop
+ 
+S68:
+' Vacant
+ GOTO MainLoop
+ 
+S69:
+' Vacant
+ GOTO MainLoop
+ 
+S70:
+' EXIT
+ NexToken()
+ IF TokenBuf="if" THEN S36
+ ErrNo=ErrSyntax
+ GOTO MainLoop
+ 
+S71:
+' WEND
+ GOTO S25' Turn into ENDWHILE
+ 
+S72:
+' CONTINUE
+ NexToken()
+ IF TokenBuf<>"if" THEN
+ 	ErrNo=ErrSyntax
+ 	GOTO MainLoop
+ ENDIF
+ IF CSP<1 THEN
+	ErrNo=ErrUBCon
+	GOTO MainLoop
+ ENDIF
+ TempInt=CS(CSP).ConType
+ IF TempInt<0 OR TempInt>5 THEN' Only for FOR/NEXT, LOOP/ENDLOOP, REPEAT/UNTIL/, WHILE/ENDWHILE
+	ErrNo=ErrUBCon
+	GOTO MainLoop
+ ENDIF
+ CmpOps()
+ OutBuf="if (_True) goto _Lbl"+STR$(CS(CSP).ContLabel)+";"
+ GenCode
+ GOTO MainLoop
+ 
+S73:
+' SELECT
+ IF SelectFlag<>0 THEN
+ 	ErrNo=ErrUBCon
+ 	GOTO MainLoop
+ ENDIF
+ SelectFlag=$ff
+ NexToken()
+ IF TokenBuf<>"case" THEN
+ 	ErrNo=ErrSyntax
+ 	GOTO MainLoop
+ ENDIF
+ Expr()
+ ErrMain
+ IF OpClass<>STRClass AND OpClass<>INTClass THEN
+ 	ErrNo=ErrIVType
+ 	GOTO MainLoop
+ ENDIF
+ IF OpClass=INTClass AND TSymName<>"~" THEN
+	InitReg0
+	LoadReg()
+	ErrMain
+ ENDIF
+ SwitchClass=OpClass
+ IF OpClass=INTClass THEN
+ 	OutBuf="_SwitchInt=_d0;"
+ ELSE
+ 	 OutBuf="_SwitchStr="+TSymName+";"
+ ENDIF
+ GenCode
+ IncConStk()
+ ErrMain
+ CS(CSP).ConLine=BasicLineCtr
+ CS(CSP).ConType=7
+ INC LabelNum
+ CS(CSP).TermLabel=LabelNum	
+ GOTO MainLoop
+ 
+S74:
+' ENDSELECT
+ IF SelectFlag=0 THEN
+ 	ErrNo=ErrUBCon
+ 	GOTO MainLoop
+ ENDIF
+ IF CaseFlag<>0 THEN
+ 	EndCasex()
+ 	CaseFlag=0
+ ENDIF
+ SelectFlag=0
+ CaseElseFlag=0
+ TempInt=7
+ CSChk()
+ ErrMain
+ OutBuf="_Lbl"+STR$(CS(CSP).TermLabel)+":;"
+ GenCode
+ DEC CSP
+ GOTO MainLoop 
+
+S75:
+' CASE
+ IF SelectFlag=0 OR CaseElseFlag<>0 THEN
+ 	ErrNo=ErrUBCon
+ 	GOTO MainLoop
+ ENDIF
+ IF CaseFlag<>0 THEN
+ 	EndCasex()
+ ENDIF
+ CaseFlag=$ff
+ INC LabelNum
+ CS(CSP).ConLine=BasicLineCtr
+ CS(CSP).ConType=7
+ CS(CSP).ContLabel=LabelNum
+ NexToken()
+ IF TokenBuf="else" THEN
+ 	CaseElseFlag=$ff
+ ELSE
+ 	UnDoToken()
+ 	Expr()
+ 	ErrMain
+ 	IF OpClass<>STRClass AND OpClass<>INTClass THEN
+ 		ErrNo=ErrIVType
+ 		GOTO MainLoop
+ 	ENDIF
+ 	IF OpClass=INTClass AND TSymName<>"~" THEN
+		InitReg0
+		LoadReg()
+		ErrMain
+ 	ENDIF
+ 	IF OpClass<>SwitchClass THEN
+ 		ErrNo=ErrTypMis
+ 		GOTO MainLoop
+ 	ENDIF
+ 	CaseToFlag=0
+ 	NexToken()
+ 	IF TokenLen<>0 THEN
+ 		IF TokenBuf="to" THEN
+ 			CaseToFlag=$ff
+ 		ELSE
+ 			ErrNo=ErrSyntax
+ 			GOTO MainLoop
+ 		ENDIF
+ 	ENDIF
+ 	IF CaseToFlag=0 THEN
+ 		SymType="!="
+ 		GenCase()
+ 	ELSE
+ 		SymType="<"
+ 		GenCase()
+ 		REM Get second arg here
+ 		D0Loaded=0
+ 		Expr()
+ 		ErrMain
+ 		IF OpClass<>STRClass AND OpClass<>INTClass THEN
+ 			ErrNo=ErrIVType
+ 			GOTO MainLoop
+ 		ENDIF
+ 		IF OpClass=INTClass AND TSymName<>"~" THEN
+			InitReg0
+			LoadReg()
+			ErrMain
+ 		ENDIF
+ 		IF OpClass<>SwitchClass THEN
+ 			ErrNo=ErrTypMis
+ 			GOTO MainLoop
+ 		ENDIF
+ 		SymType=">"
+ 		GenCase() 	
+ 	ENDIF
+ ENDIF	
+ GOTO MainLoop
+ 
+S76:
+' ENDCASE
+ IF SelectFlag=0 OR CaseFlag=0 THEN
+ 	ErrNo=ErrUBCon
+ 	GOTO MainLoop
+ ENDIF
+ CaseFlag=0
+ EndCasex()
+ GOTO MainLoop
+ 
+S77:
+' CONST
+ GOTO SETDx
+ 
+S78:
+' SWAP
+ GOTO S46' go do exchange
+ 
+S79:
+' PROGRAM
+ StartFlag=$ff
+ GOTO MainLoop
+
+S80:
+' HEXOUT
+ NexToken()
+ IF TokenBuf="=" THEN
+ 	NexToken()
+ ENDIF
+ SELECT CASE LEFT$(TokenBuf,1)
+ 	CASE "m"
+ 		HexType=0
+ 	CASE "i"
+ 		HexType=1
+ 	CASE "c"
+ 		HexType=2
+ 	CASE "n"
+ 		HexType=3
+ 	CASE ELSE
+ 		ErrNo=ErrSyntax
+ ENDSELECT
+ GOTO MainLoop
+ 
+S81:
+' MAKELOWER
+ Expr()
+ IF OpClass<>STRClass THEN
+ 	ErrNo=ErrIVType
+ 	GOTO MainLoop
+ ENDIF
+ OutBuf="_LCase(&"+TSymName+");"
+ GenCode
+ GOTO MainLoop
+
+S82:
+' MAKEUPPER
+ Expr()
+ IF OpClass<>STRClass THEN
+ 	ErrNo=ErrIVType
+ 	GOTO MainLoop
+ ENDIF
+ OutBuf="_UCase(&"+TSymName+");"
+ GenCode
+ GOTO MainLoop
+ 
+S83:
+' FILL
+ GetIntOp()' get addr
+ ErrMain
+ OutBuf="(long)_Poker=_d0;"
+ GenCode
+ CommaMain
+ GetIntOp()' get count
+ ErrMain
+ OutBuf="_ArgSafe0=_d0;"
+ GenCode
+ NexToken()
+ IF TokenLen=0 THEN
+ 	OutBuf="_d0=0"
+ 	GenCode
+ ELSE
+ 	IF TokenBuf<>"," THEN
+ 		ErrNo=ErrSyntax
+ 		GOTO MainLoop
+ 	ENDIF
+ 	GetIntOp()' get data
+ 	ErrMain
+ ENDIF
+ OutBuf="while (_ArgSafe0){"
+ GenCode
+ OutBuf="*_Poker=_d0;"
+ GenCode
+ OutBuf="_Poker++;"
+ GenCode
+ OutBuf="_ArgSafe0--;}"
+ GenCode
+ GOTO MainLoop
+
+S84:
+' INIT
+ Expr()
+ IF TDataType<>BUFFER THEN
+ 	IF TDataType<1 OR TDataType>6 THEN
+ 		IF TDataType<>COMPLEX THEN
+ 			ErrNo=ErrIVType
+ 			GOTO MainLoop
+ 		ENDIF
+ 	ENDIF
+ 	GetBase()
+ 	OutBuf="(long)_Poker=_a0;"
+ 	GenCode 
+ 	OutBuf="_ArgSafe0="+STR$(TDataSize)+";"
+ 	GenCode	
+ ELSE
+ 	OutBuf="(long)_Poker=(long)"+TSymName+"._BufPtr;"
+ 	GenCode
+	OutBuf="_ArgSafe0="+TSymName+"._BufSiz;"
+	GenCode
+ ENDIF 
+ NexToken()
+ IF TokenLen=0 THEN
+ 	OutBuf="_d0=0;"
+ 	GenCode
+ ELSE
+ 	IF TokenBuf<>"," THEN
+ 		ErrNo=ErrSyntax
+ 		GOTO MainLoop
+ 	ENDIF
+ 	GetIntOp()' get data
+ 	ErrMain
+ ENDIF
+ OutBuf="while (_ArgSafe0){"
+ GenCode
+ OutBuf="*_Poker=_d0;"
+ GenCode
+ OutBuf="_Poker++;"
+ GenCode
+ OutBuf="_ArgSafe0--;}"
+ GenCode
+ GOTO MainLoop
+
+S85:
+' SETBUFADR
+ TokenSym()
+ ErrMain
+ BufName=SymTemp.SymName
+ IF SymFound=0 THEN
+	OutBuf=""
+	GenVar
+	Comment="Memory Buffer"
+	BldComment()
+	GenVar
+	ClrSym()
+	SymTemp.DataMod=0
+	SymTemp.DataType=BUFFER
+	SymTemp.DataSize=8
+	SymInsert()
+	ErrMain
+	OutBuf="_buffer "+BufName+";"
+	GenVar
+ ENDIF
+ IF SymTemp.DataType<>BUFFER THEN' Not a buffer
+	ErrNo=ErrTypMis
+	GOTO MainLoop
+ ENDIF
+ EqualMain
+ GetIntOp()
+ ErrMain
+ OutBuf="(long)"+BufName+"._BufPtr=_d0;"
+ GenCode
+ GOTO MainLoop
+
+ProcFcn:
+ FcnFlag=$ff
+ FcnSym=LastSym
+ FcnBlkNdx=1
+ ParmFlag=$ff
+' NexToken()
+' IF TokenBuf<>"(" THEN
+'	ErrNo=ErrSyntax
+'	GOTO MainLoop
+' ENDIF
+' NexToken()
+' IF TokenBuf=")" THEN'  (done)
+'	FcnHeader=FcnHeader+LEFT$(SrcLine,SrcNdx-1)
+'	GOTO MainLoop
+' ENDIF
+' ErrNo=ErrSyntax
+ FcnHeader=FcnHeader+TokenSaf+"("
+ GOTO MainLoop
+  
+KeyTable: DATA "data"
+ DATA "restore"
+ DATA "poke"
+ DATA "return"
+ DATA "seek"
+ DATA "type"
+ DATA "dim"
+ DATA "let"
+ DATA "for"
+ DATA "if"
+ DATA "goto"
+ DATA "gosub"
+ DATA "on"
+ DATA "print"
+ DATA "input"
+ DATA "read"
+ DATA "write"
+ DATA "get"
+ DATA "put"
+ DATA "end"
+ DATA "create"
+ DATA "open"
+ DATA "close"
+ DATA "while"
+ DATA "endwhile"
+ DATA "next"
+ DATA "rem"
+ DATA "else"
+ DATA "endif"
+ DATA "delete"
+ DATA "buffer"
+ DATA "loop"
+ DATA "endloop"
+ DATA "repeat"
+ DATA "until"
+ DATA "exitif"
+ DATA "shell"
+ DATA "fprint"
+ DATA "finput"
+ DATA "base"
+ DATA "inc"
+ DATA "dec"
+ DATA "bufread"
+ DATA "bufwrite"
+ DATA "decimals"
+ DATA "exchange"
+ DATA "Vacant"
+ DATA "endexit"
+ DATA "Vacant"
+ DATA "param"
+ DATA "setvec"
+ DATA "digits"
+ DATA "macro"
+ DATA "endmacro"
+ DATA "function"
+ DATA "subroutine"
+ DATA "include"
+ DATA "freeze"
+ DATA "library"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "randomize"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "Vacant"
+ DATA "exit"
+ DATA "wend"
+ DATA "continue"
+ DATA "select"
+ DATA "endselect"
+ DATA "case"
+ DATA "endcase"
+ DATA "const"
+ DATA "swap"
+ DATA "program"
+ DATA "hexout"
+ DATA "makelower"
+ DATA "makeupper"
+ DATA "fill"
+ DATA "init"
+ DATA "setbufadr"
+ DATA "%"
+ 
+ErrorTbl: DATA "Undefined symbol"'  ErrUDSym
+ DATA "Invalid symbol name"'  ErrIVSNam
+ DATA "Type mismatch or wrong type"'  ErrTypMis
+ DATA "Invalid Expression"'  ErrIVExp
+ DATA "Syntax Error"'  ErrSyntax
+ DATA "Symbol already defined"'  ErrDupSym
+ DATA "Symbol table full"'  ErrSymFul
+ DATA "Undefined Function"'  ErrUDFcn
+ DATA "Invalid data type"'  ErrIVType
+ DATA "Invalid data type modifier"'  ErrIVMod
+ DATA "Macro argument error"'  ErrMacArg
+ DATA "Invalid directive"'  ErrIVDir
+ DATA "Macro already defined"'  ErrDupMac
+ DATA "ENDSTRUCT without STRUCT"'  ErrEndStr
+ DATA "Nested macro"'  ErrMacNst
+ DATA "Macro buffer full"'  ErrMacBuf
+ DATA "Invalid macro"'  ErrIVMac
+ DATA "ENDM without MACRO"'  ErrEndm
+ DATA "Unbalanced control structure"'  ErrUBCon
+ DATA "Nested too deep"'  ErrNDeep
+ DATA "Illegal Declaration inside Function or Subroutine"'  ErrDecFcn
+ DATA "Invalid parameter"'  ErrIVParm
+ DATA "Parameter Statement out of Place"'  ErrErrParm
+ DATA "Expression too complex"'  ErrCpxExp
+ DATA "Invalid function"'  ErrIVFunc
+ DATA "No more temps available"'  ErrTmpUse
+ DATA "Unbalanced parens"'  ErrParen
+ DATA "Function error"'  ErrFcn
+ DATA "Invalid target"'  ErrIVTarg
+ DATA "Function/Subroutine nested"'  ErrFSNest
+ DATA "Wrong Number of Parameters"'  ErrPrmCnt
+ DATA "ERROR Trap in subroutine or function"'  ErrERRTrp
+ DATA "Array subscript error"'  ErrArrSub
+
+RunVars: DATA 0,""
+ DATA 1,"long _d2;"
+ DATA 1,"long _PUArgs[15];"
+ DATA 1,"int _ArgCount;"
+ DATA 1,"long _ArgList;"
+ DATA 1,"long _ArgNum;"
+ DATA 1,"char _TestByte;"
+ DATA 1,"char _Prompt;"
+ DATA 1,"char _NewLine;"
+ DATA 1,"char _CRLF[2];"
+ DATA 1,"long STATUS;"
+ DATA 1,"jmp_buf _ebuf;"
+ DATA 1,"time_t _t;"
+ DATA 1,"struct tm *_systime;"
+ DATA 1,"long _ErrFlag;"
+ DATA 1,"unsigned char *_Poker;"
+ DATA 1,"void *_SrcAddr;"
+ DATA 1,"void *_DestAddr;"
+ DATA 1,"long _BlkCnt;"
+ DATA 1,"long _DummyArg;"
+ DATA 1,"long XferCount;"
+ DATA 1,"void *_XferAddr;"
+ DATA 1,"short _Digits;"
+ DATA 1,"short _Decimals;"
+ DATA 1,"long _ArgSafe0;"
+ DATA 1,"long _ArgSafe1;"
+ DATA 1,"float _FltArgSafe0;"
+ DATA 1,"float _FltArgSafe1;"
+ DATA 1,"long _SwitchInt;"
+ DATA 1,"_vector _SwitchStr;"
+ DATA 1,"double _DblArgSafe0;"
+ DATA 1,"double _DblArgSafe1;"
+ DATA 1,"unsigned char _IOPthNum;"
+ DATA 1,"FILE *_FilePtr;"
+ DATA 1,"unsigned char _PrtPthNum;"
+ DATA 1,"short _SafeZone;"
+ DATA 1,"long _IOBufPtr;"
+ DATA 1,"_vector _IOBufVec;"
+ DATA 1,"long POS;"
+ DATA 1,"int MX;"
+ DATA 1,"int MY;"
+ DATA 1,"int KM;"
+ DATA 1,"_vector _PBufVec;"
+ DATA 1,"unsigned char *_DataPtr;"
+ DATA 1,"unsigned char *_DataPtrSaf;"
+ DATA 1,"unsigned char _True;"
+ DATA 1,"char _ConvBuf[22];"
+ DATA 1,"char _ConvBuf1[22];"
+ DATA 1,"char ProgramName[40];"
+ DATA 1,"_vector _CBufVec;"
+ DATA 1,"_vector _CBuf1Vec;"
+ DATA 1,"char _NullStr[2];"
+ DATA 0,""
+ DATA 0,"%"
+ 
+PreDefTbl: DATA "{",OPER,0,0,0,0
+ DATA "}",OPER,0,0,0,0
+ DATA "[",OPER,0,0,0,0
+ DATA "]",OPER,0,0,0,0
+ DATA "(",OPER,0,0,0,0
+ DATA ")",OPER,0,0,0,0
+ DATA "=",OPER,0,0,0,0
+ DATA "<",OPER,0,0,0,0
+ DATA ">",OPER,0,0,0,0
+ DATA "<=",OPER,0,0,0,0
+ DATA ">=",OPER,0,0,0,0
+ DATA "<>",OPER,0,0,0,0
+ DATA ".",OPER,0,0,0,0
+ DATA ",",OPER,0,0,0,0
+ DATA "+",OPER,0,0,0,0
+ DATA "-",OPER,0,0,0,0
+ DATA "*",OPER,0,0,0,0
+ DATA "/",OPER,0,0,0,0
+ DATA "~",OPER,4,0,0,0
+ DATA "_NullStr",STRING,$00,0,0,0
+ DATA "0x0",LONG,ConstBit,0,0,4
+ DATA "<",OPER,0,0,0,0
+ DATA ">",OPER,0,0,0,0
+ DATA "(",OPER,0,0,0,0
+ DATA ")",OPER,0,0,0,0
+ DATA "*",OPER,0,0,0,0
+ DATA "",OPER,0,0,0,0
+ DATA "true",BOOLEAN,4,1,0,0
+ DATA "false",BOOLEAN,4,0,0,0
+ DATA "eof",FCN,0,0,0,0
+ DATA "len",FCN,0,1,0,0
+ DATA "str_Str",FCN,0,2,0,0
+ DATA "val",FCN,0,3,0,0
+ DATA "land",FCN,0,4,0,0
+ DATA "mid_Str",FCN,0,5,0,0
+ DATA "lor",FCN,0,6,0,0
+ DATA "left_Str",FCN,0,7,0,0
+ DATA "mod",FCN,0,8,0,0
+ DATA "chr_Str",FCN,0,9,0,0
+ DATA "right_Str",FCN,0,10,0,0
+ DATA "asc",FCN,0,11,0,0
+ DATA "not",FCN,0,12,0,0
+ DATA "bufadr",FCN,0,13,0,0
+ DATA "bufsiz",FCN,0,14,0,0
+ DATA "tab",FCN,0,15,0,0
+ DATA "peek",FCN,0,16,0,0
+ DATA "addr",FCN,0,17,0,0
+ DATA "lxor",FCN,0,18,0,0
+ DATA "lnot",FCN,0,19,0,0
+ DATA "index",FCN,0,20,0,0
+ DATA "size",FCN,0,21,0,0
+ DATA "ival",FCN,0,22,0,0
+ DATA "fval",FCN,0,23,0,0
+ DATA "trim_Str",FCN,0,24,0,0
+ DATA "filsiz",FCN,0,25,0,0
+ DATA "filpos",FCN,0,26,0,0
+ DATA "sqr",FCN,0,27,0,0
+ DATA "int",FCN,0,28,0,0
+ DATA "abs",FCN,0,29,0,0
+ DATA "sin",FCN,0,30,0,0
+ DATA "cos",FCN,0,31,0,0
+ DATA "tan",FCN,0,32,0,0
+ DATA "asn",FCN,0,33,0,0
+ DATA "acs",FCN,0,34,0,0
+ DATA "atn",FCN,0,35,0,0
+ DATA "log",FCN,0,36,0,0
+ DATA "log10",FCN,0,37,0,0
+ DATA "getmenu",FCN,0,38,0,0
+ DATA "getfile",FCN,0,39,0,0
+ DATA "thour",FCN,0,40,0,0
+ DATA "tmin",FCN,0,41,0,0
+ DATA "tsec",FCN,0,42,0,0
+ DATA "tyear",FCN,0,43,0,0
+ DATA "tmon",FCN,0,44,0,0
+ DATA "tdat",FCN,0,45,0,0
+ DATA "tday",FCN,0,46,0,0
+ DATA "mbutton",FCN,0,47,0,0
+ DATA "hex_Str",FCN,0,48,0,0
+ DATA "bittst",FCN,0,49,0,0
+ DATA "shl",FCN,0,50,0,0
+ DATA "shr",FCN,0,51,0,0
+ DATA "rol",FCN,0,52,0,0
+ DATA "ror",FCN,0,53,0,0
+ DATA "bitchg",FCN,0,54,0,0
+ DATA "bitclr",FCN,0,55,0,0
+ DATA "bitset",FCN,0,56,0,0
+ DATA "substr",FCN,0,57,0,0
+ DATA "zstr_Str",FCN,0,58,0,0
+ DATA "zhex_Str",FCN,0,59,0,0
+ DATA "using",FCN,0,60,0,0
+ DATA "ERR",LONG,0,0,0,4
+ DATA "_BufSize",0,0,0,0,0
+ DATA "POS",LONG,0,0,0,4
+ DATA "_DummyArg",LONG,0,0,0,4
+ DATA "errno",LONG,0,0,0,4
+ DATA "_IOBuffer",LONG,0,0,0,4
+ DATA "_PrintBuf",LONG,0,0,0,4
+ DATA "Vacant$$$",LONG,0,0,0,4
+ DATA "_Digits",SHORT,0,0,0,2
+ DATA "_Decimals",SHORT,0,0,0,2
+ DATA "STATUS",LONG,0,0,0,4
+ DATA "_ArgSafe0",LONG,0,0,0,4
+ DATA "_ArgSafe1",LONG,0,0,0,4
+ DATA "_IOPthNum",SHORT,0,0,0,2
+ DATA "_FilePtr",LONG,0,0,0,4
+ DATA "_SafeZone",SHORT,0,0,0,2
+ DATA "_IOBufPtr",LONG,0,0,0,4
+ DATA "_IOBufVec",STRING,VectorBit,_BufSize,0,4
+ DATA "_PBufVec",LONG,0,0,0,4
+ DATA "_DataPtr",LONG,0,0,0,4
+ DATA "_True",BYTE,0,0,0,1
+ DATA "_DataPtrSaf",LONG,0,0,0,4
+ DATA "_ConvBuf",STRING,0,22,0,22
+ DATA "_CBufVec",LONG,0,0,0,4
+ DATA "_ConvBuf1",STRING,0,22,0,22
+ DATA "_CBuf1Vec",LONG,0,0,0,4
+ DATA "_Tmp1",LONG,TempBit,0,0,4
+ DATA "_Tmp2",LONG,TempBit,0,0,4
+ DATA "_Tmp3",LONG,TempBit,0,0,4
+ DATA "_Tmp4",LONG,TempBit,0,0,4
+ DATA "_Tmp5",LONG,TempBit,0,0,4
+ DATA "_Tmp6",LONG,TempBit,0,0,4
+ DATA "_Tmp7",LONG,TempBit,0,0,4
+ DATA "_Tmp8",LONG,TempBit,0,0,4
+ DATA "_Tmp9",LONG,TempBit,0,0,4
+ DATA "_Tmp10",LONG,TempBit,0,0,4
+ DATA "_Tmp11",LONG,TempBit,0,0,4
+ DATA "_Tmp12",LONG,TempBit,0,0,4
+ DATA "_Tmp13",LONG,TempBit,0,0,4
+ DATA "_Tmp14",LONG,TempBit,0,0,4
+ DATA "_Tmp15",LONG,TempBit,0,0,4
+ DATA "_TmpVec1",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec2",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec3",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec4",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec5",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec6",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec7",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec8",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec9",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec10",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec11",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec12",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec13",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec14",VOIDX,TmpVec,0,0,12
+ DATA "_TmpVec15",VOIDX,TmpVec,0,0,12
+ DATA "&",9,0,0,0,0
+ DATA "|",9,0,0,0,0
+ DATA "0",FLOAT,ConstBit,0,0,8
+ DATA "NextArg",6,TmpVec,0,0,0
+ DATA "XferCount",4,0,0,0,0
+ DATA "_FTmp1",FLOAT,0,0,0,8
+ DATA "_FTmp2",FLOAT,0,0,0,8
+ DATA "_FTmp3",FLOAT,0,0,0,8
+ DATA "_FTmp4",FLOAT,0,0,0,8
+ DATA "_FTmp5",FLOAT,0,0,0,8
+ DATA "_FTmp6",FLOAT,0,0,0,8
+ DATA "_FTmp7",FLOAT,0,0,0,8
+ DATA "_FTmp8",FLOAT,0,0,0,8
+ DATA "_FTmp9",FLOAT,0,0,0,8
+ DATA "_FTmp10",FLOAT,0,0,0,8
+ DATA "_FTmp11",FLOAT,0,0,0,8
+ DATA "_FTmp12",FLOAT,0,0,0,8
+ DATA "_FTmp13",FLOAT,0,0,0,8
+ DATA "_FTmp14",FLOAT,0,0,0,8
+ DATA "_FTmp15",FLOAT,0,0,0,8
+ DATA "TRUE",BOOLEAN,4,1,0,0
+ DATA "True",BOOLEAN,4,1,0,0
+ DATA "FALSE",BOOLEAN,4,0,0,0
+ DATA "False",BOOLEAN,4,0,0,0
+ DATA "Vacant",FCN,0,61,0,0
+ DATA "Vacant",FCN,0,62,0,0
+ DATA "Vacant",FCN,0,63,0,0
+ DATA "Vacantx",FCN,0,64,0,0
+ DATA "Vacant",FCN,0,65,0,0
+ DATA "Vacant",FCN,0,66,0,0
+ DATA "Vacant",FCN,0,67,0,0
+ DATA "Vacant",FCN,0,68,0,0
+ DATA "Vacant",FCN,0,69,0,0
+ DATA "Vacant",FCN,0,70,0,0
+ DATA "rnd",FCN,0,71,0,0
+ DATA "Vacant",FCN,0,72,0,0
+ DATA "Vacant",FCN,0,73,0,0
+ DATA "Vacant",FCN,0,74,0,0
+ DATA "Vacant",FCN,0,75,0,0
+ DATA "Vacant",FCN,0,76,0,0
+ DATA "lcase_Str",FCN,0,77,0,0
+ DATA "ucase_Str",FCN,0,78,0,0
+ DATA "tail_Str",FCN,0,79,0,0
+ DATA "findaddr",FCN,0,80,0,0
+ DATA "findoffs",FCN,0,81,0,0
+ DATA "MX",LONG,0,0,0,4
+ DATA "MY",LONG,0,0,0,4
+ DATA "KM",LONG,0,0,0,4
+ DATA "ProgramName",STRING,0,28,0,28
+ DATA "%"
+ 
+ 
+Finish:
+ IF InpFilPtr>1 THEN
+	CLOSE #InpFile(InpFilPtr)
+	DEC InpFilPtr
+	GOTO MainLoop
+ ENDIF
+ CLOSE #InpFile(InpFilPtr)
+ IF LastStmt="data" THEN
+	DataFlag=0
+	OutBuf="0};"
+	GenVar
+ ENDIF
+ IF ProgMode=$ff THEN
+	IF LastStmt<>"end" THEN
+ 		OutBuf="exit(0);"
+ 		GenMain
+	ENDIF
+	OutBuf="ErrExit:;"
+	GenMain
+	OutBuf="puts("+CHR$($22)+"Error Exit"+CHR$($22)+");"
+	GenMain	
+	OutBuf="exit(errno);"
+	GenMain
+ ENDIF
+ OutBuf="}"
+ GenMain
+ CLOSE #CodeFile
+ CLOSE #FcnFile
+ CLOSE #VarFile
+ ON ERROR GOTO NoCFile
+ DELETE FileName+".c"
+NoCFile:
+ ON ERROR
+'******
+ PRINT BasicLineCtr;" OmniBasic lines compiled to ";CLineCtr;" C lines"
+ PRINT
+ TFileName=FileName+".c"
+ CREATE #OutFile,TFileName:WRITE+BINARY
+ OPEN #VarFile,"_VarFile":READ+BINARY
+ FilBufSiz=FILSIZ(#VarFile)
+ BUFFER FileBuf=FilBufSiz
+ FilBufAdr=BUFADR(FileBuf)
+ BUFREAD #VarFile,FilBufAdr,FilBufSiz
+ BUFWRITE #OutFile,FilBufAdr,FilBufSiz
+ BUFFER FileBuf=0
+ CLOSE #VarFile
+ DELETE "_VarFile"
+ IF ObjectMode=0 THEN
+	 OPEN #CodeFile,"_CodFile":READ+BINARY
+	 FilBufSiz=FILSIZ(#CodeFile)
+	 BUFFER FileBuf=FilBufSiz
+	 FilBufAdr=BUFADR(FileBuf)
+	 BUFREAD #CodeFile,FilBufAdr,FilBufSiz
+	 BUFWRITE #OutFile,FilBufAdr,FilBufSiz
+	 BUFFER FileBuf=0
+	 CLOSE #CodeFile
+	 DELETE "_CodFile"
+ ENDIF
+ OPEN #FcnFile,"_FcnFile":READ+BINARY
+ FilBufSiz=FILSIZ(#FcnFile)
+ BUFFER FileBuf=FilBufSiz
+ FilBufAdr=BUFADR(FileBuf)
+ BUFREAD #FcnFile,FilBufAdr,FilBufSiz
+ BUFWRITE #OutFile,FilBufAdr,FilBufSiz
+ BUFFER FileBuf=0
+ CLOSE #FcnFile
+ DELETE "_FcnFile"
+ CLOSE #OutFile
+'******
+ FOR Ctr1=1 TO SymTabSiz
+	IF SymTable(Ctr1).DataType=LABEL THEN
+		IF SymTable(Ctr1).Detail&$ff=$ff THEN'  lop off sbrtn bit
+			INC ErrCnt
+			PRINT "Label ";SymTable(Ctr1).SymName;" unresolved"
+		ENDIF
+	ENDIF
+ NEXT Ctr1
+lbl9999: IF CSP<>0 THEN
+	PRINT "Unbalanced control structure in line ";CS(CSP).ConLine
+	DEC CSP
+	INC ErrCnt
+	GOTO lbl9999
+ ENDIF
+ IF GFNdx<>1 THEN
+	PRINT "Unbalanced conditional stack"
+	INC ErrCnt
+ ENDIF
+ IF ErrCnt<>0 THEN
+	PRINT ErrCnt;" error(s)"
+ ELSE
+	REM Do c compile here
+	IF NoGen=0 AND ErrCnt=0 AND COut=0 THEN
+		IF VerbFlag<>0 THEN
+			VerbCmd=" -v"
+		ENDIF
+		CompileCmd="gcc "
+		StdLib=" basic.a"
+		IF AsmbFlag=0 THEN
+			AsmbCmd=""
+		ELSE
+			AsmbCmd=" -S "
+		END IF
+		IF ObjectMode=0 THEN
+			ObjectCmd=""
+		ELSE
+			ObjectCmd=" -c "
+		END IF
+		IF AsmbFlag+COut+ObjectMode=0 THEN
+			LinkerOut=" -o "+FileName
+			LinkerOut=LinkerOut+".exe"
+		ENDIF
+		IF ObjectMode=$ff OR AsmbFlag=$ff THEN
+			StdLib=""
+		ENDIF
+		OptionCmd=AsmbCmd+ObjectCmd
+		IF DbgFlag=0 THEN' NOT -g option
+			LinkerOpt=LinkerOpt+" -s"
+		ENDIF
+		TempStr=CompileCmd+FileName+".c "+OptionCmd+LibList+StdLib+LinkerOut+LinkerOpt+VerbCmd
+		IF VerbFlag<>0 THEN
+			PRINT TempStr
+		ENDIF
+		SHELL TempStr
+	ENDIF
+ ENDIF
+ IF COut=0 OR NoGen=$ff THEN
+	DELETE FileName+".c"
+ ENDIF
+ IF UDump=$ff THEN
+	Fmt=">>>> ^^^^^^^^^^^^^^^^^^^^^^^ >> >> >>>> >>>>>>>> >>>>>>>> >>>>>>>> >>>>"
+	PRINT
+	PRINT "Symbol Table:"
+	PRINT
+	PRINT USING(Fmt,"Sym#","Symbol Name","DT","WM","DM","Detail","DataAddr","DataSize","Link")
+	PRINT
+	FOR Ctr3=1 TO SymTabSiz
+		TempStr="......................."
+		TSymName=SymTable(Ctr3).SymName
+		IF TSymName<>"%" THEN
+			LEFT$(TempStr,LEN(TSymName))=TSymName
+			TDataType=SymTable(Ctr3).DataType
+			TWinMod=SymTable(Ctr3).WinMod
+			TDataMod=SymTable(Ctr3).DataMod
+			TDetail=SymTable(Ctr3).Detail
+			TDataAddr=SymTable(Ctr3).DataAddr
+			TDataSize=SymTable(Ctr3).DataSize
+			TMultiPtr=SymTable(Ctr3).MultiPtr
+			PRINT USING(Fmt,ZSTR$(Ctr3),TempStr,ZHEX$(TDataType),ZHEX$(TWinMod),ZHEX$(TDataMod),ZHEX$(TDetail),ZHEX$(TDataAddr),ZHEX$(TDataSize),ZHEX$(TMultiPtr))
+		ENDIF
+	NEXT Ctr3
+ ENDIF
+ IF DumpSyms=$ff THEN
+	PRINT "Symbol Table:"
+	FOR Ctr1=UserSym TO SymTabSiz
+		TempStr=SymTable(Ctr1).SymName
+	EXITIF TempStr="%"
+		IF POS<63 THEN
+			PRINT TempStr,
+		ELSE
+			PRINT TempStr
+		ENDIF
+	NEXT Ctr1
+	PRINT
+	PRINT Ctr1-UserSym;" symbols"
+	PRINT
+ ENDIF
+ IF PromptFlag<>0 THEN
+        INPUT "Hit any key to continue>",TempStr
+ ENDIF
+ END
+NoInpFile:
+ PRINT "Cannot open file: ";FileName
+ END
+Help:
+ PRINT "ob file [opts] {CompVar=Const}"
+ PRINT "Options:"
+ PRINT "    -a        Compile to assembler (.a or .s file)"
+ PRINT "    -c        Compile to C code (.c file)"
+ PRINT "    -d        Compile to DLL"
+ PRINT "    -e        Compile with no output but check for errors"
+ PRINT "    -h        Halt Compile on first error encountered"
+ PRINT "    -o        Compile to Object file"
+ PRINT "    -g        Generate symbol module for debugger"
+ PRINT "    -p        Prompt for 'hit any key' to continue"
+ PRINT "    -s        Symbol Table Dump to stdout"
+ PRINT "    -u        Unabridged symbol table dump"
+ PRINT "    -v        Verbose (detailed reporting of progress)"
+ 
+ END
+
+'***** Subroutine Section ******
+
+ 
+DimVar
+ TDataMod=LAND(MemberBit,TypeFlag)
+ ClrDatTyp()
+ ExtVarFlg=0
+ VectorFlg=0
+ MultiFlag=0
+ DimOK=0
+ DimFlag=$ff
+ TDataType=COMPVAR
+ TDataSize=1
+ ArraySize=1
+ ClrSym()
+ TokenSym()
+ ErrRet
+ IF SymFound=$ff THEN
+	ErrNo=ErrDupSym
+	RETURN
+ ENDIF
+ IF SubCtr<>0 THEN
+	DMArray=$ff
+	ArraySize=SubValue(1)*SubValue(2)*SubValue(3)
+	IF SubCtr>1 THEN
+		MultiFlag=$ff
+		TDataMod=LOR(TDataMod,MultiBit)
+	ENDIF
+ ENDIF
+ NexToken()
+ IF TokenBuf<>":" AND TokenBuf<>"as" THEN
+	ErrNo=ErrSyntax
+	RETURN
+ ENDIF
+ NexToken()
+ IF TokenLen=0 THEN
+	ErrNo=ErrSyntax
+	RETURN
+ ENDIF
+ IF TokenBuf="boolean" THEN
+	DTBoolean=$ff
+	TDataType=BOOLEAN
+	SymType="unsigned char "
+	TDataSize=1
+	GOTO DimVar1
+ ENDIF
+ IF TokenBuf="byte" THEN
+	DTByte=$ff
+	TDataType=BYTE
+	SymType="unsigned char "
+	TDataSize=1
+	GOTO DimVar1
+ ENDIF
+ IF TokenBuf="integer" THEN
+	DTShort=$ff
+	TDataType=SHORT
+	SymType="unsigned short "
+	TDataSize=2
+	GOTO DimVar1
+ ENDIF
+ IF TokenBuf="long" THEN
+	DTLong=$ff
+	TDataType=LONG
+	IF TokenBuf="file" THEN
+ 		TDataMod=LOR(TDataMod,FileBit)
+ 	ENDIF
+	SymType="long "
+	TDataSize=4
+	GOTO DimVar1
+ ENDIF 
+ IF TokenBuf="double" THEN
+	DTFloat=$ff
+	TDataType=FLOAT
+	SymType="double "
+	TDataSize=8
+	GOTO DimVar1
+ ENDIF
+ IF MID$(TokenBuf,1,6)="string" THEN
+	DTString=$ff
+	TDataType=STRING
+	SymType="unsigned char "
+	IF NextByte<>"*" THEN
+		ErrNo=ErrSyntax
+		RETURN
+	ENDIF
+	NexToken()' Eat '*'
+	NexToken()
+	TempStr=TokenSaf
+	StrSiz()
+	ErrRet
+	SymTemp.Detail=TempInt
+	TDataSize=TempInt
+	GOTO DimVar1
+ ENDIF
+ IF TypeFlag=$ff THEN
+	ErrNo=ErrIVParm
+	RETURN
+ ENDIF
+ TSymName=SymTemp.SymName
+ TypePtr=SymNdx
+ SubCtrSaf=SubCtr
+ SubValSaf=SubValue
+ TokenSym1()
+ ErrRet
+ IF SymFound=0 OR SymTable(SymNdx).DataType<>STRUCT THEN
+	ErrNo=ErrIVType
+	RETURN
+ ENDIF
+ TDataSize=SymTable(SymNdx).DataSize
+ SymType="short "'  will divide array size by 2 later
+ SymTemp.Detail=SymNdx
+ SymNdx=TypePtr
+ SymTemp.SymName=TSymName
+ SubCtr=SubCtrSaf
+ SubValue=SubValSaf
+ TDataType=COMPLEX
+ DTComplex=$ff
+DimVar1:
+ NexToken()
+ IF TokenLen=0 OR TokenBuf=";" THEN DimVar2
+ IF TokenBuf="external" THEN
+	IF TypeFlag=$ff THEN
+		ErrNo=ErrIVParm
+		RETURN
+	ENDIF
+	ExtVarFlg=$ff
+	GOTO DimVar1
+ ENDIF
+ IF TokenBuf="address" OR TokenBuf="pointer" THEN
+	IF TypeFlag=$ff OR DMArray=$ff THEN
+		ErrNo=ErrIVParm
+		RETURN
+	ENDIF
+	DMAddr=$ff
+	SymType="long "
+	DTString=0
+	DTComplex=0
+	TDataSize=4
+	TDataMod=LOR(AddrBit,TDataMod)
+	GOTO DimVar1
+ ENDIF
+ IF TokenBuf="vector" THEN
+	NexToken()
+	IF TokenLen<>0 THEN
+		IF TokenBuf="global" THEN
+			GblVarFlg=$ff
+		ELSE
+			ErrNo=ErrIVParm
+			RETURN
+		ENDIF
+	ENDIF
+	IF TypeFlag=$ff OR DMAddr=$ff OR  ParmFlag=$ff THEN
+		ErrNo=ErrIVParm
+		RETURN
+	ENDIF
+	VectorFlg=$ff
+	TDataMod=LOR(TDataMod,VectorBit)
+	GOTO DimVar2
+ ENDIF
+ IF TokenBuf="global" THEN
+	IF TypeFlag=$ff THEN
+		ErrNo=ErrIVParm
+		RETURN
+	ENDIF
+	GblVarFlg=$ff
+	GOTO DimVar1
+ ENDIF
+ ErrNo=ErrIVMod
+ RET
+
+DimVar2:
+ SymTemp.DataType=TDataType
+ IF DMArray=$ff THEN
+	TDataMod=LOR(ArrayBit,TDataMod)
+ ENDIF
+ DimOK=$ff
+ SymTemp.DataMod=TDataMod
+ SymTemp.DataSize=ArraySize*TDataSize
+ IF TDataType=STRING OR TDataType=COMPLEX THEN
+	ArraySize=SymTemp.DataSize
+ ENDIF
+ RETURN
+
+DecVar
+ TempStr=""
+ IF ExtVarFlg=0 THEN
+	IF GblVarFlg=0 AND ParmFlag=0 AND FcnVarFlg=0 THEN
+		TempStr="static "
+	ENDIF
+ ELSE
+	TempStr="extern "
+ ENDIF
+ IF VectorFlg=$ff THEN
+	GenVar
+	OutBuf=TempStr+"_vector "+SymTemp.SymName+";"
+	GenVar
+	RETURN
+ ENDIF
+
+ IF TDataType=COMPLEX THEN
+	ArraySize=ArraySize/2'  byte-short correction
+ ENDIF
+
+ TempStr=TempStr+SymType
+ TempStr=TempStr+SymTemp.SymName
+ IF DMArray=$ff OR TDataType=STRING OR TDataType=COMPLEX THEN
+	IF DMAddr=0 THEN
+		TempStr=TempStr+"["+STR$(ArraySize)+"]"
+	ENDIF
+ ENDIF
+ TempStr=TempStr+";"
+ IF ParmFlag=0 THEN
+	IF FcnVarFlg=0 THEN
+		GenVar
+		OutBuf=TempStr
+		GenVar
+	ELSE
+		GenFcn
+		OutBuf=TempStr
+		GenFcn
+	ENDIF
+ ELSE
+	INC FcnBlkNdx
+	FcnBlk(FcnBlkNdx)=TempStr+" "+OutBuf
+ ENDIF
+ RETURN
+
+VarBlank
+ OutBuf=""
+ GenVar
+ RETURN
+
+ClrSymTab
+ SymTable(SymNdx).SymName="%"
+ SymTable(SymNdx).DataType=COMPVAR
+ SymTable(SymNdx).DataMod=0
+ SymTable(SymNdx).Detail=0
+ SymTable(SymNdx).DataAddr=0
+ SymTable(SymNdx).DataSize=0
+ SymTable(SymNdx).MultiPtr=0
+ RETURN
+
+OutLabel
+ IF LabelFlag=$ff THEN' Plain label
+	OutBuf=SymbolSaf+";"
+	GenCode
+ ENDIF
+ IF LabelFlag=$fe THEN' Subroutine
+	OutBuf=""
+	GenCode
+	OutBuf=SymbolSaf
+	GenCode
+	FcnRegs()
+ ENDIF
+ RETURN
+
+GetExp
+ FloatFlag=0
+ TypePtr=0
+ ExpEnd=0
+ ExpNdx=1
+ ParenCnt=0
+ FcnCtr=0
+ AECtr=0
+ ExpTable(ExpNdx)=1
+ LastEntry=SymTable(ExpTable(ExpNdx))
+GetExp1:
+ IF ExpEnd=$ff THEN ExpExit
+ IF NextByte="," AND FcnCtr=0 AND AECtr=0 THEN ExpExit
+GetExp2:
+ NexToken()
+ IF FcnCtr<>0 AND TokenBuf="#" THEN GetExp2
+ IF TokenLen=0 THEN ExpExit
+ IF TokenBuf="," THEN
+	AddRtGrp2()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ExpTable(ExpNdx)=2
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ExpTable(ExpNdx)=1
+	LastEntry=SymTable(ExpTable(ExpNdx))
+	GOTO GetExp1
+ ENDIF
+'***********************
+' Start of Pointer Stuff Here
+ IF TokenBuf="[" THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	NexToken()
+	IF TokenLen=0 THEN
+		ErrNo=ErrIVExp
+		GOTO ExpExit
+	ENDIF
+	SymTemp.SymName=TokenSaf
+	SymSrch()
+	IF SymFound=0 THEN
+		ErrNo=ErrUDSym
+		GOTO ExpExit
+	ENDIF
+	SymTemp=SymTable(SymNdx)
+	IF LAND(AddrBit,SymTemp.DataMod)<>AddrBit THEN
+		ErrNo=ErrTypMis
+		GOTO ExpExit
+	ENDIF
+	IF SymTemp.DataType=FLOAT THEN
+		INC FloatFlag
+	ENDIF
+	IF SymTemp.DataType=COMPLEX THEN
+		ExpTable(ExpNdx)=24'  cpx begin
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+	ENDIF
+	ExpTable(ExpNdx)=26'  "["
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ExpTable(ExpNdx)=SymNdx
+	LastEntry=SymTemp
+	NexToken()
+	IF TokenBuf<>"]" OR TokenLen=0 THEN
+		ErrNo=ErrSyntax
+		GOTO ExpExit
+	ENDIF
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ExpTable(ExpNdx)=27'  put "]" in table
+	IF SymTemp.DataType<>COMPLEX THEN GetExp1
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IF NextByte="." THEN
+		NexToken()'  eat "."
+		ExpTable(ExpNdx)=13'  "."
+		NexToken()
+		IF TokenLen=0 THEN
+			ErrNo=ErrSyntax
+			GOTO ExpExit
+		ENDIF
+		SymTemp.SymName=TokenSaf
+		SymSrch()
+		IF SymFound=0 THEN
+			ErrNo=ErrUDSym
+			GOTO ExpExit
+		ENDIF
+		SymTemp=SymTable(SymNdx)
+		IF LAND(MemberBit,SymTemp.DataMod)<>MemberBit THEN
+			ErrNo=ErrTypMis
+			GOTO ExpExit
+		ENDIF
+		IF SymTemp.DataType=FLOAT THEN
+			INC FloatFlag
+		ENDIF
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+		ExpTable(ExpNdx)=SymNdx
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+	ENDIF
+	ExpTable(ExpNdx)=25'  cpx end
+	GOTO GetExp1
+ ENDIF
+' End of Pointer Stuff Here
+'***********************
+ IF TokenType=TTypMath THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IF TokenBuf="+" THEN
+		Unary()
+		ExpTable(ExpNdx)=15
+	ENDIF
+	IF TokenBuf="-" THEN
+		Unary()
+		ExpTable(ExpNdx)=16
+	ENDIF
+	IF TokenBuf="*" THEN
+		ExpTable(ExpNdx)=17
+	ENDIF
+	IF TokenBuf="/" THEN
+		ExpTable(ExpNdx)=18
+	ENDIF
+	IF TokenBuf="&" THEN
+		ExpTable(ExpNdx)=146
+	ENDIF
+	IF TokenBuf="|" THEN
+		ExpTable(ExpNdx)=147
+	ENDIF
+	LastEntry=SymTable(ExpTable(ExpNdx))
+	GOTO GetExp1
+ ENDIF
+ IF TokenBuf="(" THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IF LAND(ArrayBit,LastEntry.DataMod)<>0 AND SymTemp.DataType<$10 THEN
+		ExpTable(ExpNdx)=3
+		INC ParenCnt
+		ParenStk(ParenCnt)=3
+		INC AECtr
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+		ExpTable(ExpNdx)=1
+		GOTO GetExp3
+	ENDIF
+	IF LastEntry.DataType=FCN THEN
+		ExpTable(ExpNdx)=5
+		INC ParenCnt
+		ParenStk(ParenCnt)=5
+		INC FcnCtr
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+		ExpTable(ExpNdx)=1
+		GOTO GetExp3
+	ENDIF
+	IF LastEntry.DataType<>9 AND ExpNdx<>1 THEN
+		ErrNo=ErrIVExp
+		GOTO ExpExit
+	ENDIF
+	LevelCnt=1
+	PreScan1()
+	AddLftGrp()
+	ExpTable(ExpNdx)=1
+	INC ParenCnt
+	ParenStk(ParenCnt)=1
+GetExp3:
+	LastEntry=SymTable(ExpTable(ExpNdx))
+	GOTO GetExp1
+ ENDIF
+ IF TokenBuf=")" THEN
+	AddRtGrp2()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IF ParenCnt=0 THEN
+		ErrNo=ErrParen
+		GOTO ExpExit
+	ENDIF
+	IF ParenStk(ParenCnt)=3 OR ParenStk(ParenCnt)=5 THEN
+		ExpTable(ExpNdx)=2
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+	ENDIF
+	ExpTable(ExpNdx)=ParenStk(ParenCnt)+1
+	IF ExpTable(ExpNdx)=4 THEN
+		DEC AECtr
+	ENDIF
+	IF ExpTable(ExpNdx)=6 THEN
+		DEC FcnCtr
+	ENDIF
+	DEC ParenCnt
+	LastEntry=SymTable(ExpTable(ExpNdx))
+	AddRtGrp1()
+	GOTO GetExp1
+ ENDIF
+ IF TokenBuf="." THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ExpTable(ExpNdx)=13
+	LastEntry=SymTable(ExpTable(ExpNdx))
+	GOTO GetExp1
+ ENDIF
+ IF TokenType=TTypSym THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	SymTemp.SymName=TokenBuf
+	SymSearch()
+	IF SymFound=$ff THEN
+		SymTemp=SymTable(SymNdx)
+		IF SymTemp.DataType=FCN THEN' Function found
+			IF MID$(SrcLine,SrcNdx+1,2)="()" THEN
+				ExpTable(ExpNdx)=SymNdx
+				IncExpNdx()
+				INC SrcNdx
+				IF ExpNdx>ExpTabSiz THEN ExpExit
+				ExpTable(ExpNdx)=5
+				IncExpNdx()
+				INC SrcNdx
+				IF ExpNdx>ExpTabSiz THEN ExpExit
+				ExpTable(ExpNdx)=6
+				NextByte=MID$(SrcLine,SrcNdx+1,1)
+				GOTO GetExp1
+			ENDIF
+			PreScan()
+			AddLftGrp()
+			IF ExpNdx>ExpTabSiz THEN ExpExit
+			LastEntry=SymTemp
+			ExpTable(ExpNdx)=SymNdx
+			GOTO GetExp1
+		ENDIF
+	ENDIF
+	SymTemp.SymName=TokenSaf
+	SymSrch()
+	IF ErrNo<>0 THEN ExpExit
+	IF SymFound=0 THEN
+		ErrNo=ErrUDSym
+		GOTO ExpExit
+	ENDIF
+	SymTemp=SymTable(SymNdx)
+	IF SymTemp.DataMod&AddrBit=0 AND SymTemp.DataType<$10 THEN'  special test for pointer
+		DataTemp=SymTemp.DataType
+		IF SymTemp.DataType=FLOAT THEN
+			INC FloatFlag
+		ENDIF
+	ELSE
+		DataTemp=LONG
+	ENDIF
+	IF DataTemp>=BOOLEAN AND DataTemp<=STRING OR DataTemp=COMPLEX OR DataTemp=BUFFER THEN
+		ExpTable(ExpNdx)=SymNdx
+		IF LAND(MemberBit,SymTemp.DataMod)<>0 AND LastEntry.SymName<>"." AND SymTemp.DataType<$10 THEN
+			ErrNo=ErrIVExp
+			GOTO ExpExit
+		ENDIF
+		IF TypePtr<>0 AND LastEntry.SymName="." THEN
+			IF SymNdx-TypePtr>SymTable(TypePtr).Detail OR TypePtr>SymNdx THEN
+				ErrNo=ErrUDSym
+				GOTO ExpExit
+			ELSE
+				TypePtr=0
+			ENDIF
+		ENDIF
+		IF DataTemp=COMPLEX THEN
+			TempStr=NextByte
+			PreScan()
+			AddLftGrp()
+			IF ExpNdx>ExpTabSiz THEN ExpExit
+			NextByte=TempStr
+			INC ParenCnt
+			ParenStk(ParenCnt)=24
+			ExpTable(ExpNdx)=24
+			IncExpNdx()
+			IF ExpNdx>ExpTabSiz THEN ExpExit
+			TypePtr=SymTemp.Detail
+		ENDIF
+		IF DataTemp<>COMPLEX AND LAND(ArrayBit,SymTemp.DataMod)=ArrayBit AND SymTemp.DataType<$10 THEN
+			TempStr=NextByte
+			PreScan()
+			AddLftGrp()
+			IF ExpNdx>ExpTabSiz THEN ExpExit
+			NextByte=TempStr
+		ENDIF
+		IF DataTemp<>COMPLEX THEN
+			AddLftGrp()
+		ENDIF
+		IF ExpNdx>ExpTabSiz THEN ExpExit
+		ExpTable(ExpNdx)=SymNdx
+		LastEntry=SymTemp
+		GOTO Exp4
+	ENDIF
+	IF DataTemp=COMPVAR OR DataTemp=MACRO THEN
+		Konstant=SymTable(SymNdx).Detail
+		SymTemp.SymName=Hex$(Konstant)
+		ProcKonst()
+		IF ErrNo<>0 THEN ExpExit
+		GOTO Exp4
+	ENDIF
+	GOTO ExpExit
+ ENDIF
+ IF TokenType=TTypFloat THEN
+	INC FloatFlag
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	AddLftGrp()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ValidFlt()
+	IF FloatOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO ExpExit
+	ENDIF
+	SymTemp.SymName=TokenBuf
+	SymSrch()
+	IF SymFound=0 THEN
+		ClrSym()
+		SymTemp.DataType=FLOAT
+		SymTemp.DataSize=8
+		SymTemp.DataMod=ConstBit
+		SymInsert()
+		ErrRet
+	ENDIF
+	SymTemp=SymTable(SymNdx)
+	LastEntry=SymTemp
+	ExpTable(ExpNdx)=SymNdx
+	AddRtGrp1()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	GOTO GetExp1
+ ENDIF
+ IF TokenType=TTypInt THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	AddLftGrp()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ValidInt()
+	IF IntOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO ExpExit
+	ENDIF
+	Konstant=VAL(TokenBuf)
+	SymTemp.SymName=Hex$(Konstant)
+	ProcKonst()
+	IF ErrNo<>0 THEN ExpExit
+	GOTO Exp4
+ ENDIF
+ IF TokenType=TTypHex THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	AddLftGrp()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	ValidHex()
+	IF HexOK=0 THEN
+		ErrNo=ErrIVExp
+		GOTO ExpExit
+	ENDIF
+	SymTemp.SymName=TokenBuf
+	ProcKonst()
+	IF ErrNo<>0 THEN ExpExit
+Exp4:
+	AddRtGrp1()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	GOTO GetExp1
+ ENDIF
+ IF TokenType=TTypQuote THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN ExpExit
+	IF LEN(TokenSaf)=2 THEN'  null string
+		LastEntry=SymTable(20)
+		ExpTable(ExpNdx)=20'  20 is table entry for null string
+		GOTO GetExp1
+	ENDIF
+	INC PoolCtr
+	TempStr="_StrConst"
+	TempStr=TempStr+STR$(PoolCtr)
+	SymTemp.SymName=TempStr
+	OutBuf="static char "+TempStr+"[]="
+	OutBuf=OutBuf+TokenSaf+";"
+	SymSrch()
+	SymTemp.DataType=STRING
+	SymTemp.DataMod=4
+	ClrSym()
+	SymTemp.Detail=LEN(TokenSaf)-1
+	SymTemp.DataSize=SymTemp.Detail
+	SymInsert()
+	IF ErrNo<>0 THEN
+		GOTO ExpExit
+	ENDIF
+	GenVar
+	LastEntry=SymTemp
+	ExpTable(ExpNdx)=SymNdx
+	GOTO GetExp1
+ ENDIF
+ ErrNo=ErrIVExp
+ RET
+ExpExit:
+ IF ExpLen=ExpTabSiz THEN
+	ErrNo=ErrCpxExp
+ ENDIF
+ IF ExpLen=1 THEN
+	ErrNo=ErrIVExp
+ ENDIF
+ IF ErrNo=0 THEN
+	IF ParenCnt<>0 THEN
+		IF ParenStk(ParenCnt)=24 THEN
+			IncExpNdx()
+			IF ExpNdx>ExpTabSiz THEN ExpExit
+			ExpTable(ExpNdx)=25
+			DEC ParenCnt
+		ENDIF
+	ENDIF
+	IF ParenCnt<>0 THEN
+		IF ParenStk(ParenCnt)=22 THEN
+			IncExpNdx()
+			IF ExpNdx>ExpTabSiz THEN ExpExit
+			ExpTable(ExpNdx)=23
+			ParenCnt=0
+		ENDIF
+	ENDIF
+	IF ParenCnt<>0 THEN
+		ErrNo=ErrParen
+	ELSE
+		IncExpNdx()
+		ExpTable(ExpNdx)=2
+	ENDIF
+ ENDIF
+ RETURN
+
+PreScan
+ LevelCnt=0
+ PreScan1()
+ RETURN
+
+PreScan1
+ SrcNdxSaf=SrcNdx
+ ExpEndSaf=ExpEnd
+PreScan2
+ NexToken()
+ IF TokenLen=0 THEN
+	NextByte="%"
+	SrcNdx=SrcNdxSaf
+	ExpEnd=ExpEndSaf
+	RETURN
+ ENDIF
+ IF TokenType=TTypMath AND LevelCnt=0 THEN
+	NextByte=TokenBuf
+	SrcNdx=SrcNdxSaf
+	ExpEnd=ExpEndSaf
+	RETURN
+ ENDIF
+ IF TokenBuf="(" THEN
+	INC LevelCnt
+ ENDIF
+ IF TokenBuf=")" THEN
+	DEC LevelCnt
+ ENDIF
+ GOTO PreScan2
+ RETURN'  sbrtn delimiter only
+
+Unary
+ LstExp=ExpTable(ExpNdx-1)
+ IF LstExp=1 OR LstExp=3 OR LstExp=5 OR LstExp=22 OR LstExp=24 THEN
+	ExpTable(ExpNdx)=21' *********
+	IncExpNdx()
+ ENDIF
+ RETURN
+
+AddLftGrp
+ IF NextByte="*" OR NextByte="/" OR NextByte="&" THEN
+	IF LAND(MemberBit,SymTemp.DataMod)<>MemberBit THEN
+		IF ParenCnt<>0 THEN
+			IF ParenStk(ParenCnt)=22 THEN
+				RETURN
+			ENDIF
+		ENDIF
+		INC ParenCnt
+		ParenStk(ParenCnt)=22
+		ExpTable(ExpNdx)=22
+		IncExpNdx()
+	ENDIF
+ ENDIF
+ RETURN
+
+AddRtGrp1
+ IF ParenCnt=0 THEN
+	RETURN
+ ENDIF
+ IF NextByte="+" OR NextByte="-" OR NextByte="*" OR NextByte="/"  OR NextByte="&" OR NextByte="|" THEN
+	IF ParenStk(ParenCnt)=24 THEN
+		IncExpNdx()
+		IF ExpNdx>ExpTabSiz THEN
+			RETURN
+		ENDIF
+		DEC ParenCnt
+		ExpTable(ExpNdx)=25
+	ENDIF
+	IF ParenCnt=0 THEN
+		RETURN
+	ENDIF
+	IF NextByte="+" OR NextByte="-"  OR NextByte="|" THEN
+		IF ParenStk(ParenCnt)=22 THEN
+			IncExpNdx()
+			DEC ParenCnt
+			ExpTable(ExpNdx)=23
+			LastEntry=SymTable(ExpTable(ExpNdx))
+			RETURN
+		ELSE
+			RETURN
+		ENDIF
+	ENDIF
+ ENDIF
+ RETURN
+
+AddRtGrp2
+ IF ParenStk(ParenCnt)=24 THEN
+	IncExpNdx()
+	IF ExpNdx>ExpTabSiz THEN
+		RETURN
+	ENDIF
+	DEC ParenCnt
+	ExpTable(ExpNdx)=25
+ ENDIF
+ IF ParenStk(ParenCnt)=22 THEN
+	IncExpNdx()
+	DEC ParenCnt
+	ExpTable(ExpNdx)=23
+ ENDIF
+ RETURN
+
+IncExpNdx
+ INC ExpNdx
+ ExpLen=ExpNdx
+ RETURN
+
+ProcKonst
+ SymSrch()
+ IF SymFound=0 THEN
+	ClrSym()
+	SymTemp.DataType=LONG
+	SymTemp.DataSize=4
+	SymTemp.DataMod=4
+	SymInsert()
+	ErrRet
+ ENDIF
+ SymTemp=SymTable(SymNdx)
+ LastEntry=SymTemp
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+ProcExp
+ IF ExpFlag=$ff THEN
+	FOR Ctr1=1 to ExpLen
+		PRINT SymTable(ExpTable(Ctr1)).SymName;
+	NEXT Ctr1
+	PRINT
+ ENDIF
+ LOOP
+	LastGroup=$00
+	TempInt=ExpNdx
+	ParenScan()
+	ExpNdx=TempInt
+	IF ParenCnt=0 THEN
+		RETURN
+	ENDIF
+	SolveTerm()
+	ErrRet
+	SquishExp()
+ ENDLOOP
+ RETURN'  sbrtn delimiter only
+
+ParenScan
+ ParenCnt=0
+ ExpNdx=0
+ PType=0
+ ExpLeft=0
+ ExpRight=0
+ IF ExpNdx>ExpLen THEN
+	RETURN
+ ENDIF
+ParenScn1:
+ INC ExpNdx
+ PType=ExpTable(ExpNdx)
+ IF PType=1 OR PType=3 OR PType=5 OR PType=22 OR PType=24 OR PType=26 THEN
+	ExpLeft=ExpNdx
+	INC ParenCnt
+ ENDIF
+ IF PType=2 OR PType=4 OR PType=6 OR PType=23 OR PType=25 OR PType=27 THEN
+	ExpRight=ExpNdx
+	RETURN
+ ENDIF
+ GOTO ParenScn1
+ RETURN'  sbrtn delimiter only
+
+SquishExp
+ LOOP
+	IF ExpRight+1>ExpLen THEN
+		ExpLen=ExpLeft-1
+		RETURN
+	ENDIF
+	ExpTable(ExpLeft)=ExpTable(ExpRight+1)
+	INC ExpLeft
+	INC ExpRight
+ ENDLOOP
+ RETURN'  sbrtn delimiter only
+
+SolveTerm
+ InitReg0
+ IF ExpLeft=1 AND ExpRight=ExpLen THEN
+	LastGroup=$ff
+ ENDIF
+ IF ExpLeft=2 AND ExpRight=ExpLen-1 AND ExpTable(1)=1 THEN
+	LastGroup=$ff
+ ENDIF
+'*******************************
+' Pointer Stuff Begins Here
+ IF PType=27 THEN
+	ExpNdx=ExpLeft+1
+	ClassOp()
+	GetTmpVec()
+	ErrRet
+	SymTable(SymNdx).DataMod=LAND(SymTable(SymNdx).DataMod,$fd)'  kill addr bit
+	ExpTable(ExpNdx)=SymNdx
+	OutBuf="(long)"+SymTemp.SymName+"._Ptr="+TSymName+";"
+	GenCode
+	IF TDataType=STRING THEN
+		OutBuf=SymTemp.SymName+"._Len="+STR$(TDetail)+";"
+		GenCode
+		OutBuf=SymTemp.SymName+"._Lnk=0;"
+		GenCode
+	ENDIF
+	GOTO GrpCpxEnd
+ ENDIF
+' Pointer Stuff Ends Here
+'*******************************
+ IF PType=4 THEN
+	ExpNdx=ExpLeft-1
+	ClassOp()
+	IF TDataType=STRING THEN
+		VecString()
+		GOTO ArrFcnEnd
+	ENDIF
+	GetTmpVec()
+	ErrRet
+	GetBase()
+	ExpTable(ExpNdx)=SymNdx
+	TempStr=SymTemp.SymName
+	GetOpSize()
+	BldOffset()
+	ErrRet
+	OutBuf=TempStr+"._Ptr=_a0;"
+	GenCode
+	GOTO ArrFcnEnd
+ ENDIF
+ IF PType=6 THEN' Function
+	ExpNdx=ExpLeft-1
+	SymTemp=SymTable(ExpTable(ExpNdx))
+	UsrFcnNam=SymTemp.SymName
+	TempInt=SymTemp.Detail+1
+	FcnCode=TempInt-1
+	IF FcnCode=$ff THEN'  (BASIC Subroutine)
+		ErrNo=ErrTypMis
+		RETURN
+	ENDIF
+	ExpNdx=ExpNdx+2
+	IF TempInt>=1000 THEN'  UsrFcn
+		TempInt=TempInt-1001'  now TempInt=number of args
+		IF TempInt=10 THEN
+			NumArgs=ExpRight-ExpLeft-1
+		ELSE
+			NumArgs=TempInt
+			IF ExpRight-ExpLeft<>NumArgs+1 THEN
+				ErrNo=ErrFcn
+				RETURN
+			ENDIF
+		ENDIF
+		FcnType=LAND($00000003,SymTemp.DataSize)
+		FcnSpec=LAND($00000004,SymTemp.DataSize)
+		IF FcnType<2 THEN
+			GetIntTmp()
+			ErrRet
+		ELSE
+			GetFltTmp()
+			ErrRet
+		ENDIF
+		IF FcnType<>0 THEN
+			OutBuf=SymTemp.SymName+"="
+		ELSE
+			OutBuf=""
+		ENDIF
+		IF FcnSpec=0 THEN
+			OutBuf=OutBuf+UsrFcnNam
+		ELSE
+			OutBuf=OutBuf+"(*"+UsrFcnNam+")"
+		ENDIF
+		TempStr=OutBuf+"("
+		WHILE NumArgs>0 DO
+			ClassOp()
+			IF OpClass<>INTClass AND OpClass<>FLTClass AND OpClass<>BOOLClass THEN
+				ErrNo=ErrTypMis
+				RETURN
+			ENDIF
+			IF DMVector<>0 THEN
+				IF OpClass=INTClass THEN
+					GetIntTmp()
+					ErrRet
+					OutBuf=SymTemp.SymName+"=*(long*)"+TSymName+"._Ptr;"
+				ELSE
+					GetFltTmp()
+					ErrRet
+					OutBuf=SymTemp.SymName+"=*(double*)"+TSymName+"._Ptr;"
+				ENDIF
+				GenCode
+				TSymName=SymTemp.SymName
+			ENDIF
+			TempStr=TempStr+TSymName
+			IF NumArgs>1 THEN
+				TempStr=TempStr+","
+			ENDIF
+			DEC NumArgs
+			INC ExpNdx
+		ENDWHILE
+                OutBuf=TempStr+");"
+		GenCode
+		ExpTable(ExpNdx)=SymNdx
+	ELSE
+		IF TempInt<51 THEN
+ 			ON TempInt GOSUB F0,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,F13,F14,F15,F16,F17,F18,F19,F20,F21,F22,F23,F24,F25,F26,F27,F28,F29,F30,F31,F32,F33,F34,F35,F36,F37,F38,F39,F40,F41,F42,F43,F44,F45,F46,F47,F48,F49
+ 		ELSE
+ 			ON TempInt-50 GOSUB F50,F51,F52,F53,F54,F55,F56,F57,F58,F59,F60,F61,F62,F63,F64,F65,F66,F67,F68,F69,F70,F71,F72,F73,F74,F75,F76,F77,F78,F79,F80,F81
+ 		ENDIF
+	ENDIF
+	ErrRet
+	GOTO ArrFcnEnd
+ ENDIF
+ IF PType=25 THEN
+	IF ExpRight-ExpLeft=2 THEN
+		ExpNdx=ExpLeft+1
+		ClassOp()
+		IF DMVector=0 THEN
+			Vectorize()
+			ErrRet
+		ENDIF
+		IF DMVector=$ff AND DMTemp=0 THEN
+			SetTmpVec()
+			ErrRet
+		ENDIF
+		GOTO GrpCpxEnd
+	ENDIF
+	ExpNdx=ExpLeft+3
+	ClassOp()
+	IF TDataType=STRING AND DMVector=0 THEN
+		VecString()
+	ENDIF
+	IF DMVector=$ff AND DMTemp=0 THEN
+		SetTmpVec()
+		ErrRet
+	ENDIF
+	ExpNdx=ExpNdx-2
+	ClassOp()
+	IF DMVector=0 THEN
+		Vectorize()
+		ErrRet
+	ENDIF
+	IF DMVector=$ff AND DMTemp=0 THEN
+		SetTmpVec()
+		ErrRet
+	ENDIF
+	ExpNdx=ExpNdx+2
+	ClassOp()
+	ExpNdx=ExpNdx-2
+	SymNdx=ExpTable(ExpNdx)
+	SymTable(SymNdx).DataType=TDataType
+	SymTable(SymNdx).DataSize=TDataSize
+	SymTable(SymNdx).Detail=TDetail
+	OutBuf="_d0=(long)"+SymTable(SymNdx).SymName+"._Ptr;"
+	GenCode
+	IF DMVector=$ff THEN
+		OutBuf="_d0=_d0+(long)"+TSymName+"._Ptr;"
+	ELSE
+		OutBuf="_d0=_d0+"+STR$(TDataAddr)+";"
+	ENDIF
+	GenCode
+	OutBuf="(long)"+SymTable(SymNdx).SymName+"._Ptr=_d0;"
+	GenCode
+	IF OpClass=STRClass AND ReadFlag=0 THEN
+		OutBuf=SymTable(SymNdx).SymName+"._Len="+TSymName+"._Len;"
+		GenCode
+		OutBuf=SymTable(SymNdx).SymName+"._Lnk="+TSymName+"._Lnk;"
+		GenCode
+	ENDIF
+	GOTO GrpCpxEnd
+ ENDIF
+' Get here if PType=2
+ ExpNdx=ExpLeft+1
+ ClassOp()
+ MakeLong
+ IF ExpRight-ExpLeft=2 AND DMArray=$ff THEN
+	IF CompFlag<>0 THEN
+		ErrNo=ErrIVExp
+	ENDIF
+	GOTO GrpCpxEnd
+ ENDIF
+ IF LastGroup=$ff AND ExpRight-ExpLeft<>2 AND Target=$ff THEN
+	ErrNo=ErrIVTarg
+	RETURN
+ ENDIF
+ IF ExpRight-ExpLeft=2 THEN
+	IF TDataType=STRING AND DMVector=0 AND DMAddr=0 THEN
+		VecString()
+	ENDIF
+	IF TDataType=STRING AND DMVector=$ff AND DMTemp=0 AND DiskIO=$ff  AND BufRWFlg=0 THEN
+		GetBase()
+	ENDIF
+	GOTO GrpCpxEnd
+ ENDIF
+ScanStr:
+ ClassOp()
+ MakeLong
+ IF TDataType=STRING AND DMVector=0 AND DMAddr=0 THEN
+	VecString()
+ ENDIF
+ IF DMVector=$ff AND DMTemp=0 THEN
+	REM need to make a temp vector
+	SetTmpVec()
+	ErrRet
+ ENDIF
+ INC ExpNdx
+ IF ExpNdx<ExpRight THEN ScanStr
+ ExpNdx=ExpLeft+1
+ ClassOp()
+ MakeLong
+ IF TDataType=STRING THEN
+	DataOp=0
+	Ctr1=0
+6184:
+	IF DataOp=0 THEN
+		ClassOp()
+		IF TDataType<>STRING THEN
+			ErrNo=ErrIVExp
+			RETURN
+		ENDIF
+		INC Ctr1
+		IF Ctr1>1 THEN
+			OutBuf="_a0=&"+TSymName+";"
+			GenCode
+			TSymName=SymTable(ExpTable(ExpNdx-2)).SymName
+			OutBuf=TSymName+"._Lnk=_a0;"
+			GenCode
+		ENDIF
+		DataOp=$ff
+	ELSE
+		MathOp=ExpTable(ExpNdx)
+		IF MathOp<15 THEN
+			ErrNo=ErrIVExp
+			RETURN
+		ENDIF
+		DataOp=0
+	ENDIF
+	INC ExpNdx
+ IF ExpNdx<ExpRight THEN 6184
+	IF DataOp=0 THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	ExpNdx=ExpLeft+1
+	GOTO GrpCpxEnd
+ ENDIF
+ IF TDataType<2 OR TDataType>5 THEN
+	ErrNo=ErrIVExp
+	RETURN
+ ELSE
+	DataOp=0
+	Ctr1=0
+6186:
+	IF DataOp=0 THEN
+		DataOp=$ff
+		LoadReg()
+		ErrRet
+		INC Ctr1
+		IF Ctr1>1 THEN
+			IF MathOp=15 THEN
+				Add()
+			ENDIF
+			IF MathOp=16 THEN
+				Sub()
+			ENDIF
+			IF MathOp=17 THEN
+				Mul()
+			ENDIF
+			IF MathOp=18 THEN
+				Div()
+			ENDIF
+			IF MathOp=146 THEN
+				And()
+			ENDIF
+			IF MathOp=147 THEN
+				Or()
+			ENDIF
+		ENDIF
+	ELSE
+		MathOp=ExpTable(ExpNdx)
+		DataOp=0
+	ENDIF
+	INC ExpNdx
+	IF ExpNdx<ExpRight THEN 6186
+	IF DataOp=0 THEN
+		ErrNo=ErrIVExp
+	ENDIF
+	ExpNdx=ExpLeft+1
+	IF LastGroup=$ff AND CompFlag=0 THEN
+		ExpTable(ExpNdx)=19
+		IF TDataType=FLOAT THEN
+			SymTable(19).DataType=FLOAT
+		ELSE
+			SymTable(19).DataType=LONG
+		ENDIF
+		GOTO GrpCpxEnd
+	ENDIF
+	IF FloatFlag=0 THEN
+		GetTmp()
+		ErrRet
+	ELSE
+		GetFltTmp()
+		ErrRet
+	ENDIF
+        OutBuf=SymTemp.SymName+"="+Reg0Name+";"
+	GenCode
+	ExpTable(ExpNdx)=SymNdx
+	GOTO GrpCpxEnd
+ ENDIF
+ArrFcnEnd:
+ DEC ExpLeft
+GrpCpxEnd:
+ ExpTable(ExpLeft)=ExpTable(ExpNdx)
+ ExpNdx=ExpLeft
+ INC ExpLeft
+ RETURN
+ 
+GetBase
+ IF DMMember=$ff THEN
+	OutBuf="(long)_a0="+STR$(TDataAddr)+";"
+ ELSE
+	IF DMVector=$ff THEN
+		OutBuf="_a0="+TSymName+"._Ptr;"
+	ELSE
+		IF DMArray=$ff OR TDataType=STRING OR TDataType=COMPLEX THEN
+			OutBuf="_a0="+TSymName+";"
+		ELSE
+			OutBuf="_a0=&"+TSymName+";"
+		ENDIF
+	ENDIF
+ ENDIF
+ GenCode
+ RETURN
+
+BldOffset
+ SymTable(SymNdx).DataSize=TempInt
+ SymTable(SymNdx).DataMod=LAND(ArrayMsk,SymTable(SymNdx).DataMod)
+ ClassOp()
+ ExpNdx=ExpNdx+2
+ NumArgs=ExpRight-ExpLeft-1
+ IF NumArgs<>SubCtr THEN
+	ErrNo=ErrArrSub
+	RETURN
+ ENDIF
+ SubLoad()
+ IF NumArgs=1 THEN'  1 dim array
+	IF TempInt<>1 THEN
+		OutBuf="_d0=_d0*"+STR$(TempInt)+";"
+		GenCode
+	ENDIF
+	OutBuf="(long)_a0=(long)_a0+_d0;"
+	GenCode
+	ExpNdx=ExpNdx-2
+	RETURN
+ ENDIF
+ OutBuf="_d1=_d0;"
+ GenCode
+ INC ExpNdx
+ SubLoad()
+ ErrRet
+ IF NumArgs=2 THEN'  2 dim array
+	REM _d0 is (2), _d1 is (1)
+	OutBuf="_d0=_d0*"+STR$(SubValue(1))+"*"+STR$(TempInt)+"+"+STR$(TempInt)+"*_d1;"
+	GenCode
+	OutBuf="(long)_a0=(long)_a0+_d0;"
+	GenCode
+	ExpNdx=ExpNdx-3
+	RETURN
+ ENDIF
+ REM Get here if 3 dim array
+ OutBuf="_d2=_d0;"
+ GenCode
+ INC ExpNdx
+ SubLoad()
+ ErrRet
+ REM _d0 is (3), _d1 is(1), _d2 is (2)
+ OutBuf="_d0=_d2*"+STR$(SubValue(1))+"*"+STR$(TempInt)+"+_d0*"+STR$(SubValue(1))+"*"+STR$(SubValue(2))+"*"+STR$(TempInt)+";"
+ GenCode
+ OutBuf="_d0=_d0+"+STR$(TempInt)+"*_d1;"
+ GenCode
+ OutBuf="(long)_a0=(long)_a0+_d0;"
+ GenCode
+ ExpNdx=ExpNdx-4
+ RETURN
+
+VecString
+ IF BufRWFlg=$ff THEN'  for the case of BUFRW #fn,ADDR(a$),size
+	RETURN
+ ENDIF
+ GetTmpVec()
+ ErrRet
+ GetBase()
+ ExpTable(ExpNdx)=SymNdx
+ TempStr=SymTemp.SymName
+ TempInt=TDetail
+ IF PType=4 THEN
+	BldOffset()
+ ENDIF
+ OutBuf=TempStr+"._Ptr=_a0;"
+ GenCode
+ IF ReadFlag=0 THEN
+ 	OutBuf=TempStr+"._Len="+STR$(TempInt)+";"
+ 	GenCode
+ 	OutBuf=TempStr+"._Lnk=0;"
+ 	GenCode
+ ENDIF
+ RETURN
+
+ClassOp
+ SymTemp=SymTable(ExpTable(ExpNdx))
+ ClassOp1()
+ RETURN
+
+ClassOp1
+ ClrDatTyp()
+ TSymName=SymTemp.SymName
+ TDataType=SymTemp.DataType
+ TWinMod=SymTemp.WinMod
+ TDataMod=SymTemp.DataMod
+ TDetail=SymTemp.Detail
+ TDataAddr=SymTemp.DataAddr
+ TDataSize=SymTemp.DataSize
+ TMultiPtr=SymTemp.MultiPtr
+ GetDtaTyp()
+ IF LAND(DataBit,TDataMod)=DataBit THEN
+	DMData=$ff
+ ENDIF
+ IF LAND(TempBit,TDataMod)=TempBit THEN
+	DMTemp=$ff
+ ENDIF
+ IF LAND(VectorBit,TDataMod)=VectorBit THEN
+	DMVector=$ff
+ ENDIF
+ IF LAND(MemberBit,TDataMod)=MemberBit THEN
+	DMMember=$ff
+ ENDIF
+ IF LAND(MultiBit,TDataMod)=MultiBit THEN
+	DMMulti=$ff
+ ENDIF
+ IF LAND(ConstBit,TDataMod)=ConstBit THEN
+	DMConst=$ff
+ ENDIF
+ IF LAND(AddrBit,TDataMod)=AddrBit THEN
+	DMAddr=$ff
+ ENDIF
+ IF LAND(ArrayBit,TDataMod)=ArrayBit THEN
+	DMArray=$ff
+	OpClass=ARRClass
+	IF DMMulti=$ff THEN
+		MultiNdx=TMultiPtr
+		SubCtr=SymTable(MultiNdx).DataMod
+		SubValue(1)=SymTable(MultiNdx).Detail
+		SubValue(2)=SymTable(MultiNdx).DataAddr
+		SubValue(3)=SymTable(MultiNdx).DataSize
+	ELSE
+		SubCtr=1
+	ENDIF
+	RETURN
+ ENDIF
+ IF TDataType>=2 AND TDataType<=4 OR LAND(AddrBit,TDataMod)=AddrBit THEN
+	OpClass=INTClass
+	RETURN
+ ENDIF
+ IF TDataType=FCN AND TDataSize&$00000004=4 THEN
+	OpClass=INTClass
+ ENDIF
+ IF TDataType=BOOLEAN THEN
+	OpClass=BOOLClass
+	RETURN
+ ENDIF
+ IF TDataType=STRING THEN
+	OpClass=STRClass
+	RETURN
+ ENDIF
+ IF TDataType=FLOAT THEN
+	OpClass=FLTClass
+	RETURN
+ ENDIF
+ IF TDataType=COMPLEX THEN
+	OpClass=CPXClass
+	RETURN
+ ENDIF
+ OpClass=0
+ RETURN
+ 
+Expr
+ GetExp()
+ ErrRet
+ ProcExp()
+ ErrRet
+ ClassOp()
+ RETURN
+ 
+TokenSym
+ NexToken()
+ IF TokenLen=0 THEN
+	ErrNo=ErrSyntax
+	RETURN
+ ENDIF
+ TokenSym1()
+ RETURN
+
+TokenSym1
+ GtRootSym()
+ ValidSym()
+ IF SymbolOK=0 THEN
+	ErrNo=ErrIVSNam
+	RETURN
+ ENDIF
+ SymTemp.SymName=SymbolSaf
+ SymSrch()
+ RETURN
+ 
+ClrSym
+ SymTemp.Detail=0
+ SymTemp.DataAddr=0
+ SymTemp.DataSize=0
+ SymTemp.MultiPtr=0
+ RETURN
+ 
+CmdLine
+CmdLineLp:
+ ErrNo=0
+ TempStr=NextArg
+ IF LEN(TempStr)=0 THEN
+ 	RETURN
+ ENDIF
+ IF LEFT$(TempStr,1)="-" THEN
+	OptNdx=1
+Option:
+	ParseOpt()
+	IF LEN(Opt)=0 THEN CmdLineLp
+	IF Opt="1" THEN
+		ExpFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="a" THEN
+		AsmbFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="p" THEN
+    		PromptFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="P" THEN
+    		ProcedureFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="h" THEN
+    		HaltFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="o" THEN
+		ObjectMode=$ff
+		ProgMode=0
+		GOTO Option
+	ENDIF
+	IF Opt="g" THEN
+		LinkerOpt=LinkerOpt+" -g"
+		DbgFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="D" THEN
+    		DLLFlag=$ff
+    		GOTO Option
+	ENDIF
+	IF Opt="c" THEN
+		COut=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="e" THEN
+		NoGen=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="s" THEN
+		DumpSyms=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="v" THEN
+		VerbFlag=$ff
+		GOTO Option
+	ENDIF
+	IF Opt="u" THEN
+		UDump=$ff
+		GOTO Option
+	ENDIF
+	PRINT "Unknown option ";TempStr
+	END
+ ELSE
+	REM SET Directive
+	SrcNdx=0
+	SrcLine=TempStr
+	SetMask=$80'  simulate FIX
+	SETDx1()
+ ENDIF
+ GOTO CmdLineLp
+ RETURN' Sbtrn delimiter only
+
+ParseOpt
+ INC OptNdx
+ Opt=MID$(TempStr,OptNdx,1)
+ RETURN
+ 
+CallErr
+ IF StatFlag=$ff THEN
+	RETURN
+ ENDIF
+ OutBuf="if (STATUS == -1) longjmp(_ebuf,1);"
+ GenCode
+ RETURN
+
+GenXfrCnt
+ OutBuf="XferCount=STATUS;"
+ GenCode
+ RETURN
+
+ClrERR
+ OutBuf="errno=0;"
+ GenCode
+ RETURN
+ 
+GetAccMod
+ NexToken()
+ IF TokenBuf="dir" THEN
+	DirFlag=$ff
+	NexToken()
+	IF TokenBuf="+" THEN
+		NexToken()'  eat optional "+"
+	ENDIF
+ ELSE
+	DirFlag=0
+ ENDIF
+ IF CrOpFlag=$ff THEN
+	AccMode="A_WRITE|A_CREAT|A_EXCL"
+ ENDIF
+ IF TokenLen<>0 THEN
+	IF TokenBuf="update" THEN
+		IF CrOpFlag=$ff THEN
+			CreatMode="P_WRITE|P_READ"
+		ELSE
+			AccMode="A_UPDATE"
+		ENDIF
+	ELSE
+		IF TokenBuf="read" THEN
+			IF CrOpFlag=$ff THEN
+				CreatMode="P_READ"
+			ELSE
+				AccMode="A_READ"
+			ENDIF
+		ELSE
+			IF TokenBuf="write" THEN
+				IF CrOpFlag=$ff THEN
+					CreatMode="P_WRITE|P_READ"
+				ELSE
+					AccMode="A_WRITE"
+				ENDIF
+			ENDIF
+		ENDIF
+	ENDIF
+ ELSE
+AccModErr:
+	ErrNo=ErrSyntax
+	RETURN
+ ENDIF
+ NexToken()
+ IF TokenLen<>0 THEN
+	IF TokenBuf="+" THEN
+		NexToken()'  eat optional "+"
+		IF TokenBuf="dir" THEN
+			DirFlag=$ff
+		ELSE
+			IF TokenBuf="binary" THEN
+				AccMode=AccMode+"|A_BINARY"
+			ELSE
+				IF TokenBuf="text" THEN
+					AccMode=AccMode+"|A_TEXT"
+				ELSE
+					ErrNo=ErrSyntax
+				ENDIF
+			ENDIF
+		ENDIF
+	ENDIF
+ ENDIF
+ RETURN
+
+GetOpSize
+ IF TDataType=BOOLEAN OR TDataType=BYTE THEN
+	TempInt=1
+ ENDIF
+ IF TDataType=SHORT THEN
+	TempInt=2
+ ENDIF
+ IF TDataType=LONG THEN
+	TempInt=4
+ ENDIF
+ IF TDataType=FLOAT THEN
+	TempInt=8
+ ENDIF
+ IF TDataType=COMPLEX THEN
+	TempInt=SymTable(SymTable(SymNdx).Detail).DataSize
+ ENDIF
+ RETURN
+ 
+DevChk
+ NexToken()
+ IF TokenBuf="#" THEN
+	DevFlag=$ff
+ ELSE
+	UnDoToken()
+ ENDIF
+ RETURN
+ 
+GetPthNum
+ ClrERR()
+ NexToken()
+ GetPthNum1()
+ RETURN
+
+GetFilePtr 
+ IF Target=0 OR FileStat<>0 THEN
+	IF TSymName<>"~" THEN
+		InitReg0
+		LoadReg()
+		ErrRet
+	ENDIF
+	OutBuf="*((long*)&_FilePtr)=_d0;"
+	GenCode
+ ELSE
+	IF DMVector=0 THEN
+		PathVar=TSymName
+	ELSE
+		VecSymNam()
+		PathVar=TSymName
+	ENDIF
+ ENDIF
+ RETURN
+
+GetPthNum1
+ GetExp()
+ ErrRet
+ ProcExp()
+ ErrRet
+ GetPthNum2()
+ RETURN
+
+GetPthNum2
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF Target=0 THEN
+	IF TSymName<>"~" THEN
+		InitReg0
+		LoadReg()
+		ErrRet
+	ENDIF
+	OutBuf="_d0=_d0&0xff;"
+	GenCode
+	IF PrtPthFlg=0 THEN
+		OutBuf="_IOPthNum=_d0;"
+	ELSE
+		OutBuf="_PrtPthNum=_d0;"
+	ENDIF
+	GenCode
+ ELSE
+	IF DMConst=$ff THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+	IF DMVector=0 THEN
+		PathVar=TSymName
+	ELSE
+		VecSymNam()
+		PathVar=TSymName
+	ENDIF
+ ENDIF
+' The following code makes the "," following the device name
+' acceptable but not mandatory
+ IF FileStat=0 AND KeyNdx<>23 THEN' Not fcn or close
+	NexToken()
+	IF TokenBuf<>"," THEN
+		UnDoToken()
+	ENDIF
+ ENDIF
+ RETURN
+ 
+GetPthNam
+ Expr()
+ ErrRet
+ IF TDataType<>STRING THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OutBuf="_MovStr(&_IOBufVec,&"+TSymName+");"
+ GenCode
+ RETURN
+
+BufRW
+ BufRWFlg=$ff
+ DiskIO=$ff
+ GetPthNum()
+ ErrRet
+ GetIntOp()' Get Address
+ ErrRet
+ OutBuf="(long)_XferAddr=_d0;"
+ GenCode
+ CommaRet
+ GetIntOp()' Get # of bytes
+ ErrRet
+ OutBuf="XferCount=_d0;"
+ GenCode
+ RETURN
+ 
+GetPut
+ DiskIO=$ff
+ GetPthNum()
+ ErrRet
+ Expr()
+ ErrRet
+ IF DMConst=$ff THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ GetBase()
+ OutBuf="_XferAddr=_a0;"
+ GenCode
+ OutBuf="XferCount="+STR$(SymTemp.DataSize)+";"
+ GenCode
+ RETURN
+ 
+ReadWrite
+ DiskIO=$ff
+ GetPthNum()
+ ErrRet
+ Expr()
+ ErrRet
+ IF TDataType<>STRING THEN
+	ErrNo=ErrTypMis
+ ENDIF
+ GetBase()
+ RETURN
+ 
+GetRegPrm
+ SymTemp=SymTable(ExpTable(ExpNdx))
+ GetRP1()
+ RETURN
+
+GetRP1
+ TDataType=SymTemp.DataType
+ TDataMod=SymTemp.DataMod
+ IF LAND(SymTemp.DataMod,AddrBit)<>AddrBit THEN
+	IF TDataType<1 OR TDataType>5 THEN
+		ErrNo=ErrIVExp
+		RETURN
+	ENDIF
+ ENDIF
+ GetDtaTyp()
+ IF FloatFlag=0 THEN
+	Reg0Name="_d0"
+	Reg1Name="_d1"
+ ELSE
+	Reg0Name="_d0f"
+	Reg1Name="_d1f"
+ ENDIF
+ IF D0Loaded=0 THEN
+	LdRegName=Reg0Name
+ ELSE
+	LdRegName=Reg1Name
+ ENDIF
+ RETURN
+
+LoadReg
+ IF Promote=$ff OR Demote=$ff THEN
+	SymSrch()
+	SymTemp=SymTable(SymNdx)
+	GetRP1()
+ ELSE
+	GetRegPrm()
+ ENDIF
+ ErrRet
+ IF LAND(ConstBit,SymTemp.DataMod)=ConstBit THEN
+	IF TDataType=BOOLEAN THEN
+                OutBuf=LdRegName+"="+STR$(SymTemp.Detail)+";"
+		GenCode
+	ELSE
+                OutBuf=LdRegName+"="+SymTemp.SymName+";"
+		GenCode
+	ENDIF
+ ELSE
+	IF LAND(VectorBit,SymTemp.DataMod)=0 THEN
+		IF TDataMod&AddrOrFile=0 THEN
+                        OutBuf=LdRegName+"="+SymTemp.SymName+";"
+		ELSE
+                        OutBuf=LdRegName+"=(long)"+SymTemp.SymName+";"
+		ENDIF
+		GenCode
+	ELSE
+                OutBuf=LdRegName+"=*(("+_DataType+"*)"+SymTemp.SymName+"._Ptr);"
+		GenCode
+	ENDIF
+ ENDIF
+ D0Loaded=$ff
+ RETURN
+ 
+StoreD0
+ SymTemp.SymName=Op1Name
+ SymSrch()
+ SymTemp=SymTable(SymNdx)
+ GetRP1()
+ IF LAND(VectorBit,SymTemp.DataMod)=0 THEN
+	IF TDataMod&AddrBit=0 THEN
+                OutBuf=SymTemp.SymName+"="+Reg0Name+";"
+	ELSE
+		OutBuf="(long)"+SymTemp.SymName+"="+Reg0Name+";"
+	ENDIF
+ ELSE
+        OutBuf="*(("+_DataType+"*)"+SymTemp.SymName+"._Ptr)="+Reg0Name+";"
+ ENDIF
+ GenCode
+ RETURN
+
+GetIntTmp
+ OpClass=INTClass
+ GetTmp()
+ RETURN
+ 
+GetTmp
+ IF TmpUse=NumTemps THEN
+	ErrNo=ErrTmpUse
+	RETURN
+ ENDIF
+ INC TmpUse
+ IF TmpUse>TmpMax THEN
+	TmpMax=TmpUse
+	VarBlank()
+	Comment="Temporary Variable"
+	BldComment()
+	GenVar
+	OutBuf="static long _Tmp"+STR$(TmpUse)+";"
+	GenVar
+	VarBlank()
+ ENDIF
+ SymTemp.SymName="_Tmp"+STR$(TmpUse)
+ SymSrch()
+ IF OpClass=INTClass THEN
+	SymTable(SymNdx).DataType=LONG
+ ELSE
+	SymTable(SymNdx).DataType=TDataType
+ ENDIF
+ SymTable(SymNdx).DataSize=TDataSize
+ RETURN
+
+GetFltTmp
+ IF FTmpUse=NumTemps THEN
+	ErrNo=ErrTmpUse
+	RETURN
+ ENDIF
+ INC FTmpUse
+ IF FTmpUse>FTmpMax THEN
+	FTmpMax=FTmpUse
+	VarBlank()
+	Comment="Temporary Floating Point Variable"
+	BldComment()
+	GenVar
+	OutBuf="static double _FTmp"+STR$(FTmpUse)+";"
+	GenVar
+	VarBlank()
+ ENDIF
+ SymTemp.SymName="_FTmp"+STR$(FTmpUse)
+ SymSrch()
+ RETURN
+ 
+GetStrVec
+ INC StrTmpUse
+ IF StrTmpUse>StrTmpMax THEN
+	StrTmpMax=StrTmpUse
+	VarBlank()
+	Comment="Temporary String Variable"
+	BldComment()
+	GenVar
+	OutBuf="static unsigned char _StrTmp"+STR$(StrTmpUse)+"[22];"
+	GenVar
+	VarBlank()
+ ENDIF
+ ReqTmpVec()
+ ErrRet
+ SymTable(SymNdx).DataMod=TmpVec
+ SymTable(SymNdx).DataType=STRING
+ SymTable(SymNdx).Detail=22
+ TempInt=22
+ SymTable(SymNdx).DataAddr=0
+ SymTable(SymNdx).DataSize=22
+ SymTable(SymNdx).MultiPtr=0
+ OutBuf="_a0=_StrTmp"+STR$(StrTmpUse)+";"
+ GenCode
+ SetStrVec()
+ RETURN
+
+GetChrVec
+ INC ChrTmpUse
+ IF ChrTmpUse>ChrTmpMax THEN
+	ChrTmpMax=ChrTmpUse
+	VarBlank()
+	Comment="Temporary Character Variable"
+	BldComment()
+	GenVar
+	OutBuf="char _ChrTmp"+STR$(ChrTmpUse)+";"
+	GenVar
+	VarBlank()
+ ENDIF
+ ReqTmpVec()
+ ErrRet
+ SymTable(SymNdx).DataMod=TmpVec
+ SymTable(SymNdx).DataType=STRING
+ SymTable(SymNdx).Detail=1
+ TempInt=1
+ SymTable(SymNdx).DataAddr=0
+ SymTable(SymNdx).DataSize=1
+ OutBuf="_a0=&_ChrTmp"+STR$(ChrTmpUse)+";"
+ GenCode
+ SetStrVec()
+ RETURN
+
+SetStrVec
+ OutBuf=SymTemp.SymName+"._Ptr=_a0;"
+ GenCode
+ OutBuf=SymTemp.SymName+"._Len="+STR$(TempInt)+";"
+ GenCode
+ OutBuf=SymTemp.SymName+"._Lnk=0;"
+ GenCode
+ RETURN
+ 
+ReqTmpVec
+ IF TmpVecUse=NumTemps THEN
+	ErrNo=ErrTmpUse
+	RETURN
+ ENDIF
+ INC TmpVecUse
+ IF TmpVecUse>TmpVecMax THEN
+	TmpVecMax=TmpVecUse
+	MakTmpVec()
+ ENDIF
+ SymTemp.SymName="_TmpVec"+STR$(TmpVecUse)
+ SymSrch()
+ SymNdxSaf=SymNdx
+ RETURN
+
+GetTmpVec
+ ReqTmpVec()
+ ErrRet
+ SymTable(SymNdx).DataMod=TmpVec
+ SymTable(SymNdx).DataMod=LOR(TDataMod,SymTable(SymNdx).DataMod)
+ SymTable(SymNdx).DataType=TDataType
+ SymTable(SymNdx).Detail=TDetail
+ SymTable(SymNdx).DataAddr=TDataAddr
+ SymTable(SymNdx).DataSize=TDataSize
+ SymTable(SymNdx).MultiPtr=TMultiPtr
+ RETURN
+
+MakTmpVec
+ VarBlank()
+ Comment="Temporary Vector"
+ BldComment()
+ GenVar
+ OutBuf="static _vector _TmpVec"+STR$(TmpVecUse)+";"
+ GenVar
+ VarBlank()
+ RETURN
+
+SetTmpVec
+ GetTmpVec()
+ ErrRet
+ ExpTable(ExpNdx)=SymNdx
+ OutBuf=SymTable(SymNdx).SymName+"="+TSymName+";"
+ GenCode
+ ClassOp()
+ RETURN
+ 
+Vectorize
+ GetTmpVec()
+ ErrRet
+ GetBase()
+ ExpTable(ExpNdx)=SymNdx
+ OutBuf=SymTemp.SymName+"._Ptr=_a0;"
+ GenCode
+ RETURN
+ 
+GetLopVec
+ LopVarNdx=0
+GetLV1:
+ INC LopVarNdx
+ IF LopVarNdx=41 THEN
+	ErrNo=ErrTmpUse
+	RETURN
+ ENDIF
+ IF LoopVars(LopVarNdx)=CS(CSP).LoopName THEN GetLV2
+ IF LoopVars(LopVarNdx)<>"%" THEN GetLV1
+ LoopVars(LopVarNdx)=CS(CSP).LoopName
+ VarBlank()
+ Comment="For Loop Vector"
+ BldComment()
+ GenVar
+ OutBuf="static _loopvec _LopVec"+STR$(LopVarNdx)+";"
+ GenVar
+ VarBlank()
+GetLV2:
+ RETURN
+
+And
+ IF TDataType=FLOAT THEN
+	ErrNo=ErrTypMis
+ ENDIF
+ OutBuf="_d0=_d0&_d1;"
+ GenCode
+ RETURN
+
+Or
+ IF TDataType=FLOAT THEN
+	ErrNo=ErrTypMis
+ ENDIF
+ OutBuf="_d0=_d0|_d1;"
+ GenCode
+ RETURN
+ 
+Add
+ OutBuf=Reg0Name+"="+Reg0Name+"+"+Reg1Name+";"
+ GenCode
+ RETURN
+ 
+Sub
+ OutBuf=Reg0Name+"="+Reg0Name+"-"+Reg1Name+";"
+ GenCode
+ RETURN
+ 
+Mul
+ OutBuf=Reg0Name+"="+Reg0Name+"*"+Reg1Name+";"
+ GenCode
+ RETURN
+ 
+Div
+ OutBuf=Reg0Name+"="+Reg0Name+"/"+Reg1Name+";"
+ GenCode
+ RETURN
+
+CmpNum
+ InitReg0
+ Promote=$ff
+ SymTemp.SymName=Op1Name
+ LoadReg()
+ SymTemp.SymName=Op2Name
+ LoadReg()
+ OutBuf="if ("+Reg0Name+" "+SymType+" "+Reg1Name+") _d0=0xff;"
+ GenCode
+ OutBuf="else _d0=0;"
+ GenCode
+ RETURN
+ 
+CmpString
+ OutBuf="_d0=_CmpStr(&"+Op1Name+",&"+Op2Name+");"
+ GenCode
+ OutBuf="if (_d0 "+SymType+" 1) _d0=0xff;"
+ GenCode
+ OutBuf="else _d0=0;"
+ GenCode
+ RETURN
+ 
+CmpBool
+ Promote=$ff
+ SymTemp.SymName=Op1Name
+ LoadReg()
+ SymTemp.SymName=Op2Name
+ LoadReg()
+ OutBuf="if (_d0 "+SymType+" _d1) _d0=0xff;"
+ GenCode
+ OutBuf="else _d0=0;"
+ GenCode
+ RETURN
+
+UnBlkFcn
+ TempStr=OutBuf
+ OutBuf=FcnHeader+")"
+ GenFcn
+ For Ctr1=1 TO FcnBlkNdx
+	OutBuf=FcnBlk(Ctr1)
+	GenFcn
+ NEXT Ctr1
+ OutBuf=""
+ GenFcn
+ ParmFlag=0
+ IF ParamCount<>10 AND ParamCount<>ParmCtr THEN' declaration <> # of parms
+ 	ErrNo=ErrFcn
+ 	RETURN
+ ENDIF
+ FcnVarFlg=$ff
+ FcnRegs()
+ OutBuf=TempStr
+ RETURN
+
+FcnRegs
+ OutBuf="{"
+ GenFcn
+ OutBuf=""
+ GenFcn
+ Comment="Pseudo Registers"
+ BldComment()
+ GenFcn
+ OutBuf="register long _d0;"
+ GenFcn
+ OutBuf="register long _d1;"
+ GenFcn
+ OutBuf="double _d0f;"
+ GenFcn
+ OutBuf="double _d1f;"
+ GenFcn
+ OutBuf="register void *_a0;"
+ GenFcn
+ OutBuf=""
+ GenFcn
+ RETURN
+
+NexToken
+ ExpEnd=0
+ TokenLen=0
+ TokenType=0
+ QuoteFlg=0
+ NextByte=""
+ TokenBuf=""
+ TokenSaf=""
+NexToken1:
+ INC SrcNdx
+ IF SrcNdx>LEN(SrcLine) THEN NexToken5
+ TempByte=MID$(SrcLine,SrcNdx,1)
+ NextByte=MID$(SrcLine,SrcNdx+1,1)
+ AsciiByte=ASC(TempByte)
+ IF AsciiByte=$22 AND EscSeq=0 THEN
+	IF QuoteFlg=0 AND TokenLen<>0 THEN NexToken5
+	NexToken3()
+	IF QuoteFlg=1 THEN
+		TokenType=TTypQuote
+		GOTO NexToken6
+	ELSE
+		QuoteFlg=1
+		EscSeq=0
+		GOTO NexToken1
+	ENDIF
+ ENDIF
+ IF QuoteFlg=1 THEN
+	IF EscSeq=$ff THEN
+		EscSeq=0
+	ELSE
+		IF AsciiByte=$5c THEN
+			EscSeq=$ff
+		ENDIF
+	ENDIF
+	NexToken3()
+	GOTO NexToken1
+ ENDIF
+ IF TempByte="." THEN
+	IF TokenType=TTypInt THEN
+		TokenType=TTypFloat
+		NexToken3()
+		GOTO NexToken1
+	ENDIF
+	IF TokenLen=0 THEN
+		IF NextByte>="0" AND NextByte<="9" THEN
+			TokenType=TTypFloat
+			NexToken3()
+			GOTO NexToken1
+		ENDIF
+	ENDIF
+ ENDIF
+ IF TempByte="'" THEN NexToken5' Remark
+ IF TempByte="<" OR TempByte=">" OR TempByte="=" THEN
+	IF TokenLen<>0 THEN NexToken5
+	TokenType=TTypRelOp
+	NexToken3()
+	IF TempByte="=" THEN
+		GOTO NexToken6
+	ENDIF
+	IF NextByte=">" OR NextByte="=" THEN
+		INC SrcNdx
+		TempByte=MID$(SrcLine,SrcNdx,1)
+		NexToken3()
+	ENDIF
+	GOTO NexToken6
+ ENDIF
+ IF AsciiByte=$20 OR AsciiByte=$09 THEN
+	IF TokenLen<>0 THEN
+		DEC SrcNdx
+		NextByte=" "
+		ExpEnd=$ff
+		GOTO NexTokDone
+	ENDIF
+	GOTO NexToken1
+ ENDIF
+ IF DimFlag=0 THEN
+	IF TempByte="(" OR TempByte=")" THEN
+		IF TokenLen<>0 THEN NexToken5
+		NexToken3()
+		TokenType=TTypParen
+		GOTO NexToken6
+	ENDIF
+ ENDIF
+ IF DimFlag=0 OR TempByte<>"," THEN'  special cond for multi-dim array
+	IF TempByte="," OR TempByte=";" OR TempByte=":" OR TempByte="." THEN
+		IF TokenLen<>0 THEN NexToken5
+		NexToken3()
+		TokenType=TTypPunct
+		GOTO NexToken6
+	ENDIF
+ ENDIF
+ IF TempByte="+" OR TempByte="-" OR TempByte="*" OR TempByte="/"  OR TempByte="&" OR TempByte="|" THEN
+	IF TokenLen<>0 THEN NexToken5
+	NexToken3()
+	TokenType=TTypMath
+	GOTO NexToken6
+ ENDIF
+ IF DimFlag=$ff THEN NexToken2
+ IF TempByte="$" OR TempByte="_" OR TempByte="@" THEN NexToken2
+ IF TempByte>="0" AND TempByte<="9" THEN NexToken2
+ IF TempByte>="A" AND TempByte<="Z" THEN NexToken2
+ IF TempByte>="a" AND TempByte<="z" THEN NexToken2
+ IF TokenLen<>0 THEN NexToken5
+ NexToken3()
+ TokenType=TTypMisc
+ GOTO NexToken6
+NexToken2:
+ NexToken3()
+ GOTO NexToken1
+NexToken5:
+ DEC SrcNdx
+ NextByte=MID$(SrcLine,SrcNdx+1,1)
+NexToken6:
+ IF NextByte=" " OR ASC(NextByte)=9 OR NextByte=":" OR NextByte=";" THEN
+	ExpEnd=$ff
+ ENDIF
+ IF NextByte="<" OR NextByte=">" OR NextByte="=" OR NextByte="" OR NextByte="'" THEN
+	ExpEnd=$ff
+ ENDIF
+NexTokDone:
+ IF TokenType=TTypInt AND RIGHT$(TokenBuf,1)="h" THEN' Intel hex->Motorola
+ 	IF LEFT$(TokenBuf,1)<>"0" THEN
+ 		TokenSaf="$"+LEFT$(TokenBuf,LEN(TokenBuf)-1)
+ 	ELSE
+ 		TokenSaf="$"+MID$(TokenBuf,2,LEN(TokenBuf)-2)' removes leading 0
+ 	ENDIF
+ 	TokenBuf=TokenSaf
+ 	TokenType=TTypHex
+ ENDIF
+ IF TokenType=TTypInt AND MID$(TokenBuf,2,1)="x" THEN' C hex->Motorala
+ 	TokenSaf="$"+MID$(TokenBuf,3,LEN(TokenBuf)-2)
+ 	TokenBuf=TokenSaf
+ 	TokenType=TTypHex
+ ENDIF
+ RETURN
+
+NexToken3
+ INC TokenLen
+ TokenSaf=TokenSaf+TempByte
+ IF TempByte>="A" AND TempByte<="Z" THEN
+	AsciiByte=LOR(AsciiByte,$20)
+	TempByte=CHR$(AsciiByte)
+ ENDIF
+ TokenBuf=TokenBuf+TempByte
+ IF TokenLen=1 THEN
+	IF TokenBuf="$" THEN
+		TokenType=TTypHex
+	ENDIF
+	IF TokenBuf>="0" AND TokenBuf<="9" THEN
+		TokenType=TTypInt
+	ENDIF
+	IF TokenBuf>="a" AND TokenBuf<="z" OR TokenBuf="_" THEN
+		TokenType=TTypSym
+	ENDIF
+ ENDIF
+ RETURN
+
+UnDoToken
+ SrcNdx=SrcNdx-TokenLen
+ NextByte=""
+ RETURN
+
+MacToken
+ TokenLen=0
+ TokenSaf=""
+MacToken1:
+ INC SrcNdx
+ TempByte=MID$(SrcLine,SrcNdx,1)
+ AsciiByte=ASC(TempByte)
+ IF AsciiByte=NewLine OR AsciiByte=0 THEN
+	DEC SrcNdx
+	RETURN
+ ENDIF
+ IF AsciiByte=$2c THEN'  comma
+	IF TokenLen=0 THEN
+		TokenSaf=TempByte
+		TokenLen=1
+	ELSE
+		DEC SrcNdx
+	ENDIF
+	RETURN
+ ENDIF
+ TokenSaf=TokenSaf+TempByte
+ INC TokenLen
+ GOTO MacToken1
+ RETURN'  sbrtn delimiter only
+ 
+ValidSym
+ SymbolOK=0
+ IF LEN(RootSym)>28 THEN
+	RETURN
+ ENDIF
+ IF LNFlag=0 THEN 5110
+ IF LEN(RootSym)>5 THEN 5110
+ TempByte=MID$(RootSym,1,1)
+ IF TempByte<"0" OR TempByte>"9" THEN 5110
+ LabNdx=1
+lbl5102:
+	INC LabNdx
+ IF LabNdx>LEN(RootSym) THEN
+	SymbolSaf="_LN"
+	SymbolSaf=SymbolSaf+RootSym
+	SymbolOK=$ff
+	RETURN
+ ENDIF
+ TempByte=MID$(RootSym,LabNdx,1)
+ IF TempByte<"0" OR TempByte>"9" THEN
+	RETURN
+ ENDIF
+ GOTO lbl5102
+5110:
+ LabNdx=1
+ TempByte=MID$(RootSym,1,1)
+ IF TempByte>="A" AND TempByte<="Z" THEN 5112
+ IF TempByte>="a" AND TempByte<="z" THEN 5112
+ IF TempByte="_" THEN 5112
+ RET
+5112:
+ INC LabNdx
+ IF LabNdx>LEN(RootSym) THEN
+	SymbolOK=$ff
+	SymbolSaf=RootSym
+	RETURN
+ ENDIF
+ TempByte=MID$(RootSym,LabNdx,1)
+ IF TempByte>="0" AND TempByte<="9" THEN 5112
+ IF TempByte>="A" AND TempByte<="Z" THEN 5112
+ IF TempByte>="a" AND TempByte<="z" THEN 5112
+ IF TempByte="_" THEN 5112
+ IF TempByte="$" AND LabNdx=LEN(RootSym) THEN 5112
+ RETURN
+ 
+ValidInt
+ IntOK=0
+ IF LEN(TokenBuf)>10 THEN
+	RETURN
+ ENDIF
+ ValidNdx=0
+5122:
+ INC ValidNdx
+ IF ValidNdx>LEN(TokenBuf) THEN
+	IntOK=$ff
+	RETURN
+ ENDIF
+ TempByte=MID$(TokenBuf,ValidNdx,1)
+ IF TempByte>="0" AND TempByte<="9" THEN 5122
+ RETURN
+ 
+ValidHex
+ HexOK=0
+ IF LEN(TokenBuf)>9 THEN
+	RETURN
+ ENDIF
+ ValidNdx=1
+5142:
+ INC ValidNdx
+ IF ValidNdx>LEN(TokenBuf) THEN
+	HexOK=$ff
+	RETURN
+ ENDIF
+ TempByte=MID$(TokenBuf,ValidNdx,1)
+ IF TempByte>="0" AND TempByte<="9" THEN 5142
+ IF TempByte>="a" AND TempByte<="f" THEN 5142
+ RETURN
+
+ValidFlt
+ OneDot=0
+ FloatOK=0
+ IF LEN(TokenBuf)>21 THEN
+	RETURN
+ ENDIF
+ ValidNdx=0
+ValidFlt1:
+ INC ValidNdx
+ IF ValidNdx>LEN(TokenBuf) THEN
+	FloatOK=$ff
+	RETURN
+ ENDIF
+ TempByte=MID$(TokenBuf,ValidNdx,1)
+ IF TempByte>="0" AND TempByte<="9" THEN ValidFlt1
+ IF TempByte="." THEN
+	IF OneDot=0 THEN
+		OneDot=$ff
+		GOTO ValidFlt1
+	ENDIF
+ ENDIF
+ RETURN
+ 
+SymSrch
+ SymFull=0
+ SymFound=0
+ SymNdx=0
+ TempName=SymTemp.SymName
+ IF TempName="ERR" THEN
+	SymTemp.SymName="errno"
+	TempName=SymTemp.SymName
+ ENDIF
+ IF LEFT$(TempName,1)="$" THEN
+	LEFT$(TempName,1)="x"
+	SymTemp.SymName="0"+TempName
+	TempName=SymTemp.SymName
+ ENDIF
+ IF RIGHT$(TempName,1)="$" THEN
+	TempName=LEFT$(TempName,LEN(TempName)-1)
+	SymTemp.SymName=TempName+"_Str"
+	TempName=SymTemp.SymName
+ ENDIF
+SymSrch1:
+ INC SymNdx
+ IF SymNdx>LastMulti THEN
+	SymFull=$ff
+	RETURN
+ ENDIF
+ IF SymTable(SymNdx).SymName="%" THEN
+	RETURN
+ ENDIF
+ IF SymTable(SymNdx).SymName<>TempName THEN SymSrch1
+ SymFound=$ff
+ RETURN
+
+SymSearch
+ SymSrch()
+ IF SymFound=$ff THEN
+	RETURN
+ ENDIF
+ SymTemp.SymName=TokenSaf
+ SymSrch()
+ RETURN
+ 
+SymInsert
+ IF SymFull=$ff THEN
+	ErrNo=ErrSymFul
+	RETURN
+ ENDIF
+ SymTable(SymNdx)=SymTemp
+ LastSym=SymNdx
+ RETURN
+
+MultiInsert
+ MultiNdx=SymTabSiz+1
+ SymFull=0
+MultiInsert1:
+ DEC MultiNdx 
+ IF MultiNdx<=LastSym THEN
+	ErrNo=ErrSymFul
+	RETURN
+ ENDIF
+ IF SymTable(MultiNdx).SymName<>"%" THEN MultiInsert1
+ SymTable(MultiNdx)=SymTemp
+ LastMulti=MultiNdx
+ RETURN
+
+KeyLook
+ KeyNdx=0
+ RESTORE KeyTable
+ LookUp()
+ RETURN
+
+LookUp
+LookUp1:
+ READ KeyWord
+ INC KeyNdx
+ IF KeyWord="%" THEN
+	KeyNdx=0
+	RETURN
+ ENDIF
+ IF KeyWord=TokenBuf THEN
+	RETURN
+ ENDIF
+ GOTO LookUp1
+ RETURN'  sbrtn delimiter only
+ 
+CmpOps
+ Op1Class=0
+ AndOrFlag=$ff
+ CompFlag=$ff
+ OutBuf="_True=0;"
+ GenCode
+CmpOps1:
+ Promote=0
+ Demote=0
+ TmpUse=0
+ TmpVecUse=0
+ FTmpUse=0
+ ChrTmpUse=0
+ StrTmpUse=0
+ TypeFlag=0
+ TDataMod=0
+ FileStat=0
+ ClrDatTyp()
+ Expr()
+ ErrRet
+ Op1Name=TSymName
+ Op1Class=OpClass
+ Op1Type=TDataType
+ Op1Mod=TDataMod
+ Op1Detail=TDetail
+ IF TDataType=BOOLEAN THEN
+	IF NextByte="=" OR NextByte="<" THEN
+		NexToken()
+		IF TokenBuf="=" THEN
+			SymType="=="
+		ELSE
+			SymType="!="
+		ENDIF
+		IF TokenBuf<>"=" AND TokenBuf<>"<>" THEN
+			ErrNo=ErrIVExp
+			RETURN
+		ENDIF
+		GOTO CmpOps2
+	ELSE
+		Op2Name="true"
+		Op2Class=BOOLClass
+		Op2Type=1
+		Op2Mod=$04
+		Op2Detail=1
+		SymType="=="
+		GOTO CmpOps3
+	ENDIF
+ ENDIF
+ NexToken()
+ IF TokenType<>1 THEN
+	ErrNo=ErrIVExp
+	RETURN
+ ENDIF
+ SymType=""
+ IF TokenBuf="=" THEN
+	SymType="=="
+ ENDIF
+ IF TokenBuf="<" THEN
+	SymType="<"
+ ENDIF
+ IF TokenBuf=">" THEN
+	SymType=">"
+ ENDIF
+ IF TokenBuf="<=" THEN
+	SymType="<="
+ ENDIF
+ IF TokenBuf=">=" THEN
+	SymType=">="
+ ENDIF
+ IF TokenBuf="<>" THEN
+	SymType="!="
+ ENDIF
+ IF SymType="" THEN
+	ErrNo=ErrIVExp
+ RETURN
+ ENDIF
+CmpOps2:
+ Expr()
+ ErrRet
+ Op2Name=TSymName
+ Op2Class=OpClass
+ Op2Type=TDataType
+ Op2Mod=TDataMod
+ Op2Detail=TDetail
+ IF Op1Class=INTClass OR Op1Class=FLTClass THEN
+	CmpNum()
+	ErrRet
+ ENDIF
+ IF Op1Class<>Op2Class THEN
+	EXITIF Op1Class=INTClass AND Op2Class=FLTClass
+	EXITIF Op1Class=FLTClass AND Op2Class=INTClass
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF Op1Class=STRClass THEN
+	CmpString()
+ ENDIF
+CmpOps3:
+ IF Op1Class=BOOLClass THEN
+	CmpBool()
+	ErrRet
+ ENDIF
+ IF Op1Class=0 OR Op1Class=ARRClass OR Op1Class=CPXClass THEN
+	ErrNo=ErrIVExp
+	RETURN
+ ENDIF
+ IF AndOrFlag=0 THEN
+	OutBuf="_True=_True&_d0;"
+ ELSE
+	OutBuf="_True=_True|_d0;"
+ ENDIF
+ GenCode
+ NexToken()
+ IF TokenBuf="and" THEN
+	AndOrFlag=0
+	GOTO CmpOps1
+ ENDIF
+ IF TokenBuf="or" THEN
+	AndOrFlag=$ff
+	GOTO CmpOps1
+ ENDIF
+ RETURN
+ 
+ClrDatTyp
+ DTCompVar=0
+ DTBoolean=0
+ DTByte=0
+ DTShort=0
+ DTLong=0
+ DTFloat=0
+ DTString=0
+ DTLabel=0
+ DTMacro=0
+ DTOper=0
+ DTFcn=0
+ DTProc=0
+ DTStruct=0
+ DTVoid=0
+ DTComplex=0
+ DTBuffer=0
+ DMData=0
+ DMTemp=0
+ DMVector=0
+ DMMember=0
+ DMMulti=0
+ DMConst=0
+ DMAddr=0
+ DMArray=0
+ RETURN
+ 
+GtRootSym
+ SubscrErr=0
+ RootSym=""
+ SubCtr=0
+ Subscript(1)=""
+ Subscript(2)=""
+ Subscript(3)=""
+ SubValue(1)=1
+ SubValue(2)=1
+ SubValue(3)=1
+ LabNdx=0
+GtRtSym1:
+ INC LabNdx
+ IF LabNdx>LEN(TokenSaf) THEN
+	RETURN
+ ENDIF
+ TempByte=MID$(TokenSaf,LabNdx,1)
+ IF TempByte<>"(" THEN
+	RootSym=RootSym+TempByte
+	GOTO GtRtSym1
+ ENDIF
+ IF RIGHT$(TokenSaf,1)<>")" THEN
+	SubscrErr=$ff
+	RETURN
+ ENDIF
+GtRtSym2:
+ INC SubCtr
+ IF SubCtr>3 THEN
+	ErrNo=ErrSyntax
+	RETURN
+ ENDIF
+GtRtSym3:
+ INC LabNdx
+ TempByte=MID$(TokenSaf,LabNdx,1)
+ IF TempByte=")" OR TempByte="," THEN
+	SymNdxSaf=SymNdx
+	TempStr=SymTemp.SymName
+	IF LEFT$(Subscript(SubCtr),1)>="0" AND LEFT$(Subscript(SubCtr),1)<="9" THEN
+		SubValue(SubCtr)=VAL(Subscript(SubCtr))
+	ELSE
+		SymTemp.SymName=Subscript(SubCtr)
+		SymSrch()
+		IF SymFound=$ff AND SymTable(SymNdx).DataType=COMPVAR OR SymTable(SymNdx).DataType=MACRO THEN
+			SubValue(SubCtr)=SymTable(SymNdx).Detail
+		ELSE
+			ErrNo=ErrUDSym
+			RETURN
+		ENDIF
+	ENDIF
+	SymNdx=SymNdxSaf
+	SymTemp.SymName=TempStr
+	IF TempByte="," THEN GtRtSym2
+	RETURN
+ ENDIF
+ Subscript(SubCtr)=Subscript(SubCtr)+TempByte
+ GOTO GtRtSym3
+ RETURN'  sbrtn delimiter only
+
+F0
+' EOF(#FileNum)
+ INC FcnLabNum
+ FileStat=$ff
+ ClassOp()
+ IF TDataMod&FileBit=0 THEN' Path# style
+ 	GetPthNum2()
+ 	ErrRet
+ 	OutBuf="STATUS=lseek(_IOPthNum,0,1);"
+ 	GenCode
+ 	OutBuf="if (STATUS == -1) goto _FLbl"+STR$(FcnLabNum)+";"
+ 	GenCode
+ 	OpClass=BOOLClass
+ 	TDataType=BOOLEAN
+ 	GetTmp()
+ 	ErrRet
+ 	OutBuf=SymTemp.SymName+"=0;"
+ 	GenCode
+ 	OutBuf="(long)_XferAddr=lseek(_IOPthNum,0,2);"
+ 	GenCode
+	OutBuf="if (STATUS == (long)_XferAddr) "+SymTemp.SymName+"=1;"
+	GenCode
+ 	OutBuf="STATUS=lseek(_IOPthNum,STATUS,0);"
+ 	GenCode
+ 	OutBuf="_FLbl"+STR$(FcnLabNum)+":;"
+ 	GenCode
+ 	CallErr()
+ ELSE
+ 	GetFilePtr()
+ 	ErrRet
+ 	OutBuf="STATUS=feof(_FilePtr);"
+ 	GenCode
+ 	IF StatFlag=0 THEN
+ 		OutBuf="if (ferror(_FilePtr) != 0) longjmp(_ebuf,1);"
+ 		GenCode
+ 	ENDIF
+ 	OutBuf="if(STATUS) STATUS = 1;"
+ 	GenCode
+ 	OpClass=BOOLClass
+ 	TDataType=BOOLEAN
+ 	GetTmp()
+ 	ErrRet
+ 	OutBuf=SymTemp.SymName+"=STATUS;"
+ 	GenCode
+ ENDIF
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F1
+' LEN(String)
+ ClassOp()
+ IF TDataType<>STRING OR DMArray=$ff THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=_StrLen(&"+TSymName+");"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F2
+' STR$(Number)
+ ClassOp()
+ LoadReg()
+ ErrRet
+ IF OpClass<>INTClass AND OpClass<>FLTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF OpClass=INTClass THEN
+	IF FloatFlag<>0 THEN
+		OutBuf="_d0=_d0f;"
+		GenCode	
+	ENDIF
+	OutBuf="_LtoA(_d0);"
+ ELSE
+	OutBuf="_DtoA(_d0f);"
+ ENDIF
+ GenCode
+ NumToA()
+ RETURN
+
+NumToA
+ GetStrVec()
+ ErrRet
+ OutBuf="_MovStr(&"+SymTemp.SymName+",&_CBuf1Vec);"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F3
+' VAL(String)
+ ClassOp()
+ IF TDataType<>STRING OR DMArray=$ff THEN
+	ErrNo=ErrTypMis'  wrong type
+	RETURN
+ ENDIF
+ IF Op1Class=FLTClass AND FcnCode=3 THEN
+	FcnCode=23
+ ENDIF
+ OutBuf="_ClrConv();"
+ GenCode
+ OutBuf="_MovStr(&_CBufVec,&"+TSymName+");"
+ GenCode
+ IF FcnCode=23 THEN
+	OutBuf="_d0f=_AtoD();"
+ ELSE
+	OutBuf="_d0=_AtoL();"
+ ENDIF
+ GenCode
+ IF FcnCode=23 THEN
+ 	INC FloatFlag
+	OpClass=FLTClass
+	TDataType=FLOAT
+	GetFltTmp()
+	ErrRet
+ ELSE
+	OpClass=INTClass
+	GetIntTmp()
+	ErrRet
+ ENDIF
+ IF FcnCode=23 THEN
+	OutBuf=SymTemp.SymName+"=_d0f;"
+ ELSE
+	OutBuf=SymTemp.SymName+"=_d0;"
+ ENDIF
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F4
+' LAND(Exp1,Exp2)
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+ FcnOp1Nam=TSymName
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ IF FcnCode=4 THEN
+	OutBuf=SymTemp.SymName+"="+FcnOp1Nam+"&"+TSymName+";"
+ ENDIF
+ IF FcnCode=6 THEN
+	OutBuf=SymTemp.SymName+"="+FcnOp1Nam+"|"+TSymName+";"
+ ENDIF
+ IF FcnCode=8 THEN
+	OutBuf=SymTemp.SymName+"="+FcnOp1Nam+"%"+TSymName+";"
+ ENDIF
+ IF FcnCode=18 THEN
+	OutBuf=SymTemp.SymName+"="+FcnOp1Nam+"^"+TSymName+";"
+ ENDIF
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F5
+' MID$(String,Position,Quantity)
+ IF FcnCode=5 THEN
+	IF ExpRight-ExpLeft<>4 THEN
+		ErrNo=ErrFcn
+		RETURN
+	ENDIF
+ ENDIF
+ MidLftRt()
+ RETURN
+
+MidLftRt
+ ClassOp()
+ IF TDataType<>STRING THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF DMVector=$ff AND DMTemp=0 THEN
+	REM need to make a temp vector
+	SetTmpVec()
+	ErrRet
+ ENDIF
+ OutBuf="_a0=&"+TSymName+";"
+ GenCode
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF FcnCode=5 THEN
+	LoadReg()'  first arg
+	ErrRet
+	INC ExpNdx
+	ClassOp()
+	IF OpClass<>INTClass THEN
+		ErrNo=ErrTypMis
+		RETURN
+	ENDIF
+	LoadReg()'  second arg
+	ErrRet
+ OutBuf="_MidStr((long)_a0,_d0,_d1,"+STR$(Target)+");"' Cast for ansi proto
+ GenCode
+ ELSE
+	LoadReg()'  load d0
+	ErrRet
+	IF FcnCode=7 THEN
+		OutBuf="_MidStr((long)_a0,1,_d0,"+STR$(Target)+");"' Cast for ansi proto
+	ELSE
+		IF FcnCode=10 THEN
+			OutBuf="_RightStr((long)_a0,_d0,"+STR$(Target)+");"' Cast for ansi proto
+		ELSE
+			OutBuf="_Remnant((long)_a0,_d0,"+STR$(Target)+");"
+		ENDIF
+	ENDIF
+	GenCode
+ ENDIF
+ ExpNdx=ExpLeft+1
+ RETURN
+ 
+F6
+' LOR(Exp1,Exp2)
+ GOSUB F4
+ RETURN
+ 
+F7
+' LEFT$(String,Quantity)
+ IF ExpRight-ExpLeft<>3 THEN
+	ErrNo=ErrFcn
+	RETURN
+ ENDIF
+ MidLftRt()
+ RETURN
+ 
+F8
+' MOD(Exp1,Exp2)
+ GOSUB F4
+ RETURN
+ 
+F9
+' CHR$(Expr)
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ LoadReg()
+ ErrRet
+ GetChrVec()
+ ErrRet
+ OutBuf="_ChrTmp"+STR$(ChrTmpUse)+"=_d0;"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F10
+' RIGHT$(String,Quantity)
+ MidLftRt()
+ RETURN
+ 
+F11
+' ASC(String)
+ ClassOp()
+ IF TDataType<>STRING OR DMArray=$ff THEN
+	ErrNo=ErrFcn
+	RETURN
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=*((unsigned char*)"+TSymName+"._Ptr);"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F12
+' NOT(Boolean)
+ ClassOp()
+ IF TDataType<>1 THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OpClass=BOOLClass
+ TDataType=BOOLEAN
+ GetTmp()
+ ErrRet
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+ OutBuf=SymTemp.SymName+"= (!"+TSymName+");"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F13
+' BUFADR(Buffer)
+ ClassOp()
+ IF TDataType<>BUFFER THEN
+	ErrNo=ErrTypMis
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ IF FcnCode=13 THEN
+	OutBuf=SymTemp.SymName+"=(long)"+TSymName+"._BufPtr;"
+ ELSE
+	OutBuf=SymTemp.SymName+"="+TSymName+"._BufSiz;"
+ ENDIF
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F14
+' BUFSIZ(Buffer)
+ GOSUB F13
+ RETURN
+
+F15
+' TAB()
+ IF PrintFlag=0 THEN
+	ErrNo=ErrFcn'  function error
+	RETURN
+ ENDIF
+ TabFlag=$ff
+ ClassOp()
+ IF OpClass=INTClass THEN
+	LoadReg()
+	ErrRet
+	OutBuf="_PrintTab(_d0);"
+	GenCode
+	CallErr()
+	GenXfrCnt()
+ ELSE
+	ErrNo=ErrTypMis
+ ENDIF
+ RETURN
+
+F16
+' PEEK
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg()
+ OutBuf="(long)_Poker=_d0;"
+ GenCode
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=*_Poker;"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F17
+' ADDR(Var)
+ ClassOp()
+ IF FloatFlag>0 THEN
+	DEC FloatFlag
+ ENDIF
+ IF TDataType>STRING AND TDataType<COMPLEX OR DMConst=$ff THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ GetBase()
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=(long)_a0;"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F18
+' LXOR(IntExpr)
+ GOSUB F4
+ RETURN
+
+F19
+' LNOT(IntExpr)
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+ OutBuf=SymTemp.SymName+"= ~"+TSymName+";"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F20
+' INDEX(Pointer,IntExpr)
+ ClassOp()
+ IF DMAddr=0 THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ FcnOp1Nam=TSymName
+ IF DMVector=$ff THEN
+	FcnOp1Nam=FcnOp1Nam+"._Ptr"
+ ENDIF
+ GetVarSiz()
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=(long)"+FcnOp1Nam+"+"+TSymName+"*"+STR$(VarSize)+";"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+GetVarSiz
+ IF TDataType=COMPLEX THEN
+	VarSize=SymTable(TDetail).DataSize
+ ENDIF
+ IF TDataType=STRING THEN
+	VarSize=TDetail
+ ENDIF
+ IF TDataType=BOOLEAN OR TDataType=BYTE THEN
+	VarSize=1
+ ENDIF
+ IF TDataType=SHORT THEN
+	VarSize=2
+ ENDIF
+ IF TDataType=LONG THEN
+	VarSize=4
+ ENDIF
+ IF TDataType=FLOAT THEN
+	VarSize=8
+ ENDIF
+ RETURN
+
+F21
+' SIZE(Var)
+ ClassOp()
+ IF FloatFlag>0 THEN
+	DEC FloatFlag
+ ENDIF
+ IF TDataType<1 OR TDataType>6 THEN SIZE1
+ VarSize=TDataSize
+ GOTO SIZE2
+SIZE1:
+ IF TDataType=BUFFER THEN
+	VarSize=8
+	GOTO SIZE2
+ ENDIF
+ IF TDataType=COMPLEX THEN
+	VarSize=TDataSize
+	GOTO SIZE2
+ ENDIF
+ ErrNo=ErrTypMis
+ RET
+SIZE2:
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"="+STR$(VarSize)+";"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F22
+' IVAL(String)
+ GOSUB F3
+ RETURN
+
+F23
+' FVAL(String)
+ GOSUB F3
+ RETURN
+
+F24
+' TRM$
+ ClassOp()
+ IF TDataType<>STRING THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF DMVector=$ff AND DMTemp=0 THEN
+	SetTmpVec()
+	ErrRet
+ ENDIF
+ OutBuf="_TrmStr(&"+TSymName+");"
+ GenCode
+ ExpNdx=ExpLeft+1
+ RETURN
+
+F25
+' FILSIZ(#FileNum)
+ INC FcnLabNum
+ FileStat=$ff
+ ClassOp()
+ IF TDataMod&FileBit=0 THEN' Path# style
+ 	GetPthNum2()
+ 	ErrRet
+ 	OutBuf="STATUS=lseek(_IOPthNum,0,1);"
+ 	GenCode
+ 	OutBuf="if (STATUS == -1) goto _FLbl"+STR$(FcnLabNum)+";"
+ 	GenCode
+ 	GetIntTmp()
+ 	ErrRet
+ 	OutBuf=SymTemp.SymName+"=lseek(_IOPthNum,0,2);"
+ 	GenCode
+ 	ExpTable(ExpNdx)=SymNdx
+ 	OutBuf="STATUS=lseek(_IOPthNum,STATUS,0);"
+ 	GenCode
+ 	OutBuf="_FLbl"+STR$(FcnLabNum)+":;"
+ 	GenCode
+ 	CallErr()
+ ELSE
+ 	GetFilePtr()
+ 	ErrRet
+ 	OutBuf="STATUS=ftell(_FilePtr);"
+ 	GenCode
+ 	IF StatFlag=0 THEN
+ 		OutBuf="if (STATUS == -1) goto _FLbl"+STR$(FcnLabNum)+";"
+ 		GenCode
+ 	ENDIF
+ 	GetIntTmp()
+ 	ErrRet
+ 	OutBuf="fseek(_FilePtr,0,SEEK_END);"
+ 	GenCode
+ 	OutBuf=SymTemp.SymName+"=ftell(_FilePtr);"
+ 	GenCode
+ 	ExpTable(ExpNdx)=SymNdx
+ 	OutBuf="STATUS=fseek(_FilePtr,STATUS,SEEK_SET);"
+ 	GenCode
+ 	OutBuf="_FLbl"+STR$(FcnLabNum)+":;"
+ 	GenCode 
+ ENDIF
+ RETURN
+
+F26
+' FILPOS(#FileNum)
+ FileStat=$ff
+ ClassOp()
+ IF TDataMod&FileBit=0 THEN' Path# style
+ 	GetPthNum2()
+ 	ErrRet
+ 	OutBuf="STATUS=lseek(_IOPthNum,0,1);"
+ 	GenCode
+ 	CallErr()
+ 	GetIntTmp()
+ 	ErrRet
+ 	OutBuf=SymTemp.SymName+"=STATUS;"
+ 	GenCode
+ ELSE
+ 	GetFilePtr()
+ 	ErrRet
+ 	OutBuf="STATUS=ftell(_FilePtr);"
+ 	GenCode
+ 	IF StatFlag=0 THEN
+ 		OutBuf="if (STATUS == -1) goto _FLbl"+STR$(FcnLabNum)+";"
+ 		GenCode
+ 	ENDIF
+ 	GetIntTmp()
+ 	ErrRet
+ 	OutBuf=SymTemp.SymName+"=STATUS;"
+ 	GenCode
+ ENDIF
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F27
+' SQR(Expr)
+ ClassOp()
+ INC FloatFlag
+ IF OpClass<>INTClass AND OpClass<>FLTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF FcnCode=27 THEN
+	TempStr="sqrt"
+ ENDIF
+ IF FcnCode=30 THEN
+	TempStr="sin"
+ ENDIF
+ IF FcnCode=31 THEN
+	TempStr="cos"
+ ENDIF
+ IF FcnCode=32 THEN
+	TempStr="tan"
+ ENDIF
+ IF FcnCode=33 THEN
+	TempStr="asin"
+ ENDIF
+ IF FcnCode=34 THEN
+	TempStr="acos"
+ ENDIF
+ IF FcnCode=35 THEN
+	TempStr="atan"
+ ENDIF
+ IF FcnCode=36 THEN
+	TempStr="log"
+ ENDIF
+ IF FcnCode=37 THEN
+	TempStr="log10"
+ ENDIF
+ GetFltTmp()
+ ErrRet
+ IF DMVector=0 THEN
+	OutBuf=SymTemp.SymName+"="+TempStr+"((double)"+TSymName+");"
+ ELSE
+	OutBuf=SymTemp.SymName+"="+TempStr+"(*((double*)"+TSymName+"._Ptr));"
+ ENDIF
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F28
+' INT(FloatExpr)
+ ClassOp()
+ IF FloatFlag>0 THEN
+	DEC FloatFlag
+ ENDIF
+ IF OpClass<>FLTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ IF DMVector=0 THEN
+	OutBuf=SymTemp.SymName+"=(long)"+TSymName+";"
+ ELSE
+	OutBuf=SymTemp.SymName+"=(long)*((double*)"+TSymName+"._Ptr);"
+ ENDIF
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F29
+' ABS(Expr)
+ ClassOp()
+ IF OpClass<>INTClass AND OpClass<>FLTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF DMVector=$ff THEN
+	VecSymNam()
+ ENDIF
+ IF OpClass=INTClass THEN
+	GetTmp()
+	ErrRet
+	OutBuf=SymTemp.SymName+"=abs("+TSymName+");"
+	GenCode
+ ELSE
+	GetFltTmp()
+	ErrRet
+	OutBuf=SymTemp.SymName+"=fabs("+TSymName+");"
+	GenCode
+ ENDIF
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F30
+' SIN(Expr)
+ GOSUB F27
+ RETURN
+
+F31
+' COS(Expr)
+ GOSUB F27
+ RETURN
+
+F32
+' TAN(Expr)
+ GOSUB F27
+ RETURN
+
+F33
+' ASN(Expr)
+ GOSUB F27
+ RETURN
+
+F34
+' ACS(Expr)
+ GOSUB F27
+ RETURN
+
+F35
+' ATN(Expr)
+ GOSUB F27
+ RETURN
+
+F36
+' LOG(Expr)
+ GOSUB F27
+ RETURN
+
+F37
+' LOG10(Expr)
+ RETURN
+
+F38
+' GETMENU(MenuName)
+ RETURN
+
+F39
+' GETFILE()
+ RETURN
+
+F40
+' THOUR()
+ DateTime()
+ RETURN
+
+F41
+' TMIN()
+ DateTime()
+ RETURN
+
+F42
+' TSEC()
+ DateTime()
+ RETURN
+
+F43
+' TYEAR()
+ DateTime()
+ RETURN
+
+F44
+' TMON()
+ DateTime()
+ RETURN
+
+F45
+' TDAT()
+ DateTime()
+ RETURN
+
+F46
+' TDAY()
+ DateTime()
+ RETURN
+
+DateTime
+ OutBuf="_t=time(0);"
+ GenCode
+ OutBuf="_systime=localtime(&_t);"
+ GenCode
+ GetIntTmp()
+ ErrRet
+ IF FcnCode=40 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_hour;"
+	GenCode
+ ENDIF
+ IF FcnCode=41 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_min;"
+	GenCode
+ ENDIF
+ IF FcnCode=42 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_sec;"
+	GenCode
+ ENDIF
+ IF FcnCode=43 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_year;"
+	GenCode
+ ENDIF
+ IF FcnCode=44 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_mon+1;"
+	GenCode
+ ENDIF
+ IF FcnCode=45 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_mday;"
+	GenCode
+ ENDIF
+ IF FcnCode=46 THEN
+	OutBuf=SymTemp.SymName+"=_systime->tm_wday;"
+	GenCode
+ ENDIF
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F47
+' MBUTTON Function
+ RETURN
+
+F48
+' HEX$(INT)
+ ClassOp()
+ LoadReg()
+ ErrRet
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OutBuf="_LtoH(_d0,"+STR$(HexType)+");"
+ GenCode
+ NumToA()
+ RETURN
+
+F49
+' BITTST(ByteVar,Bit#)
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ LoadReg()
+ ErrRet
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ LoadReg()
+ ErrRet
+ OutBuf="_d1=1<<_d1;"
+ GenCode
+ OpClass=BOOLClass
+ TDataType=BOOLEAN
+ GetTmp()
+ ErrRet
+ OutBuf="if (_d0&_d1) "+SymTemp.SymName+"=1;"
+ GenCode
+ OutBuf="else "+SymTemp.SymName+"=0;"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F50
+' SHL
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ LoadReg()
+ ErrRet
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ LoadReg()
+ ErrRet
+ IF FcnCode=50 THEN
+	OutBuf="_d0=_d0<<_d1;"
+ ELSE
+	IF FcnCode=51 THEN
+		OutBuf="_d0=_d0>>_d1;"
+	ELSE
+		OutBuf="_d1=1<<_d1;"
+		GenCode
+		IF FcnCode=54 THEN
+			OutBuf="_d0=_d0^_d1;"
+		ELSE
+			IF FcnCode=55 THEN
+				OutBuf="_d1=_d1^0xffffffff;"
+				GenCode
+				OutBuf="_d0=_d0&_d1;"
+			ELSE
+				IF FcnCode=56 THEN
+				OutBuf="_d0=_d0|_d1;"
+				ENDIF
+			ENDIF
+		ENDIF
+	ENDIF
+ ENDIF
+ GenCode
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=_d0;"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F51
+' SHR
+ GOSUB F50
+ RETURN
+
+F52
+' ROL
+ GOSUB F50
+ RETURN
+
+F53
+' ROR
+ GOSUB F50
+ RETURN
+
+F54
+' BITCHG
+ GOSUB F50
+ RETURN
+
+F55
+' BITCLR
+ GOSUB F50
+ RETURN
+
+F56
+' BITSET
+ GOSUB F50
+ RETURN
+
+F57
+' SUBSTR(Str1,Str2,[StartPos])
+ ClassOp()
+ IF TDataType<>STRING THEN
+	ErrNo=ErrIVType
+	RETURN
+ ENDIF
+ IF DMVector=$ff AND DMTemp=0 THEN
+	SetTmpVec()
+	ErrRet
+ ENDIF
+ FcnOp1Nam=TSymName
+ INC ExpNdx
+ ClassOp()
+ IF TDataType<>STRING THEN
+	ErrNo=ErrIVType
+	RETURN
+ ENDIF
+ IF DMVector=$ff AND DMTemp=0 THEN
+	SetTmpVec()
+	ErrRet
+ ENDIF
+ TempStr=TSymName
+ IF ExpRight-ExpLeft=4 THEN
+ 	INC ExpNdx
+	ClassOp()
+	IF OpClass<>INTClass THEN
+		ErrNo=ErrIVType
+		RETURN
+	ENDIF
+ ELSE
+ 	TSymName="1"
+ ENDIF
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=_SubStr(&"+FcnOp1Nam+",&"+TempStr+","+TSymName+");"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F58
+' ZSTR$(INT)
+ ClassOp()
+ LoadReg()
+ ErrRet
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OutBuf="_ZLtoA(_d0);"
+ GenCode
+ NumToA()
+ RETURN
+
+F59
+' ZHEX$(INT)
+ ClassOp()
+ LoadReg()
+ ErrRet
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OutBuf="_ZLtoH(_d0);"
+ GenCode
+ NumToA()
+ RETURN
+
+F60
+' USING()
+ NumArgs=ExpRight-ExpLeft-1
+ IF NumArgs<2 OR NumArgs>NumTemps THEN
+	ErrNo=ErrFcn
+	RETURN
+ ENDIF
+ FOR Ctr1=1 TO NumArgs
+	ClassOp()
+	IF TDataType<>STRING OR DMAddr=$ff THEN
+		MakString()
+		ErrRet
+		ClassOp()
+	ENDIF
+	OutBuf="_PUArgs["+STR$(Ctr1-1)+"]=(long)&"+TSymName+";"
+	GenCode
+	INC ExpNdx
+ NEXT Ctr1
+ OutBuf="_PrtUsing("+STR$(NumArgs)+",_PrintBuf,_BufSize);"
+ GenCode
+ CallErr()
+ GenXfrCnt()
+ GenCRLF
+ OutBuf="POS=0;"
+ GenCode
+ ExpTable(ExpNdx)=21'  return zero
+ RETURN
+ 
+F61
+' Vacant()
+ RETURN
+
+F62
+' Vacant()
+ RETURN
+
+F63
+' Vacant()
+ RETURN
+
+F64
+' Vacant()
+ RETURN
+
+F65
+' Vacant()
+ RETURN
+
+F66
+' Vacant()
+ RETURN
+
+F67
+' Vacant()
+ RETURN
+ 
+F68
+' Vacant()
+ RETURN
+ 
+F69
+' Vacant()
+ RETURN
+ 
+F70
+' Vacant()
+ RETURN
+ 
+F71
+' RND()
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=rand();"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+F72
+' Vacant()
+ RETURN
+
+F73
+' Vacant()
+ RETURN
+ 
+F74
+' Vacant()
+ RETURN
+
+F75
+' Vacant()
+ RETURN
+
+F76
+' Vacant()
+ RETURN
+ 
+F77
+' LCASE$()
+ ClassOp()
+ IF TDataType<>STRING OR DMArray=$ff THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OutBuf="_MovStr(&_IOBufVec,&"+TSymName+");"
+ GenCode
+ OutBuf="_LCase(&_IOBufVec);"
+ GenCode
+ ExpTable(ExpNdx)=108' 108 is _IOBufVec
+ RETURN
+ 
+F78
+' UCASE$()
+ ClassOp()
+ IF TDataType<>STRING OR DMArray=$ff THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ OutBuf="_MovStr(&_IOBufVec,&"+TSymName+");"
+ GenCode
+ OutBuf="_UCase(&_IOBufVec);"
+ GenCode
+ ExpTable(ExpNdx)=108' 108 is _IOBufVec
+ RETURN
+ 
+F79
+' REMNANT$(String,Quantity)
+ MidLftRt()
+ RETURN
+ 
+F80
+' FINDADDR()
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg()
+ OutBuf="(long)_Poker=_d0;"
+ GenCode
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg()
+ OutBuf="_ArgSafe0=_d0;"
+ GenCode
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg() 
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=0;"
+ GenCode
+ OutBuf="while (_ArgSafe0){"
+ GenCode
+ OutBuf="if(*_Poker == _d0){"
+ GenCode
+ OutBuf=SymTemp.SymName+"=(long)_Poker;"
+ GenCode
+ OutBuf="break;}"
+ GenCode
+ OutBuf="_Poker++;"
+ GenCode
+ OutBuf="_ArgSafe0--;}"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+ 
+F81
+' FINDOFFS()
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg()
+ OutBuf="(long)_Poker=_d0;"
+ OutBuf="_ArgSafe1=_d0;"
+ GenCode
+ GenCode
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg()
+ OutBuf="_ArgSafe0=_d0;"
+ GenCode
+ INC ExpNdx
+ ClassOp()
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ InitReg0
+ LoadReg() 
+ GetIntTmp()
+ ErrRet
+ OutBuf=SymTemp.SymName+"=-1;"
+ GenCode
+ OutBuf="while (_ArgSafe0){"
+ GenCode
+ OutBuf="if(*_Poker == _d0){"
+ GenCode
+ OutBuf=SymTemp.SymName+"=(long)_Poker-_ArgSafe1;"
+ GenCode
+ OutBuf="break;}"
+ GenCode
+ OutBuf="_Poker++;"
+ GenCode
+ OutBuf="_BlkCnt++;"
+ GenCode
+ OutBuf="_ArgSafe0--;}"
+ GenCode
+ ExpTable(ExpNdx)=SymNdx
+ RETURN
+
+OutCode
+ INC CLineCtr
+ IF StartFlag=$ff THEN
+	IF FcnFlag=0 THEN
+		WRITE #CodeFile,OutBuf
+	ELSE
+		WRITE #FcnFile,OutBuf
+	ENDIF
+ ELSE
+	WRITE #VarFile,OutBuf
+ ENDIF
+ RETURN
+ 
+OutVar
+ WRITE #VarFile,OutBuf
+ INC CLineCtr
+ RETURN
+ 
+OutMain
+ WRITE #CodeFile,OutBuf
+ INC CLineCtr
+ RETURN
+ 
+OutFcn
+ WRITE #FcnFile,OutBuf
+ INC CLineCtr
+ RETURN
+
+OutWrite
+ IF PrintFlag=0 THEN
+	OutBuf="STATUS=write(_IOPthNum,_XferAddr,XferCount);"
+ ELSE
+	OutBuf="STATUS=write(_PrtPthNum,_XferAddr,XferCount);"
+ ENDIF
+ GenCode
+ CallErr()
+ GenXfrCnt()
+ RETURN
+
+OutRead
+ OutBuf="STATUS=read(_IOPthNum,_XferAddr,XferCount);"
+ GenCode
+ CallErr()
+ GenXfrCnt()
+ RETURN
+
+OutCRLF
+ OutBuf="_XferAddr=_CRLF;"
+ GenCode
+ OutBuf="XferCount=2;"
+ GenCode
+ OutBuf="STATUS=write(_PrtPthNum,_XferAddr,XferCount);"
+ GenCode
+ CallErr() 
+ GenXfrCnt()
+ RETURN
+
+OutNewLine
+ OutBuf="_XferAddr=&_NewLine;"
+ GenCode
+ OutBuf="XferCount=1;"
+ GenCode
+ GenWrite
+ RETURN
+
+MacDefInc
+ INC MacDefNdx
+ IF MacDefNdx>MacBufSiz THEN
+	DEC MacDefNdx
+	ErrNo=ErrMacBuf
+ ENDIF
+ RETURN
+ 
+IncConStk
+ INC CSP
+ IF CSP>40 THEN
+	ErrNo=ErrNDeep
+ ENDIF
+ RETURN
+
+MakString
+ IF OpClass=BOOLClass THEN
+	IF TSymName<>"~" THEN
+		InitReg0
+		LoadReg()
+		ErrRet
+	ENDIF
+	OutBuf="_BtoA(_d0);"
+	GenCode
+	NumToA()
+	RETURN
+ ENDIF
+ IF TSymName<>"~" THEN
+	InitReg0
+	LoadReg()
+	ErrRet
+ ENDIF
+ IF FloatFlag=0 THEN
+	OutBuf="_LtoA(_d0);"
+ ELSE
+	OutBuf="_DtoA(_d0f);"
+ ENDIF
+ GenCode
+ NumToA()
+ RETURN
+
+CSChk
+ IF CSP<1 THEN
+	ErrNo=ErrUBCon
+	RETURN
+ ENDIF
+ IF CS(CSP).ConType<>TempInt THEN
+	ErrNo=ErrUBCon
+ ENDIF
+ RETURN
+ 
+StrSiz
+ SymNdxSaf=SymNdx
+ TokenBuf=SymTemp.SymName
+ TempByte=LEFT$(TempStr,1)
+ IF TempByte>="0" AND TempByte<="9" THEN
+	TempInt=VAL(TempStr)
+ ELSE
+	SymTemp.SymName=TempStr
+	SymSrch()
+	IF SymFound=$ff AND SymTable(SymNdx).DataType=COMPVAR OR SymTable(SymNdx).DataType=MACRO THEN
+		TempInt=SymTable(SymNdx).Detail
+	ELSE
+		ErrNo=ErrUDSym
+		RETURN
+	ENDIF
+ ENDIF
+ SymNdx=SymNdxSaf
+ SymTemp.SymName=TokenBuf
+ RETURN
+ 
+Remark
+ OutBuf=CHR$($2f)+CHR$($2a)+" LN:"+STR$(BasicLineCtr)+" "+UsrLine+" "+CHR$($2a)+CHR$($2f)
+ RETURN
+
+BldComment
+ OutBuf=CHR$($2f)+CHR$($2a)+Comment+CHR$($2a)+CHR$($2f)
+ RETURN
+
+GetDtaTyp
+ IF TDataType=BOOLEAN OR TDataType=BYTE THEN
+	_DataType="unsigned char"
+ ENDIF
+ IF TDataType=SHORT THEN
+	_DataType="short"
+ ENDIF
+ IF TDataType=LONG OR AddrBit&TDataMod=AddrBit THEN
+	_DataType="long"
+ ENDIF
+ IF TDataType=FLOAT THEN
+	_DataType="double"
+ ENDIF
+ RETURN
+
+VecSymNam
+ GetDtaTyp()
+ VSymName=TSymName
+ TSymName="*(("+_DataType+"*)"+VSymName+"._Ptr)"
+ RETURN
+
+AddMulti
+ SymTemp.SymName="_Array_Diminsion"
+ SymTemp.DataType=$ad'  array diminsion (get it?)
+ SymTemp.DataMod=SubCtr
+ SymTemp.Detail=SubValue(1)
+ SymTemp.DataAddr=SubValue(2)
+ SymTemp.DataSize=SubValue(3)
+ SymTemp.MultiPtr=SymNdx'  backward pointer
+ MultiInsert()
+ SymTable(SymNdx).MultiPtr=MultiNdx
+ RETURN
+
+GetIntOp
+ Expr()
+ ErrRet
+ IF OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF SymTemp.SymName<>"~" THEN
+	InitReg0
+	LoadReg()
+ ENDIF
+ RETURN
+
+GetFltOp
+ Expr()
+ ErrRet
+ IF OpClass<>FLTClass AND OpClass<>INTClass THEN
+	ErrNo=ErrTypMis
+	RETURN
+ ENDIF
+ IF TSymName="~" AND OpClass=INTClass THEN
+ 	TSymName="_d0"
+ ENDIF
+ IF TSymName<>"~" OR OpClass=INTClass THEN
+	OutBuf="_d0f="+TSymName+";"
+	GenCode
+ ENDIF
+ RETURN
+ 
+GetComma
+ NexToken()
+ IF TokenBuf<>"," THEN
+	ErrNo=ErrSyntax
+ ENDIF
+ RETURN
+
+GetColon
+ NexToken()
+ IF TokenBuf<>":" THEN
+	ErrNo=ErrSyntax
+ ENDIF
+ RETURN
+
+GetEqual
+ NexToken()
+ IF TokenBuf<>"=" THEN
+	ErrNo=ErrSyntax
+ ENDIF
+ RETURN
+
+SubLoad
+ InitReg0
+ LoadReg()
+ ErrRet
+ IF FloatFlag<>0 THEN
+	OutBuf="_d0=_d0f;"
+	GenCode
+ ENDIF
+ IF ArrayBase=1 THEN
+	OutBuf="_d0--;"
+	GenCode
+ ENDIF
+ RETURN
+ 
+RegInit
+ OutBuf="_d0=0;"
+ GenCode
+ OutBuf="_d1=0;"
+ GenCode
+ OutBuf="_d0f=0;"
+ GenCode
+ OutBuf="_d1f=0;"
+ GenCode
+ OutBuf="_a0=0;"
+ GenCode
+ OutBuf=""
+ GenCode
+ RETURN
+ 
+FDInit
+ RETURN
+
+ReadSource
+ SrcNdx=0
+ SrcLine=""
+ UsrLine=""
+ FirstValidChar=FALSE
+ QuoteFlg=0
+ LastByte=0
+ WasOperator=0
+ReadSrc:
+ STATUS=GET #InpFile(InpFilPtr),RawData
+ TempInt=STATUS
+ IF TempInt=0 THEN PreProc
+ INC SrcNdx
+ AsciiByte=ASC(RawData)
+ IF AsciiByte=NewLine THEN PreProc
+ UsrLine=UsrLine+RawData
+ IF AsciiByte=$22 AND LastByte<>$5c THEN' Is it a '"'?
+	IF QuoteFlg=0 THEN
+		QuoteFlg=1
+	ELSE
+		QuoteFlg=0
+	ENDIF
+ ENDIF
+ IsOperator=0
+ IF QuoteFlg=0 AND SrcNdx>1 THEN
+	IF AsciiByte>=$2a AND AsciiByte<=$2f THEN
+		IsOperator=1
+	ELSE
+		IF AsciiByte>=$3c AND AsciiByte<=$3e THEN
+			IsOperator=1
+		ELSE
+			IF AsciiByte=$26 OR AsciiByte=$7c THEN
+				IsOperator=1
+			ENDIF
+		ENDIF
+	ENDIF
+	IF LastByte=$20 AND IsOperator=1 THEN' was space and is operator
+		MID$(SrcLine,LEN(SrcLine),1)=RawData' replace sp with op
+	ELSE
+		IF WasOperator=0 OR AsciiByte<>$20 THEN' was not op or is not sp
+			SrcLine=SrcLine+RawData
+		ENDIF
+	ENDIF
+ ELSE	
+	SrcLine=SrcLine+RawData
+ ENDIF
+ LastByte=AsciiByte
+ WasOperator=IsOperator
+ GOTO ReadSrc
+PreProc:
+ SrcNdx=0
+ TokenBuf=LEFT$(SrcLine,1)
+ NexToken()
+ IF TokenBuf="rem" THEN
+	TokenBuf="'"
+ 	TempStr="' "+SrcLine
+	SrcLine=TempStr
+ ENDIF
+ IF TokenBuf="#" OR TokenBuf=";" OR TokenBuf="+" OR TokenBuf="'" OR TokenBuf="," OR TokenBuf="." OR TokenBuf="/" OR TokenBuf="$" OR TokenBuf="rem" THEN	
+	SrcLine=TAIL$(SrcLine,SrcNdx-1)
+	IF TokenBuf="$" THEN
+		TokenBuf="#"
+		MID$(SrcLine,SrcNdx,1)=TokenBuf
+	ENDIF
+	SrcNdx=0
+	RETURN
+ ENDIF
+ IF TokenType=TTypInt THEN
+ 	SrcLine=TAIL$(SrcLine,SrcNdx-LEN(TokenBuf))
+ 	SrcNdx=0
+ 	RETURN
+ ENDIF
+ IF TokenBuf="[" THEN
+ 	TempStr=" "+SrcLine
+ 	SrcLine=TempStr
+ 	SrcNdx=0
+ 	RETURN
+ ENDIF
+ IF TokenType=TTypSym THEN
+ 	IF NextByte="=" THEN' Implied LET
+ 		TempStr=" "+SrcLine
+ 		SrcLine=TempStr
+ 		SrcNdx=0
+ 		RETURN
+ 	ENDIF
+ 	IF NextByte=":" THEN' LABEL or FCN or STATUS
+ 		IF TokenSaf="STATUS" THEN
+ 			TempStr=" "+SrcLine
+ 			SrcLine=TempStr
+ 		ELSE
+ 		 	SrcLine=TAIL$(SrcLine,SrcNdx-LEN(TokenBuf))
+ 		ENDIF
+ 		SrcNdx=0
+ 		RETURN
+ 	ENDIF	
+ 	KeyLook()
+ 	IF KeyNdx<>0 THEN' Statement
+ 		TempStr=" "+SrcLine
+ 		SrcLine=TempStr
+ 		SrcNdx=0
+ 		RETURN
+ 	ENDIF
+	SymTemp.SymName=TokenSaf
+	SymSrch()
+	IF SymFound<>0 THEN
+		TDataType=SymTable(SymNdx).DataType
+		IF TDataType>=1 AND TDataType<=6 THEN' Standard variable
+ 			TempStr=" "+SrcLine
+ 			SrcLine=TempStr
+ 			SrcNdx=0
+ 			RETURN
+ 		ENDIF
+		IF TDataType=MACRO OR TDataType=COMPLEX THEN
+ 			TempStr=" "+SrcLine
+ 			SrcLine=TempStr
+ 			SrcNdx=0
+ 			RETURN
+ 		ENDIF			
+		IF TDataType=FCN OR TDataType=LABEL THEN
+			IF NextByte="(" THEN' FCN Call
+ 				TempStr=" "+SrcLine
+ 				SrcLine=TempStr
+ 			ELSE
+ 				SrcLine=TAIL$(SrcLine,SrcNdx-LEN(TokenBuf))
+ 			ENDIF
+ 			SrcNdx=0
+ 			RETURN
+ 		ENDIF
+ 	ELSE' Must be new (unreferenced) LABEL
+ 		SrcLine=TAIL$(SrcLine,SrcNdx-LEN(TokenBuf))
+ 		SrcNdx=0
+ 		RETURN
+ 	ENDIF				
+ ENDIF
+'Get here if NULL line
+ SrcNdx=0
+ RETURN
+
+GenCase
+ IF OpClass=INTClass THEN
+ 	OutBuf="if (_SwitchInt "+SymType+" _d0) goto _Lbl"+STR$(LabelNum)+";"
+ ELSE
+ 	OutBuf="_d0=_CmpStr(&_SwitchStr,&"+TSymName+");"
+ 	GenCode
+ 	OutBuf="if (_d0 "+SymType+" 1) goto _Lbl"+STR$(LabelNum)+";"
+ ENDIF
+ GenCode
+ RETURN
+
+EndCasex
+ TempInt=7
+ CSChk()
+ ErrRet
+ OutBuf="goto _Lbl"+STR$(CS(CSP).TermLabel)+";"' when case code finishes
+ GenCode
+ OutBuf="_Lbl"+STR$(CS(CSP).ContLabel)+":;"' get here if case not true
+ GenCode
+ RETURN
+ 	

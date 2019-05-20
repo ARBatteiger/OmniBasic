@@ -1,0 +1,1 @@
+; Dimension Variablesdim x as longdim lbl1 as statictextdim txt1 as textboxdim ts as stringOBMain.CREATEcreate lbl1,10,10,100,20create txt1,10,30,100,20END EVENTtxt1.changets=txt1.textx=val(ts)select case x	case 5		lbl1.text="5"		case 1 to 4		lbl1.text="1 to 4"	case 6 to 9		lbl1.text="6 to 9"	case else		lbl1.text="else"end selectend event

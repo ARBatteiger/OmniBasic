@@ -1,0 +1,1 @@
+; Dimension Variablesdim l1 as statictextdim t1 as textboxdim ti as longdim ts as stringdim b1 as buttontable tt as long 1 -1 $ffffffffend table OBMain.CREATEconstruct l1,10,10,80,20construct t1,10,50,80,20construct b1,10,90,80,20END EVENTb1.commandts=t1.textti=val(ts)ti=tt(ti)l1.text=hex(ti)end event

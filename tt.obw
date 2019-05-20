@@ -1,0 +1,1 @@
+; Dimension Variablesdim b1 as buttondim t1 as textboxOBMain.CREATEconstruct t1,10,10,200,20construct b1,10,40,200,20t1.tooltip="TextBox"b1.tooltip="Button"END EVENTb1.commandb1.tooltip="This is a test of a fairly long tooltip"t1.tooltip=""end event

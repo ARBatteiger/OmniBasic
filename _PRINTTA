@@ -1,0 +1,33 @@
+/* _PrintTab(TabVal) */
+/* Prints standard tab (16) if TabVal=0 else TabVal spaces */
+
+extern unsigned char _PrtPthNum;
+extern long STATUS;
+extern long POS;
+extern char _PrintBuf[];
+
+void _PrintTab(_tabval)
+long _tabval;
+{
+char *_prtbufptr;
+long _bytecount;
+STATUS=0;
+_prtbufptr=_PrintBuf;
+_bytecount=0;
+if (_tabval == 0) goto _PTab3;
+if (POS >= _tabval) goto _PTab2;
+_PTab1:;
+*_prtbufptr=0x20;
+_prtbufptr++;
+_bytecount++;
+POS++;
+if (POS != _tabval) goto _PTab1;
+_PTab2:;
+if (_bytecount == 0) return;
+STATUS=write(_PrtPthNum,_PrintBuf,_bytecount);
+return;
+_PTab3:;
+_tabval=POS+16;
+_tabval=_tabval&0xfffffff0;
+goto _PTab1;
+}

@@ -1,0 +1,114 @@
+Qty  Value          Package  Library  Parts
+
+2    .01            C5B5     CAP      C6, C7
+1    .01/1KV        C7,5B4   CAP      C69
+2    .1UF           C5B4,5   CAP      C50, C51
+2    .01UF          C5B5     CAP      C4, C5
+33   .1UF           C5B5     CAP      C8, C25, C31, C32, C33, C36, C37, C38, 
+                                      C39, C40, C41, C42, C43, C44, C45, C46, 
+                                      C47, C48, C49, C52, C53, C54, C55, C56, 
+                                      C57, C58, C59, C60, C61, C62, C63, C64, 
+                                      C65
+8    .01UF          C15B7    CAP      C15, C16, , C18, C19, C20, C21, C22, C23
+1    .022UF         C5B5     CAP      C28
+2    1K             0207/10  R        R27, R35
+7    1N914          DO34-7   DIODE    D1, D2, D3, D4, D5, D6, D7
+10   1UF            TT2D4    CAP-TANT C3, C9, C10, C11, C12, C17, C24, C27, 
+                                      C70, C71
+1    2.49K          0207/10  R        R56
+1    2.55M          0207/10  R        R11
+1    2K             0207/10  R        R39
+7    3.3K           0207/10  R        R3, R9, R47, R57, R58, R59, R61
+1    3.3k           0207/10  R        R60
+2    3.32K          0207/10  R        R23, R32
+1    3.686MHZ       QS       DEMO     QU2
+8    4.99K          0207/10  R        R6, R7, R19, R24, R25, R30, R42, R55
+1    4MHZ           QS       DEMO     QU1
+1    5K             B64Y     TRIMPOT  P1
+2    6.8K           0207/10  R        R8, R41
+1    8.25           0207/10  R        R4
+7    10K            0207/10  R        R12, R15, R28, R34, R36, R43, R54
+1    10KUF          ELEC     POLCAP   C26
+1    10M            0207/10  R        R46
+3    10PF           C5B5     CAP      C13, C14, C34
+4    10UF/25V       TT2D4    CAP-TANT C66, C67, C72, C73
+2    14.3K          0207/10  R        R18, R29
+1    15K            0207/10  R        R38
+1    18.2k          0207/10  R        R5
+1    22PF           C5B5     CAP      C35
+2    27PF           C5B5     CAP      C1, C2
+2    28K            0207/10  R        R20, R31
+1    30.1K          0207/10  R        R45
+1    45.3K          0207/10  R        R16
+2    47.5K          0207/10  R        R22, R33
+1    47UF/6.3V      TT2D4    CAP-TANT C68
+1    49.9K          0207/10  R        R40
+1    54.9K          0207/10  R        R17
+1    62K            0207/10  R        R49
+1    64.9K          0207/10  R        R13
+1    74F273         DIL20    74XX     IC21
+1    74LS00         DIL14    74XX     IC17
+1    74LS04         DIL14    74XX     IC31
+1    74LS08         DIL14    74XX     IC3
+1    74LS21         DIL14    74XX     IC13
+1    74LS27         DIL14    74XX     IC16
+1    74LS123        DIL16    74XX     IC29
+2    74LS138        DIL16    74XX     IC7, IC9
+1    74LS240        DIL20    74XX     IC2
+1    74LS244        DIL20    74XX     IC4
+2    74LS390        DIL16    74XX     IC5, IC6
+2    75K            0207/10  R        R21, R37
+1    78L05          TO92     LINEAR   U3
+1    78LXXZ         TO92     LINEAR   U15
+1    79LXXZ         TO92     LINEAR   U14
+1    100K           0207/10  R        R1
+1    110K           0207/10  R        R48
+2    130L10         P595     VARIST   R52, R53
+1    180            0207/10  R        R51
+1    187K           0207/10  R        R14
+1    0207/10        0207/10  R        R10
+1    320-938        DPDT     SWITCH   S1
+1    499K           0207/10  R        R44
+1    556N           DIL14    LINEAR   U1
+1    680K           0207/10  R        R2
+1    741LS38        DIL16    74XX     IC8
+1    2681           DIL-28   IC       IC14
+1    6264           DIL28    MEMORY   IC10
+2    6800UF         ELEC     POLCAP   C29, C30
+1    6802           DIL40    MOTOROLA IC1
+2    7400           DIL14    74XX     IC19, IC27
+1    7474           DIL14    74XX     IC30
+1    7815           TO220H   LINEAR   U13
+1    7915           TO220H   LINEAR   U12
+2    27256          DIL28    MEMORY   IC11, IC12
+1    74138          DIL16    74XX     IC18
+1    74244          DIL20    74XX     IC25
+1    74245          DIL20    74XX     IC26
+3    74273          DIL20    74XX     IC22, IC23, IC24
+1    75451          DIL08    74XX     IC32
+1    ACINP          ACINP    FUSE     T2
+1    AL23P          AL23P    BUZZER   SP1
+1    CONN           CONN     SWITCH   J2
+1    CTL            1X03     PINHEAD  JP9
+1    DAC312         DIL-20   IC       IC28
+1    DB9            DB9      CON-VG   J1
+3    DG202CJ        DIL16    LINEAR   U4, U7, U8
+1    DS1287         DIL-24   IC       IC20
+1    FUSE           FUSE     FUSE     F1
+1    HEADER         1X03     PINHEAD  JP5
+1    HEADER         1X04     PINHEAD  JP4
+1    KEYBOARD       1X09     PINHEAD  JP1
+1    LCD DISPLAY    2X07     PINHEAD  JP2
+4    LF353N         DIL08    LINEAR   U5, U6, U9, U10
+1    LM323          TO3A     PWR-XIST U11
+1    LM339N         DIL14    LINEAR   U2
+1    MAX1406        DIL-16   IC       IC15
+1    OPTICAL        2X08     PINHEAD  JP3
+1    PRE SRC        1X03     PINHEAD  JP7
+1    RESET SW       1X02     PINHEAD  JP6
+1    RJ6S           RJ6S     TRIMPOT  P2
+1    ROMER          ROMER    TRAFO-R  T1
+1    SIG SRC        1X03     PINHEAD  JP8
+2    SKB            SKB      RECTIF   B1, B2
+1    VS             VS       SWITCH   S2
+

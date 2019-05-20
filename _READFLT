@@ -1,0 +1,24 @@
+/* _ReadFlt(VarAddr) */
+
+extern char _ConvBuf[22];
+extern char *_DataPtr;
+extern char *_DataPtrSaf;
+double _AtoD();
+
+void _ReadFlt(_destptr)
+double *_destptr;
+{
+char *_convptr;
+
+_convptr=_ConvBuf;
+if (*_DataPtr == 0) _DataPtr=_DataPtrSaf;
+while (*_DataPtr)
+	{
+	*_convptr=*_DataPtr;
+	_convptr++;
+	_DataPtr++;
+	}
+*_convptr=0;
+*_destptr=_AtoD();
+_DataPtr++;
+}

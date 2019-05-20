@@ -1,0 +1,16 @@
+/* _ReadBool(VarAddr) */
+
+extern char _ConvBuf[22];
+extern char *_DataPtr;
+extern char *_DataPtrSaf;
+long _AtoL();
+
+void _ReadBool(_destptr)
+char *_destptr;
+{
+if (*_DataPtr == 0) _DataPtr=_DataPtrSaf;
+if (*_DataPtr == 0x31) *_destptr=1;
+else *_destptr=0;
+while (*_DataPtr) _DataPtr++;
+_DataPtr++;
+}

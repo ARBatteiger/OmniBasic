@@ -1,0 +1,136 @@
+/* void _InpData(VecAddr,DataType,_BufSize */
+/* Reads data into _IOBuffer, converts as required, stores into var */
+
+#include <stdio.h>
+
+typedef struct {
+void *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+long _AtoL();
+double _AtoD();
+
+extern unsigned char _IOPthNum;
+extern long STATUS;
+extern char _IOBuffer[];
+extern char _CRLF[];
+extern char _NewLine;
+extern char _ConvBuf[22];
+
+void _InpData(_Op1Ptr,_datatype,_bufsize)
+_StrVec *_Op1Ptr;
+long _datatype;
+long _bufsize;
+{
+_StrVec _Op1;
+long _maxlen;
+long _bytecount;
+char *_convptr;
+char *_iobufptr;
+char *_byteptr; /* good for string, byte, and boolean */   
+short *_shortptr;
+long *_longptr;
+double *_floatptr;
+
+STATUS=0;
+_bytecount=0;
+_Op1=*_Op1Ptr;
+_iobufptr=_IOBuffer;
+
+_ReadData:;
+STATUS=read(_IOPthNum,_iobufptr,1);
+if (STATUS < 0) return;
+if ((long)_iobufptr == _bufsize) goto _ReadDone;
+if (*_iobufptr == _NewLine) goto _ReadDone;
+if (*_iobufptr == 0x2c) goto _ReadDone;
+if (*_iobufptr == 0x0d) goto _ReadDone;
+if (*_iobufptr == 0x08)
+{
+	if (_bytecount == 0) goto _ReadData;
+	_iobufptr--;
+	_bytecount--;
+	goto _ReadData;
+}
+_iobufptr++;
+_bytecount++;
+goto _ReadData;
+
+_ReadDone:;
+*_iobufptr=0;
+_iobufptr=_IOBuffer;
+/* boolean case */
+if (_datatype == 1)
+	{
+	_byteptr=_Op1._Ptr;
+	if ((*_iobufptr == 0x74) || (*_iobufptr == 0x54))
+		{
+		*_byteptr=1;
+		}
+	else
+		{
+		*_byteptr=0;
+		}
+	return;
+	}
+/* string case */
+if (_datatype == 6)
+	{
+	_bytecount=0;
+	_byteptr=_Op1._Ptr;
+	_maxlen=_Op1._Len;
+	while ((*_iobufptr) && (_bytecount <= _maxlen))
+		{
+		*_byteptr=*_iobufptr;
+		_byteptr++;
+		_iobufptr++;
+		_bytecount++;
+		}
+	if (_bytecount != _maxlen) *_byteptr=0;
+	return;
+	}
+if (_bytecount == 0)
+	{
+	*_iobufptr='0';
+	_iobufptr++;
+	*_iobufptr=0;
+	_iobufptr--;
+	}
+_convptr=_ConvBuf;
+while (*_iobufptr)
+	{
+	*_convptr=*_iobufptr;
+	_convptr++;
+	_iobufptr++;
+	}
+*_convptr=0;
+/* byte case */
+if (_datatype == 2)
+	{
+	_byteptr=_Op1._Ptr;
+	*_byteptr=_AtoL();
+	return;
+	}
+/* short case */
+if (_datatype == 3)
+	{
+	_shortptr=_Op1._Ptr;
+	*_shortptr=_AtoL();
+	return;
+	}
+/* long case */
+if (_datatype == 4)
+	{
+	_longptr=_Op1._Ptr;
+	*_longptr=_AtoL();
+	return;
+	}
+/* float case */
+if (_datatype == 5)
+	{
+	_floatptr=_Op1._Ptr;
+	*_floatptr=_AtoD();
+	return;
+	}
+}

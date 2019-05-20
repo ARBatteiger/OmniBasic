@@ -1,0 +1,31 @@
+dim b as button
+dim tempint as long
+dim tempstr as string
+dim frame as frame
+dim r1 as radiobutton
+dim r2 as radiobutton
+
+OBMain.create
+construct b,10,10,80,30
+construct frame,10,50,100,100
+frame.text="Frame"
+construct r1,10,20,60,20 in frame
+r1.text="radio1"
+r1.forecolor=$ff
+construct r2,10,40,60,20 in frame
+r2.text="radio2"
+r2.forecolor=$ff00
+end event
+
+b.command
+b.text="b"
+end event
+
+r1.command
+b.text="r1"
+end event
+
+r2.command
+b.text="r2"
+end event
+

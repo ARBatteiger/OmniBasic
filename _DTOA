@@ -1,0 +1,176 @@
+
+
+void _PrtUsing();
+void _ReadBool();
+void _ReadByte();
+void _ReadShort();
+void _ReadLong();
+void _ReadFlt();
+void _ReadStr();
+void _MovArg();
+void _MovStr();
+long _CmpStr();
+long _StrLen();
+long _SubStr();
+void _MidStr();
+void _LeftStr();
+void _RightStr();
+void _ClrConv();
+double _AtoD();
+long _AtoL();
+void _ZLtoH();
+void _ZLtoA();
+void _LtoA();
+void _DtoA();
+void _LtoH();
+void _PrintStr();
+void _PrintTab();
+void _InpData();
+void _ReadLn();
+void _BtoA();
+
+#define _BufSize 300
+#include "basic.h"
+
+typedef struct {
+void *_Ptr;
+long _Len;
+void *_Lnk;
+} _vector;
+
+typedef struct {
+void *_BufPtr;
+long _BufSiz;
+} _buffer;
+
+typedef struct {
+long _Limit;
+long _Step;
+} _loopvec;
+
+extern long _PUArgs[15];
+extern int _ArgCount;
+extern char *_ArgPtr;
+extern char _Prompt;
+extern char _NewLine;
+extern char _CRLF[2];
+extern long STATUS;
+extern jmp_buf _ebuf;
+extern time_t _t;
+extern struct tm *_systime;
+extern long _ErrFlag;
+extern void *_SrcAddr;
+extern void *_DestAddr;
+extern long _BlkCnt;
+extern long _DummyArg;
+extern long XferCount;
+extern void *_XferAddr;
+extern short _Digits;
+extern short _Decimals;
+extern long _ArgSafe0;
+extern long _ArgSafe1;
+extern unsigned char _IOPthNum;
+extern short _SafeZone;
+extern long _IOBufPtr;
+extern _vector _IOBufVec;
+extern long POS;
+extern _vector _PBufVec;
+extern unsigned char *_DataPtr;
+extern unsigned char *_DataPtrSaf;
+extern unsigned char _True;
+extern char _ConvBuf[22];
+extern char _ConvBuf1[22];
+extern _vector _CBufVec;
+extern _vector _CBuf1Vec;
+extern char _NullStr[2];
+
+
+static long _LoopCtr[10];
+
+/*User Declaration and Variable Section*/
+
+/* LN:1 * _DtoA(_FltVal) */
+/* LN:2 * Enter with double (float) as arg */
+/* LN:3 * Exit with ASCII STRING in _ConvBuf1 */
+/* LN:5 #FCN _DtoA() void */
+void _DtoA();
+/* LN:7  DIM _spec:STRING[10] */
+static unsigned char _spec[10];
+
+/*Temporary Vector*/
+static _vector _TmpVec1;
+
+static char _StrConst1[]="%";
+static char _StrConst2[]=".";
+static char _StrConst3[]="lf";
+
+/*Temporary String Variable*/
+static unsigned char _StrTmp1[22];
+
+
+/*Temporary Vector*/
+static _vector _TmpVec2;
+
+
+/*Temporary Vector*/
+static _vector _TmpVec3;
+
+
+/*Temporary Vector*/
+static _vector _TmpVec4;
+
+
+/*Temporary Vector*/
+static _vector _TmpVec5;
+
+
+/*Function and Subroutine Section*/
+
+void _DtoA(_FltVal)
+
+double _FltVal; /* LN:10  PARAM _FltVal:FLOAT */
+
+{
+
+/*Pseudo Registers*/
+register long _d0;
+register long _d1;
+double _d0f;
+double _d1f;
+register void *_a0;
+
+
+_a0=_spec;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=10;
+_TmpVec1._Lnk=0;
+_d0=_Decimals;
+_LtoA(_d0);
+_a0=_StrTmp1;
+_TmpVec2._Ptr=_a0;
+_TmpVec2._Len=22;
+_TmpVec2._Lnk=0;
+_MovStr(&_TmpVec2,&_CBuf1Vec);
+_a0=_StrConst1;
+_TmpVec3._Ptr=_a0;
+_TmpVec3._Len=2;
+_TmpVec3._Lnk=0;
+_a0=_StrConst2;
+_TmpVec4._Ptr=_a0;
+_TmpVec4._Len=2;
+_TmpVec4._Lnk=0;
+_a0=_StrConst3;
+_TmpVec5._Ptr=_a0;
+_TmpVec5._Len=3;
+_TmpVec5._Lnk=0;
+_a0=&_TmpVec4;
+_TmpVec3._Lnk=_a0;
+_a0=&_TmpVec2;
+_TmpVec4._Lnk=_a0;
+_a0=&_TmpVec5;
+_TmpVec2._Lnk=_a0;
+_MovStr(&_TmpVec1,&_TmpVec3);
+sprintf(_ConvBuf1,_spec,_FltVal);
+/* LN:14  RETURN */
+return ;
+}

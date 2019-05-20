@@ -1,0 +1,40 @@
+> Lastra Trip 7-11-04 through 7-22-04
+> Rental Car Total 334.79
+> Projects Completed:
+> Line 5 and Line 6 -
+> New Paper Drive Control
+> New Guider Brake Control
+> New Sonic Sensor Accumulator Control 
+> New Flaw Tracking Program
+> New Stacker Control for Sequenced Stack Moves
+> New Control for Pull Roll creep mode
+> New seperate speed control of Take away conveyors
+> Eason Program upgraded for additional Alarm Messages
+> Eason Program upgraded for higher resolution Sheet graph
+> Eason Program stored on EPROM
+> Line 6 Only -
+> Mdified Yaskawa PLC program in Stacker
+> Line 7 -
+> New Paper Drive Control
+> Added ColorMite reject tracking
+> Added Squareness sensor reject tracking
+> Eason Program upgraded for additional Alarm Messages
+> Eason Program upgraded for higher resolution Sheet graph
+> Eason Program stored on EPROM
+> 
+> Rental Car Cost $334.79
+> Rental Car Fuel $38.50
+> Motel Cost 11-16 $333.35
+> Motel Cost 16-20 $311.88
+> Motel Cost 20-22 $151.32
+> AirFare 9 hours $585.00
+> Travel Time 10 hours $400.00
+> Per Diem 11 Days $440.00
+> Onsite Time Avg 9 hours 8 days 4 hours Saturday $6194.00
+> Subtotal Onsite Cost $8788.84
+> 
+> 4 Eason EPROMS $300.00
+> ColorMite and Squareness Sensing Remainder $535.00
+> Paper Drive Control Upgrade Off Site $3210.00
+> 
+> Total $12833.84

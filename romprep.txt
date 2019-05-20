@@ -1,0 +1,144 @@
+( Check that the 2000 ROM is present,then set to all FFs)       
+COLD                                                            
+: \ ' ( CFA EXECUTE ; IMMEDIATE                                 
+HEX 0 BFFE !                 \ STOP PROGRAM ACCESS TO ROM AREA  
+CODE SETROM 2000 # LDX, FF # .A LD, PSHA, PSHA,                 
+     55 # .A LD, AA # .B LD,                                    
+     BEGIN, 0 ,X .A ST, 1 ,X .B ST,                             
+       0 ,X .A CMP, 0= NOT IF, .A CLR, ENDIF,                   
+       1 ,X .B CMP, 0= NOT IF, .A CLR, ENDIF, .A TST, 0=        
+       IF, TSX, 0 ,X CLR, 1 ,X CLR, 6000 # LDX,                 
+       ELSE, PSHA, FF # .A LD, 0 ,X .A ST, 1 ,X .A ST,          
+             PULA, INX, INX,                                    
+       ENDIF, 8C C, 6000 , 0= UNTIL, NEXT,                      
+: CKROM SETROM 0= IF CR ." RAM 2000 ERROR " THEN ;              
+CKROM           \ Ensure that 2000 RAM ok, then set to all FFs  
+FORTH FORGET SETROM DECIMAL      \ Drop SETROM from dictionary  
+( ROM PROGRAM PREP SCREEN                      08:15 08/06/89 ) 
+HEX                                                             
+CODE SETROM 8000 # LDX, FF # .A LD, PSHA, PSHA,                 
+  55 # .A LD, AA # .B LD,                                       
+  BEGIN, 0 ,X .A ST, 1 ,X .B ST,                                
+         0 ,X .A CMP, 0= NOT IF, .A CLR, ENDIF,                 
+         1 ,X .B CMP, 0= NOT IF, .A CLR, ENDIF,                 
+         .A TST, 0=                                             
+         IF, TSX, 0 ,X CLR, 1 ,X CLR, C000 # LDX,               
+         ELSE, PSHA, FF # .A LD,                                
+               0 ,X .A ST, 1 ,X .A ST, PULA, INX, INX,          
+         ENDIF,                                                 
+         8C C, C000 , 0= UNTIL, NEXT,                           
+: CKROM SETROM 0= IF ." RAM ERROR" THEN ;                       
+CKROM FORTH FORGET SETROM           ( Set ROM area to all FFs)  
+DECIMAL                                                         
+( ROM PROGRAM PREP SCREEN )                                     
+HEX HERE 2000 DP ! DUP    ( SET DP TO ROM START & SAVE RAM ADR) 
+1+ FFFE AND CONSTANT RAMCK0 ( Set RAM CHECK start on EVEN addr) 
+0 VARIABLE RAMadr                 ( CREATE POINTER TO REAL RAM) 
+RAMadr !                 ( SET INITIAL REAL RAM ADR IN POINTER) 
+: VARIABLE DROP RAMadr DUP @ 2 ROT +! CONSTANT ;                
+         ( FORCE USE OF ALLOT-ROM & ALLOT-ROM INSTEAD OF ALLOT) 
+: ALLOT-ROM ALLOT ;                                             
+: ALLOT-RAM RAMadr +! ;                                         
+: ALLOT ." ALLOT DISABLED. Use ALLOT-ROM or ALLOT-RAM. " ;      
+: PGMSTRT ;                                                     
+: .TITLE                                                        
+CR ." TorBex FX100 FLUOROMETER                  9/15/90"        
+CR ." (C) Copyright 1990, by TorBex, Sunnyvale, Ca. USA"  CR ;  
+CODE JNK1 NOP, NEXT,     ( ELIMINATE ASSEMBLER BUG ON 1ST CALL) 
+DECIMAL ;S                                                      
+( 2000 ROM CHECK SUM CALCULATOR                06:36 01/14/90 ) 
+( Locate the check sum COMPLEMENT value on a even 16 bit        
+( boundry so that the check sum calculation will add it to the  
+( running sum properly. The extra bytes allow the even address  
+( to be located + or - 1 from the value of HERE                 
+( Check sums, word wide, from 8000 hex thru FFFF                
+HEX                                                             
+0 C, ( Provide 1 byte guard between DP & last FORTH word)       
+HERE DUP 2 MOD +  ( Ensure CHKSUM is defined on even byte adr)  
+0 C, 0 , CONSTANT CHKSUM2                                       
+CODE CALC-CHKSUM2 .A CLR, .B CLR,                               
+     2000 # LDX,                                                
+     BEGIN, 1 ,X .B ADD, 0 ,X .A ADC, INX, INX,                 
+            8C C, 6000 , ( CPXI to 6000) 0= UNTIL,              
+     PUSHD, NEXT,                                               
+DECIMAL                                                         
+( SHIFT DP TO 8000 ROM                         07:16 02/19/90 ) 
+HEX                                                             
+8000 DP !        ( SET DP TO 8000 ROM )                         
+DECIMAL                                                         
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+( 8000 ROM CHECK SUM CALCULATOR                12:36 10/22/89 ) 
+( Locate the check sum COMPLEMENT value on a even 16 bit        
+( boundry so that the check sum calculation will add it to the  
+( running sum properly. The extra bytes allow the even address  
+( to be located + or - 1 from the value of HERE                 
+( Check sums, word wide, from 8000 hex thru FFFF                
+HEX   0 C, ( Provide 1 byte guard between DP & last FORTH word) 
+ HERE DUP 2 MOD +  ( Ensure CHKSUM is defined on even byte adr) 
+ 0 C, 0 , CONSTANT CHKSUM8                                      
+CODE CALC-CHKSUM8 .A CLR, .B CLR,                               
+     8000 # LDX,                                                
+     BEGIN, 1 ,X .B ADD, 0 ,X .A ADC, INX, INX,                 
+            8C C, 0 , ( CPXI to 0000) 0= UNTIL,                 
+     PUSHD, NEXT, DECIMAL                                       
+DECIMAL                                                         
+                                                                
+( EXTENDED RESTART )                                            
+HEX 0 BFFE !                                                    
+: PGMEND ;                          ( MARK END OF MAIN PROGRAM) 
+' PGMEND NFA CONSTANT 4THLINK  ( Set for power up DP pointing)  
+CONTEXT @ CONSTANT CNTX@       ( to MAIN PROM)                  
+CODE EXTSWI RTS, NEXT, ' EXTSWI BFF6 !                          
+CODE EXTIRQ RTS, NEXT, ' EXTIRQ BFFC !                          
+CODE EXTNMI ' CHK-PRINT JSR, RTS, NEXT,     ' EXTNMI BFFA !     
+CODE EXTRST PBUFstrt # LDX, PBUF!pntr STX, PBUF@pntr STX,       
+     0 # LDX, PRNTerr STX, C00 # LDX, PRNTIMER STX,             
+     4THLINK # LDX, CNTX@ STX,                                  
+     RAMadr LDX, DP STX, ' START CFA # LDX, VBOOT STX,          
+     PULA, PULB, DES, TSX, 0 ,X CLR, PSHB, PSHA, RTS, NEXT,     
+ ' EXTRST BFF8 ! DECIMAL                                        
+                                                                
+                                                                
+( CREATE ROM CHECKER AND RELINK DP TO RAM      05:45 10/22/89 ) 
+HEX                                                             
+RAMadr @         ( SAVE 1st available RAM address for DP reset) 
+ ( DISCARD SPECIAL ROM CODE DEFINITIONS REINSTATE NORMAL FORTH) 
+' RAMadr NFA ' PGMSTRT NFA DUP C@ 7F AND + 1+ !                 
+: ALLOT-ROM ALLOT ; ( Define ALLOT-ROM as normal FORTH def)     
+: ALLOT-RAM ALLOT ; ( Define ALLOT-RAM as normal FORTH def)     
+                                                                
+                                                                
+DP !                                ( RELINK DICTIONARY TO RAM) 
+55AA BFFE !                                                     
+DECIMAL                                                         
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+\ Set the ROM check sums in their associated ROM space          
+' CALC-CHKSUM2 CFA 'CALC-CHKSUM2 !                              
+' CALC-CHKSUM8 CFA 'CALC-CHKSUM8 !                              
+  >FX100   \ Set  model# = FX100                                
+  >TORBEX  \ for the name TORBEX to be displayed                
+\  >VICAM   \ Set displayed name to VICAM                       
+0 CHKSUM2 ! CALC-CHKSUM2 -1 XOR CHKSUM2 !                       
+0 CHKSUM8 ! CALC-CHKSUM8 -1 XOR CHKSUM8 !                       
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                
+                                                                

@@ -1,0 +1,1 @@
+; Dimension Variablesdim x as longOBMain.CREATEon error goto err1x=x/0exit eventerr1:MSGBOX "Error Exit",hex(ERR),MB_OKEND EVENT

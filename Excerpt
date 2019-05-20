@@ -1,0 +1,25 @@
+
+This section declares the objec
+
+// LN:31 dim check(4) as checkbutton
+FXCheckButton *check[4];
+
+This section constructs the object
+
+// LN:96 construct check in frame
+check[0]=new FXCheckButton(frame,NULL,NULL,0,JUSTIFY_NORMAL|ICON_BEFORE_TEXT|0x33c,0,0,10,10);
+check[1]=new FXCheckButton(frame,NULL,NULL,0,JUSTIFY_NORMAL|ICON_BEFORE_TEXT|0x33c,0,0,10,10);
+check[2]=new FXCheckButton(frame,NULL,NULL,0,JUSTIFY_NORMAL|ICON_BEFORE_TEXT|0x33c,0,0,10,10);
+check[3]=new FXCheckButton(frame,NULL,NULL,0,JUSTIFY_NORMAL|ICON_BEFORE_TEXT|0x33c,0,0,10,10);
+
+This section writes 'Check 3' next to the checkbox
+
+// LN:211 check(3).text="Check 3"
+_d0=0x3;
+_ArgSafe0=_d0-1;
+_a0=_StrConst22;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=8;
+_TmpVec1._Lnk=0;
+_MovStr(&_IOBufVec,&_TmpVec1);
+check[_ArgSafe0]->setText(_IOBuffer);

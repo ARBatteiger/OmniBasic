@@ -1,0 +1,1 @@
+; Dimension Variablesdim zip as obzipOBMain.CREATEzip.createzipfile "testzip.zip"zip.orderfile "lines.exe"zip.orderfile "graph.exe"zip.orderfile "shapes.exe"zip.compressfileszip.closezipfileEND EVENT

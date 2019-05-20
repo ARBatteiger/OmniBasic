@@ -1,0 +1,47 @@
+Single Ended
+
+Tube Rectification (5U4)
+
+6SN7 Voltage Amp/Driver
+
+KT88 Ultra Linear
+
+Plug in: KT88, EL34, 6CA7, 6L6, 5881 and others with no changes or settings
+
+Alps Pot
+
+Conservative Design
+
+Over 30 pounds of iron (copper)
+
+4 Layer PCB, .125 thick, ground pouring, 2.5 oz. copper
+
+DC Heaters
+
+Computer grade caps
+
+Metal film resistors
+
+Separate 5 section PI filters for each channel
+
+304 Stainless steel chassis
+
+High quality binding posts for speakers (4 and 8 ohms)
+
+Fused mains and speakers
+
+Corcom AC power filter
+
+No adjustments required
+
+Solid hardwood ends
+
+Solid brass trim
+
+Conservative low noise design
+
+
+
+
+
+

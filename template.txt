@@ -1,0 +1,19 @@
+	CALL SUB GenPushDesc
+CALL SUB GenClearEbx
+CALL SUB GenClearEax
+CALL SUB GenMovEbxEax
+CALL SUB GenIOBufferToEAX
+CALL SUB GUIStringPrep
+
+	OutBuf="mov ecx,GM_COMBOCLEAR"
+	CALL SUB OutFcnCodeData
+
+	OutBuf="mov eax,1"
+	CALL SUB OutFcnCodeData
+
+	OutBuf="mov ebx,1"
+	CALL SUB OutFcnCodeData
+
+	CALL SUB GenCallSendMessage1
+
+	CALL SUB GenCallSendMessage2

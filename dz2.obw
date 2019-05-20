@@ -1,0 +1,1 @@
+; Dimension Variablesdim x as longOBMain.CREATEx=x/0exit eventEND EVENT

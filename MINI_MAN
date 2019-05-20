@@ -1,0 +1,1103 @@
+			    OmniBasic
+
+			      DEMO
+
+
+			     Preface
+
+This archive or disk contains the shareware version of OmniBasic plus
+many examples or its use.
+
+This archive or disk may be freely distributed as long as ALL of
+the files are kept intact and not modified or edited in any way.
+If you add additional files to this archive or disk you must make
+that very clear. We do not want to be blamed for any mistakes
+other than our own.
+
+The file 'OB_SW' is of particular concern to us. It is the
+result of years of work and much money invested. It is provided
+in a 'limited' form. We made a modification to limit the size of
+the program it will compile. It will compile all of the example
+programs included with the demo or a program of your own of about
+a page or two. We did this by reducing the size of the symbol
+table.
+
+We are concerned because we know there are people out there that
+will take this limitation as a challenge and try to defeat it. In
+so doing they will have done the very same thing as if they broke
+into our office and stole a copy of the program. Or gotten a copy
+from a legitimate buyer. In all cases having a copy of OmniBasic
+without paying for it is stealing. There is no justification for
+this. If you think we are charging too much for OmniBasic then
+don't buy it. Please don't use the price or any other excuse to
+steal it.
+
+Thank you
+Computer Design Lab
+
+Purchase OmniBasic, at the address, phone number, or Compuserve address
+listed below.
+
+Several versions are available are present with more on the way. Those
+currently available are:
+
+MSDOS Version................................$89.00 US
+OS/2 Version.................................$89.00 US
+Linux Version................................$89.00 US
+OS9/68000 Version............................$89.00 US
+OS9/68020 Version............................$89.00 US
+OS-9000 Version..............................$89.00 US
+
+Make check or money order payable to Computer Design Lab in US funds.
+Add $5.00 shipping/handling for US ground transportation or $12.00 for
+most foreign locations.
+
+OmniBasic is shipped within 24 hours of order and can be shipped
+overnight if required.
+
+All versions come with a complete printed manual, diskette, and technical 
+support from CDL.
+
+To purchase your copy of OmniBasic contact:
+
+Computer Design Lab
+159 Hwy 94
+Rhineland, MO 65069
+Tel: (573) 236-4644
+email: mlsmith@vax2.rainis.net
+CompuServe: 72762,3375
+
+
+Limited warranty and limitation of remedies
+------- -------- --- ---------- -- --------
+
+Computer Design Labs is not responsible for any damage to the
+user's computer system or data and in no event will Computer
+Design Labs, its officers, directors, employees or agents be
+responsible to the purchaser for any consequential, incidental,
+or indirect damages (including damages for loss of business
+profits, business interruption, loss of business information and
+the like) arising out of the use or inability to use the Computer
+Design Labs product, even if Computer Design Labs has been
+advised of the possibility of such damages.
+
+Unless explicitly stated in writing, Computer Design Labs does
+not grant permission to distribute the software for profit in any
+form, Non-profit distribution of the software is acceptable
+without prior written notice, providing that the software is not
+modified in any way, and the complete works of the software are
+included in the distribution package.
+
+
+
+
+			    OmniBasic
+
+			   VERSION 1.9
+
+			    MiniManual
+
+
+
+
+
+		    GENERAL FUNCTION and SYNTAX
+
+OmniBasic is a C code macro BASIC compiler for use on various operating
+systems. This means that the user program written in BASIC (with or
+without the OmniBasic enhancements) is translated and compiled into C.
+OmniBasic incorporates many of the features of the newer structured
+BASICs,allows the intermixing of C code, and supports a host of
+language enhancements and compiler functions never before found in
+any BASIC implementation.
+
+The compiler features include macro capability, C function compatibility,
+conditional compilation, compiler variables, object module linkage, and
+a full set of compiler directives to manage these features. These
+directives include #MACRO, #ENDM, #SET, #IF, #ENDIF as well as others.
+
+The language enhancements include a full range of data types, structured
+constructs (such as IF/ENDIF, WHILE/ENDWHILE), C language intermixing,
+named labels (instead of line numbers), full access to operating system
+calls, and full support of pointer variables, vector variables (based
+variables), and memory buffers.
+
+Since the output is C, the performance will be greater than interpreter or
+"I-code" compiler implementations. The less experienced programmer can
+immediately take advantage of the performance of OmniBasic even before
+learning the advanced features and enhancements.
+
+The structure of OmniBasic is slightly different than standard BASIC in that
+labels, functions, and directives always begin in column #1 while statements
+must be indented at least one space (or tab). This is quite similar to
+the convention for some assemblers. Also as previously mentioned,
+OmniBasic uses labels rather than line numbers. If OmniBasic encounters
+a line number it will convert it to a pseudo label automatically which
+greatly simplifies conversion of other BASIC programs to OmniBasic.
+Also since the style of OmniBasic is somewhat akin to assembler,
+multiple statements per line are not allowed. Instead the style is
+to have the statement (or assembler instruction) followed by a
+comment on each line for maximum readability. Unlike interpreters
+and "I-code" compilers, comments and remarks have no effect on program
+size or speed so their use is strongly encouraged. If a variable is used 
+but not declared (diminsioned) it will be auto-declared as a simple variable
+of type LONG unless the name ends in "$" or _Str" in which case it will become
+a simple string variable of 32 characters. The auto-declare feature may be 
+disabled by invoking the -d command line option. Keywords may be entered in 
+any mix of upper and lower case while symbols are case sensitive. For example,
+Test and test are two different symbols.
+
+Since the macro capability allows both BASIC and C code within the macro,
+macro libraries afford the effect of user-defined statements and
+instructions.
+
+The syntax of the various BASIC statements are more or less standard with any
+other BASIC except for the requirement to indent a least one space or tab.
+Labels, variables, macros, and any other symbols must begin with a letter
+or underscore and may contain letters, numerals, or the underscore
+character. Also, the last character may be a '$'. The maximum length is
+28 characters. Since many system and compiler symbols begin with an
+underscore, it is best to avoid the naming of symbols which begin with an
+underscore. Each statement and compiler directive is explained in detail
+in this manual as to syntax, function, and use.
+
+OmniBasic allows those who would prefer to program in BASIC to have the same
+kind of power and utility as those who program in C and straight assembler
+while maintaining the simplicity and straightforwardness of BASIC. Also the
+linkage capability allows the combining of OmniBasic modules with assembly
+and "C" relocatable modules.
+
+			     DATA TYPES
+
+A brief description of data types is given in the DIM, TYPE, and PARAM
+sections and a detailed coverage of pointer variables is given in the
+POINTER VARIABLES section so much of what is said here may be redundant.
+The mechanics of declaring variables and the various attributes assigned
+to them is explained in the DIM, TYPE, and PARAM sections.
+
+The first classification of a variable is whether it is a simple variable or
+an array variable. An array is a linear table of the data type.
+Multi-dimensional arrays are also allowed. OmniBasic does no bounds checking
+of arrays at run time. This may be an advantage or disadvantage depending
+on whether the bounds violation is intentional or accidental. If it is
+accidental it is possible to "clobber"adjacent data. Intentional violation
+of array bounds is certainly not an example of structured programming, but
+does allow the programmer to take advantage of knowing how the data is
+stored and to, for example, treat a string as a byte array.
+
+The second classification of a variable is whether it is local, global, or
+external. Local variables are known only to the module in which it occurs.
+Global variables are known to all modules in a set which will be linked
+together. External variables refer to those which are declared to be
+global by another module but are referred to by the current module.
+
+The third classification of a variable is whether or not it is a pointer
+variable . Pointer variables are variables in their own right and are a
+special form of a 32 bit unsigned integer which have a special property
+to index their value according to the data type which they are declared to
+point to. The data which is accessed by a pointer variable is treated as
+if it came from a standard variable of the type pointed to. There are
+three functions which are used with pointers. The first is ADDR() and
+is used to set the pointer to an address of a variable (presumably but not
+necessarily of the same type as the pointer). The second is BUFADR() which
+is used to set the pointer to the address of a memory buffer (see BUFFER,
+BUF(), BUFSIZ() section). The third is INDEX() which is used to index the
+pointer according to the function argument multiplied by the number of
+bytes in the data type of the pointer.
+
+The fourth classification of a variable is whether or not it is a vector.
+Vectors (based variables) are similar to (but not the same as) "references"
+in C++. Vectors are closely related to pointers in concept. Once a vector
+has been declared with a DIM statement and subsequently assigned an address
+with a SETVEC statement, it may be used as an ordinary variable. The vector,
+then, has the power of a pointer without the need for pointer notation and
+allows array sub scripting in buffers instead of pointer arithmetic.
+
+Another type of variable is defined by the PARAM statement which must
+immediately follow the occurrence of a function. The names of these
+variables must not conflict with regular variable names, but are unique
+within in the function in which declared. In other words, two are more
+functions may declare the same PARAM names. These parameter variables as
+well as labels within the function are removed from the symbol table
+when the function body ends. These parameter variables "accept" values
+passed to the function when the function is invoked (called). The
+number of these PARAM statements must correspond to the number of
+arguments of the caller.
+
+			 USING the COMPILER
+
+Once the program is written using an editor, the program is ready to be
+compiled. This is accomplished by invoking the compile command as follows:
+
+ob FileName.b {opts} {CompVar=Const...}
+
+ob is the compiler's executable name. The compiler's executable object code
+is normally stored in the CMDS directory (OS9), the usr/bin directory
+(Linux), or as appropriate for the system being used.
+
+If no options are given, OmniBasic will compile the source (.b) file, creating
+a C (.c) file. OmniBasic then invokes the C compiler which in turn compiles
+the C code to assembler and links the file into an executable object file.
+This sequence of events may be modified or enhanced by the use of command
+line options..
+
+The options (opts) are as follows:
+
+-a      Compile to assemblerfile(.a file OS9)(.s file Linux)
+    (do not assemble and link)
+
+-e      Compile with no output but check for errors. This is useful at
+    various stages of program development. It allows the programmer
+   to passively check for certain errors.
+
+-f      Function mode. This option is used to compile functions or any
+    non-mainline procedure      or subroutine. The file is processed to a
+    relocatable assembler file (.r OS9) (.o Linux)
+
+-g      Generate symbol module for the debugger. Automatically invokes the -g
+    option to the       linker for later debugging purposes.
+
+-r      Turn off remarks (comments) in -c option
+	
+-s      Symbol table dump to stdout
+
+-v      Verbose mode. Reports detailed progress of compile process
+
+-u      Unabridged hexadecimal symbol dump which also includes internal
+    compiler symbols
+
+-c      Compile to C file (.c) See -r option
+
+-? Display options
+
+		     WRITING and USING PROGRAMS
+
+The default mode of the compiler is PROGRAM mode (also known as mainline).
+To enter FUNCTION mode it is necessary to invoke a command line option,
+but to enter PROGRAM mode no action is required.
+
+The general form of a program is as follows:
+
+* declare variables
+ DIM A:LONG
+ DIM B:LONG
+
+* declare function
+#FCN Square() INT
+
+* program code body
+ B=4
+ A=Square(B)
+ PRINT A+B
+* END statement (optional)
+ END
+
+* (internal) function body
+Square()
+ PARAM X:LONG
+ RETURN X*X
+
+The program is written using your favorite editor. Remember that compiler
+directives and labels always start in column one and that statements are
+always indented at least one space or tab. When you write the program
+remember to include a ".b" suffix to the program name.
+
+To compile the program, enter the command to run the compiler.
+(In this example the program name is "test")
+
+ob test.b
+
+If there are no errors reported, you may run the program by typing:
+
+test (CR)
+
+If the program does not perform as expected, it is sometimes useful to insert
+PRINT statements as various points in the program to check its progress.
+If the user is familiar with the Debug program, it is useful to compile the
+program with the -g option which sets up a symbol module for the debugger.
+If there are errors in your program that violate some rule or syntax of
+the compiler, an English language indication of that error is reported.
+If there are any errors at all, the compiler will not pass the output to the
+C compiler (which will in turn invoke an assembler, optimizer and linker).
+It is also possible to get an error from the C compiler, assembler, or
+linker.Refer to the C compiler, assembler, or linker manual to resolve
+these. The OmniBasic compiler should "catch" most errors so that you will
+not see C compiler, assembler, or linker errors in most cases. If you do,
+you should report the error to CDL for possible resolution.
+
+		   USING and DECLARING FUNCTIONS
+
+OmniBasic contains a large number of pre defined functions and the user may
+write additional functions. Either compiler functions or user functions are
+called and used in the same manner except that USER FUNCTIONS which do not
+expect a return value (void functions) may be invoked by entering the
+function name just as you would a statement name.
+
+The pre defined compiler functions need not be declared. To declare a user
+function we use the #FCN compiler directive. We must also "tell" the
+compiler where to locate the function we just declared if the function is
+external to our program. The optional ReturnType tells the compiler what
+type of data to expect to be returned by the function. The three valid
+return types are INT, FLOAT, and VOID. The default is INT. VOID means
+return nothing. The function should either be in the RELS or LIB directory.
+The number in parens tells the compiler how many arguments will be passed
+(must be 1 thru 9). If a "c" (or nothing) is used for the number of
+arguments, it indicates a variable number of arguments may be passed. If
+"c" (or nothing) is used, then no checking is done as to number of
+arguments. For example:
+
+an internal fuction
+
+#FCN DoIt() <ReturnType>
+
+or an external function:
+
+#FCN DoIt()<ReturnType>
+#LIB LibName
+
+The method used to set up functions and pass arguments is compatible with the
+C compiler so it is possible to use C functions or to write functions for C.
+
+If you forget to declare a function before using it, an error will be
+reported by the compiler. If you forget the #LIB directive the linker will
+return an error in the case of an external function.
+
+It is common practice to build "header" files which declare functions and
+tell the compiler where to find them. These files are then invoked with the
+#USE directive.
+
+The compiler will check the number of arguments declared against the number
+of those given and will verify the data type (unless the number given is "c"
+or nothing).
+
+Since these user functions are modular in nature, their use can result in a
+well structured program with good readability and if the functions are
+general in nature they may be used by many programs (and programmers).
+
+Functions which are included in the program (local functions) must be
+declared just as external functions are with a #FCN directive. These need
+no or #LIB directive. Symbol names used in these local functions are not
+unique as in external functions, but are global within the program itself
+(except for PARAM variables which are local to a function).
+
+Local functions are written the same way as external functions. The function
+name is not declared as a global label as in an external function, and as
+mentioned above, variables are global with the rest of the program.
+
+In the case of external functions, the function must be declared in both the
+calling program and in the function itself.
+ 
+WRITING and USING EXTERNAL FUNCTIONS
+
+External functions are modules of previously compiled relocatable object
+modules (ROF's).They may also be merged with other functions into a
+library file.
+
+Writing an external function with OmniBasic is the same as writing any program
+in OmniBasic except the function is compiled with the -f option. Execution
+begins in the function with the occurrence of the function name in column
+1 followed by "()". The next line(s) are the PARAM statements which must
+correspond to the number of arguments being passed to the function.
+
+The variables and labels in an external function are independent of the
+labels and variables in other functions and the calling programs unless
+they are declared as EXTERNAL or GLOBAL.
+ 
+Normally, a function is called with a list of arguments or parameters.
+In OmniBasic these are passed by value. To pass arguments by reference, the
+arguments are passed as pointers. The pointer itself is passed by value but
+the data it points to is said to be passed by reference. To pass arguments
+to a function the calling program invokes the function in an expression
+with the arguments specified in order within parentheses following the
+function name. The compiler will put these arguments on the stack as
+required automatically. The function extracts these arguments from
+the stack when the function declaration is made as described above. The
+general order of a function is as follows:
+
+* declare local function variables (not used in this example)
+ DIM x:BYTE
+ DIM y:SHORT
+ DIM z;LONG
+
+FcnName()
+ PARAM p:LONG
+ PARAM q:LONG
+
+* the body of the function goes here
+* finish up with a RETURN
+ RETURN p*q
+
+To compile this function:
+
+cb FcnName.b -f
+
+The -f on the command line instructs the compiler to compile to a relocatable
+file to be linked in later.
+
+Functions can also share labels and variables with the calling program by
+using GLOBAL labels and symbols. The calling program declares GLOBAL while
+the function declares EXTERNAL or vice-versa.
+
+			     C CODE
+
+It is possible to intermingle C code in your Basic program. This may be done
+on a single line basis by writing a ";" in column 1 followed by C code or on
+a block basis by using the #C and #ENDC compiler directives with C code
+between.
+
+The C code may refer to Basic variables which have been declared but it is
+important to know the details of how OmniBasic handles the declaration in its
+C output. For example, any complex data structure in Basic results in an
+array of type char in the C output. Also, any pointer declaration in Basic
+results in a long in C. Strings in Basic are null terminated (as in C) only
+if the string is not "full". Members of structures are padded to an even
+byte boundary when the next member is a short, long or float type or if it
+is the last member in the structure. String declarations result in a char[],
+but no "extra" byte is required as in C strings. Simple integer types and
+float (real) do map as expected to comparable C types as do arrays of
+these types.
+
+While the compiler thoroughly checks the syntax and compiles BASIC statements
+into C code, it does not process C statements to that degree. Since this is
+the case, all errors involving C syntax and symbol problems (missing,
+duplicate, etc.) will not show up until the C compiler processes the file.
+The #SET compiler directive also outputs a C version of its result (#define)
+so that the C compiler may apply this result to C code (if used).
+
+An example of the use of C code in a BASIC program follows:
+
+ REM Program to clear an entire string
+ REM
+ DIM A$:STRING[32]
+ DIM I:LONG
+ FOR I=1 TO 32
+;A_Str[I-1]=0;
+ NEXT I
+
+Notice that since C does not allow a "$" in a symbol name, that OmniBasic
+changes the "$" to "_Str". Also notice that the string in Basic is an array
+of type char in C with the first element addressed as 0.
+
+Due to the power and efficiency of OmniBasic there should not be much (if any)
+need to intermix C code, but the ability to do so is there if you need
+(or want) it.
+
+If you wish to use the C string functions on Basic strings, make sure the
+basic string is at least one byte short of being "full" or DIM a byte
+immediately following the DIM of the string and then initialize the
+"tacked-on" byte to 0 (null).
+
+There are several ways to include comments or remarks in a program. The first
+and most obvious is the use of the REM statement which is standard BASIC.
+The second is to follow the statement (on the same line) with a backslash
+(\) followed by any comment desired. The third way is to start a line
+(column #1) with a "*" character followed by any comment desired.
+
+			 POINTER VARIABLES
+
+The concept of pointer variables is foreign to BASIC (until now). Pointers
+are a mainstay of the programming language "C". The challenge of adding
+pointers to OmniBasic was to provide the power of the concept but to do so
+with a syntax that has a BASIC flavor rather than the cryptic style of "C".
+
+Pointers are variables in their own right and are a special form of a 32 bit
+unsigned integer which have a special property to index their value
+according to the data type which they are declared to point to. For example
+pointers can be assigned values and used in expressions just like the data
+type long (integer). This allows the pointer to be set to any value from 0
+to $ffffffff and this fact alone gives the pointer concept extreme power as
+well as the power to cause a catastrophe if used carelessly. A more
+"civilized" setting of a pointer would be to set it to the address of
+another variable or to the address of a memory buffer (see BUFFER, BUFADR(),
+BUFSIZ() section). When setting a pointer to another variable it is the data
+type of the pointer which prevails when accessing data with the pointer (not
+the data type of the variable being pointed to). Most "C" compilers give a
+warning if a pointer is set to point to a variable with a different data
+type than its own. OmniBasic gives no such warning.
+
+The functions ADDR() and INDEX() are intended solely for use with pointers
+although the ADDR() function could be used to find the address of a variable
+for any reason. Also the BUFADR() function is intended to set pointers to
+the base address of memory buffers. The ADDR() function returns the memory
+address of a variable given as the argument to the function. It is used
+primarily to set a pointer to the absolute address of a variable. In the
+case of an array, the address returned is the base address (address of the
+first element of the array). The ADDR() function could also be used in
+address calculations to determine the storage relationship of two or more
+variables. To reference data pointed to by a pointer the pointer variable is
+enclosed in square brackets i.e. [Ptr]. Data referenced by pointers must be
+of a compatible type with the variable or constant used with it just as if
+the data were to/from a standard variable (I.E. not pointed to by a
+pointer). The INDEX function is used to point to different elements of the
+object data (assuming the object is an array or is being treated as an
+array). In "C" arithmetic operations on pointers take into account the data
+type of the pointer. In OmniBasic arithmetic operations on pointers do not
+take the data type into account. The INDEX() function does take the
+pointer's data type into account however. The arguments to the INDEX()
+function are the pointer name and the index value. To index backward a
+negative index value is specified. In the following example the INDEX()
+function will be used on a pointer whose data type is INTEGER (32 bits or
+4 bytes long). When we index the pointer by three it will point 12 bytes
+past its previous setting (4 bytes times 3=12). The INC and DEC statements
+also take into account the data size pointed to by a pointer. If Ptr is a
+an INTEGER pointer then, INC Ptr will add 4 to the value of Ptr since an
+INTEGER is 4 bytes in size.
+
+ DIM Pointer:INTEGER ADDRESS
+ DIM IntVar(30):INTEGER
+ DIM Temp1:INTEGER
+ DIM Temp2:INTEGER
+Start
+ Pointer=ADDR(IntVar) \ assigns base address of IntVar to Pointer
+ Temp1=[Pointer] \ assigns the value of the first element to Temp1
+ Pointer=INDEX(Pointer,3) \ Pointer now points to the fourth element
+ Temp2=[Pointer] = assigns the value of the fourth element to Temp2
+ DEC Pointer \ Pointer now points to the third element
+
+			COMPILER DIRECTIVES
+
+			    #SET, #FIX
+
+ The #SET compiler directive is used to define compiler variables and to set
+ them to a numeric (long integer) value. The most common use of the compiler
+ variable is to assign values to symbolic constants. Typically, since BASICs
+ do not contain this feature, all constants must be literals (200, $0f,
+ etc). Just as named variables such as Radius, Total, SubTotal, etc. are
+ helpful and named labels such as GetInput, PrintList, etc. are more useful
+ than line numbers, symbolic constants add much more meaning to the program
+ than do abstract literal numbers. Any place that literal numeric constants
+ are used (such as in expressions and DATA statements) symbolic constants
+ may be used. The #Set directive may be used to set the same variable as
+ many times as desired throughout the program. Thus when a compile variable
+ is referenced the value last assigned by a #SET directive is the value
+ referenced. Compiler variables are also used to control the flow of
+ conditional compilation by being tested with the #IF compiler directive.
+ The #FIX directive is a permanent #SET. The general form of the #SET
+ compiler directive is as follows:
+
+#SET CompVar=OPERAND1{OPERATOR|OPERAND2}
+
+CompVar is the desired symbol name (the naming rules are the same as for
+BASIC variable, labels, etc.). The name must be unique from any other
+compiler variable, label, BASIC variable, macro, etc. or a symbol already
+defined error will occur. The "=" is mandatory as is OPERAND1. OPERAND1 (and
+OPERAND2 if used) must be either a compiler variable (previously created and
+defined with a #SET directive) or a numeric literal (either a decimal
+integer or Hexadecimal). Hexadecimal is indicated by a leading "$". The
+OPERATOR must be a "+", "-", "*", "/","&", "|", "<<" or ">>" indicating
+addition, subtraction, multiplication, division, AND, OR, left shift, or
+right shift respectively. If the OPERATOR is used it must be immediately
+followed by OPERAND2. Examples of the use of #SET directive follow: 
+
+#SET xyz=1 \ creates the compiler variable xyz and sets it to 1
+ A=A+xyz \ implied LET statement equivalent to A=A+1
+#SET xyz=$ff \ changes xyz to equal Hexadecimal $ff (255)
+Label DATA "test",xyz \ equivalent to Label DATA "test",255
+#SET Side=4 \ creates the compiler variable Side and sets it to 4
+ Area=Side*Side \ implied LET statement equivalent to Area=4*4
+#SET xyz=2 \ now equals 2
+#SET abc=xyz \ creates the compiler var abc and sets it to the value of xyz
+#FIX xyz=xyz+abc \ now equals 4 (permanently)
+#IF xyz=5 \ example of testing a compiler variable for conditional compilation
+
+The SET directive may also be used in the body of a macro declaration such as:
+
+#MACRO MacroName \ declares a macro named MacroName
+#SET CompVar=~0
+ DATA CompVar
+#ENDM \ defines end of macro declaration
+
+MacroName
+MacroName
+
+Results in the following source code generation:
+
+ DATA 1
+ DATA 2
+
+			  #IF, #ELSE, #ENDIF
+
+These compiler directives are used to provide conditional compilation which
+is a feature commonly found in assemblers and "C" compilers, but rarely in
+Basic. Conditional compilation is useful when it is necessary to maintain
+more than one version of a program which has many common sections but some
+different sections. Conditional sections may be nested up to 20 deep.
+
+The argument to the #IF directive is a simple condition of equality. The
+general syntax is as follows:
+
+ #IF CompVar=Const
+
+CompVar is a compiler variable which my be declared by a #SET or #FIX
+directive or on the compiler command line. Const is a constant which my be a
+decimal or hexadecimal integer value or another compiler variable.
+
+The most common way to use this feature is to assign a compiler variable at
+the command line. For example:
+
+cb testprog c=1
+
+The #ELSE directive is optional and follows the body of code after the #IF
+directive.
+
+The #ENDIF directive ends the conditional section.
+
+An example follows which would go with the command line example above:
+
+#IF c=1
+print "c=1"
+#ELSE
+print "c<>1"
+#ENDIF
+
+The above example is of no practical use, but shows the effect of conditional
+compilation.
+
+Also note that macros may be declared inside conditional sections which
+effectively offers conditional macros. This is especially useful in writing
+I/O drivers.
+
+			      #C, #ENDC
+
+These directives allow the use of C code blocks within a program or function.
+After the #C directive, all input is simply passed through to the output
+file until a #ENDC directive is encountered. C code may also be used on a
+single line basis by writing a ";" in column 1. See section on C Code.
+
+			     #MACRO, #ENDM
+
+The #MACRO and #ENDM compiler directives are used to declare MACROS. The
+purpose of macros is to allow the programmer to create complex blocks of
+code and then use them as if they were a single instruction with a
+descriptive name. At first glance the use of a macro might appear as a
+subroutine. This is not the case, however, because a subroutine appears only
+once in a program but may be called many times, while a macro is replicated
+in the code each time it is used. Also the macro invocation allows
+the specification of up to 9 arguments which are assigned to corresponding
+variables in the macro. The general form of the macro declaration and
+invocation are as follows:
+
+Declaration:
+
+#MACRO MacroName
+ {body of macro}
+#ENDM
+
+Invocation:
+
+ MacroName Arg#1,Arg#2,Arg#3,Arg#4,Arg#5,Arg#6,Arg#7,Arg#8,Arg#9
+
+The macro declaration begins with the #MACRO compiler directive. All compiler
+directives must have a "#" in character position #1 (no indentation
+allowed). The body of the macro may contain no tilde characters (~) except
+where an argument is being specified. The body of the macro willwhen
+invoked be expanded to enter the source input stream, so the syntax within
+the body must conform to compiler syntax rules. Any occurrence of the tilde
+character without a single digit 0-9 immediately following will result in an
+invalid macro argument error. Any occurrence of the tilde character
+immediately followed by a single digit (0-9) will be replaced when the
+macro is invoked with the corresponding invocation argument or in the case
+of ~0 with the macro invocation number. Macros may NOT be nested. This means
+that a macro declaration (#MACRO) may not appear in the body of a macro.
+This will result in a nested macro error. The macro declarations are stored
+in a fixed size macro buffer (20,000 bytes as of this writing) and if this
+limit is exceeded a macro buffer full error will occur. The macro
+declaration is terminated by an #ENDM compiler directive. An #ENDM directive
+without a prior #MACRO directive will result in an #ENDM without #MACRO
+error. If a macro is declared which already exists the result will be a
+macro already defined error.
+
+The macro invocation begins with the MacroName followed by a space followed
+by up to 9 macro arguments. If the macro definition has no arguments then
+none should be supplied in the invocation (the macro is invoked with the
+MacroName only). The MacroName must NOT begin in character position #1 as it
+will be taken for a Label. If there are less arguments in the macro
+invocation than are used in the macro declaration a macro argument error
+will occur. Macro invocation arguments are separated by a comma. NULL
+arguments are specified by adjacent commas (I.E. no argument). Alpha-Numeric
+strings (including "_","@", and "$") are valid arguments as are single
+special characters such as "!", "#","%", etc. The SPACE and BACKSLASH
+characters are NOT permitted. Quoted strings are passed as arguments with
+the quotes themselves included in the argument.
+
+Macros must be declared before they are invoked or the invocation will result
+in an undefined symbol error.
+
+Macro names must not conflict with other symbol names such as variables,
+labels, compiler variables, etc. or a symbol already defined error will
+occur.
+#MACRO, #ENDM (cont)
+
+The following example illustrates a simple macro declaration and invocation:
+
+#MACRO GetName \ declares a macro named "GetName"
+PRINT "Enter Name"
+ INPUT ~1
+ PRINT ~2
+#ENDM \ defines end of macro declaration
+
+ GetName UserName,"Thank You"
+
+The invocation of the macro (GetName UserName) causes the generation of the
+following lines in the source code stream:
+
+ PRINT "Enter Name"
+ INPUT UserName
+ PRINT "Thank You"
+
+The tilde character in the declaration followed by the numeral 1 indicates a
+macro argument which is assigned a value during invocation. In this example
+it is assigned "UserName" because it is argument #1 and UserName is the
+first invocation argument. Accordingly the second argument (~2) is assigned
+the quoted string "Thank You". Each macro may have up to 9 such arguments
+which may appear any number of times in the macro declaration.
+
+A special argument (~0) is also available in the declaration which is
+replaced by the invocation number. For example, the first time a macro is
+invoked the ~0 will be replaced with a "1", the second time with a "2" and
+so on. This function is particularly useful in generating labels within a
+macro. For Example:
+
+#MACRO Demo \ declares a macro named "Demo"
+Label~0 A=A+1
+ IF A<200 THEN Label~0
+#ENDM \ defines end of macro declaration
+
+The first invocation of the Demo macro causes the generation of the following
+lines in the source code stream:
+
+Label1 A=A+1
+ IF A<200 then Label1
+
+The seventh invocation of the Demo macro causes the generation of the
+following lines in thes ource code stream:
+
+Label7 A=A+1
+ IF A<200 THEN Label7
+
+For the advanced user, the macro declaration body may contain a series of C
+statements (or BASICstatements or both) with the effect of implementing
+new statements not included in the language. This practice will eliminate
+much of the "trickery" and "cheat coding" often found in BASIC programs and
+result in much cleaner and readable code with faster execution speed. The
+user may accumulate a MACRO library through freeware, shareware, and
+purchased software.
+ 
+	     #USE, #SBRTN, #LIB, #FCN #STRUCT, #ENDSTRUCT
+
+The #USE compiler directive is used to incorporate other files into the
+source data stream. It is equivalent to the "include" directive in "C" and
+is especially useful in declaring macros and functions. The USE directive
+may be nested up to 20 deep. This is to say that a file called by #USE may
+have a #USE directive itself. The general syntax of the #USE directive is as
+follows:
+
+#USE PathList
+
+PathList is any legal path list to a file to be included in the source data
+stream.
+
+The #SBRTN compiler directive may be used to declare a subroutine. If the
+subroutine is referenced by a GOSUB before it appears, no declaration is
+required. even when not required, an ordered list of subroutines at the
+beginning of a program is useful.
+
+#SBRTN PathList
+
+The #LIB compiler directive is used to declare any library files which may
+contain relocatable files required by the program. Library files are merely
+a collection of relocatable modules. The #LIB directive may also be used to
+invoke C compiler options. The general syntax is as follows:
+
+#LIB PathList
+
+The #FCN compiler directive is used to declare functions. The name of the
+function is declared as well as the number of arguments.The general syntax
+is as follows:
+
+#FCN FcnName(NumArgs)
+
+NumArgs is a simple integer such as 1,2,3..etc. (or none)
+
+The #STRUCT and #ENDSTRUCT are used to declare data structures just as the
+TYPE statement does. The only difference is#STRUCT directive allows
+declarations that are not limited by line length and the structure is more
+clear to look at. For example:
+
+#STRUCT UsrType
+ Name:STRING[20}
+ Address:STRING[30]
+ ZipCode:BYTE
+#ENDSTRUCT
+
+The above example is equivalent to:
+
+ TYPE UsrType=Name:STRING[20];Address:STRING[30];ZipCode:BYTE
+
+
+
+******************** Important! READ THIS: *******************
+
+Subroutines in OmniBasic are actually void C functions. Unless the subroutine
+is referenced by a GOSUB before it appears, the compiler will "think" it is
+a label rather than a subroutine. Therefore a subroutine must be referenced
+before it appears or, alternatively it may be declared with a #SBRTN
+directive. Also the last statement of a subroutine must be a RETURN. Any
+RETURN statement before the end of a subroutine must be inside a control
+structure such as a FOR loop or WHILE/ENDWHILE block. Violations of these
+rules will result in a "nesting" error.
+
+The RETURN statement transfers control back to the caller and is also used to
+return integer or floating point data to the caller in the case of integer
+or floating point functions. For example:
+
+ RETURN x+y
+
+			   DIRECTIVES
+
+#SET                    #SET CompVar=Const
+				#SET CompVar=Const+Const
+				#SET CompVar=Const-Const
+				#SET CompVar=Const*Const
+				#SET CompVar=Const/Const
+
+#FIX                    #FIX CompVar=Const\ same as #SET but is permanent
+
+#USE            #USE PathName
+
+#IF                             #IF CompVar=Const\ conditional compile
+#ELSE                   #ELSE\ conditional compile
+#ENDIF                  #ENDIF\ conditional compile
+
+#MACRO                  #MACRO MacroName
+				Macro Body
+#ENDM           #ENDM
+
+#FCN            #FCN (NumArgs) <return data type> <modifier(s)>
+				(NumArgs is number of arguments)
+				(if NumArgs="c", NumArgs is variable)
+				(return data type may be INT (default), FLOAT, or VOID)
+				(modifiers may be POINTER, GLOBAL, and EXTERNAL)
+
+#ROF            #ROF PathList\ relocatable file for linker
+
+#LIB            #LIB PathList\ library file(s) for linker
+
+#STRUCT         #STRUCT StructName\ same function as TYPE statement
+
+#ENDSTRUCT      #ENDSTRUCT\ terminates structure declaration
+
+#C              #C\ marks the beginning of a C code block
+
+#ENDC           #ENDC\ marks the end of a C code block
+
+#SBRTN          #SBRTN\ declares a subroutine
+
+			STATEMENTS
+
+IF                      IF CondExp THEN LABEL
+			or
+			IF CondExp THEN
+				code body
+			ENDIF
+			or
+			IF CondExp THEN
+				code body
+			ELSE
+				code body
+			ENDIF
+
+WHILE           WHILE CondExp DO
+				code body
+			ENDWHILE
+
+REPEAT          REPEAT
+				code body
+			UNTIL CondExp
+
+LOOP            LOOP
+				code body
+			ENDLOOP
+
+LOOP            LOOP COUNT=IntExp
+				code body
+			ENDLOOP
+
+FOR             FOR Int=IntExp TO IntExp {STEP IntExp}
+				code body
+			Next Int
+
+EXITIF          EXITIF CondExp <THEN>
+			Falls thru to end of any of above structures
+
+GOTO            GOTO Label
+			GOTO [IntVar]
+
+GOSUB           GOSUB Label
+			GOSUB [IntVar]
+
+RETURN          RETURN
+			Return from subroutine or function
+
+ON                      ON Int GOTO
+			ON Int GOSUB
+			ON ERROR GOTO
+			ON ERROR
+
+STATUS:     STATUS \ optional prefix to any input/output statement
+	    which turns off error trapping
+
+STATUS      STATUS\ contains status of last input/output operation
+	    -1 indicates error
+
+READ            READ VAR,VAR...,VAR\ reads data statements
+			READ #PathNum,StringVar
+
+WRITE           WRITE #PathNum,StringVar
+
+GET             GET #PathNum,Var\ can be simple var or whole array
+
+PUT             PUT #PathNum,Var\ can be simple var or whole array
+
+BUFREAD         BUFREAD #PathNum,Addr,Bytes
+
+BUFWRITE        BUFWRITE #PathNum,Addr,Bytes
+
+PRINT           PRINT Expr
+			PRINT #PathNum,Expr
+			PRINT USING(FormatString,Var,Var,...,Var)
+			PRINT #PathNum USING(FormatString,Var,Var,...,Var)
+			<<<<<<< left justified format field of 7 positions
+			>>>>>> right justified format field of 6 positions
+			^^^^^ center justified format field of 5 positions
+
+INPUT           INPUT Var
+			INPUT "prompt",Var
+			INPUT #PathNum,Var
+
+FPRINT          Same as PRINT but sends no Line Feed
+
+FINPUT          Same as input but sends no prompt
+
+CREATE          CREATE #ByteVar,PathName        AccMode
+
+OPEN            OPEN #ByteVar,PathName  AccMode
+
+CLOSE           CLOSE #PathNum
+
+SEEK            SEEK #PathNum,IntVal
+
+DELETE          DELETE StringVal
+
+LET             {LET} Var=Expr
+
+POKE            POKE Addr,ByteVal
+
+END             END
+
+REM             REM\ Remark
+
+SHELL           SHELL String
+
+RESTORE         RESTORE Label
+
+DATA            DATA Const,Const...,Const
+
+BUFFER          BUFFER BufName=MemBytes\ opens buffer to size=MemBytes
+			BUFFER BufName=0\ closes buffer
+			(MemBytes=-1 opens largest buffer available)
+
+DIM             DIM VarName[(ArraySize)}        DataType {modifier modifier}
+			DataTypes        BOOLEAN, BYTE, SHORT, LONG, FLOAT, STRING,POINTER
+			Modifiers        GLOBAL, EXTERNAL, ALIAS=, ADDRESS(POINTER),
+			REMOTE, REGISTER, VECTOR
+			DIM StringVarName{(ArraySize)}  STRING[StringSize] {modifier}
+
+PARAM       Similar to DIM, immediately follows a function occurence
+	    with one PARAM to receive each argument to the function
+
+TYPE            TYPE UserType=VarName{(ArraySize)}      DataType;VarName...etc.
+
+INC             INC IntVar\ IntVar=IntVar+1
+			INC PtrVar\ PtrVar=PtrVar+DataSize
+
+DEC             DEC IntVar\ IntVar=IntVar-1
+			DEC PtrVar\ PtrVar=PtrVar-DataSize
+
+DIGITS          DIGITS NumConst\ # of digits for FLOAT (1-15) default 15
+
+DECIMALS        NumConst\ # of decimal places for FLOAT (default 2)
+
+BASE            BASE 0, BASE 1\ base of arrays (default  1)
+
+ENDEXIT         ENDEXIT\ Terminates EXITIF CondExp THEN
+
+SETVEC          SETVEC VectorVar=Addr\ Sets vector to address
+
+EXCHANGE        EXCHANGE Var,Var\ vars must be same type and size
+
+		FUNCTIONS and SPECIAL VARIABLES
+
+EOF()                   EOF(#PathNum)\ BOOLEAN result
+LEN()                   LEN(String)\ INT result
+STR$()                  STR$(NumVal)\ String result
+ZSTR$()                 ZSTR$(NumVal)\ String result zero padded
+VAL()                   VAL(StringVal)\ INT or FLOAT result
+IVAL()          IVAL(StringVal)\ INT RESULT
+FVAL()          FVAL(StringVal)\ FLOAT result
+LAND()                  LAND(IntVAl)\ INT result
+LOR()                   LOR(IntVal)\ INT result
+LXOR()                  LXOR(IntVal)\ INT result
+LNOT()                  LNOT(IntVal)\ INT result
+MID$()                  MID$(StringVal,Org,Bytes)\ String result
+LEFT$()                 LEFT$(StringVal,Bytes)\ String result
+RIGHT$()                RIGHT$(StringVal,Bytes)\ String result
+MOD()                   MOD(IntVal,IntVal)\ INT result
+CHR$()                  CHR$(IntVal)\ String result
+ASC()                   ASC(StringVal)\ INT result
+NOT()                   NOT(BoolVal)\ Boolean result
+BUFADR()                BUFADR(BufName)\ INT result (address of BufName)
+BUFSIZ()                BUFSIZ(BufName)\ Int result (size of BufName)
+PEEK()                  PEEK(Addr)\ Byte result
+ERR                             ERR\ INT result
+FILSIZ()        FILSIZ(#PathNum)\ INT result
+POS                             POS\ Int result
+FILPOS()                FILPOS(#PathNum)\ INT result
+INDEX()                 INDEX(PtrVar,IndexVal)\ INT result
+SIZE()                  SIZE(VarName)\ INT result
+TAB()                   TAB(IntVal)\ INT result
+ADDR()                  ADDR(VarName)\ INT result
+NextArg                 StringVar=NextArg\      must be used in LET statement
+				(Do once to get each arg)
+				(When LEN(StringVar)=0 then all command line
+				arguments are exhausted)
+XferBytes               Total bytes transfered after I/O operation
+THOUR()         THOUR(0)\ Hour BYTE result
+TMIN()          TMIN(0)\ Minutes BYTE result
+TSEC()          TSEC(0)\ Seconds BYTE result
+TYEAR()         TYEAR(0) \ Year BYTE result
+TMON()          TMON(0)\ Month BYTE result
+TDAT()          TDAT(0)\ Date BYTE result
+TDAY()          TDAY(0)\ DAY BYTE result 0=Sunday, 1=Monday, etc.
+SQR()           SQR(FloatVal)\ Square Root FLOAT result
+ABS()           ABS(NumExpr)\ Absolute Value INT or FLOAT result
+INT()           INT(FloatVal)\ Integer Value of Float
+SIN()           SIN(NumVal)\ FLOAT result
+COS()           COS(NumVal)\ FLOAT result
+TAN()           TAN(NumVal)\ FLOAT result
+ASN()           ASN(NumVal)\ FLOAT result
+ACS()           ACS(NumVal)\ FLOAT result
+ATN()           ATN(NumVal)\ FLOAT result
+LOG()           LOG(NumVal)\ FLOAT result
+LOG10()         LOG10(NumVal)\ FLOAT result
+HEX$()                  HEX$(NumVal)\ String result
+ZHEX$()                 ZHEX$(NumVal)\ String result zero padded
+BITTST()                BITTST(IntVal,IntConst)\ BOOLEAN result
+BITCLR()                BITCLR(IntVal,IntConst)\ INT result
+BITSET()                BITSET(IntVal,IntConst)\ INT result
+BITCHG()                BITCHG(IntVal,IntConst)\ INT result
+SHL()                   SHL(IntVal,IntConst)\ INT result
+SHR()                   SHR(IntVal,IntConst)\ INT result
+ROL()                   ROL(IntVal,IntConst)\ INT result
+ROR()                   ROR(IntVal,IntConst)\ INT result
+SUBSTR()                SUBSTR(Str1,Str2)\ Int result position of Str1 in Str2

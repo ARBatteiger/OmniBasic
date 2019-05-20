@@ -1,0 +1,9 @@
+dim src as file
+dim dst as file
+dim dta(16384) as byte
+
+OPEN src,"u18.bin":READ
+GET src,dta
+CREATE dst,"u18.cut":WRITE
+put dst,dta
+

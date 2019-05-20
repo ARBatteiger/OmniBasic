@@ -1,0 +1,41 @@
+// Build Customer-Errors/Warnings
+#define CSMERR(x)            (0xE0000000L | (x))
+#define CSMSTAT(x)           (0x60000000L | (x))
+
+#define CSM_STAT_SUCCESS      0x00000000L       // STATUS_SUCCESS
+
+#define CSM_ERR_NOT_READY     0xC00000A3L       // STATUS_DEVICE_NOT_READY
+#define CSM_ERR_PROTECTED     0xC00000A2L       // STATUS_MEDIA_WRITE_PROTECTED
+#define CSM_ERR_BAD_REQUEST   0xC0000010L       // STATUS_INVALID_DEVICE_REQUEST
+#define CSM_ERR_PARAMETER     0xC000000DL       // STATUS_INVALID_PARAMETER
+#define CSM_ERR_BAD_SECTOR    0xC0000015L       // STATUS_NONEXISTENT_SECTOR
+#define CSM_ERR_NO_MEMORY     0xC0000017L       // STATUS_NO_MEMORY
+#define CSM_ERR_NO_DEVICE     0xC000000EL       // STATUS_NO_SUCH_DEVICE
+#define CSM_ERR_MEDIA_ACCESS  0xC000016AL       // STATUS_DISK_OPERATION_FAILED
+
+#define CSM_ERR_READ_FAULT    CSMERR(0x100L)    // 0xE0000100 Errors on physical media read ..
+#define CSM_ERR_WRITE_FAULT   CSMERR(0x101L)    // 0xE0000101 .. or write
+#define CSM_ERR_GENERAL       CSMERR(0x102L)    // 0xE0000102 General error
+
+----------------------------------------------------------------------------------------------------
+
+Public Const AREA_ATTRIB As Integer = 1
+Public Const AREA_COMMON As Integer = 2
+
+Public Const DTYPE_SRAM As Integer = 96        ' Use for SRAM and ATA-Cards
+Public Const DTYPE_FLASH As Integer = 80
+
+-----------------------------------------------------------------------------------------------------
+
+#define DRIVE_STAT_WRITEPROTECT     0x00000001
+#define DRIVE_STAT_CHANGED          0x00000002
+#define DRIVE_STAT_INSERTED         0x00000004
+
+#define DRIVE_STAT_BVD1             0x00000010  // Battery voltage detect (SRAM-Cards)
+#define DRIVE_STAT_BVD2             0x00000020
+
+#define DRIVE_STAT_MEMTYPE0         0x00000100  // Mitsubishi 50/60-pin Drives only:
+#define DRIVE_STAT_MEMTYPE1         0x00000200  // .. memory type of the card.
+#define DRIVE_STAT_16BIT            0x00000400  // .. Fixed 16-bit card
+
+

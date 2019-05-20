@@ -1,0 +1,1 @@
+TYPE ControlStruct	ControlHandle AS HANDLE	TextStr AS STRING*32END TYPEDIM ControlData AS ControlStruct VECTORDIM CreateData AS CreateStruct VECTORdim x as longdeclare fcn GetHandle(integer) as integerbegin export	GetHandleend exportBEGIN SUB ProcessMsgControlData.TextStr="Hello"END SUBbegin fcn GetHandle(x)end fcn

@@ -1,0 +1,65 @@
+/* LN:2  x = 3.33 - 3.32 */
+_d0f=3.33;
+_d1f=3.32;
+_d0f=_d0f-_d1f;
+x=_d0f;
+/* LN:3  print x */
+_PrtPthNum=1;
+_d0f=x;
+_DtoA(_d0f);
+_a0=_StrTmp1;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=22;
+_TmpVec1._Lnk=0;
+_MovStr(&_TmpVec1,&_CBuf1Vec);
+_PrintStr(&_TmpVec1,_BufSize);
+if (STATUS == -1) longjmp(_ebuf,1);
+XferCount=STATUS;
+_XferAddr=_CRLF;
+XferCount=2;
+STATUS=write(_PrtPthNum,_XferAddr,XferCount);
+if (STATUS == -1) longjmp(_ebuf,1);
+XferCount=STATUS;
+POS=0;
+/* LN:5  if x = 0.01 then */
+_True=0;
+_d0f=x;
+_d1f=0.01;
+if (_d0f == _d1f) _d0=0xff;
+else _d0=0;
+_True=_True|_d0;
+if (_True==0) goto _Lbl1;
+/* LN:6   print "True" */
+_PrtPthNum=1;
+_a0=_StrConst1;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=5;
+_TmpVec1._Lnk=0;
+_PrintStr(&_TmpVec1,_BufSize);
+if (STATUS == -1) longjmp(_ebuf,1);
+XferCount=STATUS;
+_XferAddr=_CRLF;
+XferCount=2;
+STATUS=write(_PrtPthNum,_XferAddr,XferCount);
+if (STATUS == -1) longjmp(_ebuf,1);
+XferCount=STATUS;
+POS=0;
+/* LN:7  else */
+goto _Lbl2;
+_Lbl1:;
+/* LN:8   print "False" */
+_PrtPthNum=1;
+_a0=_StrConst2;
+_TmpVec1._Ptr=_a0;
+_TmpVec1._Len=6;
+_TmpVec1._Lnk=0;
+_PrintStr(&_TmpVec1,_BufSize);
+if (STATUS == -1) longjmp(_ebuf,1);
+XferCount=STATUS;
+_XferAddr=_CRLF;
+XferCount=2;
+STATUS=write(_PrtPthNum,_XferAddr,XferCount);
+if (STATUS == -1) longjmp(_ebuf,1);
+XferCount=STATUS;
+POS=0;
+/* LN:9  endif */

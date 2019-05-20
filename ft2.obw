@@ -1,0 +1,1 @@
+; Dimension Variablesdim test1 as filedim x(6,5) as bytedim i as longdim j as longOBMain.CREATEopen "ob2" for scratch as test1x(1,1)=1x(2,2)=2x(3,3)=3x(4,4)=4put test1,xEND EVENT

@@ -1,0 +1,55 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file wxc.pyd
+
+File Type: DLL
+
+  Section contains the following exports for wxc.pyd
+
+           0 characteristics
+    3E7B7EFA time date stamp Fri Mar 21 15:07:06 2003
+        0.00 version
+           1 ordinal base
+          28 number of functions
+          28 number of names
+
+    ordinal hint RVA      name
+
+          1    0 00007300 SWIG_GetPtr
+          2    1 000077C0 SWIG_GetPtrObj
+          3    2 00007270 SWIG_MakePtr
+          4    3 00007110 SWIG_RegisterMapping
+          5    4 00007020 SWIG_addvarlink
+          6    5 00006FC0 SWIG_newvarlink
+          7    6 000DFD80 initclip_dndc
+          8    7 000B5490 initcmndlgsc
+          9    8 000AD370 initcontrols2c
+         10    9 00097030 initcontrolsc
+         11    A 00045750 initeventsc
+         12    B 000E3BF0 initfilesysc
+         13    C 000FC2C0 initfontsc
+         14    D 000C1590 initframesc
+         15    E 0007BA20 initgdic
+         16    F 000C7E50 initimagec
+         17   10 0007EF70 initmdic
+         18   11 000661F0 initmisc2c
+         19   12 0004F8D0 initmiscc
+         20   13 000D20E0 initprintfwc
+         21   14 000D8BA0 initsizersc
+         22   15 000BC260 initstattoolc
+         23   16 000E4D00 initstreamsc
+         24   17 000F47A0 initutilsc
+         25   18 000320A0 initwindows2c
+         26   19 000376F0 initwindows3c
+         27   1A 00025BF0 initwindowsc
+         28   1B 0000AE30 initwxc
+
+  Summary
+
+       B6000 .data
+       36000 .rdata
+       27000 .reloc
+        4000 .rsrc
+      100000 .text

@@ -1,0 +1,1 @@
+; Dimension Variablesdim f1 as formdim b1 as buttonOBMain.CREATEcreate b1,10,10,100,20 text="havis"END EVENTb1.clickcreate f1,500,500,300,200 text="Boop"end event

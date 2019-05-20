@@ -1,0 +1,54 @@
+/* _LtoA() */
+/* Enter with integer (long) as arg */
+/* Exits with ASCII STRING in _ConvBuf1 */
+
+extern char _ConvBuf[22];
+extern char _ConvBuf1[22];
+
+void _LtoA(_IntVal)
+long _IntVal;
+{
+int _BufNdx;
+int _Buf1Ndx;
+char _Result;
+_BufNdx=0;
+_Buf1Ndx=0;
+if (_IntVal == 0)
+{
+_ConvBuf1[0]=0x30;
+_ConvBuf1[1]=0;
+return;
+}
+if (_IntVal < 0)
+{
+_IntVal=0-_IntVal;
+_ConvBuf1[0]='-';
+_Buf1Ndx++;
+}
+_ConvBuf[10]=0;
+_ClrLp:;
+_ConvBuf[_BufNdx]=0x30;
+_BufNdx++;
+if (_BufNdx<10) goto _ClrLp;
+_BufNdx--;
+_ConvLp:;
+_Result=_IntVal%10;
+_Result=_Result+0x30;
+_ConvBuf[_BufNdx]=_Result;
+_BufNdx--;
+_IntVal=_IntVal/10;
+if (_IntVal>0) goto _ConvLp;
+_BufNdx=0;
+_SkipLoop:;
+if (_ConvBuf[_BufNdx] != 0x30) goto _XferLoop;
+_BufNdx++;
+goto _SkipLoop;
+_XferLoop:;
+if (_ConvBuf[_BufNdx]==0) goto _AddNull;
+_ConvBuf1[_Buf1Ndx]=_ConvBuf[_BufNdx];
+_BufNdx++;
+_Buf1Ndx++;
+goto _XferLoop;
+_AddNull:;
+_ConvBuf1[_Buf1Ndx]=0;
+}

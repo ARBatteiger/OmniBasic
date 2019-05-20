@@ -1,0 +1,259 @@
+DIM Edit AS SCINTILLA
+DIM StatusBar AS STATUSBAR
+DIM FileName AS STRING
+DIM SaveFileName AS STRING
+DIM FileFilter AS TEXT
+DIM InitDir AS STRING
+DIM TempInt AS LONG
+DIM TempStr AS STRING
+DIM SaveValid AS BOOLEAN
+DIM FindStr AS STRING
+DIM ReplaceStr AS STRING
+DIM FontStr AS STRING
+DIM RGB AS LONG
+dim tb1 as textbox
+dim tb2 as textbox
+dim tb3 as textbox
+dim tb4 as textbox
+dim gp as button
+dim sp as button
+dim gt as button
+dim rp as button
+dim go as button
+dim gl as button
+
+OBMain_Load:
+SETPOSITION OBMain,0,0,1024,740
+CONSTRUCT StatusBar,0,0,0,0
+CONSTRUCT Edit,0,32,1015,638
+construct tb1,0,5,80,20
+construct tb2,100,5,80,20
+construct tb3,200,5,80,20
+construct tb4,300,5,80,20
+construct gp,400,5,80,20
+gp.text="getpos"
+construct sp,500,5,80,20
+sp.text="setpos"
+construct gt,600,5,80,20
+gt.text="goto line"
+construct rp,700,5,80,20
+rp.text="replace"
+construct go,800,5,80,20
+go.text="goto pos"
+construct gl,900,5,80,20
+gl.text="getline#"
+MENU OBMain
+	MENUBAR MainMenu
+		MENUTITLE FileMenu,"File"
+			MENUITEM mnuNew,"New"
+			MENUITEM mnuOpen,"Open"
+			MENUITEM mnuSave,"Save"
+			MENUITEM mnuSaveAs,"Save As"
+			MENUSEPARATOR
+			MENUITEM mnuPrint,"Print"
+			MENUSEPARATOR
+			MENUITEM mnuExit,"Exit"
+			REM
+		MENUTITLE EditMenu,"Edit"
+			MENUITEM mnuUnDo,"Undo"
+			MENUITEM mnuReDo,"Redo",
+			MENUSEPARATOR
+			MENUITEM mnuCut,"Cut"
+			MENUITEM mnuCopy,"Copy"
+			MENUITEM mnuPaste,"Paste"
+			MENUSEPARATOR
+			MENUITEM mnuSelectAll,"Select All",
+			MENUSEPARATOR
+			MENUITEM mnuGotoLine,"Goto Line"
+			MENUSEPARATOR
+			MENUITEM mnuFind,"Find"
+			MENUITEM mnuReplace,"Replace"
+		MENUTITLE OptionMenu,"Option"
+			MENUITEM mnuPreferences,"Preferences"
+			MENUSEPARATOR
+			MENUITEM mnuColors,"Colors"
+			MENUSEPARATOR
+			MENUITEM mnuFont,"Font"
+		MENUTITLE CompileMenu,"Compile"
+			MENUITEM mnuCompile,"Compile To EXE"
+			MENUITEM mnuCompileAndRun,"Compile And Run"
+			MENUITEM mnuRun,"Run"
+			MENUSEPARATOR
+			MENUITEM mnuTestCompile,"Test Compile"
+			MENUITEM mnuCompileToAsm,"Compile To Asm"
+			MENUSEPARATOR
+			MENUITEM mnuAssemble,"Assemble"
+		MENUTITLE DebugMenu,"Debug"
+			MENUITEM mnuStart,"Start"
+			MENUITEM mnuStop,"Stop"
+			MENUITEM mnuStep,"Step"
+			MENUITEM mnuEnd,"End"
+		MENUTITLE HelpMenu,"Help"
+			MENUITEM mnuHelp,"Help"
+			MENUSEPARATOR
+			MENUITEM mnuAbout,"About"							
+END MENU
+DISABLEMENUITEM MainMenu,mnuSave
+DISABLEMENUITEM MainMenu,mnuSaveAs
+SaveFileName=""
+Edit.HSCROLL=TRUE
+SaveValid=FALSE
+InitDir="C:\nb"
+FileFilter="OB Console",0,"*.obc",0,"OB Window",0,"*.obw",0,"Assembler",0,"*.asm",0,"All Files",0,"*.*",0,0
+OBMain.TEXT="Untitled"
+FileName="Untitled"
+Edit.TAB=7
+Edit.SELBACKCOLOR=$800000
+Edit.SELFORECOLOR=$ffffff
+RETURN
+
+MENU.command
+SELECT CASE MenuID
+	CASE mnuNew
+		Edit.CLEAR
+		SaveValid=FALSE
+		OBMain.TEXT="Untitled"
+		FileName="Untitled"
+		DISABLEMENUITEM MainMenu,mnuSave
+		DISABLEMENUITEM MainMenu,mnuSaveAs
+	CASE mnuOpen
+		FileName=""
+		OPENDIALOG FileName,FileFilter,InitDir 
+		IF STATUS<>0 THEN
+			Edit.LOADFILE FileName
+			SaveFileName=FileName
+			SaveValid=True
+			EnableMENUITEM MainMenu,mnuSave
+			EnableMENUITEM MainMenu,mnuSaveAs
+			OBMain.TEXT=FileName
+		ENDIF
+	CASE mnuSave
+		IF FileName="Untitled" THEN
+			GOSUB SaveAs
+		ENDIF
+		IF SaveValid=TRUE THEN
+			Edit.SAVEFILE SaveFileName
+			DISABLEMENUITEM MainMenu,mnuSave
+		ENDIF
+	CASE mnuSaveAs
+		GOSUB SaveAs
+	CASE mnuPrint
+
+	CASE mnuExit
+		END
+	CASE mnuUnDo
+
+	CASE mnuReDo
+
+	CASE mnuCut
+
+	CASE mnuCopy
+
+	CASE mnuPaste
+
+	CASE mnuSelectAll
+		Edit.SELECTALL
+	CASE mnuGotoLine
+
+	CASE mnuFind
+		FindStr="Find String"
+		FINDDIALOG FindStr
+	CASE mnuReplace
+		FindStr="Find String"
+		ReplaceStr="Replace String"
+		REPLACEDIALOG FindStr,ReplaceStr
+	CASE mnuPreferences
+
+	CASE mnuColors
+		COLORDIALOG RGB
+		TempStr=HEX$(RGB)
+		Edit.TEXT=TempStr
+	CASE mnuFont
+		FONTDIALOG FontStr
+	CASE mnuCompile
+
+	CASE mnuCompileAndRun
+
+	CASE mnuTestCompile
+
+	CASE mnuCompileToAsm
+
+	CASE mnuAssemble
+
+	CASE mnuStart
+
+	CASE mnuStop
+
+	CASE mnuStep
+
+	CASE mnuEnd
+
+	CASE mnuHelp
+
+	CASE mnuAbout
+
+END SELECT
+END EVENT
+
+Edit.change
+SaveValid=True
+EnableMENUITEM MainMenu,mnuSave
+EnableMENUITEM MainMenu,mnuSaveAs
+END EVENT
+
+SaveAs:
+FileName=""
+SAVEDIALOG FileName,FileFilter,InitDir
+IF STATUS<>0 THEN
+	Edit.SAVEFILE FileName
+	SaveFileName=FileName
+	OBMain.TEXT=FileName
+ENDIF
+RETURN
+
+FIND.notify
+tb4.text=HEX$(FLAGS)
+tb3.text=FindStr
+END EVENT
+
+gp.command
+TempInt=Edit.anchorpos
+TempStr=str$(TempInt)
+tb1.text=TempStr
+TempInt=Edit.currentpos
+TempStr=str$(TempInt)
+tb2.text=TempStr
+end event
+
+sp.command
+TempStr=tb2.text
+TempInt=val(TempStr)
+Edit.currentpos=TempInt
+TempStr=tb1.text
+TempInt=val(TempStr)
+Edit.anchorpos=TempInt
+end event
+
+gt.command
+TempStr=tb3.text
+TempInt=val(TempStr)
+Edit.currentline=TempInt
+end event
+
+rp.command
+TempStr=tb4.text
+Edit.replacesel TempStr
+end event
+
+go.command
+TempStr=tb2.text
+TempInt=val(TempStr)
+Edit.anchorpos=TempInt
+Edit.gotopos TempInt
+end event
+
+gl.command
+TempInt=Edit.currentline
+tb3.text=str$(TempInt)
+end event
+

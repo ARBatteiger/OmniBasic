@@ -1,0 +1,141 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file ab.exe
+
+File Type: EXECUTABLE IMAGE
+
+  Section contains the following imports:
+
+    kernel32.dll
+                448132 Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  Beep
+                   0  CloseHandle
+                   0  CreateDirectoryA
+                   0  CreateFileA
+                   0  CreatePipe
+                   0  CreateProcessA
+                   0  DeleteFileA
+                   0  ExitProcess
+                   0  GetCommandLineA
+                   0  GetCurrentProcess
+                   0  GetCurrentDirectoryA
+                   0  GetFileSize
+                   0  GetFileType
+                   0  GetFullPathNameA
+                   0  GetLastError
+                   0  GetLocalTime
+                   0  GetModuleHandleA
+                   0  GetStdHandle
+                   0  ReadConsoleA
+                   0  ReadFile
+                   0  RemoveDirectoryA
+                   0  SetCurrentDirectoryA
+                   0  SetFilePointer
+                   0  VirtualAlloc
+                   0  VirtualFree
+                   0  WinExec
+                   0  WriteConsoleA
+                   0  WriteFile
+
+    User32.dll
+                44835A Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CheckDlgButton
+                   0  CreateWindowExA
+                   0  DefWindowProcA
+                   0  DispatchMessageA
+                   0  GetClientRect
+                   0  GetMessageA
+                   0  LoadCursorA
+                   0  LoadIconA
+                   0  LoadMenuA
+                   0  MessageBoxA
+                   0  MoveWindow
+                   0  PostQuitMessage
+                   0  RedrawWindow
+                   0  RegisterClassA
+                   0  SendMessageA
+                   0  SetWindowLongA
+                   0  TranslateMessage
+
+    GDI32.DLL
+                4484AD Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CreateFontIndirectA
+                   0  DeleteObject
+
+    COMCTL32.DLL
+                4484DE Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CreateMappedBitmap
+                   0  _TrackMouseEvent
+
+    COMDLG32.DLL
+                448512 Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  ChooseColorA
+                   0  ReplaceTextA
+
+    SHELL32.DLL
+                44853C Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  DragAcceptFiles
+                   0  Shell_NotifyIcon
+
+    ADVAPI32.DLL
+                44856D Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  RegCreateKeyExA
+                   0  RegCloseKey
+
+    WINMM.DLL
+                448599 Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  sndPlaySoundA
+
+    msvcrt.dll
+                4485B1 Import Address Table
+                     0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  abs
+                   0  atol
+                   0  _ltoa
+                   0  printf
+                   0  puts
+                   0  sprintf
+                   0  system
+
+  Summary
+
+       2C000 .code
+       47000 .data
+        1000 .idata

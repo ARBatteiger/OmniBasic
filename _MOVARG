@@ -1,0 +1,40 @@
+/* _MovArg(&Str1,argv) */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+extern int _ArgCount;
+extern long _ArgNum;
+
+void _MovArg(_Op1Ptr,argv)
+_StrVec *_Op1Ptr;
+char *argv[];
+{
+_StrVec _Op1;
+char *_srcptr;
+char *_destptr;
+long _maxlen;
+long _bytecount;
+_bytecount=0;
+_Op1=*_Op1Ptr;
+_destptr=_Op1._Ptr;
+_maxlen=_Op1._Len;
+if (_ArgCount == 0)
+	{
+	*_destptr=0;
+	return;
+	}
+_srcptr=argv[_ArgNum];
+_ArgCount--;
+_ArgNum++;
+while ((*_srcptr != 0) && (_bytecount <= _maxlen))
+	{
+	*_destptr=*_srcptr;
+	_srcptr++;
+	_destptr++;
+	}
+ if (_bytecount != _maxlen) *_destptr=0;
+}

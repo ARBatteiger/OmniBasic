@@ -1,0 +1,1 @@
+; Dimension Variablesdim ts1 as stringdim ts2 as stringdim t1 as textboxdim c1 as comboboxdim x as longOBMain.CREATEcreate t1,10,10,100,20create c1,10,40,100,250ts1="123"ts2="456"t1.text=ts1+ts2t1.tooltip=ts1+ts2c1.text="test"+" combo"c1.additem "Item1"c1.additem "Item"+" 2"c1.replaceitem "Item1","Havis"END EVENT

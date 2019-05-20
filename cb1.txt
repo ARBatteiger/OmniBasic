@@ -1,0 +1,194 @@
+RichEditProc    PROTO  :DWORD, :DWORD, :DWORD, :DWORD
+
+MainClass      db  'Main Builder',0
+ButtClass      db  'button',0
+EditClass      db  'edit',0
+TrackbarClass  db  'msctls_trackbar32',0
+ScrollHClass   db  'SCROLLBAR',0
+ComboClass     db  'combobox',0
+RichEdit       db  'RichEdit20A',0
+
+FontName       db  'MS Sans Serif',0
+
+szSlashB       db  '\',0
+szAll          db  '*.*',0
+
+AppName        db  'Main Window',0
+szText01       db  'Butt01',0
+szText02       db  'Edit01',0
+szText03       db  'Trackbar01',0
+szText04       db  'ScrollbarH01',0
+szText05       db  'Combobox01',0
+szText06       db  'REdit01',0
+szText07       db  'Group01',0
+szText08       db  'Radio01',0
+szText09       db  'Radio02',0
+
+hWnd           dd  ?
+hButt01        dd  ?
+hEdit01        dd  ?
+hTrackbar01    dd  ?
+hScrollH01     dd  ?
+hCombobox01    dd  ?
+hREdit01       dd  ?
+hGroup01       dd  ?
+hRadio01       dd  ?
+hRadio02       dd  ?
+
+hFontL         dd  ?
+lpRichEdit     dd  ?
+hFind          dd  ?
+szBuff         db  256  dup(?)
+
+lf             LOGFONT         <?>
+FindData       WIN32_FIND_DATA <?>
+
+         mov     ecx, 25
+         mov     edx, 14
+
+;---------- [Center the window] ----------
+      INVOKE     GetSystemMetrics, SM_CXSCREEN
+         sub     eax, 425
+         shr     eax, 1
+        push     eax
+      INVOKE     GetSystemMetrics, SM_CYSCREEN
+         sub     eax, 426
+         shr     eax, 1
+         pop     ecx
+         mov     edx, eax
+
+;---------- [Create the Maim Window] ----------
+      INVOKE     CreateWindowEx, NULL, addr MainClass, addr AppName,\
+                 WS_VISIBLE or WS_OVERLAPPEDWINDOW,\
+                 ecx, edx, 425, 426, NULL, NULL, hInst, NULL
+         mov     hWnd, eax
+
+      INVOKE     ShowWindow, hWnd, SW_SHOWNORMAL
+      INVOKE     UpdateWindow, hWnd
+
+
+;---------- [Create the Font] ----------
+         INVOKE     lstrcpy, addr lf.lfFaceName, addr FontName
+            mov     lf.lfHeight, -12
+            mov     lf.lfWeight, 500
+         INVOKE     CreateFontIndirect, addr lf
+            mov     hFontL, eax    ; Listbox font
+
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr ButtClass, addr szText01,\
+                    WS_CHILD or WS_VISIBLE or WS_TABSTOP,\
+                    97, 71, 95, 27, hwnd, 2001, hInst, NULL
+            mov     hButt01, eax
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, WS_EX_CLIENTEDGE, addr EditClass, addr szText02,\
+                    WS_CHILD or WS_VISIBLE,\
+                    205, 159, 75, 24, hwnd, 2002, hInst, NULL
+            mov     hEdit01, eax
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr TrackbarClass, addr szText03,\
+                    WS_CHILD or WS_VISIBLE,\
+                    98, 229, 80, 28, hwnd, 2003, hInst, NULL
+            mov     hTrackbar01, eax
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr ScrollHClass, addr szText04,\
+                    WS_CHILD or WS_VISIBLE or SBS_HORZ,\
+                    255, 220, 97, 25, hwnd, 2004, hInst, NULL
+            mov     hScrollH01, eax
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr ComboClass, addr szText05,\
+                    WS_CHILD or WS_VISIBLE or WS_VSCROLL or CBS_DROPDOWNLIST or \
+                    CBS_HASSTRINGS or CBS_NOINTEGRALHEIGHT,\
+                    28, 125, 90, 36, hwnd, 2005, hInst, NULL
+            mov     hCombobox01, eax
+
+;---------- [Set the Font and the line height of the Combobox] ----------
+         INVOKE     SendMessage, hComboboxXX, WM_SETFONT, hFontC, 1
+         INVOKE     SendMessage, hComboboxXX, CB_SETITEMHEIGHT, -1, 13 ; Selection field
+         INVOKE     SendMessage, hComboboxXX, CB_SETITEMHEIGHT, 0, 13  ; List items
+
+;---------- [Get the current dir and load the Combobox with its files] ----------
+         INVOKE     GetCurrentDirectory, lengthof szBuff, addr szBuff
+         INVOKE     lstrcat, addr szBuff, addr szSlashB
+         INVOKE     lstrcat, addr szBuff, addr szAll
+         INVOKE     FindFirstFile, addr szBuff, addr FindData
+           test     eax, eax
+             js     NoFileC
+            mov     hFind, eax
+            jmp     AddemC
+
+GetemC:
+         INVOKE     FindNextFile, hFind, addr FindData
+           test     eax, eax
+             jz     AllDoneC
+
+AddemC:
+         .if (FindData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ||\
+             (FindData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN) ||\
+             (FindData.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM)
+               jmp     GetemC
+         .endif
+;         INVOKE     lstrlen, addr FindData.cFileName
+;            sub     eax, 3
+;         INVOKE     lstrcpyn, addr szBuff, addr FindData.cFileName, eax
+         INVOKE     SendMessage, hComboboxXX, CB_ADDSTRING, 0, addr FindData.cFileName ;szBuff
+            jmp     GetemC
+
+AllDoneC:
+         INVOKE     FindClose, hFind
+
+NoFileC:
+
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, WS_EX_CLIENTEDGE, addr RichEdit, addr szText06,\
+                    WS_CHILD or WS_VISIBLE or WS_VSCROLL or WS_HSCROLL or \
+                    ES_MULTILINE or ES_AUTOVSCROLL or ES_AUTOHSCROLL or ES_NOHIDESEL or \
+                    ES_SAVESEL,\
+                    185, 295, 123, 52, hwnd, 2006, hInst, NULL
+            mov     hREdit01, eax
+
+;---------- [Control window subclassed] ----------
+         INVOKE     SetWindowLong, hREditXX, GWL_WNDPROC, RichEditProc
+            mov     lpRichEdit, eax
+
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr ButtClass, addr szText07,\
+                    WS_CHILD or WS_VISIBLE or BS_GROUPBOX,\
+                    257, 44, 152, 91, hwnd, 2007, hInst, NULL
+            mov     hGroup01, eax
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr ButtClass, addr szText08,\
+                    WS_CHILD or WS_VISIBLE or WS_TABSTOP or BS_AUTORADIOBUTTON,\
+                    282, 72, 53, 14, hwnd, 2008, hInst, NULL
+            mov     hRadio01, eax
+
+;---------- [Create the Control Window] ----------
+         INVOKE     CreateWindowEx, NULL, addr ButtClass, addr szText09,\
+                    WS_CHILD or WS_VISIBLE or WS_TABSTOP or BS_AUTORADIOBUTTON,\
+                    281, 95, 66, 14, hwnd, 2009, hInst, NULL
+            mov     hRadio02, eax
+
+;=====================================================
+; SubClass the Rich Edit control PROCEDURE
+;=====================================================
+RichEditProc PROC hwnd:DWORD, wmsg, wparam, lparam
+
+      .if wmsg == WM_RBUTTONDOWN
+            jmp     PopUp
+      .endif
+         jmp     ThatsAll
+
+PopUp:
+
+ThatsAll:
+      INVOKE     CallWindowProc, lpRichEdit, hwnd, wmsg, wparam, lparam
+         ret
+
+RichEditProc ENDP

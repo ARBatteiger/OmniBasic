@@ -1,0 +1,171 @@
+	.file	"wt1.c"
+gcc2_compiled.:
+___gnu_compiled_c:
+.data
+__StrConst1:
+	.ascii "Quit Now?\0"
+.text
+LC0:
+	.ascii "Dennis\0"
+LC1:
+	.ascii "Error Exit\0"
+	.align 4
+.globl _main
+_main:
+	pushl %ebp
+	movl %esp,%ebp
+	subl $20,%esp
+	pushl %esi
+	pushl %ebx
+	call ___main
+	movl $__ConvBuf,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__CBufVec
+	movl $22,__CBufVec+4
+	movl $0,__CBufVec+8
+	movl $__ConvBuf1,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__CBuf1Vec
+	movl $22,__CBuf1Vec+4
+	movl $0,__CBuf1Vec+8
+	movl $__PrintBuf,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__PBufVec
+	movl $300,__PBufVec+4
+	movl $0,__PBufVec+8
+	movl $__IOBuffer,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__IOBufVec
+	movl $300,__IOBufVec+4
+	movl $0,__IOBufVec+8
+	pushl $__ebuf
+	call __setjmp
+	addl $4,%esp
+	movl %eax,__ErrFlag
+	cmpl $0,__ErrFlag
+	je L2
+	jmp L3
+	.align 2,0x90
+L2:
+	movw $15,__Digits
+	movw $2,__Decimals
+	movl $0,_POS
+	call __errno
+	movl %eax,%eax
+	movl $0,(%eax)
+	movl $0,_XferCount
+	movl $0,_STATUS
+	movb $13,__CRLF
+	movb $10,__CRLF+1
+	movb $10,__NewLine
+	movb $63,__Prompt
+	movl 8(%ebp),%eax
+	movl %eax,__ArgCount
+	movl $0,__ArgNum
+	movl 12(%ebp),%eax
+	movl %eax,__ArgList
+	movl $_ProgramName,__TmpVec1
+	movl $28,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	movl __ArgList,%eax
+	pushl %eax
+	pushl $__TmpVec1
+	call __MovArg
+	addl $8,%esp
+	movl $_Msg,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__TmpVec1
+	movl $20,__TmpVec1+4
+	movl $0,__TmpVec1+8
+	movl $__StrConst1,-20(%ebp)
+	movl -20(%ebp),%ecx
+	movl %ecx,__TmpVec2
+	movl $10,__TmpVec2+4
+	movl $0,__TmpVec2+8
+	pushl $__TmpVec2
+	pushl $__TmpVec1
+	call __MovStr
+	addl $8,%esp
+	pushl $16
+	pushl $LC0
+	pushl $_Msg
+	pushl $0
+	call _MessageBoxA@16
+	pushl $0
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L3:
+	pushl $LC1
+	call _puts
+	addl $4,%esp
+	call __errno
+	movl %eax,%eax
+	movl (%eax),%edx
+	pushl %edx
+	call _exit
+	addl $4,%esp
+	.align 2,0x90
+L1:
+	leal -28(%ebp),%esp
+	popl %ebx
+	popl %esi
+	leave
+	ret
+.comm __d2,4
+.comm __PUArgs,60
+.comm __ArgCount,4
+.comm __ArgList,4
+.comm __ArgNum,4
+.comm __TestByte,4
+.comm __Prompt,4
+.comm __NewLine,4
+.comm __CRLF,4
+.comm _STATUS,4
+.comm __ebuf,32
+.comm __t,4
+.comm __systime,4
+.comm __ErrFlag,4
+.comm __Poker,4
+.comm __SrcAddr,4
+.comm __DestAddr,4
+.comm __BlkCnt,4
+.comm __DummyArg,4
+.comm _XferCount,4
+.comm __XferAddr,4
+.comm __Digits,4
+.comm __Decimals,4
+.comm __ArgSafe0,4
+.comm __ArgSafe1,4
+.comm __FltArgSafe0,4
+.comm __FltArgSafe1,4
+.comm __SwitchInt,4
+.comm __SwitchStr,12
+.comm __DblArgSafe0,8
+.comm __DblArgSafe1,8
+.comm __IOPthNum,4
+.comm __FilePtr,4
+.comm __PrtPthNum,4
+.comm __SafeZone,4
+.comm __IOBufPtr,4
+.comm __IOBufVec,12
+.comm _POS,4
+.comm _MX,4
+.comm _MY,4
+.comm _KM,4
+.comm __PBufVec,12
+.comm __DataPtr,4
+.comm __DataPtrSaf,4
+.comm __True,4
+.comm __ConvBuf,24
+.comm __ConvBuf1,24
+.comm _ProgramName,40
+.comm __CBufVec,12
+.comm __CBuf1Vec,12
+.comm __NullStr,4
+.comm __IOBuffer,300
+.comm __PrintBuf,300
+.lcomm __LoopCtr,40
+.lcomm __TmpVec1,12
+.lcomm _Msg,20
+.lcomm __TmpVec2,12

@@ -1,0 +1,11 @@
+/* _AtoD() */
+/* Enter with ASCII STRING (floating point value) in _ConvBuf */
+/* Returns FLOAT (double) value of STRING */
+
+extern char _ConvBuf[22];
+double atof();
+
+double _AtoD()
+{
+return(atof(_ConvBuf));
+}

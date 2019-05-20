@@ -1,0 +1,90 @@
+* Macro File for Win32
+
+;#include <windows.h>
+
+********** Message Box **********
+* MsgBox 0,TextString,CaptionString,MsgType
+* Arg1: HWND hWnd
+* Arg2: LPCWSTR lpText
+* Arg3: LPCWSTR lpCaption
+* Arg4: UINT uType
+#MACRO MsgBox
+;MessageBox (~1,~2,~3,~4);
+#ENDM
+
+********** OK Message Box **********
+* OKMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO OKMsgBox
+;MessageBox (0,~1,~2,MB_OK);
+#ENDM
+
+********** Question Message Box **********
+* QuesMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO QuesMsgBox
+;MessageBox (0,~1,~2,MB_OK | MB_ICONQUESTION);
+#ENDM
+
+**********  Exclamation Message Box **********
+* ExclMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO ExclMsgBox
+;MessageBox (0,~1,~2,MB_OK | MB_ICONEXCLAMATION);
+#ENDM
+
+********** Warning Message Box **********
+* WarnMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO WarnMsgBox
+;MessageBox (0,~1,~2,MB_OK | MB_ICONWARNING);
+#ENDM
+
+********** Error Message Box **********
+* ErrMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO ErrMsgBox
+;MessageBox (0,~1,~2,MB_OK | MB_ICONERROR);
+#ENDM
+
+********** Asterisk Message Box **********
+* AstMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO AstMsgBox
+;MessageBox (0,~1,~2,MB_OK | MB_ICONASTERISK);
+#ENDM
+
+********** Hand Message Box **********
+* HandMsgBox TextString,CaptionString
+* Arg1: LPCWSTR lpText
+* Arg2: LPCWSTR lpCaption
+#MACRO HandMsgBox
+;MessageBox (0,~1,~2,MB_OK | MB_ICONHAND);
+#ENDM
+
+********** Create Status Window **********
+* Arg1: LONG style
+* Arg2: LPCWSTR lpszText
+* Arg3: HWND hwndParent
+* Arg4: UINT wID
+#MACRO CreatStatWin
+;CreateStatusWindow (~1,~2,~3,~4);
+#ENDM
+
+********** Draw Text **********
+* Arg1 HDC hDC
+* Arg2 LPCWSTR lpString
+* Arg3 int nCount
+* Arg4 LPRECT lpRect
+* Arg5 UINT uFormat
+#MACRO DrawTxt
+;DrawText(~1,~2,~3,~4,~5);
+#ENDM
+
+

@@ -1,0 +1,594 @@
+CONST OBRed=$0000ff
+CONST OBGreen=$00ff00
+CONST OBBlue=$ff0000
+CONST OBPink=$9090f0
+CONST OBMint=$90f090
+CONST OBLtBlue=$f09090
+CONST OBMagenta=$ff00ff
+CONST OBBlack=$000000
+CONST OBWhite=$ffffff
+CONST OBYellow=$00ffff
+CONST OBLtYellow=$80ffff
+CONST OBOrange=$0080ff
+CONST OBViolet=$800080
+CONST OBAqua=$ffff00
+CONST OBGray=$808080
+CONST OBLtGray=$c0c0c0
+CONST OBDkGray=$040404
+CONST OBDkGreen=$004000
+CONST OBDkRed=$000040
+CONST OBDkBlue=$400000
+CONST OBLilac=$ff80ff
+
+DIM ByteAcc(4) AS BYTE
+DIM IntegerAcc AS INTEGER VECTOR
+DIM LongAcc AS LONG VECTOR
+DIM Icon AS ICON
+DIM TempInt AS LONG
+DIM TempHex AS STRING
+DIM sbParts(4) as long
+DIM CardFile AS FILE
+DIM MoldFile AS FILE
+DIM FileName AS STRING
+DIM CardBuf(262144) AS BYTE
+DIM CardBufNdx AS LONG
+DIM MoldBuf(2048) AS BYTE
+DIM MoldBufNdx AS LONG
+DIM TempStr AS STRING
+DIM DriverName AS STRING
+DIM DriverHandle AS LONG
+DIM StatusBar AS STATUSBAR
+DIM Stat1 AS STATICTEXT
+DIM Stat2 AS STATICTEXT
+DIM Stat3 AS STATICTEXT
+DIM MoldList AS COMBOBOX
+DIM DataGrid AS RAGRID
+DIM MoldNumber AS STRING*10
+DIM MachName AS STRING*12 VECTOR
+DIM TempMachName AS STRING*12
+DIM MoldName AS STRING*30 VECTOR
+DIM TempMoldName AS STRING*30
+DIM SetupName AS STRING'*32
+DIM MoldIndex AS LONG
+DIM LoadCard AS BUTTON
+DIM StoreCard AS BUTTON
+DIM LoadSetupFile AS BUTTON
+DIM StoreSetupFile AS BUTTON
+DIM CopyCardToFile AS BUTTON
+DIM SetupToMoldList AS BUTTON
+DIM CopyFileToCard AS BUTTON
+DIM Reset AS BUTTON
+DIM CardFromFile AS BUTTON
+DIM FileFromCard AS BUTTON
+DIM GetListFromFile AS BUTTON
+DIM StoreCardToFile AS BUTTON
+DIM DataGridX AS LONG
+DIM DataGridY AS LONG
+DIM TextSafe AS STRING
+DIM InitDir AS STRING
+DIM PCCFileFilter AS TEXT
+DIM TSMFileFilter AS TEXT
+DIM StoreFlag AS BOOLEAN
+DIM SetupLoaded AS BOOLEAN
+DIM CardLoaded AS BOOLEAN
+DIM Stat1Label AS STATICTEXT
+DIM Stat2Label AS STATICTEXT
+DIM Stat3Label AS STATICTEXT
+
+MACRO Stat
+	Stat~1.BACKCOLOR=~2
+	Stat~1.FORECOLOR=~3
+	Stat~1.TEXT=~4
+END MACRO	
+
+'TYPE Params
+	
+'END TYPE
+
+'Table Lookup AS Params
+	
+'END TABLE
+
+OBMain.create
+SETPOSITION OBMain,0,0,800,572
+OBMain.TEXT="Innomation Systems, Inc.                                      Toyo Setup Manager"
+DriverName="OmniUSB"
+
+MENU OBMain
+	MENUBAR MainMenu
+		MENUTITLE FileMenu,"File"
+			menuitem menuopen,"Open"
+			menuitem menusave,"Save"
+			menuseparator
+			menuitem menuexit,"Exit"
+		MENUTITLE UtilityMenu,"Utility"
+			MENUITEM MenuEraseCard,"Erase Entire Card"
+			MENUITEM MenuEraseSetup,"Erase Setup From List"
+		menutitle forecolormenu,"ForeColor"
+			menuitem fgred,"Red"
+			menuitem fggreen,"Green"
+			menuitem fgblue,"Blue"
+			menuitem fgblack,"Black"
+			menuitem fgwhite,"White"			 		
+		menutitle viewmenu,"View"
+		menutitle helpmenu,"Help"
+END MENU
+
+' Status Bar
+CONSTRUCT StatusBar,0,0,0,0
+sbParts(1)=0
+sbParts(2)=266
+sbParts(3)=532
+sbParts(4)=798
+StatusBar.SETPARTS 4,sbParts
+
+' Stat1
+CONSTRUCT Stat1,2,3,262,16 in StatusBar
+CONSTRUCT Stat1Label,0,490,266,15
+Stat1Label.TEXT="Prompt/Result"
+
+' Stat2
+CONSTRUCT Stat2,268,3,262,16 in StatusBar
+CONSTRUCT Stat2Label,265,490,266,15
+Stat2Label.TEXT="List Source"
+
+' Stat3
+CONSTRUCT Stat3,535,3,262,16 in StatusBar
+CONSTRUCT Stat3Label,533,490,266,15
+Stat3Label.TEXT="Setup Source"
+
+' LoadCard
+CONSTRUCT LoadCard,10,440,150,20
+LoadCard.TEXT="Get List From Card"
+
+' StoreCard
+CONSTRUCT StoreCard,10,465,150,20
+StoreCard.TEXT="Save List Onto Card"
+
+' LoadSetupFile
+CONSTRUCT LoadSetupFile,330,440,150,20
+LoadSetupFile.TEXT="Get Setup From File"
+
+' StoreSetupFile
+CONSTRUCT StoreSetupFile,330,465,150,20
+StoreSetupFile.TEXT="Save Setup Onto File"
+
+' GetListFromFile
+CONSTRUCT GetListFromFile,170,440,150,20
+GetListFromFile.TEXT="Get List From File"
+
+' StoreCardToFile
+CONSTRUCT StoreCardToFile,170,465,150,20
+StoreCardToFile.TEXT="Save List Onto File"
+
+' SetupToMoldList
+CONSTRUCT SetupToMoldList,490,465,130,20
+SetupToMoldList.TEXT="Put Setup Into List"
+
+' Havis
+CONSTRUCT CopyCardToFile,630,440,150,20
+CopyCardToFile.TEXT="Copy Card To File"
+
+' Exit
+CONSTRUCT CopyFileToCard,630,465,150,20
+CopyFileToCard.TEXT="Copy File To Card"
+
+' Reset
+CONSTRUCT Reset,490,440,130,20
+Reset.TEXT="Reset"
+
+' MoldList
+CONSTRUCT MoldList,10,0,770,442
+MoldList.FORECOLOR=$ff0000
+
+' DataGrid
+CONSTRUCT DataGrid,10,30,770,400
+'DataGrid.HEADERHEIGHT=0
+
+DataGrid.HEADERHEIGHT=20
+
+'DataGrid.ADDCOL TEXT,122,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+'DataGrid.ADDCOL TEXT,50,"",CENTER,CENTER,31
+
+DataGrid.ADDCOL TEXT,44,"ADR",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"0",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"1",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"2",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"3",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"4",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"5",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"6",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"7",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"8",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"9",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"A",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"B",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"C",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"D",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"E",CENTER,CENTER,31
+DataGrid.ADDCOL TEXT,44,"F",CENTER,CENTER,31
+
+'for TempInt=1 to 200
+'	DataGrid.ADDROW	
+'next TempInt
+
+FOR TempInt=1 TO 128
+	DataGrid.ADDROW
+	TempStr=HEX((TempInt-1)*16)
+	MAKEUPPER TempStr
+	SELECT CASE LEN(TempStr)
+		CASE 1
+			TempHex="00"+TempStr
+		CASE 2
+			TempHex="0"+TempStr
+		CASE 3
+			TempHex=TempStr
+	END SELECT
+	DataGrid.TEXT(TempInt,1)=TempHex	
+NEXT TempInt
+
+InitDir="c:\Tsm"
+PCCFileFilter="Memory Card File",0,"*.pcc",0,0
+TSMFileFilter="Setup File",0,"*.tsm",0,0
+GOSUB ClearAll
+CREATEICON Icon,Graph16
+OBMain.ICON=Icon
+SETVEC LongAcc=ADDR(ByteAcc)
+END EVENT
+
+MENU.COMMAND
+select case MenuID
+	case menuopen
+
+	case menusave
+
+	case menuexit
+		END
+	case MenuEraseCard
+		FOR CardBufNdx=1 TO 262144
+			CardBuf(CardBufNdx)=0
+		NEXT CardBufNdx
+		MoldList.CLEAR
+		GOSUB WriteSRAM
+		StatusBar.SETTEXT 1,"Card Erased"
+	case MenuEraseCard
+
+	case fgred
+
+	case fggreen
+
+	case fgblue
+
+	case fgblack
+
+	case fgwhite
+
+	case else
+
+end select
+END EVENT
+
+ReadSRAM:
+GOSUB GetDriver
+IF DriverHandle<1 THEN
+	Stat 1,OBRed,OBWhite,"No Card Reader Installed"
+	RETURN
+ENDIF
+GOSUB ReadData
+IF TempInt<>0 THEN
+	Stat 1,OBRed,OBWhite,"Get List From Card Failed"
+ELSE
+	GOSUB PopulateCombo
+	Stat 1,OBGreen,OBBlack,"Get List From Card Successful"
+	Stat 2,OBGreen,OBBlack,"Card"
+	CardLoaded=TRUE
+ENDIF
+GOSUB ReleaseDriver
+RETURN
+
+WriteSRAM:
+GOSUB GetDriver
+IF DriverHandle<1 THEN
+	Stat 1,OBRed,OBWhite,"No Card Reader Installed"
+	RETURN
+ENDIF
+GOSUB WriteData
+IF TempInt<>0 THEN
+	Stat 1,OBRed,OBWhite,"Store Failed"
+ELSE
+	Stat 1,OBGreen,OBBlack,"Store Successful"
+	GOSUB PopulateCombo
+ENDIF
+GOSUB ReleaseDriver
+RETURN
+
+GetDriver:
+invoke CSMGetDriveHandle, [DriverName], DriverHandle, 1
+RETURN
+
+ReadData:
+invoke CSMReadBlock,[DriverHandle],0,2,0,CardBuf,262144
+mov [TempInt],eax
+RETURN
+
+WriteData:
+invoke CSMWriteBlock,[DriverHandle],0,2,96,0,CardBuf,0,262144
+mov [TempInt],eax
+RETURN
+
+ReleaseDriver:
+invoke CSMReleaseDriveHandle,[DriverHandle]
+RETURN
+
+MoldList.SELECT
+TempInt=MoldList.SELITEM
+GOSUB ShowGrid
+IF StoreFlag=FALSE THEN
+	StoreSetupFile.ENABLED=TRUE
+	CardBufNdx=(TempInt-1)*2048+1
+	FOR MoldBufNdx=1 TO 2048
+		MoldBuf(MoldBufNdx)=CardBuf(CardBufNdx)
+		INCR CardBufNdx
+	NEXT MoldBufNdx
+	GOSUB MoldBufToGrid
+	Stat 1,OBGreen,OBBlack,"Setup Has Been Selected From List"
+	CardLoaded=TRUE
+	SetupName=MoldList.SELTEXT
+	Stat 3,OBGreen,OBBlack,"List"
+ELSE
+	' Transfer MoldBuf To Selected Position on List
+	StoreFlag=FALSE
+	MoldList.FORECOLOR=$ff0000
+	MoldList.TEXT=TextSafe
+	CardBufNdx=(TempInt-1)*2048+1
+	FOR MoldBufNdx=1 TO 2048
+		CardBuf(CardBufNdx)=MoldBuf(MoldBufNdx)
+		INCR CardBufNdx
+	NEXT MoldBufNdx
+	SetupToMoldList.TEXT="Setup To Mold List"
+	Stat 1,OBGreen,OBBlack,"Setup Has Been Added To List"
+	GOSUB PopulateCombo
+ENDIF
+END EVENT
+
+LoadCard.command
+GOSUB ReadSRAM
+END EVENT
+
+StoreCard.command
+GOSUB WriteSRAM
+END EVENT
+
+LoadSetupFile.command
+FileName=""
+OPENDIALOG FileName,TSMFileFilter,InitDir
+IF STATUS<>0 THEN
+	OPEN MoldFile,FileName:READ
+	BUFREAD MoldFile,ADDR(MoldBuf),2048
+	CLOSE MoldFile
+	Stat 1,OBGreen,OBBlack,"Get Setup From File Successful"
+	Stat 3,OBGreen,OBBlack,FileName
+	GOSUB ShowGrid
+	GOSUB MoldBufToGrid
+
+	SETVEC MachName=ADDR(MoldBuf(1987))	
+	SETVEC MoldName=ADDR(MoldBuf(1999))
+	ByteAcc(1)=MoldBuf(1978)
+	ByteAcc(2)=MoldBuf(1977)
+	ByteAcc(3)=MoldBuf(1976)
+	ByteAcc(4)=MoldBuf(1975)
+	TempStr=STR(LongAcc)
+	MoldNumber=""
+	TempMachName=MachName
+	TempMoldName=MoldName
+	FOR TempInt=1 TO 8-LEN(TempStr)
+		MoldNumber=MoldNumber+"0"
+	NEXT TempInt
+	MoldNumber=MoldNumber+TempStr
+	IF BITTST(CardBuf(626),4)=TRUE OR CardBuf(MoldIndex-626)=$aa OR LEN(MoldName)=0 THEN
+		TempMachName="Vacant"
+		TempMoldName=""
+		MoldNumber="00000000"
+	ENDIF
+	TempStr=MoldNumber+" "+TempMachName+" "+TempMoldName
+
+	MoldList.TEXT=TempStr
+	StoreSetupFile.ENABLED=TRUE
+ELSE
+	Stat 1,OBRed,OBWhite,"Get Setup From File Canceled"	
+ENDIF
+END EVENT
+
+StoreSetupFile.command
+FileName=""
+SAVEDIALOG FileName,TSMFileFilter,InitDir
+IF STATUS<>0 THEN
+	IF RIGHT$(FileName,4)<>".TSM" THEN
+		FileName=FileName+".TSM"
+	ENDIF
+	ON ERROR GOTO NoTSMFile
+	DELETE FileName
+	NoTSMFile:
+	CREATE MoldFile,FileName:WRITE
+	BUFWRITE MoldFile,ADDR(MoldBuf),2048
+	CLOSE MoldFile
+	Stat 1,OBGreen,OBBlack,"Save Setup Onto File Successful"
+	ON ERROR
+ELSE
+	Stat 1,OBRed,OBWhite,"Save Setup Onto File Canceled"
+ENDIF
+END EVENT
+
+GetListFromFile.command
+FileName=""
+OPENDIALOG FileName,PCCFileFilter,InitDir
+IF STATUS<>0 THEN
+	OPEN CardFile,FileName:READ
+	BUFREAD CardFile,ADDR(CardBuf),262144
+	CLOSE CardFile
+	Stat 1,OBGreen,OBBlack,"Get List From File Successful"
+	Stat 2,OBGreen,OBBlack,FileName
+	GOSUB PopulateCombo
+ENDIF
+END EVENT
+
+StoreCardToFile.command
+FileName=""
+SAVEDIALOG FileName,PCCFileFilter,InitDir
+IF STATUS<>0 THEN
+	IF RIGHT$(FileName,4)<>".PCC" THEN
+		FileName=FileName+".PCC"
+	ENDIF
+	ON ERROR GOTO NoPCCFile
+	DELETE FileName
+	NoPCCFile:
+	CREATE CardFile,FileName:WRITE
+	BUFWRITE CardFile,ADDR(CardBuf),262144
+	CLOSE CardFile
+	ON ERROR
+	Stat 1,OBGreen,OBBlack,"Save List Onto File Successful"
+ELSE
+	Stat 1,OBRed,OBWhite,"Save List Onto File Canceled"
+ENDIF
+END EVENT
+
+SetupToMoldList.command
+IF StoreFlag=FALSE THEN
+	TextSafe=MoldList.TEXT
+	StoreFlag=TRUE
+	SetupToMoldList.TEXT="Cancel"
+	MoldList.FORECOLOR=$0000ff
+	Stat 1,OBWhite,OBRed,"Select Destination On List"
+	MoldList.SHOWLIST
+ELSE
+	StoreFlag=FALSE
+	MoldList.FORECOLOR=$ff0000
+	MoldList.TEXT=TextSafe
+	SetupToMoldList.TEXT="Setup To Mold List"
+ENDIF
+END EVENT
+
+Reset.command
+GOSUB ClearAll
+END EVENT
+
+CopyCardToFile.command
+Stat 3,OBPink,OBBlack,"Havis"
+GOSUB ReadSRAM
+IF TempInt=0 THEN
+	SAVEDIALOG FileName,PCCFileFilter,InitDir
+	IF STATUS<>0 THEN
+		IF RIGHT$(FileName,4)<>".PCC" THEN
+			FileName=FileName+".PCC"
+		ENDIF
+		ON ERROR GOTO NoCopyPCCFile
+		DELETE FileName
+		NoCopyPCCFile:
+		CREATE CardFile,FileName:WRITE
+		BUFWRITE CardFile,ADDR(CardBuf),262144
+		CLOSE CardFile
+		ON ERROR
+		Stat 1,OBGreen,OBBlack,"Copy Card To File Successful"
+	ELSE
+		Stat 1,OBRed,OBWhite,"Copy Card To File Canceled"
+	ENDIF
+ENDIF
+END EVENT
+
+CopyFileToCard.command
+
+END EVENT
+
+MoldBufToGrid:
+DataGridX=2
+DataGridY=1
+FOR MoldBufNdx=1 TO 2048
+	TempStr=HEX(MoldBuf(MoldBufNdx))
+	MAKEUPPER TempStr
+	IF LEN(TempStr)=1 THEN
+		TempHex="0"+TempStr
+	ELSE
+		TempHex=TempStr
+	ENDIF
+	DataGrid.TEXT(DataGridY,DataGridX)=TempHex
+	INCR DataGridX
+	IF DataGridX>17 THEN
+		DataGridX=2
+		INCR DataGridY
+	ENDIF
+NEXT MoldBufNdx
+RETURN
+
+PopulateCombo:
+MoldList.ENABLED=TRUE
+SetupToMoldList.ENABLED=TRUE
+StoreCard.ENABLED=TRUE
+StoreCardToFile.ENABLED=TRUE
+MoldList.CLEAR
+MoldIndex=1987
+	BEGINLOOP
+		SETVEC MachName=ADDR(CardBuf(MoldIndex))	
+		SETVEC MoldName=ADDR(CardBuf(MoldIndex+12))
+		ByteAcc(1)=CardBuf(MoldIndex-9)
+		ByteAcc(2)=CardBuf(MoldIndex-10)
+		ByteAcc(3)=CardBuf(MoldIndex-11)
+		ByteAcc(4)=CardBuf(MoldIndex-12)
+		TempStr=STR(LongAcc)
+		MoldNumber=""
+		TempMachName=MachName
+		TempMoldName=MoldName
+		FOR TempInt=1 TO 8-LEN(TempStr)
+			MoldNumber=MoldNumber+"0"
+		NEXT TempInt
+		MoldNumber=MoldNumber+TempStr
+		IF BITTST(CardBuf(MoldIndex-1361),4)=TRUE OR CardBuf(MoldIndex-1361)=$aa OR LEN(MoldName)=0 THEN
+			TempMachName="Vacant"
+			TempMoldName=""
+			MoldNumber="00000000"
+		ENDIF
+		TempStr=MoldNumber+" "+TempMachName+" "+TempMoldName
+		MoldList.ADDITEM TempStr
+		MoldIndex=MoldIndex+2048
+		EXITIF MoldIndex>262144
+	ENDLOOP
+'MoldList.SHOWLIST
+RETURN
+
+ClearAll:
+DataGrid.ENABLED=FALSE
+DataGrid.HEADERHEIGHT=0
+DataGrid.BACKCOLOR=OBLtGray
+DataGrid.FORECOLOR=OBLtGray
+DataGrid.GRIDCOLOR=OBLtGray
+MoldList.CLEAR
+StoreFlag=FALSE
+SetupLoaded=FALSE
+CardLoaded=FALSE
+Stat 1,OBYellow,OBRed,"Welcome To Toyo Setup Manager"
+Stat 2,OBYellow,OBRed,"No List Loaded"
+Stat 3,OBYellow,OBRed,"No Setup Loaded"
+MoldList.ENABLED=FALSE
+SetupToMoldList.ENABLED=FALSE
+StoreCard.ENABLED=FALSE
+StoreCardToFile.ENABLED=FALSE
+StoreSetupFile.ENABLED=FALSE
+RETURN
+
+ShowGrid:
+DataGrid.ENABLED=TRUE
+DataGrid.HEADERHEIGHT=20
+DataGrid.BACKCOLOR=OBWhite
+DataGrid.FORECOLOR=OBBlack
+DataGrid.GRIDCOLOR=OBLtGray
+RETURN
+

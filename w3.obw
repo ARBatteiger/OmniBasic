@@ -1,0 +1,370 @@
+dim t(20) as textbox
+dim descriptor(125) as long vector
+dim descaddr as long
+dim te as boolean
+dim controlhandle as long
+dim Window2 as form
+dim Window3 as form
+dim Window4 as form
+DIM Frame AS FRAME
+DIM RadioButton1 AS RADIOBUTTON
+DIM RadioButton2 AS RADIOBUTTON
+DIM RadioButton3 AS RADIOBUTTON
+DIM RadioButton4 AS RADIOBUTTON
+DIM RadioButton5 AS RADIOBUTTON
+dim myicon as icon
+dim b1 as button
+dim b2 as button
+dim b3 as button
+dim b4 as button
+dim b5 as button
+dim b6 as button
+dim b7 as button
+dim stx1 as statictext
+dim stx2 as statictext
+dim stx3 as statictext
+dim stx4 as statictext
+dim x1 as statictext
+dim x2 as statictext
+dim x3 as statictext
+dim x4 as statictext
+dim tempint as long
+dim tempstr as string
+dim i as long
+
+OBMain.create
+te=false
+construct b1,10,10,50,20
+construct b2,70,10,50,20
+construct b4,130,10,50,20
+construct b5,190,10,50,20
+construct b7,270,10,80,20
+construct stx1,10,100,100,20
+construct stx2,220,100,100,20
+construct stx3,10,200,100,20
+construct stx4,220,200,100,20
+
+construct x1,10,50,50,20
+construct x2,70,50,50,20
+construct x3,130,50,50,20
+construct x4,190,50,50,20
+
+b7.text="Exit"
+OBMain.text="OBMain"
+createicon myicon,clock06
+Timer10.interval=100
+
+END EVENT
+
+b1.command
+construct Window2,500,500,200,100 child
+Window2.text="Window2"
+Window2.icon=myicon
+construct Window4,0,400,500,300 child
+Window4.text="Window4"
+menu Window4
+	menubar pervis
+		menutitle filemenu,"File"
+			menuitem menuopen,"Open"
+			menuitem menusave,"Save"
+			menuseparator
+			menuitem menuexit,"Exit"
+		menutitle backcolormenu,"BackColor"
+			menuitem bgred,"Red"
+			menuitem bggreen,"Green"
+			menuitem bgblue,"Blue"
+			menuitem bgblack,"Black"
+			menuitem bgwhite,"White"
+		menutitle forecolormenu,"ForeColor"
+			menuitem fgred,"Red"
+			menuitem fggreen,"Green"
+			menuitem fgblue,"Blue"
+			menuitem fgblack,"Black"
+			menuitem fgwhite,"White"			 		
+		menutitle viewmenu,"View"
+		menutitle helpmenu,"Help"
+end menu
+CONSTRUCT Frame,10,70,130,140 in Window4
+CONSTRUCT RadioButton1,5,30,100,20 IN Frame
+RadioButton1.TEXT="Red"
+RadioButton1.FORECOLOR=$0000ff
+CONSTRUCT RadioButton2,5,50,100,20 IN Frame
+RadioButton2.TEXT="Green"
+RadioButton2.FORECOLOR=$00ff00
+CONSTRUCT RadioButton3,5,70,100,20 IN Frame
+RadioButton3.TEXT="Blue"
+RadioButton3.FORECOLOR=$ff0000
+CONSTRUCT RadioButton4,5,90,100,20 IN Frame
+RadioButton4.TEXT="Black"
+RadioButton4.FORECOLOR=$000000
+CONSTRUCT RadioButton5,5,110,100,20 IN Frame
+RadioButton5.TEXT="White"
+RadioButton5.FORECOLOR=$ffffff
+Frame.text="Frame"
+construct t(1),200,10,40,20 in Window4
+t(1).backcolor=$ffffff
+construct t(2),200,40,40,20 in Window4
+t(2).backcolor=$ffffff
+construct t(3),200,70,40,20 in Window4
+t(3).backcolor=$ffffff
+construct t(4),200,100,40,20 in Window4
+t(4).backcolor=$ffffff
+construct t(5),200,130,40,20 in Window4
+t(5).backcolor=$ffffff
+construct t(6),250,10,40,20 in Window4
+t(6).backcolor=$ffffff
+construct t(7),250,40,40,20 in Window4
+t(7).backcolor=$ffffff
+construct t(8),250,70,40,20 in Window4
+t(8).backcolor=$ffffff
+construct t(9),250,100,40,20 in Window4
+t(9).backcolor=$ffffff
+construct t(10),250,130,40,20 in Window4
+t(10).backcolor=$ffffff
+construct t(11),300,10,40,20 in Window4
+t(11).backcolor=$ffffff
+construct t(12),300,40,40,20 in Window4
+t(12).backcolor=$ffffff
+construct t(13),300,70,40,20 in Window4
+t(13).backcolor=$ffffff
+construct t(14),300,100,40,20 in Window4
+t(14).backcolor=$ffffff
+construct t(15),300,130,40,20 in Window4
+t(15).backcolor=$ffffff
+construct t(16),350,10,40,20 in Window4
+t(16).backcolor=$ffffff
+construct t(17),350,40,40,20 in Window4
+t(17).backcolor=$ffffff
+construct t(18),350,70,40,20 in Window4
+t(18).backcolor=$ffffff
+construct t(19),350,100,40,20 in Window4
+t(19).backcolor=$ffffff
+construct t(20),350,130,40,20 in Window4
+t(20).backcolor=$ffffff
+for i=1 to 20
+	tempint=t(i).handle
+	tempstr=hex(tempint)
+	t(i).text=tempstr
+	;t(i).additem tempstr
+	;t(i).additem tempstr
+next i
+END EVENT
+
+Window2.create
+Timer1.interval=1
+end event
+
+Timer1.Timer
+Timer1.stop
+construct b3,10,30,30,20 in Window2
+b2.text="b2"
+endevent
+
+b2.command
+te=true
+END EVENT
+
+b3.command
+b1.text="b1"
+construct Window3,500,400,200,100 CHILD
+setposition Window3,500,400,200,100
+Window3.text="Window3"
+construct b6,10,30,30,20 in Window3
+b6.text="b6"
+END EVENT
+
+b4.command
+Window2.visible=false
+Window2.backcolor=$0000ff
+END EVENT
+
+b5.command
+Window2.visible=true
+END EVENT
+
+b6.command
+b5.text="b5"
+Window3.backcolor=$800080
+END EVENT
+
+b7.command
+end
+END EVENT
+
+OBMain.system
+select case STATUS
+	case $f020
+		stx2.text="Minimize"
+		OBMain.backcolor=$ff0000
+	case $f030
+		stx2.text="Maximize"
+		OBMain.backcolor=$80ffff
+	case $f060
+		stx2.text="Close"
+		OBMain.backcolor=$0080ff
+end select
+stx1.text="OBMain"
+stx3.text=hex(STATUS)
+END EVENT
+
+OBMain.resize
+stx2.text="Resize"
+stx1.text="OBMain"
+END EVENT
+
+OBMain.move
+stx2.text="Move"
+stx1.text="OBMain"
+END EVENT
+
+Window2.system
+select case STATUS
+	case $f020
+		stx2.text="Minimize"
+	case $f030
+		stx2.text="Maximize"
+	case $f060
+		stx2.text="Close"
+		passsystemevent
+end select
+stx1.text="Window2"
+stx3.text=hex(STATUS)
+END EVENT
+
+Window2.resize
+stx2.text="Resize"
+stx1.text="Window2"
+END EVENT
+
+Window2.move
+stx2.text="Move"
+stx1.text="Window2"
+END EVENT
+
+Window3.system
+select case STATUS
+	case $f020
+		stx2.text="Minimize"
+	case $f030
+		stx2.text="Maximize"
+	case $f060
+		stx2.text="Close"
+end select
+stx1.text="Window3"
+stx3.text=hex(STATUS)
+END EVENT
+
+Window3.resize
+stx2.text="Resize"
+stx1.text="Window3"
+END EVENT
+
+Window3.move
+stx2.text="Move"
+stx1.text="Window3"
+END EVENT
+
+mouse1:
+stx4.text=hex(STATUS)
+return
+
+RadioButton1.command
+b4.text="Radio1"
+Window4.backcolor=$0000ff
+end event
+
+RadioButton2.command
+b4.text="Radio2"
+Window4.backcolor=$00ff00
+end event
+
+RadioButton3.command
+b4.text="Radio3"
+Window4.backcolor=$ff0000
+end event
+
+RadioButton4.command
+b4.text="Radio4"
+Window4.backcolor=$000000
+end event
+
+RadioButton5.command
+b4.text="Radio5"
+Window4.backcolor=$ffffff
+end event
+
+Timer10.timer
+;getcursorposition
+ScreenToClient OBMain
+;tempstr=str(CursorPosX)
+;stx3.text=tempstr
+;tempstr=str(CursorPosY)
+;stx4.text=tempstr
+end event
+
+Window4.lbuttondown
+;Frame.left=250
+tempint=Frame.left
+tempstr=str(tempint)
+x1.text=tempstr
+tempint=Frame.top
+tempstr=str(tempint)
+x2.text=tempstr
+tempint=Frame.right
+tempstr=str(tempint)
+x3.text=tempstr
+tempint=Frame.bottom
+tempstr=str(tempint)
+x4.text=tempstr
+end event
+
+Window4.mousemove
+if te=false then
+	return
+endif
+setcapture Window4
+getcursorposition
+ScreenToClient Window4
+if CursorPosX>500 or CursorPosY<0 then
+	releasecapture
+	return
+endif
+tempstr=str(CursorPosX)
+stx3.text=tempstr
+tempstr=str(CursorPosY)
+stx4.text=tempstr
+GOSUB PosToControl
+end event
+
+PosToControl:
+mov eax,!t
+mov [descaddr],eax
+for i=1 to 20
+	setvec descriptor=descaddr+(i-1)*500
+	if CursorPosX<descriptor(5) then PosToControl1
+	if CursorPosY<descriptor(6) then PosToControl1
+	if CursorPosX>descriptor(7) then PosToControl1
+	if CursorPosY>descriptor(8) then PosToControl1
+	goto controlfound
+PosToControl1:
+next i
+
+mov eax,!Frame
+mov [descaddr],eax
+setvec descriptor=descaddr
+if CursorPosX<descriptor(5) then Nothing
+if CursorPosY<descriptor(6) then Nothing
+if CursorPosX>descriptor(7) then Nothing
+if CursorPosY>descriptor(8) then Nothing
+stx2.text="Frame"
+return
+
+Nothing:
+stx2.text="nothing"
+return
+
+controlfound:
+controlhandle=descriptor(1)
+tempstr=hex(controlhandle)
+stx2.text=tempstr	
+return

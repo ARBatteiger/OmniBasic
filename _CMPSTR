@@ -1,0 +1,68 @@
+/* _CmpStr(&Str1,&Str2) */
+
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+static _StrVec _Op1;
+static _StrVec _Op2;
+static char _Op1Flag;
+static char _Op2Flag;
+static _StrVec *__Op1Ptr;
+static _StrVec *__Op2Ptr;
+static void _GetOp1();
+static void _GetOp2();
+
+int _CmpStr(_Op1Ptr,_Op2Ptr)
+_StrVec *_Op1Ptr;
+_StrVec *_Op2Ptr;
+{
+__Op1Ptr=_Op1Ptr; /* copy param to static var */
+__Op2Ptr=_Op2Ptr; /* copy param to static var */
+_GetOp1();
+_GetOp2();
+_CmpStr1:;
+if ((_Op1._Len == 0) || (*_Op1._Ptr == 0)) _GetOp1();
+if ((_Op2._Len == 0) || (*_Op2._Ptr == 0)) _GetOp2();
+if (_Op1Flag == 0) goto _Op1Done;
+if (_Op2Flag == 0) goto _ForceGT;
+if (*_Op1._Ptr > *_Op2._Ptr) goto _ForceGT;
+if (*_Op1._Ptr < *_Op2._Ptr) goto _ForceLT;
+_Op1._Ptr++;
+_Op2._Ptr++;
+_Op1._Len--;
+_Op2._Len--;
+goto _CmpStr1;
+_Op1Done:;
+if (_Op2Flag != 0) goto _ForceLT;
+return(1); /* force EQ */ 
+_ForceGT:;
+return(2); /* force GT */ 
+_ForceLT:;
+return(0); /* force LT */
+}
+
+static void _GetOp1()
+{
+_Op1Flag=0;
+_Op1Retry:;
+if (__Op1Ptr == 0) return;
+_Op1=*__Op1Ptr;
+__Op1Ptr=_Op1._Lnk;
+if((_Op1._Len == 0) || (*_Op1._Ptr == 0)) goto _Op1Retry;
+_Op1Flag=0xff;
+}
+
+static void _GetOp2()
+{
+_Op2Flag=0;
+_Op2Retry:;
+if (__Op2Ptr == 0) return;
+_Op2=*__Op2Ptr;
+__Op2Ptr=_Op2._Lnk;
+if((_Op2._Len == 0) || (*_Op2._Ptr == 0)) goto _Op2Retry;
+_Op2Flag=0xff;
+}
+

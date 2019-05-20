@@ -1,0 +1,1 @@
+; Dimension Variablesdim dt1 as DATETIMEdim ti as longdim ts as stringdim ts2 as stringdim l1 as statictextdim timer1 as timerOBMain.CREATEcreate l1,10,10,100,20timer1.interval=1000ts2="hh':'mm':'ss tt"END EVENTtimer1.timergetdatetime dt1GetTimeFormat dt1,ts2,tsl1.text=tsend event

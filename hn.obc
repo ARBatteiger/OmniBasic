@@ -1,0 +1,13 @@
+dim b(4) as byte
+dim x as long vector
+
+b(1)=$7a
+b(2)=$42
+b(3)=$e1
+b(4)=$22
+
+setvec x=addr(b)
+
+print hex(x)
+print x
+

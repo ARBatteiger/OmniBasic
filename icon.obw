@@ -1,0 +1,1 @@
+; Dimension Variablesdim icon1 as icondim icon2 as icondim icon3 as icondim b1 as iconbuttondim b2 as iconbuttondim b3 as iconbuttonOBMain.CREATEcreate icon1,c:\nb\binoculr.icocreate icon2,binoculr.ico,smallcreate icon3,binoculr.ico,smallcreate b1,10,10,36,36create b2,110,10,20,20create b3,210,10,36,36b1.icon=icon1b2.icon=icon2b3.icon=icon3END EVENT

@@ -1,0 +1,11 @@
+1) Cause GUITarget to use ValidateObject
+
+2) Cause Events and Intercepts of arrays to write to all of array's descriptors
+
+3) Cause Construct to put array element into first word of descriptor
+
+4) Cause WindowProc to make Index if array
+
+5) Put status word of descriptor at begining
+
+

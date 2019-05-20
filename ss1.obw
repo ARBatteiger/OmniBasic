@@ -1,0 +1,1 @@
+; Dimension Variablesdim tempstr as string*4OBMain.CREATEtempstr="abc"OBMain.text=tempstrEND EVENT

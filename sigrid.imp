@@ -1,0 +1,175 @@
+Microsoft (R) COFF Binary File Dumper Version 6.00.8168
+Copyright (C) Microsoft Corp 1992-1998. All rights reserved.
+
+
+Dump of file sigrid.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    ADVAPI32.DLL
+                417270 Import Address Table
+                4170A0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  RegOpenKeyExA
+                   0  RegCloseKey
+
+    GDI32.DLL
+                41727C Import Address Table
+                4170AC Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CreateSolidBrush
+                   0  DeleteObject
+                   0  GetStockObject
+                   0  SetBkColor
+                   0  SetBkMode
+                   0  SetTextColor
+                   0  BitBlt
+                   0  CreateCompatibleBitmap
+                   0  CreateCompatibleDC
+                   0  CreateFontA
+                   0  CreateFontIndirectA
+                   0  CreatePen
+                   0  DeleteDC
+                   0  GetObjectA
+                   0  LineTo
+                   0  MoveToEx
+                   0  SelectObject
+
+    KERNEL32.DLL
+                4172C4 Import Address Table
+                4170F4 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CloseHandle
+                   0  CreateFileA
+                   0  ExitProcess
+                   0  FlushFileBuffers
+                   0  FreeEnvironmentStringsA
+                   0  GetCommandLineA
+                   0  GetEnvironmentStringsA
+                   0  GetFileType
+                   0  GetLastError
+                   0  GetModuleHandleA
+                   0  GetStartupInfoA
+                   0  GetSystemInfo
+                   0  GetVersionExA
+                   0  GlobalAlloc
+                   0  GlobalFree
+                   0  GlobalReAlloc
+                   0  LoadLibraryA
+                   0  MultiByteToWideChar
+                   0  ReadFile
+                   0  SetEndOfFile
+                   0  SetErrorMode
+                   0  SetFilePointer
+                   0  SetLastError
+                   0  Sleep
+                   0  TlsAlloc
+                   0  TlsFree
+                   0  TlsGetValue
+                   0  TlsSetValue
+                   0  WideCharToMultiByte
+                   0  WriteFile
+                   0  FreeLibrary
+                   0  GetWindowsDirectoryA
+                   0  GlobalLock
+                   0  GlobalUnlock
+                   0  HeapCreate
+                   0  HeapFree
+                   0  HeapAlloc
+                   0  HeapReAlloc
+                   0  HeapSize
+                   0  RtlMoveMemory
+
+    OLE32.DLL
+                417368 Import Address Table
+                417198 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CoInitialize
+                   0  CoUninitialize
+
+    OLEAUT32.DLL
+                417374 Import Address Table
+                4171A4 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  SafeArrayCreate
+                   0  SysAllocStringByteLen
+                   0  SysFreeString
+                   0  SysStringByteLen
+                   0  VariantClear
+                   0  VariantCopy
+
+    USER32.DLL
+                417390 Import Address Table
+                4171C0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  CreateWindowExA
+                   0  DestroyWindow
+                   0  EndDialog
+                   0  GetClientRect
+                   0  GetWindowLongA
+                   0  GetWindowTextA
+                   0  LoadImageA
+                   0  MessageBoxA
+                   0  SendMessageA
+                   0  SetCursor
+                   0  SetFocus
+                   0  SetWindowLongA
+                   0  SetWindowTextA
+                   0  ShowWindow
+                   0  CallWindowProcA
+                   0  CheckDlgButton
+                   0  ChildWindowFromPoint
+                   0  CloseClipboard
+                   0  DefWindowProcA
+                   0  DialogBoxParamA
+                   0  DrawFocusRect
+                   0  DrawTextA
+                   0  EmptyClipboard
+                   0  FillRect
+                   0  GetAsyncKeyState
+                   0  GetDC
+                   0  GetDlgItemTextA
+                   0  GetNextDlgTabItem
+                   0  GetScrollInfo
+                   0  IsDlgButtonChecked
+                   0  LoadCursorA
+                   0  LoadIconA
+                   0  MoveWindow
+                   0  OpenClipboard
+                   0  RegisterClassExA
+                   0  ReleaseDC
+                   0  SetClipboardData
+                   0  SetDlgItemTextA
+                   0  SetScrollInfo
+                   0  ShowScrollBar
+                   0  UpdateWindow
+
+    SHELL32.DLL
+                417438 Import Address Table
+                417268 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                   0  ShellExecuteA
+
+  Summary
+
+        1000 .data
+        2000 .link
+        1000 .rloc
+        1000 .rsrc
+       15000 .text

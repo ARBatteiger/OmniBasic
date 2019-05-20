@@ -1,0 +1,36 @@
+/* _MovStr(&Str1,&Str2) */
+typedef struct {
+char *_Ptr;
+long _Len;
+void *_Lnk;
+} _StrVec;
+
+static _StrVec _Op1;
+static _StrVec _Op2;
+
+void _MovStr(_Op1Ptr,_Op2Ptr)
+_StrVec *_Op1Ptr;
+_StrVec *_Op2Ptr;
+{
+_Op1=*_Op1Ptr;
+_MovStr1:;
+_Op2=*_Op2Ptr;
+_Op2Ptr=_Op2._Lnk;
+if (_Op1._Len == 0) goto _MovStr4;
+if (_Op2._Len == 0) goto _MovStr3;
+_MovStr2:;
+if (*_Op2._Ptr == 0) goto _MovStr3;
+*_Op1._Ptr=*_Op2._Ptr;
+_Op2._Ptr++;
+_Op1._Ptr++;
+_Op1._Len--;
+if (_Op1._Len == 0) goto _MovStr4;
+_Op2._Len--;
+if (_Op2._Len != 0) goto _MovStr2;
+_MovStr3:;
+if (_Op2._Lnk != 0) goto _MovStr1;
+if (_Op1._Len == 0) goto _MovStr4;
+*_Op1._Ptr=0;
+_MovStr4:;
+return;
+}

@@ -1,0 +1,230 @@
+Const0
+        Const0
+VarLMPERR
+        Const0
+        VarLMPERR
+!; Store NOS to Addr in TOS
+               >>[VarLMPERR]=Const0
+LIT; Put value that follows on TOS
+LV$FFFF
+        LV$FFFF
+VarflMPERR
+        LV$FFFF
+        VarflMPERR
+!; Store NOS to Addr in TOS
+               >>[VarflMPERR]=LV$FFFF
+TRIGER-LAMP;  
+               >>[ConstACQRI/O(Chr)]=[VarLMPstat]&ConstLMPreset
+               >>Wait Loop until TOS Milliseconds Expires
+               >>[VarLMPstat]=[VarLMPstat]&ConstLMPreset|ConstSTARTacqr
+               >>[ConstACQRI/O(Chr)]=[VarLMPstat]&ConstLMPreset|ConstSTARTacqr
+Const0
+        Const0
+1+; Add 1 TO TOS
+        Const0+1
+DUP; Duplicate TOS
+        Const0+1
+        Const0+1
+LIT; Put value that follows on TOS
+LV$000A
+        Const0+1
+        Const0+1
+        LV$000A
+>; NOS > TOS?
+        Const0+1
+        Bool1
+VarA/DStatus
+        Const0+1
+        Bool1
+        VarA/DStatus
+C@; Put Char Contained in TOS Addr to TOS
+        Const0+1
+        Bool1
+        [VarA/DStatus(Chr)]
+LIT; Put value that follows on TOS
+LV$00FF
+        Const0+1
+        Bool1
+        [VarA/DStatus(Chr)]
+        LV$00FF
+XOR; XOR NOS with TOS
+        Const0+1
+        Bool1
+        [VarA/DStatus(Chr)]^LV$00FF
+ConstLMPDtaRdy
+        Const0+1
+        Bool1
+        [VarA/DStatus(Chr)]^LV$00FF
+        ConstLMPDtaRdy
+AND; AND NOS with TOS
+        Const0+1
+        Bool1
+        [VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+OR; OR NOS with TOS
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+?VIAL-OUT;  
+               >>[VarfVIAL]=BoolVialOut
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        BoolVialOut
+OBRANCH; Branch by Offset If TOS=0
+BrnOffs$0010
+               >><< Branch Condition:BoolVialOut, Offset=$0010 >>
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+LIT; Put value that follows on TOS
+LV$FFFF
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF
+DUP; Duplicate TOS
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF
+        LV$FFFF
+VarfABORT
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF
+        LV$FFFF
+        VarfABORT
+!; Store NOS to Addr in TOS
+               >>[VarfABORT]=LV$FFFF
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF
+BRANCH; Branch by Offset in Next Word
+BrnOffs$0004
+               >><< Branch Offset=$0004 >>
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF
+Const0
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF
+        Const0
+OR; OR NOS with TOS
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$FFFF|Const0
+OBRANCH; Branch by Offset If TOS=0
+BrnOffs$FFCC
+               >><< Branch Condition:LV$FFFF|Const0, Offset=$FFCC >>
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+LIT; Put value that follows on TOS
+LV$000A
+        Const0+1
+        Bool1|[VarA/DStatus(Chr)]^LV$00FF&ConstLMPDtaRdy
+        LV$000A
+>; NOS > TOS?
+        Const0+1
+        Bool2
+OBRANCH; Branch by Offset If TOS=0
+BrnOffs$0020
+               >><< Branch Condition:Bool2, Offset=$0020 >>
+        Const0+1
+Const1
+        Const0+1
+        Const1
+VarLMPERR
+        Const0+1
+        Const1
+        VarLMPERR
++!; Add NOS to Addr in TOS
+               >>[VarLMPERR]=[VarLMPERR]+Const1
+        Const0+1
+Const1
+        Const0+1
+        Const1
+Var#LMPERR
+        Const0+1
+        Const1
+        Var#LMPERR
++!; Add NOS to Addr in TOS
+               >>[Var#LMPERR]=[Var#LMPERR]+Const1
+        Const0+1
+VarLMPERR
+        Const0+1
+        VarLMPERR
+@; Put Data Contained in TOS Addr to TOS
+        Const0+1
+        [VarLMPERR]
+Const3
+        Const0+1
+        [VarLMPERR]
+        Const3
+>; NOS > TOS?
+        Const0+1
+        Bool3
+OBRANCH; Branch by Offset If TOS=0
+BrnOffs$0004
+               >><< Branch Condition:Bool3, Offset=$0004 >>
+        Const0+1
+LMPFAIL;  
+        Const0+1
+BRANCH; Branch by Offset in Next Word
+BrnOffs$0008
+               >><< Branch Offset=$0008 >>
+        Const0+1
+Const0
+        Const0+1
+        Const0
+VarflMPERR
+        Const0+1
+        Const0
+        VarflMPERR
+!; Store NOS to Addr in TOS
+               >>[VarflMPERR]=Const0
+        Const0+1
+VarflMPERR
+        Const0+1
+        VarflMPERR
+@; Put Data Contained in TOS Addr to TOS
+        Const0+1
+        [VarflMPERR]
+0=; Set TOS to TRUE if 0, ELSE FALSE
+        Const0+1
+        Bool4
+VarfABORT
+        Const0+1
+        Bool4
+        VarfABORT
+@; Put Data Contained in TOS Addr to TOS
+        Const0+1
+        Bool4
+        [VarfABORT]
+OR; OR NOS with TOS
+        Const0+1
+        Bool4|[VarfABORT]
+OBRANCH; Branch by Offset If TOS=0
+BrnOffs$FF8A
+               >><< Branch Condition:Bool4|[VarfABORT], Offset=$FF8A >>
+        Const0+1
+VarLMPERR
+        Const0+1
+        VarLMPERR
+@; Put Data Contained in TOS Addr to TOS
+        Const0+1
+        [VarLMPERR]
+>; NOS > TOS?
+        Bool5
+OBRANCH; Branch by Offset If TOS=0
+BrnOffs$0023
+               >><< Branch Condition:Bool5, Offset=$0023 >>
+CR; Send Carriage Return
+               >>Send Carriage Return
+VarLMPERR
+        VarLMPERR
+@; Put Data Contained in TOS Addr to TOS
+        [VarLMPERR]
+.; Print to Screen
+               >>Print TOS to screen
+.''; Print Literal String
+CV$14
+CV$14
+               >>Display Text: ''DATA READY ERROR(s
+CR; Send Carriage Return
+               >>Send Carriage Return

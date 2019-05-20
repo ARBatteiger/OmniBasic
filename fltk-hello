@@ -1,0 +1,37 @@
+All programs must include the file <FL/Fl.H>. In addition the program must include a header file for each FLTK class it uses. Listing 1 shows a simple "Hello, World!" program that uses FLTK to display the window. 
+Listing 1 - "hello.cxx"
+
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Box.H>
+
+int main(int argc, char **argv) {
+  Fl_Window *window = new Fl_Window(300,180);
+  Fl_Box *box = new Fl_Box(20,40,260,100,"Hello, World!");
+  box->box(FL_UP_BOX);
+  box->labelsize(36);
+  box->labelfont(FL_BOLD+FL_ITALIC);
+  box->labeltype(FL_SHADOW_LABEL);
+  window->end();
+  window->show(argc, argv);
+  return Fl::run();
+}
+
+After including the required header files, the program then creates a window: 
+Fl_Window *window = new Fl_Window(300,180);
+
+and a box with the "Hello, World!" string in it: 
+Fl_Box *box = new Fl_Box(20,40,260,100,"Hello, World!");
+
+Next, we set the type of box and the size, font, and style of the label: 
+box->box(FL_UP_BOX);
+box->labelsize(36);
+box->labelfont(FL_BOLD+FL_ITALIC);
+box->labeltype(FL_SHADOW_LABEL);
+
+Finally, we show the window and enter the FLTK event loop: 
+window->end();
+window->show(argc, argv);
+return Fl::run();
+
+

@@ -1,0 +1,359 @@
+DIM TempInt AS LONG
+DIM DataFile AS File
+DIM DataBuf(262144) AS BYTE
+DIM TempStr AS STRING
+DIM DriverName AS STRING
+DIM ProductTitle AS STATICTEXT
+DIM DriveStatus AS statictext
+DIM DriverHandle AS LONG
+dim b1 as button
+dim b2 as button
+dim b3 as button
+dim b4 as button
+DIM SelectionFrame AS FRAME
+DIM StatusBar AS STATUSBAR
+DIM SelectButton(7) AS RADIOBUTTON
+DIM DataBox(300) AS TEXTBOX
+DIM TemperatureFrame AS FRAME
+DIM TemperatureVLabel(6) AS STATICTEXT
+DIM TemperatureHLabel(8) AS STATICTEXT
+DIM MoldFrame AS FRAME
+DIM MoldVLabel(6) AS STATICTEXT
+DIM MoldHLabel(4) AS STATICTEXT
+DIM OptionFrame AS FRAME
+DIM OptionVLabel(6) AS STATICTEXT
+DIM OptionHLabel(4) AS STATICTEXT
+DIM TimerFrame AS FRAME
+DIM TimerVLabel(6) AS STATICTEXT
+DIM TimerHLabel(4) AS STATICTEXT
+DIM ChargeFrame AS FRAME
+DIM ChargeVLabel(6) AS STATICTEXT
+DIM ChargeHLabel(4) AS STATICTEXT
+DIM MovementFrame AS FRAME
+DIM MovementVLabel(6) AS STATICTEXT
+DIM MovementHLabel(4) AS STATICTEXT
+DIM InjectionFrame AS FRAME
+DIM InjectionVLabel(6) AS STATICTEXT
+DIM InjectionHLabel(4) AS STATICTEXT
+
+TYPE Params
+	RamAddr AS LONG
+	DecPlaces AS LONG
+	ScaleFactor AS LONG
+	BaseOffs AS LONG
+	HiLimit AS LONG
+	LoLimit AS LONG
+END TYPE
+
+Table Lookup AS Params
+ 0,0,0,0,0,0
+END TABLE
+
+OBMain.create
+SETPOSITION OBMain,0,0,640,452
+OBMain.TEXT="Toyo Setup Manager"
+DriverName="OmniUSB"
+
+MENU OBMain
+	menubar pervis
+		menutitle filemenu,"File"
+			menuitem menuopen,"Open"
+			menuitem menusave,"Save"
+			menuseparator
+			menuitem menuexit,"Exit"
+		menutitle backcolormenu,"BackColor"
+			menuitem bgred,"Red"
+			menuitem bggreen,"Green"
+			menuitem bgblue,"Blue"
+			menuitem bgblack,"Black"
+			menuitem bgwhite,"White"
+		menutitle forecolormenu,"ForeColor"
+			menuitem fgred,"Red"
+			menuitem fggreen,"Green"
+			menuitem fgblue,"Blue"
+			menuitem fgblack,"Black"
+			menuitem fgwhite,"White"			 		
+		menutitle viewmenu,"View"
+		menutitle helpmenu,"Help"
+END MENU
+
+' Product Title
+CONSTRUCT ProductTitle,200,0,180,20
+ProductTitle.TEXT="No Product Loaded"
+
+' Status Bar
+Construct StatusBar,0,0,0,0
+
+construct DriveStatus,300,205,100,20
+DriveStatus.backcolor=$ffff
+TempStr=hex(DriverHandle)
+construct b1,300,230,100,30
+DriveStatus.text=TempStr
+b1.text="Get Driver"
+construct b2,300,260,100,30
+b2.text="Get Status"
+construct b3,300,290,100,30
+b3.text="Read Block"
+construct b4,300,320,100,30
+b4.text="Wrt Block"
+
+' SelectionFrame
+CONSTRUCT SelectionFrame,75,205,180,165
+SelectionFrame.TEXT="Select"
+CONSTRUCT SelectButton(1),10,20,160,20 IN SelectionFrame
+SelectButton(1).TEXT="Temperature"
+CONSTRUCT SelectButton(2),10,40,160,20 IN SelectionFrame
+SelectButton(2).TEXT="Mold Setup"
+CONSTRUCT SelectButton(3),10,60,160,20 IN SelectionFrame
+SelectButton(3).TEXT="Option Setup"
+CONSTRUCT SelectButton(4),10,80,160,20 IN SelectionFrame
+SelectButton(4).TEXT="Timer Counter Printer"
+CONSTRUCT SelectButton(5),10,100,160,20 IN SelectionFrame
+SelectButton(5).TEXT="Charge"
+CONSTRUCT SelectButton(6),10,120,160,20 IN SelectionFrame
+SelectButton(6).TEXT="Mold Movement"
+CONSTRUCT SelectButton(7),10,140,160,20 IN SelectionFrame
+SelectButton(7).TEXT="Injection"
+
+' Temperature Frame
+CONSTRUCT TemperatureFrame,75,20,470,175
+TemperatureFrame.TEXT="Temperature"
+TemperatureFrame.VISIBLE=FALSE
+CONSTRUCT TemperatureVLabel(1),10,25,50,15 IN TemperatureFrame
+TemperatureVLabel(1).TEXT="  (F)"
+CONSTRUCT TemperatureVLabel(2),10,50,50,15 IN TemperatureFrame
+TemperatureVLabel(2).TEXT="ACTUAL"
+CONSTRUCT TemperatureVLabel(3),10,75,50,15 IN TemperatureFrame
+TemperatureVLabel(3).TEXT="SETUP"
+CONSTRUCT TemperatureVLabel(4),10,100,50,15 IN TemperatureFrame
+TemperatureVLabel(4).TEXT="HIGH"
+CONSTRUCT TemperatureVLabel(5),10,125,50,15 IN TemperatureFrame
+TemperatureVLabel(5).TEXT="LOW"
+CONSTRUCT TemperatureVLabel(6),10,150,50,15 IN TemperatureFrame
+TemperatureVLabel(6).TEXT="  O/X"
+CONSTRUCT TemperatureHLabel(1),70,25,40,15 IN TemperatureFrame
+TemperatureHLabel(1).TEXT="HT 1"
+CONSTRUCT TemperatureHLabel(2),120,25,40,15 IN TemperatureFrame
+TemperatureHLabel(2).TEXT="HT 2"
+CONSTRUCT TemperatureHLabel(3),170,25,40,15 IN TemperatureFrame
+TemperatureHLabel(3).TEXT="HT 3"
+CONSTRUCT TemperatureHLabel(4),220,25,40,15 IN TemperatureFrame
+TemperatureHLabel(4).TEXT="HT 4"
+CONSTRUCT TemperatureHLabel(5),270,25,40,15 IN TemperatureFrame
+TemperatureHLabel(5).TEXT="HT 5"
+CONSTRUCT TemperatureHLabel(6),320,25,40,15 IN TemperatureFrame
+TemperatureHLabel(6).TEXT=""
+CONSTRUCT TemperatureHLabel(7),370,25,40,15 IN TemperatureFrame
+TemperatureHLabel(7).TEXT="HOP"
+CONSTRUCT TemperatureHLabel(8),420,25,40,15 IN TemperatureFrame
+TemperatureHLabel(8).TEXT="OIL"
+CONSTRUCT DataBox(1),70,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(2),120,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(3),170,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(4),220,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(5),270,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(6),320,50,40,20 IN TemperatureFrame
+DataBox(6).ENABLED=FALSE
+CONSTRUCT DataBox(7),370,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(8),420,50,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(9),70,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(10),120,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(11),170,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(12),220,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(13),270,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(14),320,75,40,20 IN TemperatureFrame
+DataBox(14).ENABLED=FALSE
+CONSTRUCT DataBox(15),370,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(16),420,75,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(17),70,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(18),120,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(19),170,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(20),220,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(21),270,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(22),320,100,40,20 IN TemperatureFrame
+DataBox(22).ENABLED=FALSE
+CONSTRUCT DataBox(23),370,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(24),420,100,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(25),70,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(26),120,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(27),170,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(28),220,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(29),270,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(30),320,125,40,20 IN TemperatureFrame
+DataBox(30).ENABLED=FALSE
+CONSTRUCT DataBox(31),370,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(32),420,125,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(33),70,150,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(34),120,150,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(35),170,150,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(36),220,150,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(37),270,150,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(38),320,150,40,20 IN TemperatureFrame
+DataBox(38).ENABLED=FALSE
+CONSTRUCT DataBox(39),370,150,40,20 IN TemperatureFrame
+CONSTRUCT DataBox(40),420,150,40,20 IN TemperatureFrame
+
+' Mold Frame
+CONSTRUCT MoldFrame,75,20,470,175
+MoldFrame.TEXT="Mold"
+MoldFrame.VISIBLE=FALSE
+CONSTRUCT MoldVLabel(1),10,25,50,15 IN MoldFrame
+MoldVLabel(1).TEXT="AUTO"
+CONSTRUCT MoldVLabel(2),10,50,50,15 IN MoldFrame
+MoldVLabel(2).TEXT="POS"
+CONSTRUCT MoldVLabel(3),10,75,50,15 IN MoldFrame
+MoldVLabel(3).TEXT="SPEED"
+CONSTRUCT MoldVLabel(4),10,100,50,15 IN MoldFrame
+MoldVLabel(4).TEXT="REV"
+CONSTRUCT MoldVLabel(5),10,125,50,15 IN MoldFrame
+MoldVLabel(5).TEXT="PRESS"
+CONSTRUCT MoldVLabel(6),10,150,50,15 IN MoldFrame
+MoldVLabel(6).TEXT="NUM"
+CONSTRUCT MoldHLabel(1),70,25,40,15 IN MoldFrame
+MoldHLabel(1).TEXT="INJ"
+CONSTRUCT MoldHLabel(2),120,25,40,15 IN MoldFrame
+MoldHLabel(2).TEXT="CHG"
+CONSTRUCT MoldHLabel(3),170,25,40,15 IN MoldFrame
+MoldHLabel(3).TEXT="FREE"
+CONSTRUCT MoldHLabel(4),220,25,40,15 IN MoldFrame
+MoldHLabel(4).TEXT="ACT"
+CONSTRUCT DataBox(41),70,50,40,20 IN MoldFrame
+CONSTRUCT DataBox(42),120,50,40,20 IN MoldFrame
+CONSTRUCT DataBox(43),170,50,40,20 IN MoldFrame
+CONSTRUCT DataBox(44),220,50,40,20 IN MoldFrame
+CONSTRUCT DataBox(45),70,75,40,20 IN MoldFrame
+CONSTRUCT DataBox(46),120,75,40,20 IN MoldFrame
+CONSTRUCT DataBox(47),170,75,40,20 IN MoldFrame
+CONSTRUCT DataBox(48),220,75,40,20 IN MoldFrame
+CONSTRUCT DataBox(49),70,100,40,20 IN MoldFrame
+CONSTRUCT DataBox(50),120,100,40,20 IN MoldFrame
+CONSTRUCT DataBox(51),170,100,40,20 IN MoldFrame
+CONSTRUCT DataBox(52),220,100,40,20 IN MoldFrame
+CONSTRUCT DataBox(53),70,125,40,20 IN MoldFrame
+CONSTRUCT DataBox(54),120,125,40,20 IN MoldFrame
+CONSTRUCT DataBox(55),170,125,40,20 IN MoldFrame
+CONSTRUCT DataBox(56),220,125,40,20 IN MoldFrame
+CONSTRUCT DataBox(57),70,150,40,20 IN MoldFrame
+CONSTRUCT DataBox(58),120,150,40,20 IN MoldFrame
+CONSTRUCT DataBox(59),170,150,40,20 IN MoldFrame
+CONSTRUCT DataBox(60),220,150,40,20 IN MoldFrame
+
+' Option Frame
+CONSTRUCT OptionFrame,75,20,470,175
+OptionFrame.TEXT="Option"
+OptionFrame.VISIBLE=FALSE
+
+' Timer Frame
+CONSTRUCT TimerFrame,75,20,470,175
+TimerFrame.TEXT="Timer Counter Printer"
+TimerFrame.VISIBLE=FALSE
+
+' Charge Frame
+CONSTRUCT ChargeFrame,75,20,470,175
+ChargeFrame.TEXT="Charge"
+ChargeFrame.VISIBLE=FALSE
+
+' Movement Frame
+CONSTRUCT MovementFrame,75,20,470,175
+MovementFrame.TEXT="Mold Movement"
+MovementFrame.VISIBLE=FALSE
+
+' Injection Frame
+CONSTRUCT InjectionFrame,75,20,470,175
+InjectionFrame.TEXT="Injection"
+InjectionFrame.VISIBLE=FALSE
+
+END EVENT
+
+MENU.COMMAND
+select case MenuID
+	case menuopen
+
+	case menusave
+
+	case menuexit
+		END
+	case bgred
+
+	case bggreen
+
+	case bgblue
+
+	case bgblack
+
+	case bgwhite
+
+	case fgred
+
+	case fggreen
+
+	case fgblue
+
+	case fgblack
+
+	case fgwhite
+
+	case else
+
+end select
+END EVENT
+
+SelectButton.COMMAND
+TempInt=ArrayIndex
+GOSUB ClearFrames
+SELECT CASE TempInt
+	CASE 1
+		TemperatureFrame.VISIBLE=TRUE
+	CASE 2
+		MoldFrame.VISIBLE=TRUE
+	CASE 3
+		OptionFrame.VISIBLE=TRUE
+	CASE 4
+		TimerFrame.VISIBLE=TRUE
+	CASE 5
+		ChargeFrame.VISIBLE=TRUE
+	CASE 6
+		MovementFrame.VISIBLE=TRUE
+	CASE 7
+		InjectionFrame.VISIBLE=TRUE
+END SELECT		
+END EVENT
+
+ClearFrames:
+TemperatureFrame.VISIBLE=FALSE
+MoldFrame.VISIBLE=FALSE
+OptionFrame.VISIBLE=FALSE
+TimerFrame.VISIBLE=FALSE
+ChargeFrame.VISIBLE=FALSE
+MovementFrame.VISIBLE=FALSE
+InjectionFrame.VISIBLE=FALSE
+RETURN
+
+DataBox.command
+
+END EVENT
+
+b1.command
+invoke CSMGetDriveHandle, [DriverName], DriverHandle, 1
+TempStr=hex(DriverHandle)
+DriveStatus.text=TempStr
+invoke CSMReleaseDriveHandle,[DriverHandle]
+end event
+
+b3.command
+invoke CSMGetDriveHandle, [DriverName], DriverHandle, 1
+'TempStr=hex(DriverHandle)
+'DriveStatus.text=TempStr
+invoke CSMReadBlock,[DriverHandle],0,2,0,DataBuf,262144
+mov [TempInt],eax
+TempStr=hex(TempInt)
+DriveStatus.text=TempStr
+invoke CSMReleaseDriveHandle,[DriverHandle]
+ON ERROR GOTO NoDataFile
+DELETE "_DataFile.pcc"
+NoDataFile:
+CREATE DataFile,"_DataFile.pcc":WRITE
+BufWrite DataFile,addr(DataBuf),262144
+CLOSE DataFile
+end event
+

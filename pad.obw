@@ -1,0 +1,1 @@
+; Dimension Variablesdim str1 as string*32dim t1 as textboxdim b1 as buttondim b2 as buttonOBMain.CREATEcreate t1,10,10,200,20create b1,10,40,200,20create b2,10,70,200,20END EVENTb1.commandstr1=t1.textstr1=pad(str1)t1.text=str1end eventb2.commandstr1=t1.text;str1=lcase(str1)str1=trim(str1)t1.text=str1end event
