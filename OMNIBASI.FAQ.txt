@@ -1,0 +1,169 @@
+
+Q: What is the history of OmniBasic?
+A: OmniBasic is the C output version of CDL Basic which was a native code
+   compiler for the OS9/68000 operating system. Since OmniBasic now
+   produces C code, it is now quite portable to most any platform.
+
+Q: What language was OmniBasic written in?
+A: OmniBasic was written in OmniBasic. The early version was written in
+   its predecessor CDL Basic. This is not unusual in itself in that most
+   C compilers were written in C. What is unique is having a Basic that
+   is powerful enough to be used to compile itself.
+
+Q: What can OmniBasic do that other Basics cannot do?
+A: In general, the answer is produce systems programs. Attempting to
+   write systems code in most Basics usually results in the use of
+   PEEKing and POKEing and other "tricks". OmniBasic has all the power
+   and utility of C but without the cryptic and often terse syntax of C.
+   These include pointer variables, dynmamic buffer allocation, internal
+   and external functions, function pointers, conditional compilation,
+   include files, macros, structures, compiler variables (manifest
+   constants), command line arguments, and others.
+
+A: What does OmniBasic have that C does not have?
+Q: The first thing is that OmniBasic is easier to learn and use than C. The
+   second is that OmniBasic provides more meaningful (and accurate) reporting
+   of compile time errors than most C compilers. The third is full STRING
+   capability (in OmniBasic, STRING is a bonafide data type not an external
+   afterthought). The fourth is VECTOR (based) variables. These are similar
+   in concept to pointers, but as easy to use as ordinary variables. The
+   fifth is portability. While C made portability famous, data structures
+   in one C and another (even on the same computer) are often "padded"
+   differently (just do a sizeof and see for yourself). In OmniBasic, all
+   data structures are declared as a char array with ALL internal management
+   and referencing handled by OmniBasic. The sixth is the ability
+   to exchange and transfer all data types (including arrays) in a single
+   statement. Exchanges are especially useful for sorting data.
+   OmniBasic has all the features of Basic which means it is a higher level
+   language than C. (C is variously referred to a a mid-level langauge or
+   universal assembler). This unique set of features makes OmniBasic
+   equally at home at systems as well as applications programming.
+
+Q: Since OmniBasic produces C code, do I need a C compiler also.
+A: Yes. The type of C compiler required depends on the system being used.
+   In most cases there is a GCC compiler available from the Free Software
+   Foundation which is an fine compiler. OmniBasic automatically invokes
+   the C compiler if you have the standard one for that system. If not,
+   the Basic program may be invoked with the -c option which causes the
+   compile process to stop with the generation of the .c file. This .c
+   file may then be used as input to your C compiler.
+
+Q: Is there any runtime package required?
+A: No. Unlike interpreters and I-Code compilers, the output of OmniBasic
+   is compiled by your C compiler to pure machine code which is not only
+   fast and efficient but requires no runtime package.
+
+Q: Since OmniBasic produces C code, do I need to know anything about C?
+A: No. In fact, unless you invoke the -v (verbose) option, you will not
+   even see the C compiler being called.
+
+Q: How does OmniBasic implement Basic subroutines?
+A: Subroutines are implemented as void functions.
+
+Q: Does OmniBasic support structured programming techniques?
+A: Yes. Various control structures are available including FOR/NEXT,
+   WHILE DO/ENDWHILE, REPEAT/UNTIL, IF/ELSE/ENDIF, LOOP/EXITIF/ENDEXIT/
+   ENDLOOP.
+
+Q: Do I have to use structured programming techniques?
+A: No. You can make your program as structured or unstructured as you
+   wish (or anywhere in between).
+
+Q: Will programs I write in OmniBasic on Linux run on MSDOS?
+A: Yes, if you recompile the program on the MSDOS system.
+
+Q: Is the C code produced ANSI compatible or K&R compatible?
+A: Both. The K&R must have the "void" extensions (which most do). The
+   input/output operations make use of the unbuffered calls such as
+   read(), write(), etc. (as opposed to fread() and fwrite() etc.) which
+   means that your C compiler must have the System V (or Posix) extensions
+   (most all do).
+
+Q: IF OmniBasic is as powerful as C, then how is it easer to learn and use?
+A: First, as a beginner on OmniBasic, you can use the more traditional
+   Basic features and work your way into the more advance features as you
+   progress. Second, the advanced features are easier to learn and use than
+   those in C and the syntax is more English-like than C. Also, while
+   OmniBasic does have pointers like C, the Vector (based) variable allows
+   the same power as the pointer without any pointer syntax at all.
+
+Q: Is OmniBasic able to use the vast array of C functions and libraries on
+   the market and in the public domain?
+A: Yes. Some of the C "string" functions may require careful consideration
+   but there is already a full array of STRING functions included with
+   OmniBasic as an integral part of the language.
+
+Q: I notice there are is no graphic capability built into OmniBasic. How
+   do I do graphics.
+A: Since OmniBasic can call C funtions equally as well as C can, you have
+   full access to the C graphic libraries for your system.
+
+Q: Of what practical use is the conditional compilation capability?
+A: One example of this is the OmniBasic compiler itself. While there are
+   a variety of versions available (regular and demo) (Linux and MSDOS) etc.,
+   there is only one master source file in which any differences in the
+   various versions are enclosed in conditional code blocks. When a version
+   is compiled, the command line specifies (by setting a compiler variable)
+   which version will be compiled. You might want to use this concept to
+   produce different versions of your own program. Different versions might
+   include special features or different language prompts etc.
+
+Q: What is the advantage of named labels over line numbers?
+A: Line numbers convey no intrinsic meaning while named labels can be
+   quite desciptive, thus enhancing readability. For example, GOSUB 1435
+   gives no clue, while GOSUB PrintChecks is quite clear.
+
+Q: What are compiler variables?
+A: Compiler variables are named constants (referred to also as manifest
+   constants). Like named labels, these increase a program's readability.
+   These are not to be confused with program variables but are, in fact,
+   named literal values. They are especially useful for naming flags and
+   indicators. For example, after setting a named constant (#SET Red=22),
+   it has a clearer meaning to write Color=Red than to say Color=22.
+
+Q: How do I look at the C code that OmniBasic generates?
+A: Just compile your program with the -c command line option. Then list out
+   the resultant .c file. Each OmniBasic statement will appear as a C
+   comment followed by the resultant C code. If you wish, these comments may
+   be omitted by using the -r option with the -c option (-cr).
+
+Q: What is dynamic buffer allocation used for?
+A: Sometimes when you are writing a program, you have no way of knowing
+   how large to diminsion an array. You won't know this until the program
+   is run and you can (for example) check the size of an input file. In
+   this case, you can check the size of the file (using the FILSIZ()
+   function), request the required amount of memory, and set a vector (based)
+   variable to the memory buffer address. You can then operate on the array
+   just as if it were diminsioned the standard way. In standard Basics this
+   problem is solved by diminsioning an arbitrary array size, and then if the
+   arbitrary size is too large, you waste memory space, and if it is too
+   small, the data must be operated on a little at a time.
+
+Q: Do I have to worry about the fact that in C, arrays start with 0?
+A: No. OmniBasic automatically compensates for this so that your arrays can
+   start with 1. There is a BASE statement in which you can select either
+   0 or 1 as the base fore arrays. The default is 1.
+
+Q: Is there bounds checking on arrays?
+A: No. This speeds up execution speed but does require some caution on the
+   part of the programmer. Strings are bounds tested so that if you input
+   22 characters into a 20 character string, the worst that happens is the
+   string is truncated. The next variable in memory is NOT clobbered as in
+   some cases with C.
+
+Q: Can OmniBasic be used to write system utilities?
+A: Absolutely! Since OmniBasic progams end up as pure machine language
+   programs you can write your own system utilities and use them just
+   like the ones that came with your system. You can even "read" options
+   from the command line and use these options to control the flow of
+   your program.
+
+Q: How can I treat the same variable as more than one type?
+A: You can diminsion vectors or pointers of various data types and then
+   set them to the same address. For example it is possible to diminsion
+   x as a long (32 bit integer), y as a 4 byte array vector, set y to the
+   address of x and then operate on the same data as either type.
+
+Q: What is the distinction between "program" and "function" in OmniBasic?
+A: Program refers to the main body of code which in C is the main() function.
+   while function refers to any non-main function in C.

@@ -1,0 +1,162 @@
+                          *********************** 
+                          * Product Description *
+                          ***********************      
+                          
+                                Portability
+                                -----------
+
+OmniBasic is currently available for Win95/NT, Linux, MS-DOS, OS/2, OS-9000,
+OS9/68000, and OS9/68020. Other ports are in the works including WinNT/95.
+OmniBasic source code written for any of these may be compiled and run on any or all of 
+them without modification making it the ONLY truly portable BASIC compiler
+in the world!
+
+                                Simplicity
+                                ----------
+
+OmniBasic is a structured dialect of BASIC which is inherently easier to 
+learn and use than C.
+
+
+                                Structure
+                                ---------
+
+OmniBasic incorporates Pascal style control structures including:
+
+                           IF/THEN/ELSE/IENDIF
+                            WHILE/DO/ENDWHILE
+                              REPEAT/UNTIL
+                           LOOP/EXITIF/ENDLOOP
+                               FOR/TO/NEXT
+
+                                   Power
+                                   -----
+OmniBasic is a true 32-bit compiler with no restriction on string/array size.
+In addition to the features of an extended BASIC, OmniBasic has the advanced 
+features normally associated with systems languages such as C and some 
+features unique to OmniBasic. These include:
+
+                                  Pointers
+                        Dynamic Memory Allocation
+                        Vectors( Based Variables)
+                        C Function Compatibility
+                         Command Line Interface
+                                  Stream I/O
+
+                                  Features
+                                  --------
+
+The features of the compiler are what you would expect in an advanced systems 
+program language and include:
+
+                                   Macros
+                             Conditional Compile
+                                Use (include)
+                                Named Labels
+                               Named Variables
+                               Named Constants
+                           User-Defined Data Types
+                           User-Defined Functions
+                             Built-In Functions
+                             Intermixed C Code
+                          Accurate Error Reporting
+
+                                 Data Types
+                                 ----------
+
+Full string capability including all the standard string functions and 
+operators is included in the language. All of the listed data types may also 
+be declared as one, two or three dimensional arrays. Data types include:
+
+                                    Byte
+                                    Short
+                                    Long
+                                    Real
+                                   String
+                                   Boolean
+                                User-Defined
+
+                             Full Spectrum Usage
+                             -------------------
+
+OmniBasic is well suited for usage in a wide range of environments running 
+the gamut from I/O drivers to systems to utilities to applications. OmniBasic 
+is a higher level language than C but includes all the handles and features 
+to perform lower level tasks as well. OmniBasic is written in OmniBasic!
+
+                                Easy To Learn
+                                -------------
+
+There is no need to learn all of advanced features in order to write useful 
+programs right away. You can start out with a basic BASIC program and move 
+into the advanced features as your learning progresses. Even the advanced 
+features which often parallel  similar features in C are much easier to learn 
+and use than the corresponding features in C.
+
+                               Based Variables
+                               ---------------
+
+Vectors (based variables) are a powerful feature of OmniBasic and essentially 
+allow the programmer to treat data in a dynamically declared memory buffer as 
+if they were ordinary variables instead of being forced into pointer notation 
+as in C. Pointers may also be used if you prefer. Vectors may also be used to 
+refer to ordinary variables as a different type. 
+
+                                   Macros
+                                   ------
+
+Macros allow the programmer to define complex operations in a manner similar 
+to a function but with the performance of in-line code. Macros can also be 
+used to modularize code. Macros may be used to effectively extend the 
+language.
+
+                                 Readability
+                                 -----------
+
+Many programmers overlook the importance of readability until they have to 
+look at code they wrote 6 months ago or train another person to take over the 
+project. With the named labels, named variables, named constants and the near 
+English syntax of the language, the clarity is inherently there. Of course 
+you can be as generous as you wish in adding comments throughout the program 
+with no penalty in execution speed or code size.
+
+                                 Performance
+                                 -----------
+
+OmniBasic compiles your BASIC program to C, calls the C compiler for you 
+resulting in a free standing executable with the same performance as a 
+comparable program written in C. You can benchmark OmniBasic against any 
+BASIC or C!
+
+                                Test Drive It
+                                -------------
+
+You can experience the performance and utility of OmniBasic at no risk by 
+requesting a fully functional free demo. These are available for all 
+operating systems supported and may be obtained by downloading from various 
+ftp sites, or on a diskette through the mail. The demo versions are identical 
+to the purchased versions except for a limited symbol table size (which in 
+turn limits program size). 
+
+                               There You Have it
+                               -----------------
+
+                   The Simplicity of Basic...
+
+                           The Structure of Pascal...
+
+                                    The Power of C...
+
+                                        OmniBasic
+
+                             Call, Write, or Email
+
+                              Computer Design Lab
+                              Hwy 94 at Bluffton
+                              Rhineland, MO 65069
+                                (573) 236-4644
+                            mlsmith@vax2.rainis.net
+                            CompuServe: 72762,3375
+
+
+ 
